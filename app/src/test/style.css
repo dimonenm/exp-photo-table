@@ -79,6 +79,7 @@ body {
   padding: 10px;
 }
 .workplace {
+  display: flex;
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 518px;
@@ -87,6 +88,28 @@ body {
   border: 1px solid #000;
 
   box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+}
+.workplace-item {
+  display: flex;
+  flex-direction: column;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+
+  width: 141px;
+
+  margin: 10px 0 0 10px;
+}
+.workplace-item-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 25px;
+
+  text-align: center;
+}
+.workplace-item-img {
 }
 .gallery {
   display: flex;
@@ -113,8 +136,8 @@ body {
 
   border: 1px solid #000;
 }
-.gallery-item-new{
-    display: flex;
+.gallery-item-new {
+  display: flex;
   flex-direction: column;
   flex-basis: 220px;
   align-items: center;
@@ -152,13 +175,13 @@ body {
   line-height: 12px;
   text-align: center;
 }
-.gallery-item-plus{
+.gallery-item-plus {
   display: flex;
   flex-grow: 1;
 
   width: 100%;
 
-  background-image: url('../img/plus-circle-dotted.svg');
+  background-image: url("../img/plus-circle-dotted.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 50px 50px;
