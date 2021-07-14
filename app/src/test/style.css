@@ -83,7 +83,10 @@ body {
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 518px;
+  flex-wrap: wrap;
   max-width: 1150px;
+
+  align-content: flex-start;
 
   border: 1px solid #000;
 
@@ -92,11 +95,12 @@ body {
 .workplace-item {
   display: flex;
   flex-direction: column;
+  flex-basis: 132px;
 
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
 
-  width: 141px;
+  height: 213px;
 
   margin: 10px 0 0 10px;
 }
@@ -110,6 +114,21 @@ body {
   text-align: center;
 }
 .workplace-item-img {
+  display: flex;
+  justify-content: center;
+  flex-basis: 188px;
+}
+.vertical {
+  background-image: url("koshka-pushistaia-fon-portret-crop.jpeg");
+}
+.horizontal {
+  background-image: url("leopard-dikaia-koshka-morda-vzgliad-otdykh-crop.jpeg");
+}
+.vertical,
+.horizontal {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .gallery {
   display: flex;
