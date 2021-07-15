@@ -6,9 +6,3 @@ inputFile.addEventListener('click', () => {
 input.addEventListener('onChange', () => {
     console.log(input.files);    
 })
-
-function showFile(input) {
-    let file = input.files;
-
-    console.log(file);
-}
