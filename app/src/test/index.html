@@ -17,7 +17,10 @@
       <div class="header">
         <div class="logo">ЭКЦ РК Фототаблица 0.1</div>
         <div class="menu">
-          <div class="menu-item"><a href="#">Загрузить фотографии</a></div>
+          <form method="POST">
+            <input type="file" id="file" onchange="showFile(this)" multiple style="display: none;">
+          </form>
+          <div class="menu-item input-file"><a href="#">Загрузить фотографии</a></div>
           <div class="menu-item"><a href="#">Печать</a>
           </div>
           <div class="menu-item menu-not-active">
@@ -91,6 +94,7 @@
   </div>
   </div>
 
+  <script src="app.js"></script>
 </body>
 
 </html>
