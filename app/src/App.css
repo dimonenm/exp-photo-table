@@ -1,3 +1,11 @@
-html, body {
-  height: 100%;
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./fonts/Roboto-Regular.ttf");
+}
+
+html,
+body {
+    min-height: 100vh;
 }

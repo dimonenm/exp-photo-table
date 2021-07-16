@@ -6,14 +6,19 @@
 }
 
 html, body {
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  height: 100%;
 }
 .top-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  min-height: 100vh;
+  min-height: calc(100% - 2px);
   max-width: 1400px;
   min-width: 768px;
 
