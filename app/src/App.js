@@ -1,11 +1,29 @@
 import Container from './containers/Container';
 import './bootstrap-5.0.1/css/bootstrap.css';
 import './App.css';
+import Header from './containers/Header';
+import Logo from './components/header/Logo';
+import Menu from './components/header/Menu';
+import MenuItem from './components/header/MenuItem';
+import Main from './containers/Main';
 
 
 function App() {
   return (
-    <Container>      
+    <Container>
+      <Header>
+        <Logo>ЭКЦ РК Фототаблица 0.1</Logo>
+        <Menu>
+          <MenuItem inputFile={true}>Загрузить фотографии</MenuItem>
+          <MenuItem notActive={true}>Печать</MenuItem>
+          <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
+          <MenuItem notActive={true}>Конвертировать в Microsoft Word</MenuItem>
+          <MenuItem notActive={true}>Настройки</MenuItem>
+        </Menu>
+      </Header>
+      <Main>
+        
+      </Main>
     </Container>
   );
 }

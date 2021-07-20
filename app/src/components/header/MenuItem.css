@@ -1,0 +1,16 @@
+.menu-item {
+    display: flex;
+    align-items: center;
+
+    margin-left: 20px;
+}
+.menu-item a {
+    color: #fff;
+    text-decoration: none;
+}
+.menu-not-active a {
+    color: #6c757d;
+}
+.file{
+    display: none;
+}

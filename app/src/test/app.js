@@ -8,4 +8,3 @@ input.addEventListener('change', () => {
     const imagedata = input.files[0];
     formData.append('inputname', imagedata);
 });
-// test5
