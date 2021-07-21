@@ -6,6 +6,7 @@ import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Main from './containers/Main';
+import Workplace from './components/main/Workplace';
 
 
 function App() {
@@ -22,7 +23,9 @@ function App() {
         </Menu>
       </Header>
       <Main>
-        
+        <Workplace>
+          
+        </Workplace>
       </Main>
     </Container>
   );
