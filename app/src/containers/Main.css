@@ -4,6 +4,7 @@
     justify-content: center;
     width: 100%;
 }
+
 .main {
     display: flex;
     flex-grow: 1;

@@ -11,3 +11,65 @@
 
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
 }
+.workplace-item {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 220px;
+    align-items: center;
+
+    width: 200px;
+
+    margin: 10px 0 0 10px;
+
+    border: 1px solid #000;
+}
+.workplace-item-new {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 220px;
+    align-items: center;
+
+    width: 200px;
+
+    margin: 10px 0 0 10px;
+
+    border: 1px dashed #000;
+}
+.workplace-item-name {
+    display: flex;
+    flex-basis: 20px;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    width: 100%;
+
+    text-align: center;
+}
+.workplace-item-img {
+    display: flex;
+    flex-grow: 1;
+
+    width: 100%;
+
+    background-color: #c4c4c4;
+}
+.workplace-item-text {
+    display: flex;
+    flex-basis: 50px;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+}
+.workplace-item-plus {
+    display: flex;
+    flex-grow: 1;
+
+    width: 100%;
+
+    background-image: url("../../img/plus-circle-dotted.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50px 50px;
+}

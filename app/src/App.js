@@ -7,6 +7,10 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Main from './containers/Main';
 import Workplace from './components/main/Workplace';
+import WorkplaceItem from './components/main/WorkplaceItem';
+import WorkplaceItemNew from './components/main/WorkplaceItemNew';
+import Gallery from './components/main/Gallery';
+import GalleryItem from './components/main/GalleryItem';
 
 
 function App() {
@@ -23,8 +27,29 @@ function App() {
         </Menu>
       </Header>
       <Main>
+        <Gallery>
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+        </Gallery>
         <Workplace>
-          
+          <WorkplaceItem
+            name="Иллюстрация 1"
+            img=""
+            text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
+              Евпатория, ул. 2-ой Гвардейской армии, д. X."
+          />
+          <WorkplaceItemNew
+            name="Иллюстрация 2"
+          />
         </Workplace>
       </Main>
     </Container>
