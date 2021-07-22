@@ -8,9 +8,22 @@
 
     align-content: flex-start;
 
+    padding: 0 4px 10px 0;
+
     border: 1px solid #000;
 
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+
+    overflow-y: auto;
+}
+.gallery::-webkit-scrollbar {
+    width: 6px;
+}
+.gallery::-webkit-scrollbar-track {
+    background-color: #6c757d;
+}
+.gallery::-webkit-scrollbar-thumb {
+    background-color: #343a40;
 }
 .gallery-item {
     display: flex;

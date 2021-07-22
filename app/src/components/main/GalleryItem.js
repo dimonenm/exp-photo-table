@@ -3,9 +3,9 @@ import React from 'react';
 const GalleryItem = ({ name }) => {
 
     return (
-        <div class="gallery-item">
-            <div class="gallery-item-name">{name}</div>
-            <div class="gallery-item-img"></div>
+        <div className="gallery-item">
+            <div className="gallery-item-name">{name}</div>
+            <div className="gallery-item-img"></div>
         </div>
     );
 }

@@ -39,6 +39,43 @@ function App() {
           <GalleryItem name="IMG_20210624_155531" />
           <GalleryItem name="IMG_20210624_155543" />
           <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="IMG_20210624_155543" />
+          <GalleryItem name="IMG_20210624_155531" />
+          <GalleryItem name="Без имени-1" />
+          <GalleryItem name="IMG_20210624_155543" />
         </Gallery>
         <Workplace>
           <WorkplaceItem
