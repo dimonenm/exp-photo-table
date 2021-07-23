@@ -16,12 +16,19 @@ import './App.css';
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
+  console.log('downloadedImages: ', downloadedImages);
   return (
     <Container>
       <Header>
         <Logo>ЭКЦ РК Фототаблица 0.1</Logo>
         <Menu>
-          <MenuItem inputFile={true}>Загрузить фотографии</MenuItem>
+          <MenuItem
+            inputFile={true}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}
+          >
+            Загрузить фотографии
+          </MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
           <MenuItem notActive={true}>Конвертировать в Microsoft Word</MenuItem>

@@ -1,7 +1,7 @@
 import React from 'react';
 import "./MenuItem.css";
 
-const MenuItem = ({ children, notActive, inputFile }) => {
+const MenuItem = ({ children, notActive, inputFile, downloadedImages, setDownloadedImages }) => {
     function clickHandler(event) {
         event.preventDefault();
         console.log('click');
@@ -10,8 +10,27 @@ const MenuItem = ({ children, notActive, inputFile }) => {
         event.preventDefault();
         const input = document.querySelector('.file');
         function change() {
-            const imagedata = input.files;
+            const imagedata = input.files[0];
             console.log(imagedata);
+
+            // let formData = new FormData();
+            // formData.append('myfile', imagedata[0], 'img1.jpg');
+            // console.dir(formData);
+
+            let reader = new FileReader();
+            // let url = new URL();
+            reader.readAsDataURL(imagedata);
+            reader.onload = () => {
+                console.log(reader.result);
+            }
+            reader.onerror = () => {
+                console.log(reader.error);
+            }
+            let currentUrl = reader.result;
+            console.log(currentUrl);
+
+
+            setDownloadedImages(imagedata)
             input.removeEventListener('change', change);
         }
         input.click();
