@@ -1,8 +1,9 @@
 import React from 'react';
 import "./Gallery.css";
 
-const Gallery = ({ children }) => (
-    <div className="gallery">{children}</div>
-);
+const Gallery = ({ children }) => {
+    return (<div className="gallery">{children}</div>);
+
+}
 
 export default Gallery;

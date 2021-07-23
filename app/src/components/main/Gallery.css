@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     max-width: 1150px;
 
+    justify-content: center;
     align-content: flex-start;
 
     padding: 0 4px 10px 0;

@@ -1,6 +1,5 @@
+import React, { useState } from 'react';
 import Container from './containers/Container';
-import './bootstrap-5.0.1/css/bootstrap.css';
-import './App.css';
 import Header from './containers/Header';
 import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
@@ -11,9 +10,12 @@ import WorkplaceItem from './components/main/WorkplaceItem';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import GalleryItem from './components/main/GalleryItem';
+import './bootstrap-5.0.1/css/bootstrap.css';
+import './App.css';
 
 
 function App() {
+  const [downloadedImages, setDownloadedImages] = useState();
   return (
     <Container>
       <Header>
