@@ -1,34 +1,17 @@
 import React from 'react';
 import "./MenuItem.css";
 
-const MenuItem = ({ children, notActive, inputFile, downloadedImages, setDownloadedImages }) => {
-    function clickHandler(event) {
-        event.preventDefault();
-        console.log('click');
-    }
+const MenuItem = ({ children, notActive, inputFile, setDownloadedImages }) => {
+
     function loadImgs(event) {
         event.preventDefault();
         const input = document.querySelector('.file');
         function change() {
-            const imagedata = input.files[0];
-            console.log(imagedata);
+            const imagedata = [];
 
-            // let formData = new FormData();
-            // formData.append('myfile', imagedata[0], 'img1.jpg');
-            // console.dir(formData);
-
-            let reader = new FileReader();
-            // let url = new URL();
-            reader.readAsDataURL(imagedata);
-            reader.onload = () => {
-                console.log(reader.result);
+            for (let i = 0; i < input.files.length; i++) {
+                imagedata.push({ name: input.files[i].name, url: URL.createObjectURL(input.files[i])});
             }
-            reader.onerror = () => {
-                console.log(reader.error);
-            }
-            let currentUrl = reader.result;
-            console.log(currentUrl);
-
 
             setDownloadedImages(imagedata)
             input.removeEventListener('change', change);
@@ -39,19 +22,19 @@ const MenuItem = ({ children, notActive, inputFile, downloadedImages, setDownloa
 
     if (notActive) {
         return (
-            <div className="menu-item menu-not-active"><a href="/" onClick={clickHandler}>{children}</a></div>
+            <div className="menu-item menu-not-active"><a href="/" >{children}</a></div>
         );
     }
     if (inputFile) {
         return (
             <div className="menu-item input-file">
-                <input type="file" className="file" multiple={true} ></input>
+                <input type="file" className="file" multiple={true} accept="image/*"></input>
                 <a href="/" onClick={loadImgs}>{children}</a>
             </div>
         );
     }
     return (
-        <div className="menu-item"><a href="/" onClick={clickHandler}>{children}</a></div>
+        <div className="menu-item"><a href="/" >{children}</a></div>
     );
 
 }

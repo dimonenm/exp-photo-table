@@ -16,7 +16,13 @@ import './App.css';
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
-  console.log('downloadedImages: ', downloadedImages);
+  
+  if (downloadedImages) {
+    downloadedImages.forEach(element => {
+      console.log(element);
+    });
+  }
+
   return (
     <Container>
       <Header>
@@ -24,7 +30,6 @@ function App() {
         <Menu>
           <MenuItem
             inputFile={true}
-            downloadedImages={downloadedImages}
             setDownloadedImages={setDownloadedImages}
           >
             Загрузить фотографии
@@ -37,52 +42,6 @@ function App() {
       </Header>
       <Main>
         <Gallery>
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
-          <GalleryItem name="IMG_20210624_155543" />
-          <GalleryItem name="IMG_20210624_155531" />
           <GalleryItem name="Без имени-1" />
           <GalleryItem name="IMG_20210624_155543" />
         </Gallery>
