@@ -33,6 +33,7 @@
 
     font-family: "Times New Roman", Times, serif;
     font-size: 12px;
+    line-height: 1;
 
     height: 213px;
 
@@ -43,13 +44,24 @@
     justify-content: center;
     align-items: center;
 
-    height: 25px;
+    min-height: 25px;
 
     text-align: center;
 }
 .gallery-item-img {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     flex-basis: 188px;
-    background-color: #c4c4c4;
+    max-height: 188px;
+}
+.gallery-item-img img {
+    object-fit: contain;
+    object-position: center center;
+
+    /* height: 100%;
+    width: 100%; */
+    
+    max-height: 100%;
+    max-width: 100%;
 }

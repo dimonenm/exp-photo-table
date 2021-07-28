@@ -8,6 +8,9 @@
     color: #fff;
     text-decoration: none;
 }
+.menu-item a:hover {
+    color: #fff;
+}
 .menu-not-active a {
     color: #6c757d;
 }

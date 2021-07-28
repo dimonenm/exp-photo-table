@@ -16,10 +16,13 @@ import './App.css';
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
-  
+  let arr = []
   if (downloadedImages) {
-    downloadedImages.forEach(element => {
-      console.log(element);
+    let key = 0;
+    downloadedImages.forEach(item => {
+      console.log(item);
+      arr.push(<GalleryItem key={key} name={item.name} url={item.url}></GalleryItem>);
+      key++;
     });
   }
 
@@ -42,8 +45,7 @@ function App() {
       </Header>
       <Main>
         <Gallery>
-          <GalleryItem name="Без имени-1" />
-          <GalleryItem name="IMG_20210624_155543" />
+          {arr}
         </Gallery>
         <Workplace>
           <WorkplaceItem
