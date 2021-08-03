@@ -2,7 +2,7 @@ const inputFile = document.querySelector('.input-file');
 const img = document.querySelector('.img');
 const input = document.querySelector('.file');
 
-let reader = new FileReader();
+// let reader = new FileReader();
 
 inputFile.addEventListener('click', () => {
     input.click();

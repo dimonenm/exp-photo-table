@@ -16,15 +16,19 @@ import './App.css';
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
-  let arr = []
+  const [galleryImages, setGalleryImages] = useState();
+
+  let arrDownloadedImages = [];
+  let arrGalleryImages = [];
+
   if (downloadedImages) {
     let key = 0;
     downloadedImages.forEach(item => {
       console.log(item);
-      arr.push(<GalleryItem key={key} name={item.name} url={item.url}></GalleryItem>);
+      arrDownloadedImages.push(<GalleryItem key={key} name={item.name} url={item.url}></GalleryItem>);
       key++;
     });
-  }
+  };
 
   return (
     <Container>
@@ -45,7 +49,7 @@ function App() {
       </Header>
       <Main>
         <Gallery>
-          {arr}
+          {arrDownloadedImages}
         </Gallery>
         <Workplace>
           <WorkplaceItem
