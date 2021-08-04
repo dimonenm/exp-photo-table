@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import Container from './containers/Container';
 import Header from './containers/Header';
 import Logo from './components/header/Logo';
@@ -10,16 +10,24 @@ import WorkplaceItem from './components/main/WorkplaceItem';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import GalleryItem from './components/main/GalleryItem';
-import './bootstrap-5.0.1/css/bootstrap.css';
+import Modal from './containers/Modal';
 import './App.css';
 
+export const modalDataContext = createContext();
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
-  const [galleryImages, setGalleryImages] = useState();
+  // const [galleryImages, setGalleryImages] = useState();
+  const [modalProperties, setModalProperties] = useState({
+    isOpen: true,
+    type: 'preview',
+    nameImg: 'koshka-pushistaia-fon-portret-crop.jpeg',
+    // urlImg: 'https://www.theplace2.ru/cache/archive/dua_lipa/img/dualipa-20210726-150-gthumb-gwdata1200-ghdata1200-gfitdatamax.jpg'
+    // urlImg: 'https://www.theplace2.ru/cache/archive/dua_lipa/img/2021-venetia-scott-(2)-gthumb-gwdata1200-ghdata1200-gfitdatamax.jpg'
+  });
 
   let arrDownloadedImages = [];
-  let arrGalleryImages = [];
+  // let arrGalleryImages = [];
 
   if (downloadedImages) {
     let key = 0;
@@ -32,6 +40,9 @@ function App() {
 
   return (
     <Container>
+      <modalDataContext.Provider value={{ modalProperties, setModalProperties}}>
+        <Modal />
+      </modalDataContext.Provider>
       <Header>
         <Logo>ЭКЦ РК Фототаблица 0.1</Logo>
         <Menu>

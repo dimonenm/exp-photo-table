@@ -22,7 +22,7 @@ const MenuItem = ({ children, notActive, inputFile, setDownloadedImages }) => {
 
     if (notActive) {
         return (
-            <div className="menu-item menu-not-active"><a href="/" >{children}</a></div>
+            <div className="menu-item menu-not-active"><a href="/" onClick={(event) => {event.preventDefault()}}>{children}</a></div>
         );
     }
     if (inputFile) {

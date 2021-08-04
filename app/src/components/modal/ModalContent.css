@@ -1,0 +1,23 @@
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-grow: 1;
+
+    max-height: 710px;
+
+    font-family: "Roboto";
+    color: #fff;
+}
+.modal-content img{
+    object-fit: contain;
+    object-position: center center;
+
+    height: 100%; 
+    width: 100%;
+    
+    /* max-height: 100%;
+    max-width: 100%; */
+}
+
+
