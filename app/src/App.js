@@ -19,11 +19,10 @@ function App() {
   const [downloadedImages, setDownloadedImages] = useState();
   // const [galleryImages, setGalleryImages] = useState();
   const [modalProperties, setModalProperties] = useState({
-    isOpen: true,
-    type: 'preview',
-    nameImg: 'koshka-pushistaia-fon-portret-crop.jpeg',
-    // urlImg: 'https://www.theplace2.ru/cache/archive/dua_lipa/img/dualipa-20210726-150-gthumb-gwdata1200-ghdata1200-gfitdatamax.jpg'
-    // urlImg: 'https://www.theplace2.ru/cache/archive/dua_lipa/img/2021-venetia-scott-(2)-gthumb-gwdata1200-ghdata1200-gfitdatamax.jpg'
+    isOpen: false,
+    type: null,
+    nameImg: null,
+    urlImg: null
   });
 
   let arrDownloadedImages = [];
@@ -33,7 +32,12 @@ function App() {
     let key = 0;
     downloadedImages.forEach(item => {
       console.log(item);
-      arrDownloadedImages.push(<GalleryItem key={key} name={item.name} url={item.url}></GalleryItem>);
+      arrDownloadedImages.push(<GalleryItem
+        key={key}
+        name={item.name}
+        url={item.url}
+        setModalProperties={setModalProperties}
+      />);
       key++;
     });
   };
