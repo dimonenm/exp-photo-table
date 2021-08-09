@@ -12,4 +12,5 @@
     min-width: 768px;
     padding: 10px;
     max-height: calc(100vh - 52px) ;
+    box-sizing: border-box;
 }
