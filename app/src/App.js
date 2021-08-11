@@ -7,6 +7,7 @@ import MenuItem from './components/header/MenuItem';
 import Main from './containers/Main';
 import Workplace from './components/main/Workplace';
 import WorkplaceItem from './components/main/WorkplaceItem';
+import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import GalleryItem from './components/main/GalleryItem';
@@ -17,6 +18,7 @@ export const modalDataContext = createContext();
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
+  const [photoTableData, setphotoTableData] = useState();
   // const [galleryImages, setGalleryImages] = useState();
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
@@ -31,7 +33,6 @@ function App() {
   if (downloadedImages) {
     let key = 0;
     downloadedImages.forEach(item => {
-      console.log(item);
       arrDownloadedImages.push(<GalleryItem
         key={key}
         name={item.name}
@@ -67,6 +68,7 @@ function App() {
           {arrDownloadedImages}
         </Gallery>
         <Workplace>
+          <WorkplaceItemDataBtn photoTableData={photoTableData} />
           <WorkplaceItem
             name="Иллюстрация 1"
             img=""

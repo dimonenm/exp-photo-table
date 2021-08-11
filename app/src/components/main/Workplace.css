@@ -5,7 +5,9 @@
     flex-basis: 220px;
     flex-wrap: wrap;
     justify-content: center;
-    align-content:flex-start;
+    align-content: flex-start;
+
+    font-family: "Roboto";
 
     margin-left: 10px;
 
@@ -52,6 +54,7 @@
     display: flex;
     flex-basis: 20px;
     justify-content: center;
+    align-items: center;
 
     font-size: 12px;
     font-weight: bold;
@@ -71,8 +74,10 @@
 .workplace-item-text {
     display: flex;
     flex-basis: 50px;
+    align-items: center;
+
     font-size: 10px;
-    line-height: 12px;
+    line-height: 1;
     text-align: center;
 }
 .workplace-item-plus {
@@ -85,4 +90,27 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 50px 50px;
+}
+
+.workplace-data-btn {
+    display: flex;
+    flex-basis: 200px;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+
+    font-size: 20px;
+    /* font-weight: 500; */
+    line-height: 1;
+    text-align: center;
+
+    margin: 10px 0 0 0;
+
+    border: 1px solid #000;
+}
+.workplace-data-btn:hover {
+    box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+
+    cursor: default;
 }
