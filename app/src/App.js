@@ -68,7 +68,10 @@ function App() {
           {arrDownloadedImages}
         </Gallery>
         <Workplace>
-          <WorkplaceItemDataBtn photoTableData={photoTableData} />
+          <WorkplaceItemDataBtn
+            photoTableData={photoTableData}
+            setModalProperties={setModalProperties}
+          />
           <WorkplaceItem
             name="Иллюстрация 1"
             img=""

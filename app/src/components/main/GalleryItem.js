@@ -10,7 +10,7 @@ const GalleryItem = ({ name, url, setModalProperties }) => {
         setModalProperties(() => {
             return {
                 isOpen: true,
-                type: 'preview',
+                type: "preview",
                 nameImg: shortName ? shortName : name,
                 urlImg: url
             }
