@@ -5,16 +5,16 @@ import { modalDataContext } from '../App';
 import './Modal.css';
 
 const Modal = () => {
-    const localModalProperties = useContext(modalDataContext);
-    if (localModalProperties.modalProperties.isOpen) {
-        return (
-            <>
-                <LighteningBackground />
-                <ModalContainer />
-            </>
-        );
-    }
-    return null;
+  const localModalProperties = useContext(modalDataContext);
+  if (localModalProperties.modalProperties.isOpen) {
+    return (
+      <>
+        <LighteningBackground />
+        <ModalContainer />
+      </>
+    );
+  }
+  return null;
 }
 
 export default Modal;

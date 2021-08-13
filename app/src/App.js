@@ -45,7 +45,7 @@ function App() {
 
   return (
     <Container>
-      <modalDataContext.Provider value={{ modalProperties, setModalProperties}}>
+      <modalDataContext.Provider value={{ modalProperties, setModalProperties, photoTableData, setphotoTableData}}>
         <Modal />
       </modalDataContext.Provider>
       <Header>

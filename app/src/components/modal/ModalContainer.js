@@ -18,12 +18,11 @@ const ModalContainer = () => {
     });
   }
 
-
   if (localModalProperties.modalProperties.type === "preview") {
     return (
       <div className="modal-container" onDoubleClick={dbClickHandler}>
-        <ModalHeader nameImg={localModalProperties.modalProperties.nameImg} />
-        <ModalContent urlImg={localModalProperties.modalProperties.urlImg} />
+        <ModalHeader />
+        <ModalContent />
       </div>
     );
   }
@@ -31,7 +30,7 @@ const ModalContainer = () => {
     return (
       <div className="modal-container" >
         <ModalHeader name={'Данные фототаблицы'} />
-        <ModalContent urlImg={localModalProperties.modalProperties.urlImg} />
+        <ModalContent />
       </div>
     );
   }
