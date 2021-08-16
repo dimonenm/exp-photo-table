@@ -15,9 +15,14 @@ const ModalContent = () => {
   }
 
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
+    console.log('setPhotoTableData');
     return (
-      <div className="modal-content">
-        
+      <div className="modal-content-data">
+        <div className="modal-content-title">ОМП по факту:</div>
+        <textarea name="name1" rows={3} placeholder="Укажите факт проведения ОМП..."/>
+        <div className="modal-content-title">Адрес проведения ОМП:</div>
+        <div className="modal-content-title">Дата:</div>
+        <div></div>
       </div>
     );
   }

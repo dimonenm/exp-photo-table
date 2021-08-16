@@ -1,24 +1,67 @@
 .modal-content {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     flex-grow: 1;
 
     box-sizing: border-box;
 
     max-height: 710px;
 
-    padding: 20px;
-
     font-family: "Roboto";
     color: #fff;
 }
-.modal-content img{
+.modal-content img {
     object-fit: contain;
     object-position: center center;
 
-    height: 100%; 
+    height: 100%;
     width: 100%;
 }
 
+.modal-content-data {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    flex-grow: 1;
 
+    box-sizing: border-box;
+
+    max-height: 710px;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 24px;
+}
+.modal-content-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+
+    height: 50px;
+    width: 300px;
+}
+
+.modal-content-data textarea {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items:center;
+
+    /* height: 150px; */
+    width: 800px;
+
+    border: 1px solid #000;
+    border-radius: 0;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 24px;
+    text-align: center;
+}
+.modal-content-data textarea:focus {
+
+    border: 1px solid #000;
+    border-radius: 0;
+}
