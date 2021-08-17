@@ -14,7 +14,15 @@ const MenuBtnsCloseBtn = () => {
         urlImg: null
       }
     });
+    localModalProperties.setphotoTableData(() => {
+      return {
+        factOMP: null,
+        adressOMP: null,
+        dateOMP: null
+      }
+    });
   }
+
   return (
     <div className="close-btn" onClick={clickHandler}></div>
   )

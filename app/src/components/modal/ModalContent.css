@@ -6,7 +6,7 @@
 
     box-sizing: border-box;
 
-    max-height: 710px;
+    /* max-height: 710px; */
 
     font-family: "Roboto";
     color: #fff;
@@ -22,7 +22,6 @@
 .modal-content-data {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     flex-grow: 1;
 
@@ -47,11 +46,10 @@
 .modal-content-data textarea {
     display: flex;
     justify-content: center;
-    align-content: center;
-    align-items:center;
-
-    /* height: 150px; */
+    
     width: 800px;
+    /* max-width: 800px; */
+    /* min-width: 400px; */
 
     border: 1px solid #000;
     border-radius: 0;
@@ -59,9 +57,23 @@
     font-family: "Times New Roman", Times, serif;
     font-size: 24px;
     text-align: center;
+    line-height: 1;
+
+    outline: none;
+    resize:none;
+    padding: 0;
 }
-.modal-content-data textarea:focus {
+.modal-content-data input {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 200px;
 
     border: 1px solid #000;
     border-radius: 0;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 24px;
+
+    outline: none;
 }

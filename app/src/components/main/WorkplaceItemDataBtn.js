@@ -15,7 +15,17 @@ const WorkplaceItemDataBtn = ({ photoTableData, setModalProperties }) => {
     )
   };
 
-  if (photoTableData) return <div className="workplace-data-btn">Изменить данные фототаблицы</div>
+  if (
+    photoTableData.factOMP !== null ||
+    photoTableData.adressOMP !== null ||
+    photoTableData.dateOMP !== null) {
+    return <div
+      className="workplace-data-btn"
+      onClick={clickHandler}
+    >
+      Изменить данные фототаблицы
+    </div>
+  }
 
   return <div
     className="workplace-data-btn"

@@ -18,7 +18,11 @@ export const modalDataContext = createContext();
 
 function App() {
   const [downloadedImages, setDownloadedImages] = useState();
-  const [photoTableData, setphotoTableData] = useState();
+  const [photoTableData, setphotoTableData] = useState({
+    factOMP: null,
+    adressOMP: null,
+    dateOMP: null
+  });
   // const [galleryImages, setGalleryImages] = useState();
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
@@ -45,7 +49,8 @@ function App() {
 
   return (
     <Container>
-      <modalDataContext.Provider value={{ modalProperties, setModalProperties, photoTableData, setphotoTableData}}>
+      <modalDataContext.Provider
+        value={{ modalProperties, setModalProperties, photoTableData, setphotoTableData }}>
         <Modal />
       </modalDataContext.Provider>
       <Header>
