@@ -8,10 +8,6 @@ import MenuBtnsCloseBtn from '../header/MenuBtnsCloseBtn';
 import { modalDataContext } from '../../App';
 import './ModalHeader.css'
 
-
-
-
-
 const ModalHeader = ({ name }) => {
 
   const localModalProperties = useContext(modalDataContext);
