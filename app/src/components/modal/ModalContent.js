@@ -65,10 +65,22 @@ const ModalContent = () => {
           className="adressOMP"
           onChange={changeAdressOMPHandler}
           rows={3}
-          placeholder="Укажите адрес проведения ОМП..." />
+          placeholder="Укажите адрес проведения ОМП..."
+          value={
+            localModalProperties.photoTableData.adressOMP ?
+              localModalProperties.photoTableData.adressOMP :
+              ''}
+        />
         <div className="modal-content-title">Дата:</div>
-        <input type="date" className="dateOMP" onChange={changeDateOMPHandler}></input>
-        <div></div>
+        <input
+          type="date"
+          className="dateOMP"
+          onChange={changeDateOMPHandler}
+          value={
+            localModalProperties.photoTableData.dateOMP ?
+              localModalProperties.photoTableData.dateOMP :
+              ''}
+        ></input>
       </div>
     );
   }

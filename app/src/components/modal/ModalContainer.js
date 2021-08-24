@@ -26,6 +26,7 @@ const ModalContainer = () => {
       </div>
     );
   }
+
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
     return (
       <div className="modal-container" >
