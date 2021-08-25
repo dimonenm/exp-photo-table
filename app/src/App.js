@@ -34,6 +34,7 @@ function App() {
   let arrDownloadedImages = [];
   // let arrGalleryImages = [];
 
+
   if (downloadedImages) {
     let key = 0;
     downloadedImages.forEach(item => {

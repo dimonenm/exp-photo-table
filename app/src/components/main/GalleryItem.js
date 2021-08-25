@@ -18,11 +18,30 @@ const GalleryItem = ({ name, url, setModalProperties }) => {
     });
   }
 
+  const dragStartHandler = (event) => {
+    console.log(event.target);
+    console.log(name);
+    console.log(url);
+    event.target.classList.add('gallery-item-hold');
+    setTimeout(() => event.target.classList.add('gallery-item-hide'), 0);
+  }
+
+  const dragEndHandler = (event) => {
+    event.target.classList.remove('gallery-item-hold', 'gallery-item-hide');
+  }
+
+
+
   return (
-    <div className="gallery-item" onDoubleClick={dbClickHandler}>
+    <div className="gallery-item"
+      onDoubleClick={dbClickHandler}
+      onDragStart={dragStartHandler}
+      onDragEnd={dragEndHandler}
+      draggable="true"
+    >
       <div className="gallery-item-name">{shortName ? shortName : name}</div>
       <div className="gallery-item-img">
-        <img src={url} alt={name}></img>
+        <img src={url} alt={name} draggable="false"></img>
       </div>
     </div>
   );

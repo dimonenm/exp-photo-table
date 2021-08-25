@@ -42,5 +42,3 @@ const ModalHeader = ({ name }) => {
 }
 
 export default ModalHeader;
-
-//test
