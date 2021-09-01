@@ -38,10 +38,13 @@ const GalleryItem = ({ name, url, setModalProperties }) => {
       onDragStart={dragStartHandler}
       onDragEnd={dragEndHandler}
       draggable="true"
-    >
+      >
       <div className="gallery-item-name">{shortName ? shortName : name}</div>
       <div className="gallery-item-img">
-        <img src={url} alt={name} draggable="false"></img>
+        <img
+          src={url}
+          alt={name}
+          draggable="false"></img>
       </div>
     </div>
   );

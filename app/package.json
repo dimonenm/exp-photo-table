@@ -11,6 +11,7 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "start": "set HOST=192.168.88.247&& react-scripts start",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
