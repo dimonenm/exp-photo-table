@@ -40,11 +40,12 @@
     margin: 10px 0 0 10px;
 }
 .gallery-item-hold {
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     /* background: rgba(0, 0, 0, 0.0); */
 }
 .gallery-item-hide {
-    display: none;
+    opacity: 0;
+    /* display: none; */
 }
 .gallery-item-name {
     display: flex;
