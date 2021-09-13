@@ -23,7 +23,7 @@ function App() {
     adressOMP: null,
     dateOMP: null
   });
-  // const [galleryImages, setGalleryImages] = useState();
+  const [galleryImages, setGalleryImages] = useState([]);
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
     type: null,
@@ -32,7 +32,7 @@ function App() {
   });
 
   let arrDownloadedImages = [];
-  // let arrGalleryImages = [];
+  let arrGalleryImages = [];
 
 
   if (downloadedImages) {
@@ -45,8 +45,28 @@ function App() {
         setModalProperties={setModalProperties}
       />);
       key++;
+      
+      // console.log('galleryImages: ', galleryImages);
+      // setGalleryImages(prev => { return { ...prev.push({ id: "1" })}})
     });
+
+    // if (galleryImages) {
+    //   console.log("54", galleryImages);
+    //   let key = 0;
+    //   galleryImages.forEach((item, index) => {
+    //     arrGalleryImages.push(<WorkplaceItem
+    //       name="Иллюстрация 1"
+    //       img=""
+    //       text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
+    //           Евпатория, ул. 2-ой Гвардейской армии, д. X."
+    //     />);
+    //     key++;
+    //     console.log(index);
+    //   });
+    // };
   };
+
+
 
   return (
     <Container>
@@ -78,12 +98,7 @@ function App() {
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
-          <WorkplaceItem
-            name="Иллюстрация 1"
-            img=""
-            text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
-              Евпатория, ул. 2-ой Гвардейской армии, д. X."
-          />
+          {arrGalleryImages}
           <WorkplaceItemNew
             name="Иллюстрация 2"
           />
