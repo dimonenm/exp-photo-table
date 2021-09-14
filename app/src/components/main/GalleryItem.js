@@ -19,13 +19,10 @@ const GalleryItem = ({ name, url, setModalProperties }) => {
   }
 
   const dragStartHandler = (event) => {
-    console.log(event.target);
-    console.log(name);
-    console.log(url);
     event.target.classList.add('gallery-item-hold');
     setTimeout(() => event.target.classList.add('gallery-item-hide'), 0);
   }
-
+  
   const dragEndHandler = (event) => {
     event.target.classList.remove('gallery-item-hold', 'gallery-item-hide');
   }

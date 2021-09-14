@@ -37,6 +37,7 @@ function App() {
 
   if (downloadedImages) {
     let key = 0;
+    // const arr = galleryImages;
     downloadedImages.forEach(item => {
       arrDownloadedImages.push(<GalleryItem
         key={key}
@@ -46,26 +47,27 @@ function App() {
       />);
       key++;
       
-      // console.log('galleryImages: ', galleryImages);
-      // setGalleryImages(prev => { return { ...prev.push({ id: "1" })}})
+      // arr.push({ id: "1" });
+      // setGalleryImages(arr);
     });
-
-    // if (galleryImages) {
-    //   console.log("54", galleryImages);
-    //   let key = 0;
-    //   galleryImages.forEach((item, index) => {
-    //     arrGalleryImages.push(<WorkplaceItem
-    //       name="Иллюстрация 1"
-    //       img=""
-    //       text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
-    //           Евпатория, ул. 2-ой Гвардейской армии, д. X."
-    //     />);
-    //     key++;
-    //     console.log(index);
-    //   });
-    // };
   };
-
+  
+  console.log("55", galleryImages);
+  if (galleryImages) {
+    console.log("57", galleryImages);
+    let key = 0;
+    galleryImages.forEach((item, index) => {
+      arrGalleryImages.push(<WorkplaceItem
+        key={key}
+        name="Иллюстрация 1"
+        img=""
+        text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
+              Евпатория, ул. 2-ой Гвардейской армии, д. X."
+      />);
+      key++;
+      console.log(index);
+    });
+  };
 
 
   return (
@@ -100,7 +102,7 @@ function App() {
           />
           {arrGalleryImages}
           <WorkplaceItemNew
-            name="Иллюстрация 2"
+            name={`Иллюстрация ${arrGalleryImages.length + 1}`}
           />
         </Workplace>
       </Main>

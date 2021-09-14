@@ -50,6 +50,9 @@
 
     border: 1px dashed #000;
 }
+.workplace-item-new-hovered {
+    background-color: #C4C4C4;
+}
 .workplace-item-name {
     display: flex;
     flex-basis: 20px;
@@ -62,6 +65,8 @@
     width: 100%;
 
     text-align: center;
+
+    pointer-events: none;
 }
 .workplace-item-img {
     display: flex;
@@ -90,6 +95,8 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 50px 50px;
+
+    pointer-events: none;
 }
 
 .workplace-data-btn {
