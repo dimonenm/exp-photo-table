@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WorkplaceItemNew = ({ name }) => {
+const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGalleryImages }) => {
 
     function dragover(event) {
         event.preventDefault();
@@ -17,6 +17,11 @@ const WorkplaceItemNew = ({ name }) => {
     function dragdrop(event) {
         event.preventDefault();
         event.target.classList.remove('workplace-item-new-hovered');
+        console.log('WorkplaceItemNew', currentGalleryImage);
+        
+        const arr = [...galleryImages]
+        arr.push(currentGalleryImage)
+        setGalleryImages(arr)
     }
 
     return (

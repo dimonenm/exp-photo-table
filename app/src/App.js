@@ -24,6 +24,10 @@ function App() {
     dateOMP: null
   });
   const [galleryImages, setGalleryImages] = useState([]);
+  const [currentGalleryImage, setCurrentGalleryImage] = useState({
+    nameImg: null,
+    urlImg: null
+  });
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
     type: null,
@@ -44,17 +48,25 @@ function App() {
         name={item.name}
         url={item.url}
         setModalProperties={setModalProperties}
+        setCurrentGalleryImage={setCurrentGalleryImage}
       />);
       key++;
-      
-      // arr.push({ id: "1" });
-      // setGalleryImages(arr);
+
+      // const arr2 = [...galleryImages];
+      // arr2.push({ id: "1", name: item.name, url: item.url });
+      // console.log('galleryImages: ', galleryImages);
+      // console.log('arr2: ', arr2);
+
+
+      // setGalleryImages(prev => {
+      //   console.log('prev', prev);
+      //   const arr = [...prev];
+      //   return arr.push({ id: "1", name: item.name, url: item.url })
+      // });
     });
   };
   
-  console.log("55", galleryImages);
   if (galleryImages) {
-    console.log("57", galleryImages);
     let key = 0;
     galleryImages.forEach((item, index) => {
       arrGalleryImages.push(<WorkplaceItem
@@ -69,6 +81,7 @@ function App() {
     });
   };
 
+  console.log(galleryImages);
 
   return (
     <Container>
@@ -103,6 +116,9 @@ function App() {
           {arrGalleryImages}
           <WorkplaceItemNew
             name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+            currentGalleryImage={currentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
           />
         </Workplace>
       </Main>

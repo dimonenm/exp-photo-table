@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GalleryItem = ({ name, url, setModalProperties }) => {
+const GalleryItem = ({ name, url, setModalProperties, setCurrentGalleryImage }) => {
   let shortName = '';
   if (name.length > 20) {
     shortName = name.substr(0, 20) + '...'; // обрезаем слишком длинное имя файла
@@ -21,10 +21,12 @@ const GalleryItem = ({ name, url, setModalProperties }) => {
   const dragStartHandler = (event) => {
     event.target.classList.add('gallery-item-hold');
     setTimeout(() => event.target.classList.add('gallery-item-hide'), 0);
+    setCurrentGalleryImage({ nameImg: name, urlImg: url });
   }
   
   const dragEndHandler = (event) => {
     event.target.classList.remove('gallery-item-hold', 'gallery-item-hide');
+    setCurrentGalleryImage({ nameImg: null, urlImg: null });
   }
 
 
