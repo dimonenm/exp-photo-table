@@ -10,6 +10,7 @@
     font-family: "Roboto";
 
     margin-left: 10px;
+    padding-bottom: 10px;
 
     border: 1px solid #000;
 
@@ -46,12 +47,12 @@
 
     height: 220px;
 
-    margin: 10px 0 10px 0;
+    margin: 10px 0 0 0;
 
     border: 1px dashed #000;
 }
 .workplace-item-new-hovered {
-    background-color: #C4C4C4;
+    background-color: #c4c4c4;
 }
 .workplace-item-name {
     display: flex;
@@ -74,7 +75,10 @@
 
     width: 100%;
 
-    background-color: #c4c4c4;
+    /* background-color: #c4c4c4; */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .workplace-item-text {
     display: flex;

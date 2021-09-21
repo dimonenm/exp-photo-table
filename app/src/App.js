@@ -65,14 +65,14 @@ function App() {
       // });
     });
   };
-  
+
   if (galleryImages) {
     let key = 0;
     galleryImages.forEach((item, index) => {
-      arrGalleryImages.push(<WorkplaceItem
+      arrGalleryImages.unshift(<WorkplaceItem
         key={key}
-        name="Иллюстрация 1"
-        img=""
+        name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+        img={item.urlImg}
         text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
               Евпатория, ул. 2-ой Гвардейской армии, д. X."
       />);
@@ -80,7 +80,6 @@ function App() {
       console.log(index);
     });
   };
-
 
   return (
     <Container>
@@ -112,13 +111,13 @@ function App() {
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
-          {arrGalleryImages}
           <WorkplaceItemNew
             name={`Иллюстрация ${arrGalleryImages.length + 1}`}
             currentGalleryImage={currentGalleryImage}
             galleryImages={galleryImages}
             setGalleryImages={setGalleryImages}
           />
+          {arrGalleryImages}
         </Workplace>
       </Main>
     </Container>
