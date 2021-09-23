@@ -1,26 +1,37 @@
 import React from 'react';
 
-const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGalleryImages }) => {
+const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGalleryImages, downloadedImages, setDownloadedImages }) => {
 
     function dragover(event) {
         event.preventDefault();
     }
-    
+
     function dragenter(event) {
         event.target.classList.add('workplace-item-new-hovered');
     }
-    
+
     function dragleave(event) {
         event.target.classList.remove('workplace-item-new-hovered');
     }
-    
+
     function dragdrop(event) {
         event.preventDefault();
         event.target.classList.remove('workplace-item-new-hovered');
-        console.log('WorkplaceItemNew', currentGalleryImage);
-        
+
         const arr = [...galleryImages]
         arr.push(currentGalleryImage)
+        console.log(currentGalleryImage);
+        console.log(downloadedImages);
+
+        const testarr = downloadedImages.map(item => {
+            if (item.nameImg === currentGalleryImage.name) {
+                console.log('ok');
+            }
+            return item;
+        })
+
+        console.log(testarr);
+
         setGalleryImages(arr)
     }
 

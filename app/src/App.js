@@ -41,7 +41,7 @@ function App() {
 
   if (downloadedImages) {
     let key = 0;
-    // const arr = galleryImages;
+    
     downloadedImages.forEach(item => {
       arrDownloadedImages.push(<GalleryItem
         key={key}
@@ -51,18 +51,6 @@ function App() {
         setCurrentGalleryImage={setCurrentGalleryImage}
       />);
       key++;
-
-      // const arr2 = [...galleryImages];
-      // arr2.push({ id: "1", name: item.name, url: item.url });
-      // console.log('galleryImages: ', galleryImages);
-      // console.log('arr2: ', arr2);
-
-
-      // setGalleryImages(prev => {
-      //   console.log('prev', prev);
-      //   const arr = [...prev];
-      //   return arr.push({ id: "1", name: item.name, url: item.url })
-      // });
     });
   };
 
@@ -77,7 +65,6 @@ function App() {
               Евпатория, ул. 2-ой Гвардейской армии, д. X."
       />);
       key++;
-      console.log(index);
     });
   };
 
@@ -116,6 +103,8 @@ function App() {
             currentGalleryImage={currentGalleryImage}
             galleryImages={galleryImages}
             setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}
           />
           {arrGalleryImages}
         </Workplace>
