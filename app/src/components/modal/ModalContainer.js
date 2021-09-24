@@ -35,6 +35,15 @@ const ModalContainer = () => {
       </div>
     );
   }
+
+  if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+    return (
+      <div className="modal-container" >
+        <ModalHeader name={'Данные иллюстрации'} />
+        <ModalContent />
+      </div>
+    );
+  }
 }
 
 export default ModalContainer;

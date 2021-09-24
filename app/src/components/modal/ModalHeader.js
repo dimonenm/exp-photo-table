@@ -27,7 +27,7 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-  if (localModalProperties.modalProperties.type === "setPhotoTableData") {
+  if (localModalProperties.modalProperties.type === "setPhotoTableData" || localModalProperties.modalProperties.type === "setGalleryImageData") {
     return (
       <div className="modal-header">
         <Logo>{name}</Logo>

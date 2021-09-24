@@ -44,9 +44,6 @@ const ModalContent = () => {
       })
     };
 
-    console.log(localModalProperties.photoTableData);
-    // photoTableData, setphotoTableData
-
     return (
       <div className="modal-content-data">
         <div className="modal-content-title">ОМП по факту:</div>
@@ -81,6 +78,24 @@ const ModalContent = () => {
               localModalProperties.photoTableData.dateOMP :
               ''}
         ></input>
+      </div>
+    );
+  }
+
+  if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+    return (
+      <div className="modal-content-data">
+        <div className="modal-content-title">ОМП по факту:</div>
+        <textarea
+          className="factOMP"
+          // onChange={changeFactOMPHandler}
+          rows={3}
+          placeholder="Укажите факт проведения ОМП..."
+          value={
+            localModalProperties.photoTableData.factOMP ?
+              localModalProperties.photoTableData.factOMP :
+              ''}
+        />
       </div>
     );
   }
