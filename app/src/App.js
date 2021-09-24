@@ -26,7 +26,8 @@ function App() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
     nameImg: null,
-    urlImg: null
+    urlImg: null,
+    textImg: null
   });
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
@@ -40,23 +41,24 @@ function App() {
 
 
   if (downloadedImages) {
-    let key = 0;
+    arrDownloadedImages = [];
     
     downloadedImages.forEach(item => {
       arrDownloadedImages.push(<GalleryItem
-        key={key}
+        key={item.name}
         name={item.name}
         url={item.url}
         setModalProperties={setModalProperties}
         setCurrentGalleryImage={setCurrentGalleryImage}
+        galleryImages={galleryImages}
       />);
-      key++;
     });
   };
 
   if (galleryImages) {
     let key = 0;
     galleryImages.forEach((item, index) => {
+      console.log(item);
       arrGalleryImages.unshift(<WorkplaceItem
         key={key}
         name={`Иллюстрация ${arrGalleryImages.length + 1}`}

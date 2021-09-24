@@ -18,21 +18,10 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGallery
         event.preventDefault();
         event.target.classList.remove('workplace-item-new-hovered');
 
-        const arr = [...galleryImages]
-        arr.push(currentGalleryImage)
-        console.log(currentGalleryImage);
-        console.log(downloadedImages);
+        const arr = [...galleryImages];
+        arr.push(currentGalleryImage);
 
-        const testarr = downloadedImages.map(item => {
-            if (item.nameImg === currentGalleryImage.name) {
-                console.log('ok');
-            }
-            return item;
-        })
-
-        console.log(testarr);
-
-        setGalleryImages(arr)
+        setGalleryImages(arr);
     }
 
     return (
