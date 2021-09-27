@@ -5,8 +5,7 @@ import './ModalContent.css'
 const ModalContent = () => {
 
   const localModalProperties = useContext(modalDataContext);
-  console.log(localModalProperties);
-
+  
   if (localModalProperties.modalProperties.type === "preview") {
     return (
       <div className="modal-content">

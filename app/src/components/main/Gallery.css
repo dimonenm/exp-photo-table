@@ -44,7 +44,7 @@
     /* background: rgba(0, 0, 0, 0.0); */
 }
 .gallery-item-hide {
-    opacity: 0;
+    opacity: 0.3;
     /* display: none; */
 }
 .gallery-item-name {
