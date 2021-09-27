@@ -33,7 +33,9 @@ function App() {
     isOpen: false,
     type: null,
     nameImg: null,
-    urlImg: null
+    urlImg: null,
+    textImg: null,
+    indexImgInGallery: null
   });
 
   let arrDownloadedImages = [];
@@ -58,13 +60,12 @@ function App() {
   if (galleryImages) {
     let key = 0;
     galleryImages.forEach((item, index) => {
-      console.log(item);
       arrGalleryImages.unshift(<WorkplaceItem
         key={key}
+        index={index}
         name={`Иллюстрация ${arrGalleryImages.length + 1}`}
         img={item.urlImg}
-        // text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г.
-        //       Евпатория, ул. 2-ой Гвардейской армии, д. X."
+        // text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г. Евпатория, ул. 2-ой Гвардейской армии, д. X."
         text={item.textImg}
         setModalProperties={setModalProperties}
       />);
@@ -75,7 +76,7 @@ function App() {
   return (
     <Container>
       <modalDataContext.Provider
-        value={{ modalProperties, setModalProperties, photoTableData, setphotoTableData }}>
+        value={{ modalProperties, setModalProperties, galleryImages, setGalleryImages, photoTableData, setphotoTableData }}>
         <Modal />
       </modalDataContext.Provider>
       <Header>

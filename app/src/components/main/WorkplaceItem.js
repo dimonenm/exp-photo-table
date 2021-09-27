@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WorkplaceItem = ({ name, img, text, setModalProperties }) => {
+const WorkplaceItem = ({ index, name, img, text, setModalProperties }) => {
 
   const backgroundImage = {
     backgroundImage: `url(${img})`
@@ -13,7 +13,10 @@ const WorkplaceItem = ({ name, img, text, setModalProperties }) => {
         {
           ...prev,
           isOpen: true,
-          type: "setGalleryImageData"
+          type: "setGalleryImageData",
+          urlImg: img,
+          textImg: text,
+          indexImgInGallery: index
         }
       );
     }

@@ -27,10 +27,24 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-  if (localModalProperties.modalProperties.type === "setPhotoTableData" || localModalProperties.modalProperties.type === "setGalleryImageData") {
+  if (localModalProperties.modalProperties.type === "setPhotoTableData") {
     return (
       <div className="modal-header">
         <Logo>{name}</Logo>
+        <MenuBtns>
+          <MenuBtnsCheckBtn />
+          <MenuBtnsCloseBtn />
+        </MenuBtns>
+      </div>
+    );
+  }
+  if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+    return (
+      <div className="modal-header">
+        <Logo>{name}</Logo>
+        <Menu>
+          <MenuItem notActive={true}>Удалить из таблицы иллюстраций</MenuItem>
+        </Menu>
         <MenuBtns>
           <MenuBtnsCheckBtn />
           <MenuBtnsCloseBtn />

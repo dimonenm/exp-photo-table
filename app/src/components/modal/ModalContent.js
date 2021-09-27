@@ -5,6 +5,7 @@ import './ModalContent.css'
 const ModalContent = () => {
 
   const localModalProperties = useContext(modalDataContext);
+  console.log(localModalProperties);
 
   if (localModalProperties.modalProperties.type === "preview") {
     return (
@@ -83,17 +84,29 @@ const ModalContent = () => {
   }
 
   if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+
+    const changeIllustrationDescriptionHandler = () => {
+      const str = document.querySelector('.illustrationDescription');
+      localModalProperties.setModalProperties((prev) => {
+        return ({
+          ...prev,
+          textImg: str.value
+        })
+      })
+    };
+
     return (
       <div className="modal-content-data">
-        <div className="modal-content-title">ОМП по факту:</div>
+        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
+        <div className="modal-content-title">Описание:</div>
         <textarea
-          className="factOMP"
-          // onChange={changeFactOMPHandler}
-          rows={3}
-          placeholder="Укажите факт проведения ОМП..."
+          className="illustrationDescription"
+          onChange={changeIllustrationDescriptionHandler}
+          rows={5}
+          placeholder="Введите описание для иллюстрации..."
           value={
-            localModalProperties.photoTableData.factOMP ?
-              localModalProperties.photoTableData.factOMP :
+            localModalProperties.modalProperties.textImg ?
+              localModalProperties.modalProperties.textImg :
               ''}
         />
       </div>

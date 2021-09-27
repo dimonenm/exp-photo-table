@@ -32,6 +32,15 @@
     font-family: "Times New Roman", Times, serif;
     font-size: 24px;
 }
+.modal-content-data img{
+    object-fit: contain;
+    object-position: center top;
+
+    height: 65%;
+    width: 65%;
+
+    margin-top: 20px;
+}
 .modal-content-title {
     display: flex;
     justify-content: center;
@@ -42,7 +51,6 @@
     height: 50px;
     width: 300px;
 }
-
 .modal-content-data textarea {
     display: flex;
     justify-content: center;
@@ -77,3 +85,5 @@
 
     outline: none;
 }
+
+/* illustration */
