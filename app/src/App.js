@@ -46,14 +46,36 @@ function App() {
     arrDownloadedImages = [];
     
     downloadedImages.forEach(item => {
-      arrDownloadedImages.push(<GalleryItem
-        key={item.name}
-        name={item.name}
-        url={item.url}
-        setModalProperties={setModalProperties}
-        setCurrentGalleryImage={setCurrentGalleryImage}
-        galleryImages={galleryImages}
-      />);
+      let isHasInGalleryImages = false;
+      if (galleryImages.length) {
+        galleryImages.forEach(img => {
+          if (item.name === img.nameImg) {
+            isHasInGalleryImages = true;
+          }
+        })
+      }
+
+      if (isHasInGalleryImages) {
+        arrDownloadedImages.push(<GalleryItem
+          key={item.name}
+          name={item.name}
+          url={item.url}
+          hiden={true}
+          setModalProperties={setModalProperties}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+          galleryImages={galleryImages}
+        />);
+      } else {
+        arrDownloadedImages.push(<GalleryItem
+          key={item.name}
+          name={item.name}
+          url={item.url}
+          hiden={false}
+          setModalProperties={setModalProperties}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+          galleryImages={galleryImages}
+        />);
+      }
     });
   };
 

@@ -26,13 +26,10 @@ const MenuItem = ({ children, notActive, inputFile, setDownloadedImages }) => {
     function delImgFromPhotoTable(event) {
         event.preventDefault()
         
-        const galleryItemHideArr = document.querySelectorAll('.gallery-item-hide');
-        console.log(galleryItemHideArr[0].childNodes[1].childNodes[0].alt);
-
         const tempGalleryImages = [...localModalProperties.galleryImages];
         tempGalleryImages.splice(localModalProperties.modalProperties.indexImgInGallery, 1);
         localModalProperties.setGalleryImages(tempGalleryImages);
-
+        
         localModalProperties.setModalProperties(() => {
             return {
                 isOpen: false,
@@ -43,9 +40,6 @@ const MenuItem = ({ children, notActive, inputFile, setDownloadedImages }) => {
                 indexImgInGallery: null
             }
         });
-
-
-
     }
 
     if (notActive) {
@@ -64,7 +58,6 @@ const MenuItem = ({ children, notActive, inputFile, setDownloadedImages }) => {
     return (
         <div className="menu-item" onClick={delImgFromPhotoTable}><a href="/" >{children}</a></div>
     );
-
 }
 
 export default MenuItem;
