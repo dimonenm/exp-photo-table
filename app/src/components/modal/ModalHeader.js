@@ -43,7 +43,7 @@ const ModalHeader = ({ name }) => {
       <div className="modal-header">
         <Logo>{name}</Logo>
         <Menu>
-          <MenuItem>Удалить из таблицы иллюстраций</MenuItem>
+          <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
         </Menu>
         <MenuBtns>
           <MenuBtnsCheckBtn />

@@ -12,51 +12,11 @@ import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import GalleryItem from './components/main/GalleryItem';
 import Modal from './containers/Modal';
-import { Document, Packer, Paragraph, TextRun } from "docx";
-import { saveAs } from "file-saver";
 import './App.css';
 
 export const modalDataContext = createContext();
 
 function App() {
-
-  const doc = new Document({
-    creator: "Dolan Miu",
-    description: "My extremely interesting document",
-    title: "My Document",
-    background: {
-      color: "cccccc",
-    },
-    sections: [{
-      properties: {},
-      children: [
-        new Paragraph({
-          children: [
-            new TextRun("Привет "),
-            new TextRun({
-              text: "Рома",
-              bold: true,
-            }),
-          ],
-        }),
-        new Paragraph({
-          children: [
-            new TextRun("Хочешь научиться делать так?")
-          ],
-        })
-      ],
-    }]
-  });
-
-
-  Packer.toBlob(doc).then(blob => {
-    console.log(blob);
-    saveAs(blob, "example.docx");
-    console.log("Document created successfully");
-  });
-
-
-
 
   const [downloadedImages, setDownloadedImages] = useState();
   const [photoTableData, setphotoTableData] = useState({
@@ -146,6 +106,7 @@ function App() {
         <Logo>ЭКЦ РК Фототаблица 0.1</Logo>
         <Menu>
           <MenuItem
+            type={'forInputFile'}
             inputFile={true}
             setDownloadedImages={setDownloadedImages}
           >
@@ -153,7 +114,7 @@ function App() {
           </MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
-          <MenuItem notActive={true}>Конвертировать в Microsoft Word</MenuItem>
+          <MenuItem type={'forConvertToMicrosoftWord'}>Конвертировать в Microsoft Word</MenuItem>
           <MenuItem notActive={true}>Настройки</MenuItem>
         </Menu>
       </Header>
