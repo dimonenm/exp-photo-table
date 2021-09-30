@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-import { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel } from "docx";
+import { Document, Packer, Paragraph, TextRun, AlignmentType } from "docx";
 import { saveAs } from "file-saver";
 import "./MenuItem.css";
 
@@ -47,28 +47,100 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
   function convertToMicrosoftWord(event) {
     event.preventDefault();
 
-    const paragraph1 = new Paragraph(
-      {
-        text: "Hello World",
-        heading: HeadingLevel.HEADING_1,
-        alignment: AlignmentType.CENTER,
-      }
-    );
-    const paragraph2 = new Paragraph(
-      {
-        alignment: AlignmentType.CENTER,
-        children: [
-          new TextRun({
-            text: "МВД  РОССИИ",
-            bold: true,
-            font: "Times New Roman",
-            size: 28,
-            alignment: AlignmentType.CENTER,
-          })
-        ]
-      }
-    );
+    let factOMP = 'обнаружение трупа неизвестного мужчины';
+    let adressOMP = 'г. Москва, ул. Большая Черемушкинская, д. 73';
+    let dateOMP = '23.06.2016';
 
+    const docArr = [
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: "МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ",
+              bold: true,
+              font: "Times New Roman",
+              size: 28,
+            })
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: "ПО РЕСПУБЛИКЕ КРЫМ",
+              bold: true,
+              font: "Times New Roman",
+              size: 28,
+            })
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: "ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР",
+              bold: true,
+              font: "Times New Roman",
+              size: 28,
+            })
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          thematicBreak: true,
+          text: "",
+          children: [
+            new TextRun({
+              text: "295048, г. Симферополь, ул. Балаклавская, д. 68",
+              bold: false,
+              font: "Times New Roman",
+              size: 24,
+              break: 2,
+            }),
+            new TextRun({
+              text: "                                   тел. (3652) 66-74-34",
+              bold: false,
+              font: "Times New Roman",
+              size: 24,
+            })
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: "ФОТОТАБЛИЦА",
+              bold: true,
+              font: "Times New Roman",
+              size: 36,
+              break: 2,
+            })
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: `к протоколу осмотра места происшествия от ${dateOMP} по факту ${factOMP} по адресу: ${adressOMP}.`,
+              font: "Times New Roman",
+              size: 24,
+              break: 2,
+            })
+          ]
+        }
+      ),
+    ]
 
     const doc = new Document({
       title: "My Document",
@@ -83,7 +155,8 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
             margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
           }
         },
-        children: [paragraph1, paragraph2],
+        // children: [p1, p2, p3, p4, p5],
+        children: docArr,
       }]
     });
 
