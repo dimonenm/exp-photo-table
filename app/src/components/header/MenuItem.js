@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-import { Document, Packer, Paragraph, TextRun } from "docx";
+import { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel } from "docx";
 import { saveAs } from "file-saver";
 import "./MenuItem.css";
 
@@ -47,14 +47,31 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
   function convertToMicrosoftWord(event) {
     event.preventDefault();
 
+    const paragraph1 = new Paragraph(
+      {
+        text: "Hello World",
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+      }
+    );
+    const paragraph2 = new Paragraph(
+      {
+        alignment: AlignmentType.CENTER,
+        children: [
+          new TextRun({
+            text: "МВД  РОССИИ",
+            bold: true,
+            font: "Times New Roman",
+            size: 28,
+            alignment: AlignmentType.CENTER,
+          })
+        ]
+      }
+    );
+
 
     const doc = new Document({
-      creator: "Максименко Роман",
-      description: "My extremely interesting document",
       title: "My Document",
-      background: {
-        color: "ffffff",
-      },
       sections: [{
         properties: {
           page: {
@@ -63,34 +80,19 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
             //   height: 100,
             //   orientation: "portrait"
             // },
-            margin: { top: '2cm', right: '1.5cm', bottom: '2cm', left: '3cm' }
+            margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
           }
         },
-        children: [
-          new Paragraph({
-            children: [
-              new TextRun("Привет "),
-              new TextRun({
-                text: "Рома",
-                bold: true,
-              }),
-            ],
-          }),
-          new Paragraph({
-            children: [
-              new TextRun("Хочешь научиться делать так?")
-            ],
-          })
-        ],
+        children: [paragraph1, paragraph2],
       }]
     });
 
 
-  Packer.toBlob(doc).then(blob => {
-    console.log(blob);
-    saveAs(blob, "example.docx");
-    console.log("Document created successfully");
-  });
+    Packer.toBlob(doc).then(blob => {
+      console.log(blob);
+      saveAs(blob, "example.docx");
+      console.log("Document created successfully");
+    });
   }
 
   if (notActive) {
