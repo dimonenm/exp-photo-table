@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-import { Document, Packer, Paragraph, TextRun, AlignmentType } from "docx";
+import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 import { saveAs } from "file-saver";
 import "./MenuItem.css";
 
-const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages }) => {
+const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, galleryImages }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -44,14 +44,16 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
     });
   }
 
-  function convertToMicrosoftWord(event) {
+  async function convertToMicrosoftWord(event) {
     event.preventDefault();
 
     let factOMP = 'обнаружение трупа неизвестного мужчины';
     let adressOMP = 'г. Москва, ул. Большая Черемушкинская, д. 73';
     let dateOMP = '23.06.2016';
+    let officialStatus = 'специалист';
+    let officialName = 'А.А. Андреев';
 
-    const docArr = [
+    const firstPage = [
       new Paragraph(
         {
           alignment: AlignmentType.CENTER,
@@ -93,9 +95,8 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
       ),
       new Paragraph(
         {
-          alignment: AlignmentType.CENTER,
+          alignment: AlignmentType.JUSTIFIED,
           thematicBreak: true,
-          text: "",
           children: [
             new TextRun({
               text: "295048, г. Симферополь, ул. Балаклавская, д. 68",
@@ -140,24 +141,154 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages })
           ]
         }
       ),
-    ]
+    ];
+
+    let section1 = {
+      properties: {
+        page: {
+          margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
+        }
+      },
+      footers: {
+        default: new Footer({
+          children: [
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: `${officialStatus} _______________ ${officialName}`,
+                    font: "Times New Roman",
+                    size: 24,
+                  })
+                ]
+              }
+            ),
+          ],
+        })
+      },
+      children: firstPage,
+    };
+
+    let blob = await fetch(galleryImages[0].urlImg).then(r => r.blob())
+
+    const secondPage =
+      [
+        new Paragraph(
+          {
+            alignment: AlignmentType.CENTER,
+            children: [
+              new TextRun({
+                font: "Times New Roman",
+                size: 24,
+                break: 1,
+              }),
+              new ImageRun({
+                data: blob,
+                transformation: {
+                  width: 340,
+                  height: 453,
+                },
+                
+              }),
+            ]
+          }
+        ),
+        new Paragraph(
+          {
+            // alignment: AlignmentType.CENTER,
+            children: [
+              new TextRun({
+                text: `Фото №1. `,
+                font: "Times New Roman",
+                size: 26,
+                bold: true,
+              }),
+            ]
+          }
+        ),
+        new Paragraph(
+          {
+            alignment: AlignmentType.CENTER,
+            children: [
+              new TextRun({
+                font: "Times New Roman",
+                size: 24,
+                break: 1,
+              }),
+              new ImageRun({
+                data: blob,
+                transformation: {
+                  width: 453,
+                  height: 340,
+                }
+              }),
+            ]
+          }
+        ),
+        new Paragraph(
+          {
+            // alignment: AlignmentType.CENTER,
+            children: [
+              new TextRun({
+                text: `Фото №2. `,
+                font: "Times New Roman",
+                size: 26,
+                bold: true,
+              }),
+            ]
+          }
+        ),
+      ];
+
+    const section2 = {
+      properties: {
+        page: {
+          margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
+        }
+      },
+      headers: {
+        default: new Header({
+          children: [
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    children: [PageNumber.CURRENT],
+                    font: "Times New Roman",
+                    size: 24,
+                  })
+                ]
+              }
+            ),
+          ],
+        }),
+      },
+      footers: {
+        default: new Footer({
+          children: [
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: `${officialStatus} _______________ ${officialName}`,
+                    font: "Times New Roman",
+                    size: 24,
+                  })
+                ]
+              }
+            ),
+          ],
+        })
+      },
+      children: secondPage,
+    };
 
     const doc = new Document({
       title: "My Document",
-      sections: [{
-        properties: {
-          page: {
-            // size: {
-            //   width: 100,
-            //   height: 100,
-            //   orientation: "portrait"
-            // },
-            margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
-          }
-        },
-        // children: [p1, p2, p3, p4, p5],
-        children: docArr,
-      }]
+      sections: [section1, section2]
     });
 
 

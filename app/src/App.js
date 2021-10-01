@@ -114,7 +114,11 @@ function App() {
           </MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
-          <MenuItem type={'forConvertToMicrosoftWord'}>Конвертировать в Microsoft Word</MenuItem>
+          <MenuItem
+            type={'forConvertToMicrosoftWord'}
+            galleryImages={galleryImages}
+          >
+            Конвертировать в Microsoft Word</MenuItem>
           <MenuItem notActive={true}>Настройки</MenuItem>
         </Menu>
       </Header>
