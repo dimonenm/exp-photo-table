@@ -172,6 +172,16 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
 
     let blob = await fetch(galleryImages[0].urlImg).then(r => r.blob())
 
+    let img = new Image();
+    img.onload = function () {
+      let width = this.width;
+      console.log('width: ', width);
+      let hight = this.height;
+      console.log('hight: ', hight);
+    }
+    img.src = galleryImages[0].urlImg;
+    
+
     const secondPage =
       [
         new Paragraph(
@@ -187,7 +197,7 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
                 data: blob,
                 transformation: {
                   width: 340,
-                  height: 453,
+                  height: 454,
                 },
                 
               }),
@@ -219,7 +229,7 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
               new ImageRun({
                 data: blob,
                 transformation: {
-                  width: 453,
+                  width: 454,
                   height: 340,
                 }
               }),
