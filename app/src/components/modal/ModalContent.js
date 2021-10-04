@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import AvatarEditor from 'react-avatar-editor';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 
@@ -96,7 +97,16 @@ const ModalContent = () => {
 
     return (
       <div className="modal-content-data">
-        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
+        {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
+        <AvatarEditor
+          image={localModalProperties.modalProperties.urlImg}
+          width={400}
+          height={300}
+          border={10}
+          color={[255, 255, 255, 0.8]} // RGBA
+          scale={1.2}
+          rotate={0}
+        />
         <div className="modal-content-title">Описание:</div>
         <textarea
           className="illustrationDescription"
