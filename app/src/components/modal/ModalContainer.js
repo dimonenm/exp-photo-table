@@ -44,6 +44,15 @@ const ModalContainer = () => {
       </div>
     );
   }
+
+  if (localModalProperties.modalProperties.type === "cutPhoto") {
+    return (
+      <div className="modal-container" >
+        <ModalHeader name={'Редактирование иллюстрации'} />
+        <ModalContent />
+      </div>
+    );
+  }
 }
 
 export default ModalContainer;

@@ -44,6 +44,22 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
     });
   }
 
+  function forCutPhoto(event) {
+    event.preventDefault()
+
+    const tempGalleryImages = [...localModalProperties.galleryImages];
+    console.log('forCutPhoto: ', tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery]);
+    console.log('localModalProperties: ', localModalProperties);
+    // tempGalleryImages.splice(localModalProperties.modalProperties.indexImgInGallery, 1);
+
+    localModalProperties.setModalProperties(() => {
+      return {
+        ...localModalProperties.modalProperties,
+        type: 'cutPhoto'
+      }
+    });
+  }
+
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
 
@@ -325,6 +341,11 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
   if (type === 'forDelImgFromPhotoTable') {
     return (
       <div className="menu-item" onClick={delImgFromPhotoTable}><a href="/" >{children}</a></div>
+    );
+  }
+  if (type === 'forCutPhoto') {
+    return (
+      <div className="menu-item" onClick={forCutPhoto}><a href="/" >{children}</a></div>
     );
   }
   if (type === 'forConvertToMicrosoftWord') {

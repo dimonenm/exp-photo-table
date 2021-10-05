@@ -38,12 +38,24 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
+  if (localModalProperties.modalProperties.type === "cutPhoto") {
+    return (
+      <div className="modal-header">
+        <Logo>{name}</Logo>
+        <MenuBtns>
+          <MenuBtnsCheckBtn />
+          <MenuBtnsCloseBtn />
+        </MenuBtns>
+      </div>
+    );
+  }
   if (localModalProperties.modalProperties.type === "setGalleryImageData") {
     return (
       <div className="modal-header">
         <Logo>{name}</Logo>
         <Menu>
           <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
+          <MenuItem type={'forCutPhoto'}>Обрезать</MenuItem>
         </Menu>
         <MenuBtns>
           <MenuBtnsCheckBtn />

@@ -88,7 +88,6 @@ function App() {
         index={index}
         name={`Иллюстрация ${arrGalleryImages.length + 1}`}
         img={item.urlImg}
-        // text="расположение а/м «Мазда» г.р.з. XXXXXX-XX, по адресу: Республика Крым, г. Евпатория, ул. 2-ой Гвардейской армии, д. X."
         text={item.textImg}
         setModalProperties={setModalProperties}
       />);

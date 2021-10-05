@@ -97,16 +97,7 @@ const ModalContent = () => {
 
     return (
       <div className="modal-content-data">
-        {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
-        <AvatarEditor
-          image={localModalProperties.modalProperties.urlImg}
-          width={400}
-          height={300}
-          border={10}
-          color={[255, 255, 255, 0.8]} // RGBA
-          scale={1.2}
-          rotate={0}
-        />
+        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
         <div className="modal-content-title">Описание:</div>
         <textarea
           className="illustrationDescription"
@@ -117,6 +108,23 @@ const ModalContent = () => {
             localModalProperties.modalProperties.textImg ?
               localModalProperties.modalProperties.textImg :
               ''}
+        />
+      </div>
+    );
+  }
+
+  if (localModalProperties.modalProperties.type === "cutPhoto") {
+
+    return (
+      <div className="modal-content-data">
+        <AvatarEditor
+          image={localModalProperties.modalProperties.urlImg}
+          width={800}
+          height={600}
+          border={0}
+          color={[255, 255, 255, 0.8]} // RGBA
+          scale={1.5}
+          rotate={0}
         />
       </div>
     );

@@ -4,10 +4,11 @@ import "./MenuBtnsCloseBtn.css";
 
 const MenuBtnsCloseBtn = () => {
   const localModalProperties = useContext(modalDataContext);
+  let clickHandler;
 
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "setPhotoTableData") {
-    function clickHandler() {
+    clickHandler = () => {
       localModalProperties.setModalProperties(() => {
         return {
           isOpen: false,
@@ -26,12 +27,11 @@ const MenuBtnsCloseBtn = () => {
         }
       });
     }
-    return (<div className="close-btn" onClick={clickHandler}></div>)
   }
 
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "setGalleryImageData") {
-    function clickHandler() {
+    clickHandler = () => {
       localModalProperties.setModalProperties(() => {
         return {
           isOpen: false,
@@ -43,12 +43,11 @@ const MenuBtnsCloseBtn = () => {
         }
       });
     }
-    return (<div className="close-btn" onClick={clickHandler}></div>)
   }
 
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "preview") {
-    function clickHandler() {
+    clickHandler = () => {
       localModalProperties.setModalProperties(() => {
         return {
           isOpen: false,
@@ -60,8 +59,9 @@ const MenuBtnsCloseBtn = () => {
         }
       });
     }
-    return (<div className="close-btn" onClick={clickHandler}></div>)
   }
+  
+  return (<div className="close-btn" onClick={clickHandler}></div>)
 }
 
 export default MenuBtnsCloseBtn;
