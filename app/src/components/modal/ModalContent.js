@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
@@ -6,6 +6,11 @@ import './ModalContent.css'
 const ModalContent = () => {
 
   const localModalProperties = useContext(modalDataContext);
+
+  const [editorData, setEditorData] = useState({
+    orientationHorizontal: true,
+    zoom: 1
+  });
   
   if (localModalProperties.modalProperties.type === "preview") {
     return (
@@ -114,18 +119,43 @@ const ModalContent = () => {
   }
 
   if (localModalProperties.modalProperties.type === "cutPhoto") {
+    const inputChangeHandler = (event) => {
+      console.log(event.target.value);
+      setEditorData((prev) => {
+        return { ...prev, zoom: event.target.value}
+  });
+    }
 
     return (
       <div className="modal-content-data">
         <AvatarEditor
           image={localModalProperties.modalProperties.urlImg}
-          width={800}
-          height={600}
+          width={700}
+          height={525}
           border={0}
           color={[255, 255, 255, 0.8]} // RGBA
-          scale={1.5}
+          scale={editorData.zoom}
           rotate={0}
         />
+        <div className="modal-content-data-controls">
+          <div className="modal-content-data-controls-orientation">
+            <div className="modal-content-data-controls-orientation-title">Ориентация:</div>
+            <div className="modal-content-data-controls-orientation-vertical">Вертикальная</div>
+            <div className="modal-content-data-controls-orientation-horizontal">Горизонтальная</div>
+          </div>
+          <div className="modal-content-data-controls-zoom">
+            <div className="modal-content-data-controls-zoom-title">Увеличение:</div>
+            <div className="modal-content-data-controls-zoom-range">
+              <input
+                type="range"
+                step="0.1"
+                min="1"
+                max="2"
+                onChange={inputChangeHandler}
+              ></input>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
