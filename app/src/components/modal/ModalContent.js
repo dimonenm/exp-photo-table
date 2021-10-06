@@ -8,10 +8,11 @@ const ModalContent = () => {
   const localModalProperties = useContext(modalDataContext);
 
   const [editorData, setEditorData] = useState({
-    orientationHorizontal: true,
+    width: 700,
+    height: 525,
     zoom: 1
   });
-  
+
   if (localModalProperties.modalProperties.type === "preview") {
     return (
       <div className="modal-content">
@@ -120,18 +121,55 @@ const ModalContent = () => {
 
   if (localModalProperties.modalProperties.type === "cutPhoto") {
     const inputChangeHandler = (event) => {
-      console.log(event.target.value);
       setEditorData((prev) => {
-        return { ...prev, zoom: event.target.value}
-  });
+        return { ...prev, zoom: +event.target.value }
+      });
     }
+    const orientationVerticalClickHandler = () => {
+      setEditorData((prev) => {
+        return { ...prev, width: 393, height: 525 }
+      });
+    }
+    const orientationHorizontalClickHandler = () => {
+      setEditorData((prev) => {
+        return { ...prev, width: 700, height: 525 }
+      });
+    }
+
+    let canvas;
+    const setEditorRef = (editor) => (canvas = editor);
+    console.log('modalProperties1', localModalProperties.modalProperties);
+    
+    if (localModalProperties.modalProperties.cut) {
+      // async function onClickSave(localCanvas) {
+      //   console.log(localCanvas);
+
+      //   await fetch(localCanvas.getImage().toDataURL())
+      //     .then(res => res.blob())
+      //     .then(blob => (console.log(URL.createObjectURL(blob))));
+        
+      // }
+      // onClickSave(canvas);
+
+      console.log('modalProperties2', localModalProperties.modalProperties);
+      localModalProperties.setModalProperties((prev) => {
+        return {
+          ...prev,
+          type: "setGalleryImageData",
+          cut: false
+        }
+      })
+    }
+
+
 
     return (
       <div className="modal-content-data">
         <AvatarEditor
+          ref={setEditorRef}
           image={localModalProperties.modalProperties.urlImg}
-          width={700}
-          height={525}
+          width={editorData.width}
+          height={editorData.height}
           border={0}
           color={[255, 255, 255, 0.8]} // RGBA
           scale={editorData.zoom}
@@ -140,8 +178,14 @@ const ModalContent = () => {
         <div className="modal-content-data-controls">
           <div className="modal-content-data-controls-orientation">
             <div className="modal-content-data-controls-orientation-title">Ориентация:</div>
-            <div className="modal-content-data-controls-orientation-vertical">Вертикальная</div>
-            <div className="modal-content-data-controls-orientation-horizontal">Горизонтальная</div>
+            <div
+              className="modal-content-data-controls-orientation-vertical"
+              onClick={orientationVerticalClickHandler}
+            >Вертикальная</div>
+            <div
+              className="modal-content-data-controls-orientation-horizontal"
+              onClick={orientationHorizontalClickHandler}
+            >Горизонтальная</div>
           </div>
           <div className="modal-content-data-controls-zoom">
             <div className="modal-content-data-controls-zoom-title">Увеличение:</div>
@@ -151,6 +195,7 @@ const ModalContent = () => {
                 step="0.1"
                 min="1"
                 max="2"
+                value={editorData.zoom}
                 onChange={inputChangeHandler}
               ></input>
             </div>

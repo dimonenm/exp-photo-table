@@ -50,22 +50,9 @@ const MenuBtnsCheckBtn = () => {
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "cutPhoto") {
     clickHandler = () => {
-      console.log('MenuBtnsCheckBtn for cutPhoto');
-      
-      // const tempGalleryImages = [...localModalProperties.galleryImages];
-      // tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].textImg = localModalProperties.modalProperties.textImg;
-      // localModalProperties.setGalleryImages(tempGalleryImages);
-      
-      // localModalProperties.setModalProperties(() => {
-      //   return {
-      //     isOpen: false,
-      //     type: null,
-      //     nameImg: null,
-      //     urlImg: null,
-      //     textImg: null,
-      //     indexImgInGallery: null
-      //   }
-      // });
+      localModalProperties.setModalProperties((prev) => {
+        return { ...prev, cut: true }
+      });
     }
   }
   

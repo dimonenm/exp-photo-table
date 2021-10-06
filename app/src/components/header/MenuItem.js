@@ -50,7 +50,6 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
     const tempGalleryImages = [...localModalProperties.galleryImages];
     console.log('forCutPhoto: ', tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery]);
     console.log('localModalProperties: ', localModalProperties);
-    // tempGalleryImages.splice(localModalProperties.modalProperties.indexImgInGallery, 1);
 
     localModalProperties.setModalProperties(() => {
       return {

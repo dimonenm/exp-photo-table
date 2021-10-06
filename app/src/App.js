@@ -36,7 +36,8 @@ function App() {
     nameImg: null,
     urlImg: null,
     textImg: null,
-    indexImgInGallery: null
+    indexImgInGallery: null,
+    cut: false
   });
 
   let arrDownloadedImages = [];
