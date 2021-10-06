@@ -12,6 +12,7 @@ const ModalContent = () => {
     height: 525,
     zoom: 1
   });
+  const [canvas, setCanvas] = useState();
 
   if (localModalProperties.modalProperties.type === "preview") {
     return (
@@ -136,29 +137,43 @@ const ModalContent = () => {
       });
     }
 
-    let canvas;
-    const setEditorRef = (editor) => (canvas = editor);
-    console.log('modalProperties1', localModalProperties.modalProperties);
-    
+    const setEditorRef = (editor) => {
+      setCanvas(editor);
+      // canvas = editor;
+    };
+
+    async function onClickSave() {
+      await fetch(canvas.getImage().toDataURL())
+        .then(res => res.blob())
+        .then(blob => (console.log(URL.createObjectURL(blob))));
+    }
+
+    // const onClickSave = async (canvas) => {
+
+    //   await fetch(canvas.getImage().toDataURL())
+    //     .then(res => res.blob())
+    //     .then(blob => (console.log(URL.createObjectURL(blob))));
+
+    //   localModalProperties.setModalProperties((prev) => {
+    //     return {
+    //       ...prev,
+    //       type: "setGalleryImageData",
+    //       cut: false
+    //     }
+    //   })
+    // }
+
+
+
+
+    // if (canvas) {
+    //   fetch(canvas.getImage().toDataURL())
+    //     .then(res => res.blob())
+    //     .then(blob => (console.log(URL.createObjectURL(blob))));
+    // }
+
     if (localModalProperties.modalProperties.cut) {
-      // async function onClickSave(localCanvas) {
-      //   console.log(localCanvas);
-
-      //   await fetch(localCanvas.getImage().toDataURL())
-      //     .then(res => res.blob())
-      //     .then(blob => (console.log(URL.createObjectURL(blob))));
-        
-      // }
-      // onClickSave(canvas);
-
-      console.log('modalProperties2', localModalProperties.modalProperties);
-      localModalProperties.setModalProperties((prev) => {
-        return {
-          ...prev,
-          type: "setGalleryImageData",
-          cut: false
-        }
-      })
+      onClickSave();
     }
 
 
