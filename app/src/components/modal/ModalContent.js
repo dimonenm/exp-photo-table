@@ -81,10 +81,13 @@ const ModalContent = () => {
     };
     const changeDateOMPHandler = () => {
       const str = document.querySelector('.dateOMP');
+      const date = new Date(str.value)
+      
       localModalProperties.setphotoTableData((prev) => {
         return ({
           ...prev,
-          dateOMP: str.value
+          dateOMP: str.value,
+          dateForDoc: `${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}.${(date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}`
         })
       })
     };

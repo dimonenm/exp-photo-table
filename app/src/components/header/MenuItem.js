@@ -147,10 +147,23 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
           alignment: AlignmentType.CENTER,
           children: [
             new TextRun({
-              text: `к протоколу осмотра места происшествия от ${dateOMP} по факту ${factOMP} по адресу: ${adressOMP}.`,
+              text: ` `,
               font: "Times New Roman",
               size: 24,
-              break: 2,
+              break: 1,
+            })
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.JUSTIFIED,
+          indent: { firstLine: 1000},
+          children: [
+            new TextRun({
+              text: `к протоколу осмотра места происшествия от ${photoTableData.dateForDoc} по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}.`,
+              font: "Times New Roman",
+              size: 24,
             })
           ]
         }
@@ -159,14 +172,14 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
     let blob = await fetch(galleryImages[0].urlImg).then(r => r.blob())
 
-    let img = new Image();
-    img.onload = function () {
-      let width = this.width;
-      console.log('width: ', width);
-      let hight = this.height;
-      console.log('hight: ', hight);
-    }
-    img.src = galleryImages[0].urlImg;
+    // let img = new Image();
+    // img.onload = function () {
+    //   let width = this.width;
+    //   console.log('width: ', width);
+    //   let hight = this.height;
+    //   console.log('hight: ', hight);
+    // }
+    // img.src = galleryImages[0].urlImg;
 
 
     const secondPage = [
@@ -237,7 +250,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       ),
     ];
 
-    let section1 = {
+    const section1 = {
       properties: {
         page: {
           margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
@@ -315,11 +328,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     });
 
 
-    // Packer.toBlob(doc).then(blob => {
-    //   console.log(blob);
-    //   saveAs(blob, "example.docx");
-    //   console.log("Document created successfully");
-    // });
+    Packer.toBlob(doc).then(blob => {
+      console.log(blob);
+      saveAs(blob, "example.docx");
+      console.log("Document created successfully");
+    });
   }
 
   if (notActive) {

@@ -22,7 +22,8 @@ function App() {
   const [photoTableData, setphotoTableData] = useState({
     factOMP: null,
     adressOMP: null,
-    dateOMP: null
+    dateOMP: null,
+    dateForDoc: null
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
