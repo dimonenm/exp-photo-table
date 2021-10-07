@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
@@ -12,7 +12,44 @@ const ModalContent = () => {
     height: 525,
     zoom: 1
   });
+
   const [canvas, setCanvas] = useState();
+
+  function onClickSave() {
+
+    fetch(canvas.getImage().toDataURL())
+      .then(res => res.blob())
+      .then(blob => {
+        // console.log(URL.createObjectURL(blob));
+
+        const url = URL.createObjectURL(blob);
+
+        const tempGalleryImages = [...localModalProperties.galleryImages];
+        tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].urlImg = url;
+        localModalProperties.setGalleryImages(tempGalleryImages);
+        // console.log(localModalProperties.modalProperties.urlImg);
+        localModalProperties.setModalProperties((prev) => {
+          return {
+            ...prev,
+            urlImg: url
+          }
+        });
+      });
+
+    localModalProperties.setModalProperties((prev) => {
+      return {
+        ...prev,
+        type: "setGalleryImageData",
+        cut: false
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (localModalProperties.modalProperties.cut) {
+      onClickSave();
+    }
+  })
 
   if (localModalProperties.modalProperties.type === "preview") {
     return (
@@ -127,11 +164,19 @@ const ModalContent = () => {
       });
     }
     const orientationVerticalClickHandler = () => {
+      const tempGalleryImages = [...localModalProperties.galleryImages];
+      tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].orientation = 'vertical';
+      localModalProperties.setGalleryImages(tempGalleryImages);
+
       setEditorData((prev) => {
         return { ...prev, width: 393, height: 525 }
       });
     }
     const orientationHorizontalClickHandler = () => {
+      const tempGalleryImages = [...localModalProperties.galleryImages];
+      tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].orientation = 'horizontal';
+      localModalProperties.setGalleryImages(tempGalleryImages);
+
       setEditorData((prev) => {
         return { ...prev, width: 700, height: 525 }
       });
@@ -141,42 +186,6 @@ const ModalContent = () => {
       setCanvas(editor);
       // canvas = editor;
     };
-
-    async function onClickSave() {
-      await fetch(canvas.getImage().toDataURL())
-        .then(res => res.blob())
-        .then(blob => (console.log(URL.createObjectURL(blob))));
-    }
-
-    // const onClickSave = async (canvas) => {
-
-    //   await fetch(canvas.getImage().toDataURL())
-    //     .then(res => res.blob())
-    //     .then(blob => (console.log(URL.createObjectURL(blob))));
-
-    //   localModalProperties.setModalProperties((prev) => {
-    //     return {
-    //       ...prev,
-    //       type: "setGalleryImageData",
-    //       cut: false
-    //     }
-    //   })
-    // }
-
-
-
-
-    // if (canvas) {
-    //   fetch(canvas.getImage().toDataURL())
-    //     .then(res => res.blob())
-    //     .then(blob => (console.log(URL.createObjectURL(blob))));
-    // }
-
-    if (localModalProperties.modalProperties.cut) {
-      onClickSave();
-    }
-
-
 
     return (
       <div className="modal-content-data">

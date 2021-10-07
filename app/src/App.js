@@ -28,7 +28,8 @@ function App() {
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
     nameImg: null,
     urlImg: null,
-    textImg: null
+    textImg: null,
+    orientation: null
   });
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
@@ -107,7 +108,6 @@ function App() {
         <Menu>
           <MenuItem
             type={'forInputFile'}
-            inputFile={true}
             setDownloadedImages={setDownloadedImages}
           >
             Загрузить фотографии
@@ -116,6 +116,7 @@ function App() {
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
           <MenuItem
             type={'forConvertToMicrosoftWord'}
+            photoTableData={photoTableData}
             galleryImages={galleryImages}
           >
             Конвертировать в Microsoft Word</MenuItem>

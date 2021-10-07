@@ -4,7 +4,7 @@ import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, Pa
 import { saveAs } from "file-saver";
 import "./MenuItem.css";
 
-const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, galleryImages }) => {
+const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -45,11 +45,7 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
   }
 
   function forCutPhoto(event) {
-    event.preventDefault()
-
-    const tempGalleryImages = [...localModalProperties.galleryImages];
-    console.log('forCutPhoto: ', tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery]);
-    console.log('localModalProperties: ', localModalProperties);
+    event.preventDefault();
 
     localModalProperties.setModalProperties(() => {
       return {
@@ -61,6 +57,9 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
 
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
+
+    console.log('photoTableData: ', photoTableData);
+    console.log('galleryImages: ', galleryImages);
 
     let factOMP = 'обнаружение трупа неизвестного мужчины';
     let adressOMP = 'г. Москва, ул. Большая Черемушкинская, д. 73';
@@ -158,6 +157,86 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
       ),
     ];
 
+    let blob = await fetch(galleryImages[0].urlImg).then(r => r.blob())
+
+    let img = new Image();
+    img.onload = function () {
+      let width = this.width;
+      console.log('width: ', width);
+      let hight = this.height;
+      console.log('hight: ', hight);
+    }
+    img.src = galleryImages[0].urlImg;
+
+
+    const secondPage = [
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              font: "Times New Roman",
+              size: 24,
+              break: 1,
+            }),
+            new ImageRun({
+              data: blob,
+              transformation: {
+                width: 340,
+                height: 454,
+              },
+
+            }),
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          // alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: `Фото №1. `,
+              font: "Times New Roman",
+              size: 26,
+              bold: true,
+            }),
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              font: "Times New Roman",
+              size: 24,
+              break: 1,
+            }),
+            new ImageRun({
+              data: blob,
+              transformation: {
+                width: 454,
+                height: 340,
+              }
+            }),
+          ]
+        }
+      ),
+      new Paragraph(
+        {
+          // alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              text: `Фото №2. `,
+              font: "Times New Roman",
+              size: 26,
+              bold: true,
+            }),
+          ]
+        }
+      ),
+    ];
+
     let section1 = {
       properties: {
         page: {
@@ -184,87 +263,6 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
       },
       children: firstPage,
     };
-
-    let blob = await fetch(galleryImages[0].urlImg).then(r => r.blob())
-
-    let img = new Image();
-    img.onload = function () {
-      let width = this.width;
-      console.log('width: ', width);
-      let hight = this.height;
-      console.log('hight: ', hight);
-    }
-    img.src = galleryImages[0].urlImg;
-    
-
-    const secondPage =
-      [
-        new Paragraph(
-          {
-            alignment: AlignmentType.CENTER,
-            children: [
-              new TextRun({
-                font: "Times New Roman",
-                size: 24,
-                break: 1,
-              }),
-              new ImageRun({
-                data: blob,
-                transformation: {
-                  width: 340,
-                  height: 454,
-                },
-                
-              }),
-            ]
-          }
-        ),
-        new Paragraph(
-          {
-            // alignment: AlignmentType.CENTER,
-            children: [
-              new TextRun({
-                text: `Фото №1. `,
-                font: "Times New Roman",
-                size: 26,
-                bold: true,
-              }),
-            ]
-          }
-        ),
-        new Paragraph(
-          {
-            alignment: AlignmentType.CENTER,
-            children: [
-              new TextRun({
-                font: "Times New Roman",
-                size: 24,
-                break: 1,
-              }),
-              new ImageRun({
-                data: blob,
-                transformation: {
-                  width: 454,
-                  height: 340,
-                }
-              }),
-            ]
-          }
-        ),
-        new Paragraph(
-          {
-            // alignment: AlignmentType.CENTER,
-            children: [
-              new TextRun({
-                text: `Фото №2. `,
-                font: "Times New Roman",
-                size: 26,
-                bold: true,
-              }),
-            ]
-          }
-        ),
-      ];
 
     const section2 = {
       properties: {
@@ -317,11 +315,11 @@ const MenuItem = ({ children, type, notActive, inputFile, setDownloadedImages, g
     });
 
 
-    Packer.toBlob(doc).then(blob => {
-      console.log(blob);
-      saveAs(blob, "example.docx");
-      console.log("Document created successfully");
-    });
+    // Packer.toBlob(doc).then(blob => {
+    //   console.log(blob);
+    //   saveAs(blob, "example.docx");
+    //   console.log("Document created successfully");
+    // });
   }
 
   if (notActive) {
