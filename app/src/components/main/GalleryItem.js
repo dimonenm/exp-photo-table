@@ -26,21 +26,18 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
 
   const dragEndHandler = (event) => {
     if (galleryImages.length === 0) {
-      // event.target.classList.remove('gallery-item-hold', 'gallery-item-hide');
       event.target.classList.remove('gallery-item-hide');
     }
-    // if (galleryImages.length > 0) {
-    //   galleryImages.forEach(item => {
-    //     if (name === item.nameImg) {
-    //       event.target.classList.add('gallery-item-hide')
-    //       event.target.classList.remove('gallery-item-hold');
-    //       event.target.setAttribute('draggable', false);
-    //     }
-    //     else {
-    //       event.target.classList.remove('gallery-item-hold', 'gallery-item-hide');
-    //     }
-    //   })
-    // }
+
+    let isFindedInGalleryImages = galleryImages.find(item => {
+      if (name === item.nameImg) return true;
+      return false;
+    })
+
+    if (!isFindedInGalleryImages) {
+      event.target.classList.remove('gallery-item-hide');
+    }
+
     setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
   }
   

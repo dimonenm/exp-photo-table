@@ -58,278 +58,496 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
 
-    console.log('photoTableData: ', photoTableData);
-    console.log('galleryImages: ', galleryImages);
+    const sectionsArr = [];
 
-    let factOMP = 'обнаружение трупа неизвестного мужчины';
-    let adressOMP = 'г. Москва, ул. Большая Черемушкинская, д. 73';
-    let dateOMP = '23.06.2016';
-    let officialStatus = 'специалист';
-    let officialName = 'А.А. Андреев';
+    if (galleryImages.length && photoTableData.dateForDoc && photoTableData.factOMP && photoTableData.adressOMP) {
+      let frontSide = false;
+      let officialStatus = 'специалист';
+      let officialName = 'А.А. Андреев';
+      let note = 'Примечание: для изготовления фототаблицы исползовались цифровая фотокамера "CANON 470" серийный номер № 6636356966, с объективом "CANON ZOOM LENS 3,4, 6.3-21.6 mm 1:3.0-5.8", фотовспышка "CANON", карта памяти "Kingston 8 Gb" серийный номер № 1473277457, ПЭВМ, принтер "Panasonic KX MB 1500".';
 
-    const firstPage = [
-      new Paragraph(
+      //Титульная страница
+      sectionsArr.push(
         {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              text: "МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ",
-              bold: true,
-              font: "Times New Roman",
-              size: 28,
+          properties: {
+            page: {
+              margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
+            }
+          },
+          footers: {
+            default: new Footer({
+              children: [
+                new Paragraph(
+                  {
+                    alignment: AlignmentType.CENTER,
+                    children: [
+                      new TextRun({
+                        text: `${officialStatus} _______________ ${officialName}`,
+                        font: "Times New Roman",
+                        size: 24,
+                      })
+                    ]
+                  }
+                ),
+              ],
             })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
+          },
           children: [
-            new TextRun({
-              text: "ПО РЕСПУБЛИКЕ КРЫМ",
-              bold: true,
-              font: "Times New Roman",
-              size: 28,
-            })
-          ]
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: "МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ",
+                    bold: true,
+                    font: "Times New Roman",
+                    size: 28,
+                  })
+                ]
+              }
+            ),
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: "ПО РЕСПУБЛИКЕ КРЫМ",
+                    bold: true,
+                    font: "Times New Roman",
+                    size: 28,
+                  })
+                ]
+              }
+            ),
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: "ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР",
+                    bold: true,
+                    font: "Times New Roman",
+                    size: 28,
+                  })
+                ]
+              }
+            ),
+            new Paragraph(
+              {
+                alignment: AlignmentType.JUSTIFIED,
+                thematicBreak: true,
+                children: [
+                  new TextRun({
+                    text: "295048, г. Симферополь, ул. Балаклавская, д. 68",
+                    bold: false,
+                    font: "Times New Roman",
+                    size: 24,
+                    break: 2,
+                  }),
+                  new TextRun({
+                    text: "                                   тел. (3652) 66-74-34",
+                    bold: false,
+                    font: "Times New Roman",
+                    size: 24,
+                  })
+                ]
+              }
+            ),
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: "ФОТОТАБЛИЦА",
+                    bold: true,
+                    font: "Times New Roman",
+                    size: 36,
+                    break: 2,
+                  })
+                ]
+              }
+            ),
+            new Paragraph(
+              {
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    font: "Times New Roman",
+                    size: 24,
+                    break: 1,
+                  })
+                ]
+              }
+            ),
+            new Paragraph(
+              {
+                alignment: AlignmentType.JUSTIFIED,
+                indent: { firstLine: 721 },
+                children: [
+                  new TextRun({
+                    text: `к протоколу осмотра места происшествия от ${photoTableData.dateForDoc} по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}.`,
+                    font: "Times New Roman",
+                    size: 24,
+                  })
+                ]
+              }
+            ),
+          ],
         }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              text: "ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР",
-              bold: true,
-              font: "Times New Roman",
-              size: 28,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.JUSTIFIED,
-          thematicBreak: true,
-          children: [
-            new TextRun({
-              text: "295048, г. Симферополь, ул. Балаклавская, д. 68",
-              bold: false,
-              font: "Times New Roman",
-              size: 24,
-              break: 2,
-            }),
-            new TextRun({
-              text: "                                   тел. (3652) 66-74-34",
-              bold: false,
-              font: "Times New Roman",
-              size: 24,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              text: "ФОТОТАБЛИЦА",
-              bold: true,
-              font: "Times New Roman",
-              size: 36,
-              break: 2,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              text: ` `,
-              font: "Times New Roman",
-              size: 24,
-              break: 1,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.JUSTIFIED,
-          indent: { firstLine: 1000},
-          children: [
-            new TextRun({
-              text: `к протоколу осмотра места происшествия от ${photoTableData.dateForDoc} по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}.`,
-              font: "Times New Roman",
-              size: 24,
-            })
-          ]
-        }
-      ),
-    ];
+      );
 
-    let blob = await fetch(galleryImages[0].urlImg).then(r => r.blob())
+      //Страницы с фотографиями
+      for (let i = 0; i < (galleryImages.length / 2); i++) {
+        if (!frontSide) {
+          const tempParagraphArr = [];
 
-    // let img = new Image();
-    // img.onload = function () {
-    //   let width = this.width;
-    //   console.log('width: ', width);
-    //   let hight = this.height;
-    //   console.log('hight: ', hight);
-    // }
-    // img.src = galleryImages[0].urlImg;
+          if (i === 0) {
+            for (let j = i; j < 2; j++) {
+              let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
+              tempParagraphArr.push(
+                new Paragraph(
+                  {
+                    alignment: AlignmentType.CENTER,
+                    children: [
+                      new TextRun({
+                        font: "Times New Roman",
+                        size: 24,
+                        break: 1,
+                      }),
+                      new ImageRun({
+                        data: blob,
+                        transformation: galleryImages[j].orientation === 'vertical' ? {
+                          width: 340,
+                          height: 454,
+                        } : {
+                          width: 454,
+                          height: 340,
+                        },
 
+                      }),
+                    ]
+                  }
+                ),
+                new Paragraph(
+                  {
+                    indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
+                    children: [
+                      new TextRun({
+                        text: `Фото №${j + 1}. `,
+                        font: "Times New Roman",
+                        size: 26,
+                        bold: true,
+                      }),
+                      new TextRun({
+                        text: galleryImages[j].textImg,
+                        font: "Times New Roman",
+                        size: 26,
+                      }),
+                    ]
+                  }
+                ),
+              )
+            }
+          }
+          if (i > 0) {
+            for (let j = i + i; j < (i + i + 2); j++) {
+              let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
+              tempParagraphArr.push(
+                new Paragraph(
+                  {
+                    alignment: AlignmentType.CENTER,
+                    children: [
+                      new TextRun({
+                        font: "Times New Roman",
+                        size: 24,
+                        break: 1,
+                      }),
+                      new ImageRun({
+                        data: blob,
+                        transformation: galleryImages[j].orientation === 'vertical' ? {
+                          width: 340,
+                          height: 454,
+                        } : {
+                          width: 454,
+                          height: 340,
+                        },
 
-    const secondPage = [
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              font: "Times New Roman",
-              size: 24,
-              break: 1,
-            }),
-            new ImageRun({
-              data: blob,
-              transformation: {
-                width: 340,
-                height: 454,
+                      }),
+                    ]
+                  }
+                ),
+                new Paragraph(
+                  {
+                    indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
+                    children: [
+                      new TextRun({
+                        text: `Фото №${j + 1}. `,
+                        font: "Times New Roman",
+                        size: 26,
+                        bold: true,
+                      }),
+                      new TextRun({
+                        text: galleryImages[j].textImg,
+                        font: "Times New Roman",
+                        size: 26,
+                      }),
+                    ]
+                  }
+                ),
+              )
+            }
+          }
+
+          sectionsArr.push(
+            {
+              properties: {
+                page: {
+                  margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
+                }
               },
+              headers: {
+                default: new Header({
+                  children: [
+                    new Paragraph(
+                      {
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                          new TextRun({
+                            children: [PageNumber.CURRENT],
+                            font: "Times New Roman",
+                            size: 24,
+                          })
+                        ]
+                      }
+                    ),
+                  ],
+                }),
+              },
+              footers: {
+                default: new Footer({
+                  children: [
+                    new Paragraph(
+                      {
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                          new TextRun({
+                            text: `${officialStatus} _______________ ${officialName}`,
+                            font: "Times New Roman",
+                            size: 24,
+                          })
+                        ]
+                      }
+                    ),
+                  ],
+                })
+              },
+              children: tempParagraphArr,
+            }
+          );
 
-            }),
-          ]
+          frontSide = !frontSide;
+          continue;
         }
-      ),
-      new Paragraph(
-        {
-          // alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              text: `Фото №1. `,
-              font: "Times New Roman",
-              size: 26,
-              bold: true,
-            }),
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              font: "Times New Roman",
-              size: 24,
-              break: 1,
-            }),
-            new ImageRun({
-              data: blob,
-              transformation: {
-                width: 454,
-                height: 340,
-              }
-            }),
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          // alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              text: `Фото №2. `,
-              font: "Times New Roman",
-              size: 26,
-              bold: true,
-            }),
-          ]
-        }
-      ),
-    ];
 
-    const section1 = {
-      properties: {
-        page: {
-          margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
-        }
-      },
-      footers: {
-        default: new Footer({
-          children: [
-            new Paragraph(
-              {
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({
-                    text: `${officialStatus} _______________ ${officialName}`,
-                    font: "Times New Roman",
-                    size: 24,
-                  })
-                ]
-              }
-            ),
-          ],
-        })
-      },
-      children: firstPage,
-    };
+        if (frontSide) {
+          const tempParagraphArr = [];
 
-    const section2 = {
-      properties: {
-        page: {
-          margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
+          if (i > 0) {
+            for (let j = i + i; j < (i + i + 2); j++) {
+              let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
+              tempParagraphArr.push(
+                new Paragraph(
+                  {
+                    alignment: AlignmentType.CENTER,
+                    children: [
+                      new TextRun({
+                        font: "Times New Roman",
+                        size: 24,
+                        break: 1,
+                      }),
+                      new ImageRun({
+                        data: blob,
+                        transformation: galleryImages[j].orientation === 'vertical' ? {
+                          width: 340,
+                          height: 454,
+                        } : {
+                          width: 454,
+                          height: 340,
+                        },
+
+                      }),
+                    ]
+                  }
+                ),
+                new Paragraph(
+                  {
+                    indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
+                    children: [
+                      new TextRun({
+                        text: `Фото №${j + 1}. `,
+                        font: "Times New Roman",
+                        size: 26,
+                        bold: true,
+                      }),
+                      new TextRun({
+                        text: galleryImages[j].textImg,
+                        font: "Times New Roman",
+                        size: 26,
+                      }),
+                    ]
+                  }
+                ),
+              )
+            }
+          }
+
+          sectionsArr.push(
+            {
+              properties: {
+                page: {
+                  margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
+                }
+              },
+              headers: {
+                default: new Header({
+                  children: [
+                    new Paragraph(
+                      {
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                          new TextRun({
+                            children: [PageNumber.CURRENT],
+                            font: "Times New Roman",
+                            size: 24,
+                          })
+                        ]
+                      }
+                    ),
+                  ],
+                }),
+              },
+              footers: {
+                default: new Footer({
+                  children: [
+                    new Paragraph(
+                      {
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                          new TextRun({
+                            text: `${officialStatus} _______________ ${officialName}`,
+                            font: "Times New Roman",
+                            size: 24,
+                          })
+                        ]
+                      }
+                    ),
+                  ],
+                })
+              },
+              children: tempParagraphArr,
+            }
+          );
+
+          frontSide = !frontSide;
+          continue;
         }
-      },
-      headers: {
-        default: new Header({
-          children: [
-            new Paragraph(
-              {
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({
-                    children: [PageNumber.CURRENT],
-                    font: "Times New Roman",
-                    size: 24,
-                  })
-                ]
+      }
+
+      //Примечание
+      if (frontSide) {
+        sectionsArr.push(
+          {
+            properties: {
+              page: {
+                margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
               }
-            ),
-          ],
-        }),
-      },
-      footers: {
-        default: new Footer({
-          children: [
-            new Paragraph(
-              {
-                alignment: AlignmentType.CENTER,
+            },
+            footers: {
+              default: new Footer({
                 children: [
-                  new TextRun({
-                    text: `${officialStatus} _______________ ${officialName}`,
-                    font: "Times New Roman",
-                    size: 24,
-                  })
-                ]
+                  new Paragraph(
+                    {
+                      alignment: AlignmentType.CENTER,
+                      children: [
+                        new TextRun({
+                          text: `${officialStatus} _______________ ${officialName}`,
+                          font: "Times New Roman",
+                          size: 24,
+                        })
+                      ]
+                    }
+                  ),
+                ],
+              })
+            },
+            children: [
+              new Paragraph(
+                {
+                  alignment: AlignmentType.JUSTIFIED,
+                  children: [
+                    new TextRun({
+                      text: note,
+                      font: "Times New Roman",
+                      size: 26,
+                    })
+                  ]
+                }
+              )
+            ],
+          }
+        );        
+      } else {
+        sectionsArr.push(
+          {
+            properties: {
+              page: {
+                margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
               }
-            ),
-          ],
-        })
-      },
-      children: secondPage,
-    };
+            },
+            footers: {
+              default: new Footer({
+                children: [
+                  new Paragraph(
+                    {
+                      alignment: AlignmentType.CENTER,
+                      children: [
+                        new TextRun({
+                          text: `${officialStatus} _______________ ${officialName}`,
+                          font: "Times New Roman",
+                          size: 24,
+                        })
+                      ]
+                    }
+                  ),
+                ],
+              })
+            },
+            children: [
+              new Paragraph(
+                {
+                  alignment: AlignmentType.JUSTIFIED,
+                  children: [
+                    new TextRun({
+                      text: note,
+                      font: "Times New Roman",
+                      size: 26,
+                    })
+                  ]
+                }
+              )
+            ],
+          }
+        );
+      }
+    }
 
     const doc = new Document({
       title: "My Document",
-      sections: [section1, section2]
+      sections: sectionsArr
     });
 
 
     Packer.toBlob(doc).then(blob => {
-      console.log(blob);
       saveAs(blob, "example.docx");
       console.log("Document created successfully");
     });
@@ -366,6 +584,15 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   return (
     <div className="menu-item"><a href="/" >{children}</a></div>
   );
+
+    // let img = new Image();
+    // img.onload = function () {
+    //   let width = this.width;
+    //   console.log('width: ', width);
+    //   let hight = this.height;
+    //   console.log('hight: ', hight);
+    // }
+    // img.src = galleryImages[0].urlImg;
 }
 
 export default MenuItem;
