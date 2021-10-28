@@ -61,6 +61,15 @@ const ModalContent = () => {
 
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
 
+    const changeNumbOMPHandler = () => {
+      const str = document.querySelector('.numbOMP');
+      localModalProperties.setphotoTableData((prev) => {
+        return ({
+          ...prev,
+          numbOMP: str.value
+        })
+      })
+    };
     const changeFactOMPHandler = () => {
       const str = document.querySelector('.factOMP');
       localModalProperties.setphotoTableData((prev) => {
@@ -82,7 +91,7 @@ const ModalContent = () => {
     const changeDateOMPHandler = () => {
       const str = document.querySelector('.dateOMP');
       const date = new Date(str.value)
-      
+
       localModalProperties.setphotoTableData((prev) => {
         return ({
           ...prev,
@@ -91,41 +100,128 @@ const ModalContent = () => {
         })
       })
     };
+    const changeUnitHandler = () => {
+      const str = document.querySelector('.unit');
+      localModalProperties.setphotoTableData((prev) => {
+        return ({
+          ...prev,
+          unit: str.value
+        })
+      })
+    };
+    const changeKuspHandler = () => {
+      const str = document.querySelector('.kusp');
+      localModalProperties.setphotoTableData((prev) => {
+        return ({
+          ...prev,
+          kusp: str.value
+        })
+      })
+    };
+    const changeExecutorHandler = () => {
+      const str = document.querySelector('.executor');
+      localModalProperties.setphotoTableData((prev) => {
+        return ({
+          ...prev,
+          executor: str.value
+        })
+      })
+    };
 
     return (
       <div className="modal-content-data">
-        <div className="modal-content-title">ОМП по факту:</div>
-        <textarea
-          className="factOMP"
-          onChange={changeFactOMPHandler}
-          rows={3}
-          placeholder="Укажите факт проведения ОМП..."
-          value={
-            localModalProperties.photoTableData.factOMP ?
-              localModalProperties.photoTableData.factOMP :
-              ''}
-        />
-        <div className="modal-content-title">Адрес проведения ОМП:</div>
-        <textarea
-          className="adressOMP"
-          onChange={changeAdressOMPHandler}
-          rows={3}
-          placeholder="Укажите адрес проведения ОМП..."
-          value={
-            localModalProperties.photoTableData.adressOMP ?
-              localModalProperties.photoTableData.adressOMP :
-              ''}
-        />
-        <div className="modal-content-title">Дата:</div>
-        <input
-          type="date"
-          className="dateOMP"
-          onChange={changeDateOMPHandler}
-          value={
-            localModalProperties.photoTableData.dateOMP ?
-              localModalProperties.photoTableData.dateOMP :
-              ''}
-        ></input>
+        <div className="modal-content-data-row">
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">№ по журналу ОМП</div>
+            <input
+              type="number"
+              className="numbOMP"
+              onChange={changeNumbOMPHandler}
+              value={localModalProperties.photoTableData.numbOMP ?
+                localModalProperties.photoTableData.numbOMP :
+                ''}
+            ></input>
+          </div>
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">Факт проведения ОМП:</div>
+            <textarea
+              className="factOMP"
+              onChange={changeFactOMPHandler}
+              rows={3}
+              placeholder="Укажите факт проведения ОМП..."
+              value={
+                localModalProperties.photoTableData.factOMP ?
+                  localModalProperties.photoTableData.factOMP :
+                  ''}
+            />
+          </div>
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">Адрес проведения ОМП:</div>
+            <textarea
+              className="adressOMP"
+              onChange={changeAdressOMPHandler}
+              rows={3}
+              placeholder="Укажите адрес проведения ОМП..."
+              value={
+                localModalProperties.photoTableData.adressOMP ?
+                  localModalProperties.photoTableData.adressOMP :
+                  ''}
+            />
+          </div>
+        </div>
+        <div className="modal-content-data-row">
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">Дата фототаблицы:</div>
+            <input
+              type="date"
+              className="dateOMP"
+              onChange={changeDateOMPHandler}
+              value={
+                localModalProperties.photoTableData.dateOMP ?
+                  localModalProperties.photoTableData.dateOMP :
+                  ''}
+            ></input>
+          </div>
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">Отделение</div>
+            <input
+              type="text"
+              className="unit"
+              onChange={changeUnitHandler}
+              value="Симферопольский"
+            ></input>
+          </div>
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">КУСП</div>
+            <input
+              type="number"
+              className="kusp"
+              onChange={changeKuspHandler}
+              value={
+                localModalProperties.photoTableData.kusp ?
+                  localModalProperties.photoTableData.kusp :
+                  ''}
+            ></input>
+          </div>
+        </div>
+        <div className="modal-content-data-row">
+          <div className="modal-content-data-cell">
+            <div className="modal-content-title">Исполнитель</div>
+            <select
+              className="executor"
+              onChange={changeExecutorHandler}
+              value={
+                localModalProperties.photoTableData.executor ?
+                  localModalProperties.photoTableData.executor :
+                  ''}
+            >
+              <option>Ежель Д.С.</option>
+              <option>Атнагулов Д.Б.</option>
+              <option>Горбенко А.В.</option>
+              <option>Дубовой С.В.</option>
+            </select>
+          </div>
+        </div>
       </div>
     );
   }

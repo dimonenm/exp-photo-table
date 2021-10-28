@@ -20,10 +20,14 @@ function App() {
 
   const [downloadedImages, setDownloadedImages] = useState();
   const [photoTableData, setphotoTableData] = useState({
+    numbOMP: null,
     factOMP: null,
     adressOMP: null,
     dateOMP: null,
-    dateForDoc: null
+    dateForDoc: null,
+    unit: null,
+    kusp: null,
+    executor: "Ежель Д.С."
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({

@@ -29,7 +29,7 @@ const ModalContainer = () => {
 
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
     return (
-      <div className="modal-container" >
+      <div className="modal-container set-photo-table-data" >
         <ModalHeader name={'Данные фототаблицы'} />
         <ModalContent />
       </div>

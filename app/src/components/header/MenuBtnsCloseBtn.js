@@ -21,9 +21,14 @@ const MenuBtnsCloseBtn = () => {
       });
       localModalProperties.setphotoTableData(() => {
         return {
+          numbOMP: null,
           factOMP: null,
           adressOMP: null,
-          dateOMP: null
+          dateOMP: null,
+          dateForDoc: null,
+          unit: null,
+          kusp: null,
+          executor: "Ежель Д.С."
         }
       });
     }
