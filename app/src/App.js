@@ -25,9 +25,9 @@ function App() {
     adressOMP: null,
     dateOMP: null,
     dateForDoc: null,
-    unit: null,
+    unit: "№15 Симферопольский",
     kusp: null,
-    executor: "Ежель Д.С."
+    executor: "Д.С. Ежель"
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({

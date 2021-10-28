@@ -60,11 +60,19 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
     const sectionsArr = [];
 
-    if (galleryImages.length && photoTableData.dateForDoc && photoTableData.factOMP && photoTableData.adressOMP) {
+    if (
+      galleryImages.length &&
+      photoTableData.numbOMP &&
+      photoTableData.factOMP &&
+      photoTableData.adressOMP &&
+      photoTableData.dateForDoc &&
+      photoTableData.unit &&
+      photoTableData.kusp
+    ) {
       let frontSide = false;
       let officialStatus = 'специалист';
-      let officialName = 'А.А. Андреев';
-      let note = 'Примечание: для изготовления фототаблицы исползовались цифровая фотокамера "CANON 470" серийный номер № 6636356966, с объективом "CANON ZOOM LENS 3,4, 6.3-21.6 mm 1:3.0-5.8", фотовспышка "CANON", карта памяти "Kingston 8 Gb" серийный номер № 1473277457, ПЭВМ, принтер "Panasonic KX MB 1500".';
+      let officialName = photoTableData.executor;
+      let note = 'Примечание: для изготовления фототаблицы исползовались цифровая фотокамера CANON Power Shot SX540 HS со встроенной фотовспышкой, карта памяти ADATA 4 GB, ПЭВМ, МФУ Canon MF421dw.';
 
       //Титульная страница
       sectionsArr.push(
@@ -138,7 +146,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
                 thematicBreak: true,
                 children: [
                   new TextRun({
-                    text: "295048, г. Симферополь, ул. Балаклавская, д. 68",
+                    text: "295006, г. Симферополь, ул. Павленко, 1а",
                     bold: false,
                     font: "Times New Roman",
                     size: 24,
@@ -542,13 +550,15 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     }
 
     const doc = new Document({
-      title: "My Document",
+      title: `${photoTableData.numbOMP} - ${photoTableData.unit} - КУСП №${photoTableData.kusp} - ${photoTableData.executor}`,
       sections: sectionsArr
     });
 
 
+
+
     Packer.toBlob(doc).then(blob => {
-      saveAs(blob, "example.docx");
+      saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
       console.log("Document created successfully");
     });
   }

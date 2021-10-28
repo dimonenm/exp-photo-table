@@ -188,13 +188,16 @@ const ModalContent = () => {
               type="text"
               className="unit"
               onChange={changeUnitHandler}
-              value="Симферопольский"
+              value={
+                localModalProperties.photoTableData.unit ?
+                  localModalProperties.photoTableData.unit :
+                  ''}
             ></input>
           </div>
           <div className="modal-content-data-cell">
             <div className="modal-content-title">КУСП</div>
             <input
-              type="number"
+              type="text"
               className="kusp"
               onChange={changeKuspHandler}
               value={
@@ -215,10 +218,10 @@ const ModalContent = () => {
                   localModalProperties.photoTableData.executor :
                   ''}
             >
-              <option>Ежель Д.С.</option>
-              <option>Атнагулов Д.Б.</option>
-              <option>Горбенко А.В.</option>
-              <option>Дубовой С.В.</option>
+              <option>Д.С. Ежель</option>
+              <option>Д.Б. Атнагулов</option>
+              <option>А.В. Горбенко</option>
+              <option>С.В. Дубовой</option>
             </select>
           </div>
         </div>

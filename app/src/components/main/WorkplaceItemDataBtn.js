@@ -20,10 +20,9 @@ const WorkplaceItemDataBtn = ({ photoTableData, setModalProperties }) => {
     photoTableData.factOMP !== null ||
     photoTableData.adressOMP !== null ||
     photoTableData.dateOMP !== null ||
-    photoTableData.unit !== null ||
+    photoTableData.unit !== "№15 Симферопольский" ||
     photoTableData.kusp !== null ||
-    photoTableData.executor !== "Ежель Д.С.") {
-    console.log(photoTableData);
+    photoTableData.executor !== "Д.С. Ежель") {
     return <div
       className="workplace-data-btn"
       onClick={clickHandler}
