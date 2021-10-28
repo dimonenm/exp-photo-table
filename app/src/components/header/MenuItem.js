@@ -72,7 +72,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       let frontSide = false;
       let officialStatus = 'специалист';
       let officialName = photoTableData.executor;
-      let note = 'Примечание: для изготовления фототаблицы исползовались цифровая фотокамера CANON Power Shot SX540 HS со встроенной фотовспышкой, карта памяти ADATA 4 GB, ПЭВМ, МФУ Canon MF421dw.';
+      let note = 'Примечание: для изготовления фототаблицы использовались цифровая фотокамера CANON Power Shot SX540 HS со встроенной фотовспышкой, карта памяти ADATA 4 GB, ПЭВМ, МФУ Canon MF421dw.';
 
       //Титульная страница
       sectionsArr.push(
