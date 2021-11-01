@@ -1,0 +1,19 @@
+{
+  "name": "exp-photo-table-node-express-server",
+  "version": "0.0.1",
+  "description": "server for exp-photo-table",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
