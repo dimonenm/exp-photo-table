@@ -205,7 +205,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       );
 
       //Страницы с фотографиями
-      for (let i = 0; i < (galleryImages.length / 2); i++) {
+      for (let i = 0; i < Math.round(galleryImages.length / 2); i++) {
         if (!frontSide) {
           const tempParagraphArr = [];
 
@@ -362,50 +362,52 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
           if (i > 0) {
             for (let j = i + i; j < (i + i + 2); j++) {
-              let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
-              tempParagraphArr.push(
-                new Paragraph(
-                  {
-                    alignment: AlignmentType.CENTER,
-                    children: [
-                      new TextRun({
-                        font: "Times New Roman",
-                        size: 24,
-                        break: 1,
-                      }),
-                      new ImageRun({
-                        data: blob,
-                        transformation: galleryImages[j].orientation === 'vertical' ? {
-                          width: 340,
-                          height: 454,
-                        } : {
-                          width: 454,
-                          height: 340,
-                        },
-
-                      }),
-                    ]
-                  }
-                ),
-                new Paragraph(
-                  {
-                    indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
-                    children: [
-                      new TextRun({
-                        text: `Фото №${j + 1}. `,
-                        font: "Times New Roman",
-                        size: 26,
-                        bold: true,
-                      }),
-                      new TextRun({
-                        text: galleryImages[j].textImg,
-                        font: "Times New Roman",
-                        size: 26,
-                      }),
-                    ]
-                  }
-                ),
-              )
+              if (galleryImages[j]?.urlImg) {
+                let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
+                tempParagraphArr.push(
+                  new Paragraph(
+                    {
+                      alignment: AlignmentType.CENTER,
+                      children: [
+                        new TextRun({
+                          font: "Times New Roman",
+                          size: 24,
+                          break: 1,
+                        }),
+                        new ImageRun({
+                          data: blob,
+                          transformation: galleryImages[j].orientation === 'vertical' ? {
+                            width: 340,
+                            height: 454,
+                          } : {
+                            width: 454,
+                            height: 340,
+                          },
+  
+                        }),
+                      ]
+                    }
+                  ),
+                  new Paragraph(
+                    {
+                      indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
+                      children: [
+                        new TextRun({
+                          text: `Фото №${j + 1}. `,
+                          font: "Times New Roman",
+                          size: 26,
+                          bold: true,
+                        }),
+                        new TextRun({
+                          text: galleryImages[j].textImg,
+                          font: "Times New Roman",
+                          size: 26,
+                        }),
+                      ]
+                    }
+                  ),
+                )                
+              }
             }
           }
 
