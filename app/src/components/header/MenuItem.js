@@ -259,50 +259,52 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
           }
           if (i > 0) {
             for (let j = i + i; j < (i + i + 2); j++) {
-              let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
-              tempParagraphArr.push(
-                new Paragraph(
-                  {
-                    alignment: AlignmentType.CENTER,
-                    children: [
-                      new TextRun({
-                        font: "Times New Roman",
-                        size: 24,
-                        break: 1,
-                      }),
-                      new ImageRun({
-                        data: blob,
-                        transformation: galleryImages[j].orientation === 'vertical' ? {
-                          width: 340,
-                          height: 454,
-                        } : {
-                          width: 454,
-                          height: 340,
-                        },
+              if (galleryImages[j]?.urlImg) {
+                let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
+                tempParagraphArr.push(
+                  new Paragraph(
+                    {
+                      alignment: AlignmentType.CENTER,
+                      children: [
+                        new TextRun({
+                          font: "Times New Roman",
+                          size: 24,
+                          break: 1,
+                        }),
+                        new ImageRun({
+                          data: blob,
+                          transformation: galleryImages[j].orientation === 'vertical' ? {
+                            width: 340,
+                            height: 454,
+                          } : {
+                            width: 454,
+                            height: 340,
+                          },
 
-                      }),
-                    ]
-                  }
-                ),
-                new Paragraph(
-                  {
-                    indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
-                    children: [
-                      new TextRun({
-                        text: `Фото №${j + 1}. `,
-                        font: "Times New Roman",
-                        size: 26,
-                        bold: true,
-                      }),
-                      new TextRun({
-                        text: galleryImages[j].textImg,
-                        font: "Times New Roman",
-                        size: 26,
-                      }),
-                    ]
-                  }
-                ),
-              )
+                        }),
+                      ]
+                    }
+                  ),
+                  new Paragraph(
+                    {
+                      indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
+                      children: [
+                        new TextRun({
+                          text: `Фото №${j + 1}. `,
+                          font: "Times New Roman",
+                          size: 26,
+                          bold: true,
+                        }),
+                        new TextRun({
+                          text: galleryImages[j].textImg,
+                          font: "Times New Roman",
+                          size: 26,
+                        }),
+                      ]
+                    }
+                  ),
+                )
+              }
             }
           }
 
@@ -383,7 +385,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
                             width: 454,
                             height: 340,
                           },
-  
+
                         }),
                       ]
                     }
@@ -406,7 +408,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
                       ]
                     }
                   ),
-                )                
+                )
               }
             }
           }
@@ -505,7 +507,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
               )
             ],
           }
-        );        
+        );
       } else {
         sectionsArr.push(
           {
@@ -597,14 +599,14 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     <div className="menu-item"><a href="/" >{children}</a></div>
   );
 
-    // let img = new Image();
-    // img.onload = function () {
-    //   let width = this.width;
-    //   console.log('width: ', width);
-    //   let hight = this.height;
-    //   console.log('hight: ', hight);
-    // }
-    // img.src = galleryImages[0].urlImg;
+  // let img = new Image();
+  // img.onload = function () {
+  //   let width = this.width;
+  //   console.log('width: ', width);
+  //   let hight = this.height;
+  //   console.log('hight: ', hight);
+  // }
+  // img.src = galleryImages[0].urlImg;
 }
 
 export default MenuItem;
