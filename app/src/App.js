@@ -10,9 +10,10 @@ import WorkplaceItem from './components/main/WorkplaceItem';
 import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
-import GalleryItem from './components/main/GalleryItem';
 import Modal from './containers/Modal';
 import './App.css';
+
+import addDownloadedImagesToArrforGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 
 export const modalDataContext = createContext();
 
@@ -51,40 +52,8 @@ function App() {
 
 
   if (downloadedImages) {
-    arrDownloadedImages = [];
-    
-    downloadedImages.forEach(item => {
-      let isHasInGalleryImages = false;
-      if (galleryImages.length) {
-        galleryImages.forEach(img => {
-          if (item.name === img.nameImg) {
-            isHasInGalleryImages = true;
-          }
-        })
-      }
-
-      if (isHasInGalleryImages) {
-        arrDownloadedImages.push(<GalleryItem
-          key={item.name}
-          name={item.name}
-          url={item.url}
-          hiden={true}
-          setModalProperties={setModalProperties}
-          setCurrentGalleryImage={setCurrentGalleryImage}
-          galleryImages={galleryImages}
-        />);
-      } else {
-        arrDownloadedImages.push(<GalleryItem
-          key={item.name}
-          name={item.name}
-          url={item.url}
-          hiden={false}
-          setModalProperties={setModalProperties}
-          setCurrentGalleryImage={setCurrentGalleryImage}
-          galleryImages={galleryImages}
-        />);
-      }
-    });
+    //Функция формирует массив с загруженными изображениями.
+    arrDownloadedImages = addDownloadedImagesToArrforGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
   };
 
   if (galleryImages) {
