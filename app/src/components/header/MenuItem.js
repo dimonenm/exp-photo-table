@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 import { saveAs } from "file-saver";
+import axios from "axios";
 import "./MenuItem.css";
 
 const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData }) => {
@@ -567,6 +568,18 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     });
   }
 
+  async function loadSettings(event) {
+    event.preventDefault();
+    const { data } = await axios.get('http://localhost:4000/app-get-settings');
+    console.log('message: ', data);
+  }
+  async function saveSettings(event) {
+    event.preventDefault();
+    const d = { note: "Примечание", executors: ["Д.С. Ежель"], unit: "№15 Симферопольский" };
+    const { data } = await axios.post('http://localhost:4000/app-set-settings', d);
+    console.log('message: ', data);
+  }
+
   if (notActive) {
     return (
       <div className="menu-item menu-not-active"><a href="/" onClick={(event) => { event.preventDefault() }}>{children}</a></div>
@@ -580,6 +593,17 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       </div>
     );
   }
+  if (type === 'forConvertToMicrosoftWord') {
+    return (
+      <div className="menu-item" onClick={convertToMicrosoftWord}><a href="/" >{children}</a></div>
+    );
+  }
+  if (type === 'forSettings') {
+    return (
+      <div className="menu-item" onClick={saveSettings}><a href="/" >{children}</a></div>
+    );
+  }
+
   if (type === 'forDelImgFromPhotoTable') {
     return (
       <div className="menu-item" onClick={delImgFromPhotoTable}><a href="/" >{children}</a></div>
@@ -590,23 +614,10 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       <div className="menu-item" onClick={forCutPhoto}><a href="/" >{children}</a></div>
     );
   }
-  if (type === 'forConvertToMicrosoftWord') {
-    return (
-      <div className="menu-item" onClick={convertToMicrosoftWord}><a href="/" >{children}</a></div>
-    );
-  }
+
   return (
     <div className="menu-item"><a href="/" >{children}</a></div>
   );
-
-  // let img = new Image();
-  // img.onload = function () {
-  //   let width = this.width;
-  //   console.log('width: ', width);
-  //   let hight = this.height;
-  //   console.log('hight: ', hight);
-  // }
-  // img.src = galleryImages[0].urlImg;
 }
 
 export default MenuItem;

@@ -6,14 +6,14 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Main from './containers/Main';
 import Workplace from './components/main/Workplace';
-import WorkplaceItem from './components/main/WorkplaceItem';
 import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
 import './App.css';
 
-import addDownloadedImagesToArrforGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
+import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
+import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 
 export const modalDataContext = createContext();
 
@@ -29,6 +29,11 @@ function App() {
     unit: "№15 Симферопольский",
     kusp: null,
     executor: "Д.С. Ежель"
+  });
+  const [settings, setSettings] = useState({
+    note: null,
+    executors: [],
+    unit: null
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
@@ -50,25 +55,14 @@ function App() {
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
 
-
   if (downloadedImages) {
     //Функция формирует массив с загруженными изображениями.
-    arrDownloadedImages = addDownloadedImagesToArrforGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
+    arrDownloadedImages = addDownloadedImagesToArrForGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
   };
 
   if (galleryImages) {
-    let key = 0;
-    galleryImages.forEach((item, index) => {
-      arrGalleryImages.unshift(<WorkplaceItem
-        key={key}
-        index={index}
-        name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-        img={item.urlImg}
-        text={item.textImg}
-        setModalProperties={setModalProperties}
-      />);
-      key++;
-    });
+    //Функция формирует массив с выбранными изображениями для фототаблицы.
+    arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, arrGalleryImages, setModalProperties);
   };
 
   return (
@@ -92,9 +86,12 @@ function App() {
             type={'forConvertToMicrosoftWord'}
             photoTableData={photoTableData}
             galleryImages={galleryImages}
-          >
-            Конвертировать в Microsoft Word</MenuItem>
-          <MenuItem notActive={true}>Настройки</MenuItem>
+          >Конвертировать в Microsoft Word</MenuItem>
+          <MenuItem
+            type={'forSettings'}
+            settings={settings}
+            setSettings={setSettings}
+          >Настройки</MenuItem>
         </Menu>
       </Header>
       <Main>
