@@ -577,7 +577,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     event.preventDefault();
     const d = { note: "Примечание", executors: ["Д.С. Ежель"], unit: "№15 Симферопольский" };
     const { data } = await axios.post('http://localhost:4000/app-set-settings', d);
-    console.log('message: ', data);
+    // console.log('message: ', data);
   }
 
   if (notActive) {
