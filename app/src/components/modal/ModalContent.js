@@ -59,6 +59,14 @@ const ModalContent = () => {
     );
   }
 
+  if (localModalProperties.modalProperties.type === "setSettings") {
+    return (
+      <div className="modal-content">
+        
+      </div>
+    );
+  }
+
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
 
     const changeNumbOMPHandler = () => {

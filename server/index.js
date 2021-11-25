@@ -32,15 +32,13 @@ app.post('/app-set-settings', (req, res) => {
   if (!req.body) return res.send('error no data');
 
   const data = JSON.stringify(req.body);
-  res.send('запись файла завершена');
-  console.log(data);
+  res.send('Сохранение прошло успешно');
+  // console.log(data);
 
   fs.writeFile('./db/appSettings2.json', data, (err) => {
     if (err) throw error; // если возникла ошибка
-    console.log("Асинхронная запись файла завершена. Содержимое файла:");
+    console.log("Сохранение файла на диск прошло успешно");
   });
 })
-
-
 
 app.listen(PORT, () => { console.log(`Server port ${PORT} ...`); })

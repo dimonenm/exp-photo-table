@@ -53,6 +53,15 @@ const ModalContainer = () => {
       </div>
     );
   }
+
+  if (localModalProperties.modalProperties.type === "setSettings") {
+    return (
+      <div className="modal-container" >
+        <ModalHeader name={'Настройки'} />
+        <ModalContent />
+      </div>
+    );
+  }
 }
 
 export default ModalContainer;

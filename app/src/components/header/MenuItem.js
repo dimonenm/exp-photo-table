@@ -5,7 +5,7 @@ import { saveAs } from "file-saver";
 import axios from "axios";
 import "./MenuItem.css";
 
-const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData }) => {
+const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -568,6 +568,17 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     });
   }
 
+  function forSetSettingsModal(event) {
+    event.preventDefault();
+
+    setModalProperties(() => {
+      return {
+        ...modalProperties,
+        isOpen: true,
+        type: 'setSettings'
+      }
+    });
+  }
   async function loadSettings(event) {
     event.preventDefault();
     const { data } = await axios.get('http://localhost:4000/app-get-settings');
@@ -600,7 +611,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   if (type === 'forSettings') {
     return (
-      <div className="menu-item" onClick={saveSettings}><a href="/" >{children}</a></div>
+      <div className="menu-item" onClick={forSetSettingsModal}><a href="/" >{children}</a></div>
     );
   }
 

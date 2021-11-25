@@ -68,7 +68,7 @@ function App() {
   return (
     <Container>
       <modalDataContext.Provider
-        value={{ modalProperties, setModalProperties, galleryImages, setGalleryImages, photoTableData, setphotoTableData }}>
+        value={{ modalProperties, setModalProperties, galleryImages, setGalleryImages, photoTableData, setphotoTableData, settings, setSettings }}>
         <Modal />
       </modalDataContext.Provider>
       <Header>
@@ -89,8 +89,8 @@ function App() {
           >Конвертировать в Microsoft Word</MenuItem>
           <MenuItem
             type={'forSettings'}
-            settings={settings}
-            setSettings={setSettings}
+            modalProperties={modalProperties}
+            setModalProperties={setModalProperties}
           >Настройки</MenuItem>
         </Menu>
       </Header>

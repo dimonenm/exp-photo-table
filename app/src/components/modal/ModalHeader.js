@@ -64,6 +64,17 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
+  if (localModalProperties.modalProperties.type === "setSettings") {
+    return (
+      <div className="modal-header">
+        <Logo>{name}</Logo>
+        <MenuBtns>
+          <MenuBtnsCheckBtn />
+          <MenuBtnsCloseBtn />
+        </MenuBtns>
+      </div>
+    );
+  }
 
 }
 
