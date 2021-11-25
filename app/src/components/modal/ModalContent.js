@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
+import './ModalContentGrid.css'
 
 const ModalContent = () => {
 
@@ -61,8 +62,19 @@ const ModalContent = () => {
 
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
-      <div className="modal-content">
-        
+      <div className="modal-content-grid">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
       </div>
     );
   }

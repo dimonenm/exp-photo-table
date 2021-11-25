@@ -1,0 +1,18 @@
+.modal-content-grid {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto auto;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+
+    box-sizing: border-box;
+
+    max-height: 710px; */
+
+    font-family: "Roboto";
+    color: #fff;
+
+    /* padding: 20px 0; */
+}
