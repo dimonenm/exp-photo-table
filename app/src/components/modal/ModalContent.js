@@ -63,7 +63,10 @@ const ModalContent = () => {
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
       <div className="modal-content-grid">
-        <div>1</div>
+        <div className="modal-content-grid-settings-container">
+          <div className="modal-content-grid-settings-title">modal-content-grid-settings-title</div>
+          <div className="modal-content-grid-settings-textarea">modal-content-grid-settings-textarea</div>
+        </div>
         <div>2</div>
         <div>3</div>
         <div>4</div>
@@ -72,9 +75,6 @@ const ModalContent = () => {
         <div>7</div>
         <div>8</div>
         <div>9</div>
-        <div>10</div>
-        <div>11</div>
-        <div>12</div>
       </div>
     );
   }
