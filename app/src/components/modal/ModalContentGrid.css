@@ -1,7 +1,7 @@
 .modal-content-grid {
     display: grid;
-    /* grid-template-rows: auto auto auto; */
-    grid-template-columns: auto auto auto auto;
+    grid-template-rows: repeat(3, 200px);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 
     height: 100%;
 
@@ -16,16 +16,36 @@
 }
 .modal-content-grid-settings-container {
     display: grid;
-    grid-template: 50px auto / 1fr;
+    grid-template-rows: 50px 150px;
 
     grid-row-start: 1;
     grid-row-end: 2;
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-column-end: 3;
 
     background-color: aqua;
 }
 .modal-content-grid-settings-title {
+    display: grid;
+    align-items: center;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 24px;
+    text-align: center;
 }
 .modal-content-grid-settings-textarea {
+    display: grid;
+
+    padding: 10px;
+}
+.modal-content-grid-settings-textarea textarea {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 24px;
+    text-align: center;
+    line-height: 1;
+
+    border: 1px solid #000;
+    border-radius: 0;
+    outline: none;
+    resize: none;
 }

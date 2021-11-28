@@ -64,8 +64,10 @@ const ModalContent = () => {
     return (
       <div className="modal-content-grid">
         <div className="modal-content-grid-settings-container">
-          <div className="modal-content-grid-settings-title">modal-content-grid-settings-title</div>
-          <div className="modal-content-grid-settings-textarea">modal-content-grid-settings-textarea</div>
+          <div className="modal-content-grid-settings-title">Примечание</div>
+          <div className="modal-content-grid-settings-textarea">
+            <textarea></textarea>
+          </div>
         </div>
         <div>2</div>
         <div>3</div>
