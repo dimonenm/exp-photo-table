@@ -63,20 +63,25 @@ const ModalContent = () => {
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
       <div className="modal-content-grid">
-        <div className="modal-content-grid-settings-container">
+        <div className="modal-content-grid-settings-container modal-content-grid-settings-note">
           <div className="modal-content-grid-settings-title">Примечание</div>
           <div className="modal-content-grid-settings-textarea">
             <textarea></textarea>
           </div>
         </div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
+        <div className="modal-content-grid-settings-container modal-content-grid-settings-employee">
+          <div className="modal-content-grid-settings-title">ФИО нового сотрудника</div>
+          <div className="modal-content-grid-settings-input">
+            <input type="text"></input>
+            <div className="plus-btn"></div>
+          </div>
+        </div>
+        <div className="modal-content-grid-settings-container modal-content-grid-settings-unit">
+          <div className="modal-content-grid-settings-title">Отделение</div>
+          <div className="modal-content-grid-settings-input">
+            <input type="text"></input>
+          </div>
+        </div>
       </div>
     );
   }
