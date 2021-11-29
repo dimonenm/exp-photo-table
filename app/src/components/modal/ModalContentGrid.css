@@ -23,6 +23,15 @@
     grid-column-start: 3;
     grid-column-end: 5;
 }
+.modal-content-grid-settings-employee-list {
+    display: grid;
+    grid-template-rows: 50px;
+
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
 .modal-content-grid-settings-title {
     display: grid;
     align-items: center;
@@ -69,10 +78,19 @@
     border-radius: 0;
     outline: none;
 }
-.modal-content-grid-settings-employee .modal-content-grid-settings-input{
+.modal-content-grid-settings-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    align-content: start;
+
+    padding: 10px;
+}
+.modal-content-grid-settings-employee .modal-content-grid-settings-input {
     grid-template-columns: 1fr 52px;
 }
-.plus-btn{
+.plus-btn {
     height: 42px;
     width: 42px;
 
@@ -87,4 +105,3 @@
 .plus-btn:hover {
     background-color: rgba(250, 250, 250, 0.5);
 }
-

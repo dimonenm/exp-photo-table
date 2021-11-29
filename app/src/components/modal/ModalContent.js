@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
+import ModalContentEmployeeItem from './ModalContentEmployeeItem';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 import './ModalContentGrid.css'
@@ -80,6 +81,19 @@ const ModalContent = () => {
           <div className="modal-content-grid-settings-title">Отделение</div>
           <div className="modal-content-grid-settings-input">
             <input type="text"></input>
+          </div>
+        </div>
+        <div className="modal-content-grid-settings-employee-list">
+          <div className="modal-content-grid-settings-title">Список сотрудников</div>
+          <div className="modal-content-grid-settings-list">
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
+            <ModalContentEmployeeItem />
           </div>
         </div>
       </div>
