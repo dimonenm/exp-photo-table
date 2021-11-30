@@ -14,7 +14,6 @@ const ModalContent = () => {
     height: 525,
     zoom: 1
   });
-
   const [canvas, setCanvas] = useState();
 
   function onClickSave() {
@@ -29,7 +28,6 @@ const ModalContent = () => {
         const tempGalleryImages = [...localModalProperties.galleryImages];
         tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].urlImg = url;
         localModalProperties.setGalleryImages(tempGalleryImages);
-        // console.log(localModalProperties.modalProperties.urlImg);
         localModalProperties.setModalProperties((prev) => {
           return {
             ...prev,
@@ -62,12 +60,14 @@ const ModalContent = () => {
   }
 
   if (localModalProperties.modalProperties.type === "setSettings") {
+    const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) })}
+    const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) })}
     return (
       <div className="modal-content-grid">
         <div className="modal-content-grid-settings-container modal-content-grid-settings-note">
           <div className="modal-content-grid-settings-title">Примечание</div>
           <div className="modal-content-grid-settings-textarea">
-            <textarea></textarea>
+            <textarea onChange={changeNoteHandler}></textarea>
           </div>
         </div>
         <div className="modal-content-grid-settings-container modal-content-grid-settings-employee">
@@ -80,14 +80,14 @@ const ModalContent = () => {
         <div className="modal-content-grid-settings-container modal-content-grid-settings-unit">
           <div className="modal-content-grid-settings-title">Отделение</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text"></input>
+            <input type="text" onChange={changeUnitHandler}></input>
           </div>
         </div>
         <div className="modal-content-grid-settings-employee-list">
           <div className="modal-content-grid-settings-title">Список сотрудников</div>
           <div className="modal-content-grid-settings-list">
-            {localModalProperties.settings.executors.map((item) => {
-              return (<ModalContentEmployeeItem name={item} />)
+            {localModalProperties.settings.executors.map((item, index) => {
+              return (<ModalContentEmployeeItem key={index} name={item} />)
             })}
           </div>
         </div>
@@ -322,7 +322,6 @@ const ModalContent = () => {
 
     const setEditorRef = (editor) => {
       setCanvas(editor);
-      // canvas = editor;
     };
 
     return (
