@@ -32,7 +32,7 @@ function App() {
   });
   const [settings, setSettings] = useState({
     note: null,
-    executors: [],
+    executors: ['Д.Н. Арзяков', 'И.С. Васильев', 'Р.Г. Максименко', 'Ю.Г. Веринкиотов'],
     unit: null
   });
   const [galleryImages, setGalleryImages] = useState([]);

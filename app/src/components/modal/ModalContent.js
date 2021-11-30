@@ -86,14 +86,9 @@ const ModalContent = () => {
         <div className="modal-content-grid-settings-employee-list">
           <div className="modal-content-grid-settings-title">Список сотрудников</div>
           <div className="modal-content-grid-settings-list">
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
-            <ModalContentEmployeeItem />
+            {localModalProperties.settings.executors.map((item) => {
+              return (<ModalContentEmployeeItem name={item} />)
+            })}
           </div>
         </div>
       </div>
