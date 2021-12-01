@@ -1,26 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.0d887d09.chunk.css",
-    "main.js": "/static/js/main.821b6b7d.chunk.js",
-    "main.js.map": "/static/js/main.821b6b7d.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ab4665c5.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ab4665c5.js.map",
-    "static/js/2.68e567fa.chunk.js": "/static/js/2.68e567fa.chunk.js",
-    "static/js/2.68e567fa.chunk.js.map": "/static/js/2.68e567fa.chunk.js.map",
-    "static/js/3.8a6be750.chunk.js": "/static/js/3.8a6be750.chunk.js",
-    "static/js/3.8a6be750.chunk.js.map": "/static/js/3.8a6be750.chunk.js.map",
+    "main.css": "/static/css/main.c7f136b8.chunk.css",
+    "main.js": "/static/js/main.8f61caf4.chunk.js",
+    "main.js.map": "/static/js/main.8f61caf4.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.d0734e40.js",
+    "runtime-main.js.map": "/static/js/runtime-main.d0734e40.js.map",
+    "static/js/2.b41cb94a.chunk.js": "/static/js/2.b41cb94a.chunk.js",
+    "static/js/2.b41cb94a.chunk.js.map": "/static/js/2.b41cb94a.chunk.js.map",
+    "static/js/3.82ca6d78.chunk.js": "/static/js/3.82ca6d78.chunk.js",
+    "static/js/3.82ca6d78.chunk.js.map": "/static/js/3.82ca6d78.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.0d887d09.chunk.css.map": "/static/css/main.0d887d09.chunk.css.map",
-    "static/js/2.68e567fa.chunk.js.LICENSE.txt": "/static/js/2.68e567fa.chunk.js.LICENSE.txt",
+    "static/css/main.c7f136b8.chunk.css.map": "/static/css/main.c7f136b8.chunk.css.map",
+    "static/js/2.b41cb94a.chunk.js.LICENSE.txt": "/static/js/2.b41cb94a.chunk.js.LICENSE.txt",
     "static/media/App.css": "/static/media/Roboto-Regular.a8d6ac03.ttf",
-    "static/media/MenuBtnsCheckBtn.css": "/static/media/check.f0421310.svg",
-    "static/media/MenuBtnsCloseBtn.css": "/static/media/close.96d225f3.svg",
-    "static/media/Workplace.css": "/static/media/plus-circle-dotted.2077d00b.svg"
+    "static/media/MenuBtnsCheckBtn.css": "/static/media/check.9ad7e2cc.svg",
+    "static/media/MenuBtnsCloseBtn.css": "/static/media/close.9497e96e.svg",
+    "static/media/Workplace.css": "/static/media/plus-circle-dotted.9dab3452.svg",
+    "static/media/ModalContentEmployeeItem.css": "/static/media/plus-cros.d8374c05.svg",
+    "static/media/ModalContentGrid.css": "/static/media/plus-square.1ed8de4e.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ab4665c5.js",
-    "static/js/2.68e567fa.chunk.js",
-    "static/css/main.0d887d09.chunk.css",
-    "static/js/main.821b6b7d.chunk.js"
+    "static/js/runtime-main.d0734e40.js",
+    "static/js/2.b41cb94a.chunk.js",
+    "static/css/main.c7f136b8.chunk.css",
+    "static/js/main.8f61caf4.chunk.js"
   ]
 }
