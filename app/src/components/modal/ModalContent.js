@@ -15,6 +15,7 @@ const ModalContent = () => {
     zoom: 1
   });
   const [canvas, setCanvas] = useState();
+  const [newEmployee, setNewEmployee] = useState('');
 
   function onClickSave() {
 
@@ -60,27 +61,36 @@ const ModalContent = () => {
   }
 
   if (localModalProperties.modalProperties.type === "setSettings") {
-    const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) })}
-    const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) })}
+    const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) }) }
+    const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
+    const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
+    const clickNewEmployeeHandler = () => {
+      localModalProperties.setSettings((prev) => {
+        const arrNewExecutors = localModalProperties.settings.executors;
+        arrNewExecutors.push(newEmployee);        
+        return ({ ...prev, executors: arrNewExecutors })
+      })
+      setNewEmployee('');
+    }
     return (
       <div className="modal-content-grid">
         <div className="modal-content-grid-settings-container modal-content-grid-settings-note">
           <div className="modal-content-grid-settings-title">Примечание</div>
           <div className="modal-content-grid-settings-textarea">
-            <textarea onChange={changeNoteHandler}></textarea>
+            <textarea onChange={changeNoteHandler} value={localModalProperties.settings.note}></textarea>
           </div>
         </div>
         <div className="modal-content-grid-settings-container modal-content-grid-settings-employee">
           <div className="modal-content-grid-settings-title">ФИО нового сотрудника</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text"></input>
-            <div className="plus-btn"></div>
+            <input type="text" onChange={changeNewEmployeeHandler} value={newEmployee}></input>
+            <div className="plus-btn" onClick={clickNewEmployeeHandler}></div>
           </div>
         </div>
         <div className="modal-content-grid-settings-container modal-content-grid-settings-unit">
           <div className="modal-content-grid-settings-title">Отделение</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text" onChange={changeUnitHandler}></input>
+            <input type="text" onChange={changeUnitHandler} value={localModalProperties.settings.unit}></input>
           </div>
         </div>
         <div className="modal-content-grid-settings-employee-list">

@@ -31,9 +31,9 @@ function App() {
     executor: "Д.С. Ежель"
   });
   const [settings, setSettings] = useState({
-    note: null,
+    note: '',
     executors: ['Д.Н. Арзяков', 'И.С. Васильев', 'Р.Г. Максименко', 'Ю.Г. Веринкиотов'],
-    unit: null
+    unit: "№15 Симферопольский"
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
