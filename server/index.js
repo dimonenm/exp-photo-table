@@ -4,6 +4,9 @@ import fs from 'fs';
 
 import path from "path";
 
+console.log(process.pid);
+console.log(process.env);
+
 // const express = require('express');
 // const cors = require('cors');
 
