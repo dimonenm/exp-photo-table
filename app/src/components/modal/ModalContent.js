@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
+import fSettings from '../../services/forModalContent/fSettings';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 import './ModalContentGrid.css'
@@ -65,12 +66,18 @@ const ModalContent = () => {
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
     const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
-      localModalProperties.setSettings((prev) => {
-        const arrNewExecutors = localModalProperties.settings.executors;
-        arrNewExecutors.push(newEmployee);        
-        return ({ ...prev, executors: arrNewExecutors })
-      })
-      setNewEmployee('');
+
+      if (newEmployee !== '' && fSettings.regexpCheckingComplianceInitialsSurname(newEmployee)) {
+        localModalProperties.setSettings((prev) => {
+          const arrNewExecutors = localModalProperties.settings.executors;
+          arrNewExecutors.push(newEmployee);
+          return ({ ...prev, executors: arrNewExecutors })
+        })
+        setNewEmployee('');
+      } else {
+        console.log('Сотрудник не добавлен');
+      }
+
     }
     return (
       <div className="modal-content-grid">
