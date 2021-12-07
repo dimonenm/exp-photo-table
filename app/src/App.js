@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import Container from './containers/Container';
 import Header from './containers/Header';
 import Logo from './components/header/Logo';
@@ -12,8 +12,10 @@ import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
 import './App.css';
 
+//импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
+import loadSettings from './services/forApp/fLoadSettings';
 
 export const modalDataContext = createContext();
 
@@ -51,6 +53,10 @@ function App() {
     indexImgInGallery: null,
     cut: false
   });
+
+  useEffect(() => {
+    loadSettings()
+  }, []);
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];

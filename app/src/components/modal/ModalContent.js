@@ -66,19 +66,27 @@ const ModalContent = () => {
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
     const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
-
       if (newEmployee !== '' && fSettings.regexpCheckingComplianceInitialsSurname(newEmployee)) {
+        
+        if (localModalProperties.settings.executors.find(item => item === newEmployee)) {
+          console.log('Сотрудник уже добавлен');
+          return;
+        }
+
         localModalProperties.setSettings((prev) => {
           const arrNewExecutors = localModalProperties.settings.executors;
           arrNewExecutors.push(newEmployee);
           return ({ ...prev, executors: arrNewExecutors })
         })
+
         setNewEmployee('');
       } else {
         console.log('Сотрудник не добавлен');
       }
-
     }
+
+    console.log('localModalProperties.settings ', localModalProperties.settings);
+
     return (
       <div className="modal-content-grid">
         <div className="modal-content-grid-settings-container modal-content-grid-settings-note">

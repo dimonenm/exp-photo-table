@@ -559,9 +559,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       sections: sectionsArr
     });
 
-
-
-
     Packer.toBlob(doc).then(blob => {
       saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
       console.log("Document created successfully");
