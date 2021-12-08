@@ -28,7 +28,7 @@ const MenuBtnsCloseBtn = () => {
           dateForDoc: null,
           unit: null,
           kusp: null,
-          executor: "Ежель Д.С."
+          executor: null
         }
       });
     }
@@ -52,6 +52,21 @@ const MenuBtnsCloseBtn = () => {
 
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "preview") {
+    clickHandler = () => {
+      localModalProperties.setModalProperties(() => {
+        return {
+          isOpen: false,
+          type: null,
+          nameImg: null,
+          urlImg: null,
+          textImg: null,
+          indexImgInGallery: null
+        }
+      });
+    }
+  }
+  if (localModalProperties.modalProperties.isOpen &&
+    localModalProperties.modalProperties.type === "setSettings") {
     clickHandler = () => {
       localModalProperties.setModalProperties(() => {
         return {

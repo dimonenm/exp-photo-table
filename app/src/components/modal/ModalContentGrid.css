@@ -57,6 +57,11 @@
     border-radius: 0;
     outline: none;
     resize: none;
+    overflow: auto;
+}
+.modal-content-grid-settings-textarea textarea::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 .modal-content-grid-settings-input {
     display: grid;

@@ -28,9 +28,9 @@ function App() {
     adressOMP: null,
     dateOMP: null,
     dateForDoc: null,
-    unit: "№15 Симферопольский",
+    unit: null,
     kusp: null,
-    executor: "Д.С. Ежель"
+    executor: null
   });
   const [settings, setSettings] = useState({
     note: '',
@@ -55,7 +55,9 @@ function App() {
   });
 
   useEffect(() => {
-    loadSettings()
+    loadSettings().then(data => {
+      setSettings(data);
+    });
   }, []);
 
   let arrDownloadedImages = [];

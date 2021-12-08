@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
+import saveSettings from '../../services/forModalHeader/fSaveSettings';
 import "./MenuBtnsCheckBtn.css";
 
 
@@ -29,11 +30,11 @@ const MenuBtnsCheckBtn = () => {
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "setGalleryImageData") {
     clickHandler = () => {
-      
+
       const tempGalleryImages = [...localModalProperties.galleryImages];
       tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].textImg = localModalProperties.modalProperties.textImg;
       localModalProperties.setGalleryImages(tempGalleryImages);
-      
+
       localModalProperties.setModalProperties(() => {
         return {
           isOpen: false,
@@ -55,7 +56,23 @@ const MenuBtnsCheckBtn = () => {
       });
     }
   }
-  
+  if (localModalProperties.modalProperties.isOpen &&
+    localModalProperties.modalProperties.type === "setSettings") {
+    clickHandler = () => {
+      saveSettings(localModalProperties.settings)
+      localModalProperties.setModalProperties(() => {
+        return {
+          isOpen: false,
+          type: null,
+          nameImg: null,
+          urlImg: null,
+          textImg: null,
+          indexImgInGallery: null
+        }
+      });
+    }
+  }
+
   return (<div className="check-btn" onClick={clickHandler}></div>)
 }
 

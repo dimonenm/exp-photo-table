@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 import { saveAs } from "file-saver";
-import axios from "axios";
 import "./MenuItem.css";
 
 const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties }) => {
@@ -575,17 +574,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
         type: 'setSettings'
       }
     });
-  }
-  async function loadSettings(event) {
-    event.preventDefault();
-    const { data } = await axios.get('http://localhost:4000/app-get-settings');
-    console.log('message: ', data);
-  }
-  async function saveSettings(event) {
-    event.preventDefault();
-    const d = { note: "Примечание", executors: ["Д.С. Ежель"], unit: "№15 Симферопольский" };
-    const { data } = await axios.post('http://localhost:4000/app-set-settings', d);
-    // console.log('message: ', data);
   }
 
   if (notActive) {

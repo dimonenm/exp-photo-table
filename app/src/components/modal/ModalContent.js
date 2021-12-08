@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
-import fSettings from '../../services/forModalContent/fSettings';
+import regexpCheckingComplianceInitialsSurname from '../../services/forModalContent/fRegexpCheckingComplianceInitialsSurname';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 import './ModalContentGrid.css'
@@ -23,8 +23,6 @@ const ModalContent = () => {
     fetch(canvas.getImage().toDataURL())
       .then(res => res.blob())
       .then(blob => {
-        // console.log(URL.createObjectURL(blob));
-
         const url = URL.createObjectURL(blob);
 
         const tempGalleryImages = [...localModalProperties.galleryImages];
@@ -66,7 +64,7 @@ const ModalContent = () => {
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
     const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
-      if (newEmployee !== '' && fSettings.regexpCheckingComplianceInitialsSurname(newEmployee)) {
+      if (newEmployee !== '' && regexpCheckingComplianceInitialsSurname(newEmployee)) {
         
         if (localModalProperties.settings.executors.find(item => item === newEmployee)) {
           console.log('Сотрудник уже добавлен');
@@ -84,8 +82,6 @@ const ModalContent = () => {
         console.log('Сотрудник не добавлен');
       }
     }
-
-    console.log('localModalProperties.settings ', localModalProperties.settings);
 
     return (
       <div className="modal-content-grid">
