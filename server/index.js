@@ -44,24 +44,22 @@ app.get('/app-get-settings', (req, res) => {
         if (err) {
             console.log(`Error reading file from disk: ${err}`);
         } else {
-            const settings = JSON.parse(data);
-            res.send(JSON.stringify(settings));
+            res.send(data);
         }
     });
 })
 
-// app.post('/app-set-settings', (req, res) => {
+app.post('/app-set-settings', (req, res) => {
 
-//   if (!req.body) return res.send('error no data');
+    if (!req.body) return res.send('error no data');
 
-//   const data = JSON.stringify(req.body);
-//   res.send('Сохранение прошло успешно');
-//   // console.log(data);
+    const data = JSON.stringify(req.body);
+    res.send('Сохранение прошло успешно');
 
-//   fs.writeFile('./db/appSettings2.json', data, (err) => {
-//     if (err) throw error; // если возникла ошибка
-//     console.log("Сохранение файла на диск прошло успешно");
-//   });
-// })
+    fs.writeFile('./db/appSettings.json', data, (err) => {
+        if (err) throw error; // если возникла ошибка
+        console.log("Сохранение файла на диск прошло успешно");
+    });
+})
 
 app.listen(PORT, () => { console.log(`Server port ${PORT} ...`); })
