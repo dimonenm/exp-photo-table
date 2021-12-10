@@ -60,6 +60,8 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
     const sectionsArr = [];
 
+    console.log(photoTableData);
+
     if (
       galleryImages.length &&
       photoTableData.numbOMP &&
@@ -551,17 +553,19 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
           }
         );
       }
+
+
+      const doc = new Document({
+        title: `${photoTableData.numbOMP} - ${photoTableData.unit} - КУСП №${photoTableData.kusp} - ${photoTableData.executor}`,
+        sections: sectionsArr
+      });
+
+      Packer.toBlob(doc).then(blob => {
+        saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
+        console.log("Document created successfully");
+      });
     }
 
-    const doc = new Document({
-      title: `${photoTableData.numbOMP} - ${photoTableData.unit} - КУСП №${photoTableData.kusp} - ${photoTableData.executor}`,
-      sections: sectionsArr
-    });
-
-    Packer.toBlob(doc).then(blob => {
-      saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
-      console.log("Document created successfully");
-    });
   }
 
   function forSetSettingsModal(event) {

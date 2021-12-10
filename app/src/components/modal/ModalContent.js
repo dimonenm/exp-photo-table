@@ -65,7 +65,7 @@ const ModalContent = () => {
     const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
       if (newEmployee !== '' && regexpCheckingComplianceInitialsSurname(newEmployee)) {
-        
+
         if (localModalProperties.settings.executors.find(item => item === newEmployee)) {
           console.log('Сотрудник уже добавлен');
           return;
@@ -248,7 +248,9 @@ const ModalContent = () => {
               value={
                 localModalProperties.photoTableData.unit ?
                   localModalProperties.photoTableData.unit :
-                  ''}
+                  localModalProperties.settings.unit ?
+                    localModalProperties.settings.unit :
+                    ''}
             ></input>
           </div>
           <div className="modal-content-data-cell">
@@ -270,19 +272,15 @@ const ModalContent = () => {
             <select
               className="executor"
               onChange={changeExecutorHandler}
-              value={
-                localModalProperties.photoTableData.executor ?
-                  localModalProperties.photoTableData.executor :
-                  ''}
             >
-              <option>Д.С. Ежель</option>
-              <option>Д.Б. Атнагулов</option>
-              <option>А.В. Горбенко</option>
-              <option>С.В. Дубовой</option>
+              {localModalProperties.settings.executors ?
+                localModalProperties.settings.executors.map((item, index) => { return (<option key={index} >{item}</option>) }) :
+                <option >Данные отсутствуют</option>
+              }
             </select>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 

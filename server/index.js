@@ -3,33 +3,6 @@ import cors from "cors";
 import fs from 'fs';
 import path from "path";
 
-import https from 'https';
-
-// https.get('https://www.listal.com/natalia-gryglewska/pictures', (resp) => {
-//   let data = '';
-
-//   // A chunk of data has been received.
-//   resp.on('data', (chunk) => {
-//     data += chunk;
-//     // console.log(data);
-//   });
-
-//   // The whole response has been received. Print out the result.
-//   resp.on('end', () => {
-//     fs.writeFile('./listal.html', data, (err) => {
-//       if (err) throw error; // если возникла ошибка
-//       console.log("Сохранение файла на диск прошло успешно");
-//     });
-//   });
-
-// }).on("error", (err) => {
-//   console.log("Error: " + err.message);
-// });
-
-// console.log(process.pid);
-// console.log(process.env);
-
-
 const __dirname = path.resolve();
 //const PORT = process.env.PORT ?? 4000;
 const PORT = 4000;

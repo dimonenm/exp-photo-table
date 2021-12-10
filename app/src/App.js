@@ -57,8 +57,10 @@ function App() {
   useEffect(() => {
     loadSettings().then(data => {
       setSettings(data);
+      setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit}})
     });
   }, []);
+
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
@@ -80,7 +82,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.1</Logo>
+        <Logo>ЭКЦ РК Фототаблица 0.0.2</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
