@@ -34,8 +34,8 @@ function App() {
   });
   const [settings, setSettings] = useState({
     note: '',
-    executors: ['Д.Н. Арзяков', 'И.С. Васильев', 'Р.Г. Максименко', 'Ю.Г. Веринкиотов'],
-    unit: "№15 Симферопольский"
+    executors: [],
+    unit: ''
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
