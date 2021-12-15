@@ -58,7 +58,6 @@ const ModalContent = () => {
       </div>
     );
   }
-
   if (localModalProperties.modalProperties.type === "setSettings") {
     const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) }) }
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
@@ -354,6 +353,7 @@ const ModalContent = () => {
           color={[255, 255, 255, 0.8]} // RGBA
           scale={editorData.zoom}
           rotate={0}
+          style={{backgroundColor: 'red'}}
         />
         <div className="modal-content-data-controls">
           <div className="modal-content-data-controls-orientation">
@@ -373,14 +373,22 @@ const ModalContent = () => {
               <input
                 type="range"
                 step="0.1"
-                min="1"
+                min="0.1"
                 max="2"
                 value={editorData.zoom}
                 onChange={inputChangeHandler}
               ></input>
             </div>
+              <div>{editorData.zoom}</div>
           </div>
         </div>
+      </div>
+    );
+  }
+  if (localModalProperties.modalProperties.type === "editPhoto") {
+    return (
+      <div className="modal-content-grid">
+        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
       </div>
     );
   }

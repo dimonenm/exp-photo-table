@@ -54,13 +54,21 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       }
     });
   }
+  function forEditPhoto(event) {
+    event.preventDefault();
+
+    localModalProperties.setModalProperties(() => {
+      return {
+        ...localModalProperties.modalProperties,
+        type: 'editPhoto'
+      }
+    });
+  }
 
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
 
     const sectionsArr = [];
-
-    console.log(photoTableData);
 
     if (
       galleryImages.length &&
@@ -213,7 +221,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
           if (i === 0) {
             for (let j = i; j < 2; j++) {
-              let blob = await fetch(galleryImages[j].urlImg).then(r => r.blob());
+              let blob = await fetch(galleryImages[j]?.urlImg).then(r => r.blob());
               tempParagraphArr.push(
                 new Paragraph(
                   {
@@ -226,21 +234,20 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
                       }),
                       new ImageRun({
                         data: blob,
-                        transformation: galleryImages[j].orientation === 'vertical' ? {
+                        transformation: galleryImages[j]?.orientation === 'vertical' ? {
                           width: 340,
                           height: 454,
                         } : {
                           width: 454,
                           height: 340,
                         },
-
                       }),
                     ]
                   }
                 ),
                 new Paragraph(
                   {
-                    indent: galleryImages[j].orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
+                    indent: galleryImages[j]?.orientation === 'vertical' ? { firstLine: 1988 } : { firstLine: 1136 },
                     children: [
                       new TextRun({
                         text: `Фото №${j + 1}. `,
@@ -249,7 +256,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
                         bold: true,
                       }),
                       new TextRun({
-                        text: galleryImages[j].textImg,
+                        text: galleryImages[j]?.textImg,
                         font: "Times New Roman",
                         size: 26,
                       }),
@@ -554,7 +561,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
         );
       }
 
-
       const doc = new Document({
         title: `${photoTableData.numbOMP} - ${photoTableData.unit} - КУСП №${photoTableData.kusp} - ${photoTableData.executor}`,
         sections: sectionsArr
@@ -603,7 +609,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       <div className="menu-item" onClick={forSetSettingsModal}><a href="/" >{children}</a></div>
     );
   }
-
   if (type === 'forDelImgFromPhotoTable') {
     return (
       <div className="menu-item" onClick={delImgFromPhotoTable}><a href="/" >{children}</a></div>
@@ -612,6 +617,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   if (type === 'forCutPhoto') {
     return (
       <div className="menu-item" onClick={forCutPhoto}><a href="/" >{children}</a></div>
+    );
+  }
+  if (type === 'forEditPhoto') {
+    return (
+      <div className="menu-item" onClick={forEditPhoto}><a href="/" >{children}</a></div>
     );
   }
 

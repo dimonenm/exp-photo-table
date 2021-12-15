@@ -48,12 +48,19 @@ const ModalContainer = () => {
   if (localModalProperties.modalProperties.type === "cutPhoto") {
     return (
       <div className="modal-container" >
+        <ModalHeader name={'Обрезка иллюстрации'} />
+        <ModalContent />
+      </div>
+    );
+  }
+  if (localModalProperties.modalProperties.type === "editPhoto") {
+    return (
+      <div className="modal-container" >
         <ModalHeader name={'Редактирование иллюстрации'} />
         <ModalContent />
       </div>
     );
   }
-
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
       <div className="modal-container" >
