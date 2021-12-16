@@ -349,11 +349,11 @@ const ModalContent = () => {
           image={localModalProperties.modalProperties.urlImg}
           width={editorData.width}
           height={editorData.height}
-          border={0}
-          color={[255, 255, 255, 0.8]} // RGBA
+          border={10}
+          color={[0, 0, 0, 0.8]} // RGBA
           scale={editorData.zoom}
           rotate={0}
-          style={{backgroundColor: 'red'}}
+          // style={{backgroundColor: 'red'}}
         />
         <div className="modal-content-data-controls">
           <div className="modal-content-data-controls-orientation">
