@@ -353,7 +353,7 @@ const ModalContent = () => {
           color={[0, 0, 0, 0.8]} // RGBA
           scale={editorData.zoom}
           rotate={0}
-          // style={{backgroundColor: 'red'}}
+        // style={{backgroundColor: 'red'}}
         />
         <div className="modal-content-data-controls">
           <div className="modal-content-data-controls-orientation">
@@ -379,16 +379,29 @@ const ModalContent = () => {
                 onChange={inputChangeHandler}
               ></input>
             </div>
-              <div>{editorData.zoom}</div>
+            <div>{editorData.zoom}</div>
           </div>
         </div>
       </div>
     );
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
+    const img = new Image(); 
+    img.src = localModalProperties.modalProperties.urlImg;
+    // console.log(img);
+
+    fetch(localModalProperties.modalProperties.urlImg)
+      .then((data) => {
+        return data.text();
+      })
+      .then((data) => {
+        // console.log(data);
+      })
+    
     return (
       <div className="modal-content-grid">
-        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
+        <canvas width={500} height={500}></canvas>
+        {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
       </div>
     );
   }
