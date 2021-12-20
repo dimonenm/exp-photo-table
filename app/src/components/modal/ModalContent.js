@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
 import regexpCheckingComplianceInitialsSurname from '../../services/forModalContent/fRegexpCheckingComplianceInitialsSurname';
+import Canvas from './ModalCanvas';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 import './ModalContentGrid.css'
@@ -349,7 +350,7 @@ const ModalContent = () => {
           image={localModalProperties.modalProperties.urlImg}
           width={editorData.width}
           height={editorData.height}
-          border={10}
+          border={0}
           color={[0, 0, 0, 0.8]} // RGBA
           scale={editorData.zoom}
           rotate={0}
@@ -386,7 +387,7 @@ const ModalContent = () => {
     );
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
-    const img = new Image(); 
+    const img = new Image();
     img.src = localModalProperties.modalProperties.urlImg;
     // console.log(img);
 
@@ -397,12 +398,9 @@ const ModalContent = () => {
       .then((data) => {
         // console.log(data);
       })
-    
+
     return (
-      <div className="modal-content-grid">
-        <canvas width={500} height={500}></canvas>
-        {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
-      </div>
+      <Canvas />
     );
   }
 
