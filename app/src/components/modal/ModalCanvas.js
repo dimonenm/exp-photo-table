@@ -28,6 +28,14 @@ const Canvas = () => {
     ctx.lineTo(700, 525);
     ctx.stroke();
   }
+  function arrowClickHandler(event) {
+    event.target.classList.toggle ('modal-content-grid-tools-right-arrow');
+    event.target.classList.toggle ('modal-content-grid-tools-right-arrow-active');
+  }
+  function handClickHandler(event) {
+    event.target.classList.toggle ('modal-content-grid-tools-right-hand');
+    event.target.classList.toggle ('modal-content-grid-tools-right-hand-active');
+  }
 
   useEffect(() => {
     setLocalCanvas(canvasRef.current.getContext('2d'));
@@ -38,8 +46,8 @@ const Canvas = () => {
       <div className='modal-content-grid-tools-left' onClick={() => clickHandler(localCanvas)}></div>
       <canvas ref={canvasRef} className='modal-content-grid-canvas' width={700} height={525}></canvas>
       <div className='modal-content-grid-tools-right' onClick={() => clickHandler2(localCanvas)}>
-        <div className='modal-content-grid-tools-right-hand'>1</div>
-        <div>2</div>
+        <div className='modal-content-grid-tools-right-hand' onClick={handClickHandler}></div>
+        <div className='modal-content-grid-tools-right-arrow' onClick={arrowClickHandler}></div>
         <div>3</div>
         <div>4</div>
         <div>5</div>

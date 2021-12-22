@@ -24,7 +24,7 @@
 .modal-content-grid-tools-right {
   display: grid;
 
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 40px 40px 40px;
   grid-template-rows: 40px 40px 1fr;
 
   grid-gap: 5px 5px;
@@ -32,10 +32,28 @@
   grid-column-start: 3;
   grid-column-end: 4;
 
+  margin: 5px;
+
   /* background: rgb(107, 109, 223); */
 }
 
 .modal-content-grid-tools-right-hand{
-  background-image: url('../../img/hand-paper-regular.svg');
+  background-image: url('../../img/handBtn.svg');
   background-repeat:no-repeat;
+  background-position: center center;
+}
+.modal-content-grid-tools-right-hand-active{
+  background-image: url('../../img/handBtnActive.svg');
+  background-repeat:no-repeat;
+  background-position: center center;
+}
+.modal-content-grid-tools-right-arrow{
+  background-image: url('../../img/arrow-down-left-square.svg');
+  background-repeat:no-repeat;
+  background-position: center center;
+}
+.modal-content-grid-tools-right-arrow-active{
+  background-image: url('../../img/arrow-down-left-square-active.svg');
+  background-repeat:no-repeat;
+  background-position: center center;
 }
