@@ -1,17 +1,13 @@
 .modal-content-grid-edit {
-      display: grid;
-    /* grid-template-rows: repeat(3, 200px); */
-    grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
-    height: 100%;
+  height: 100%;
 }
 .modal-content-grid-canvas {
   display: grid;
   grid-column-start: 2;
   grid-column-end: 3;
-
-  /* grid-row-start: 1;
-  grid-row-end: 3; */
 
   background: #ccc;
 }
@@ -27,11 +23,19 @@
 }
 .modal-content-grid-tools-right {
   display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px 40px 1fr;
+
+  grid-gap: 5px 5px;
+
   grid-column-start: 3;
   grid-column-end: 4;
 
-  /* grid-row-start: 1;
-  grid-row-end: 3; */
+  /* background: rgb(107, 109, 223); */
+}
 
-  background: rgb(107, 109, 223);
+.modal-content-grid-tools-right-hand{
+  background-image: url('../../img/hand-paper-regular.svg');
+  background-repeat:no-repeat;
 }
