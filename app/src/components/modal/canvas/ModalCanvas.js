@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { modalDataContext } from '../../../App';
 import './MadalCanvas.css'
 import Arrow from './tools/Arrow';
+import Hand from './tools/Hand';
+import HandFree from './tools/HandFree';
 
 const Canvas = () => {
   const [canvasState, setCanvasState] = useState()
@@ -26,17 +28,31 @@ const Canvas = () => {
     img.src = localModalProperties.modalProperties.urlImg;
   }
 
+  let hand;
   function handClickHandler(event) {
     event.target.classList.toggle ('modal-content-grid-tools-right-hand');
-    event.target.classList.toggle ('modal-content-grid-tools-right-hand-active');
+    event.target.classList.toggle('modal-content-grid-tools-right-hand-active');
+    if (event.target.classList.contains('modal-content-grid-tools-right-hand-active')) {
+      hand = new Hand(canvasRef.current);
+      console.log('hand1: ', hand);
+      // setToolState(hand);
+    } else {
+      // setToolState(null);
+      hand = new HandFree(canvasRef.current);
+      console.log('hand2: ', hand);
+    };
   }
   function arrowClickHandler(event) {
     event.target.classList.toggle('modal-content-grid-tools-right-arrow');
     event.target.classList.toggle('modal-content-grid-tools-right-arrow-active');
     if (event.target.classList.contains('modal-content-grid-tools-right-arrow-active')) {
-      setToolState(new Arrow(canvasRef.current));      
+      hand = new Arrow(canvasRef.current);
+      console.log('hand3: ', hand);
+      // setToolState(new Arrow(canvasRef.current));      
     } else {
-      setToolState(null);
+      // setToolState(null);
+      hand = new HandFree(canvasRef.current);
+      console.log('hand4: ', hand);
     };
   }
 
@@ -44,7 +60,7 @@ const Canvas = () => {
     setCanvasState(canvasRef.current);
     // setToolState(new Arrow(canvasRef.current));
   }, [])
-
+  
   return (
     <div className="modal-content-grid-edit">
       <div className='modal-content-grid-tools-left' onClick={() => clickHandler(canvasState)}></div>
