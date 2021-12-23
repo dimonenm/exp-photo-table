@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
 import regexpCheckingComplianceInitialsSurname from '../../services/forModalContent/fRegexpCheckingComplianceInitialsSurname';
-import Canvas from './ModalCanvas';
+import ModalCanvas from './canvas/ModalCanvas';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 import './ModalContentGrid.css'
@@ -400,7 +400,7 @@ const ModalContent = () => {
       })
 
     return (
-      <Canvas />
+      <ModalCanvas />
     );
   }
 

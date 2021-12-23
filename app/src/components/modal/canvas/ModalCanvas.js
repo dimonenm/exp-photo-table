@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { modalDataContext } from '../../App';
+import { modalDataContext } from '../../../App';
 import './MadalCanvas.css'
+import Arrow from './tools/Arrow';
 
 const Canvas = () => {
-  const [localCanvas, setLocalCanvas] = useState()
+  const [canvasState, setCanvasState] = useState()
+  const [toolState, setToolState] = useState()
   const canvasRef = useRef();
   const localModalProperties = useContext(modalDataContext);
 
-  function clickHandler(ctx) {
+  function clickHandler(canvas) {
+    const ctx = canvas.getContext('2d');
     const img = new Image();
     img.onload = function () {
       console.log('width', this.width);
@@ -22,30 +25,31 @@ const Canvas = () => {
     }
     img.src = localModalProperties.modalProperties.urlImg;
   }
-  function clickHandler2(ctx) {
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(700, 525);
-    ctx.stroke();
-  }
-  function arrowClickHandler(event) {
-    event.target.classList.toggle ('modal-content-grid-tools-right-arrow');
-    event.target.classList.toggle ('modal-content-grid-tools-right-arrow-active');
-  }
+
   function handClickHandler(event) {
     event.target.classList.toggle ('modal-content-grid-tools-right-hand');
     event.target.classList.toggle ('modal-content-grid-tools-right-hand-active');
   }
+  function arrowClickHandler(event) {
+    event.target.classList.toggle('modal-content-grid-tools-right-arrow');
+    event.target.classList.toggle('modal-content-grid-tools-right-arrow-active');
+    if (event.target.classList.contains('modal-content-grid-tools-right-arrow-active')) {
+      setToolState(new Arrow(canvasRef.current));      
+    } else {
+      setToolState(null);
+    };
+  }
 
   useEffect(() => {
-    setLocalCanvas(canvasRef.current.getContext('2d'));
+    setCanvasState(canvasRef.current);
+    // setToolState(new Arrow(canvasRef.current));
   }, [])
 
   return (
     <div className="modal-content-grid-edit">
-      <div className='modal-content-grid-tools-left' onClick={() => clickHandler(localCanvas)}></div>
+      <div className='modal-content-grid-tools-left' onClick={() => clickHandler(canvasState)}></div>
       <canvas ref={canvasRef} className='modal-content-grid-canvas' width={700} height={525}></canvas>
-      <div className='modal-content-grid-tools-right' onClick={() => clickHandler2(localCanvas)}>
+      <div className='modal-content-grid-tools-right' >
         <div className='modal-content-grid-tools-right-hand' onClick={handClickHandler}></div>
         <div className='modal-content-grid-tools-right-arrow' onClick={arrowClickHandler}></div>
         <div>3</div>

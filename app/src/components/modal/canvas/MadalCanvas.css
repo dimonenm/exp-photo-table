@@ -38,22 +38,22 @@
 }
 
 .modal-content-grid-tools-right-hand{
-  background-image: url('../../img/handBtn.svg');
+  background-image: url('../../../img/handBtn.svg');
   background-repeat:no-repeat;
   background-position: center center;
 }
 .modal-content-grid-tools-right-hand-active{
-  background-image: url('../../img/handBtnActive.svg');
+  background-image: url('../../../img/handBtnActive.svg');
   background-repeat:no-repeat;
   background-position: center center;
 }
 .modal-content-grid-tools-right-arrow{
-  background-image: url('../../img/arrow-down-left-square.svg');
+  background-image: url('../../../img/arrow-down-left-square.svg');
   background-repeat:no-repeat;
   background-position: center center;
 }
 .modal-content-grid-tools-right-arrow-active{
-  background-image: url('../../img/arrow-down-left-square-active.svg');
+  background-image: url('../../../img/arrow-down-left-square-active.svg');
   background-repeat:no-repeat;
   background-position: center center;
 }
