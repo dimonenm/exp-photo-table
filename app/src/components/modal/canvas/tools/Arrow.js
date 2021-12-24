@@ -18,19 +18,32 @@ export default class Arrow extends Tool {
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = 'blue';
-    this.ctx.moveTo(event.offsetX, event.offsetY);
+    // this.ctx.beginPath();
+    // this.ctx.strokeStyle = 'blue';
+    // this.ctx.moveTo(event.offsetX, event.offsetY);
 
+    this.startX = event.offsetX;
+    this.startY = event.offsetY;
+
+    this.saved = this.canvas.toDataURL();
   }
   mouseMoveHandler(event) {
     if (this.mouseDown) {
-      this.draw(event.offsetX, event.offsetY);
+      this.draw(this.startX, this.startY, event.offsetX, event.offsetY);
     }
   }
 
-  draw(x, y) {
-    this.ctx.lineTo(x, y);
-    this.ctx.stroke();
+  draw(x1, y1, x2, y2) {
+    const img = new Image();
+    img.src = this.saved;
+    img.onload = () => {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = '#ffffff';
+      this.ctx.moveTo(x1, y1);
+      this.ctx.lineTo(x2, y2);
+      this.ctx.stroke();
+    }
   }
 }
