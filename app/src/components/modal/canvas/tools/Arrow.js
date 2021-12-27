@@ -18,9 +18,6 @@ export default class Arrow extends Tool {
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
-    // this.ctx.beginPath();
-    // this.ctx.strokeStyle = 'blue';
-    // this.ctx.moveTo(event.offsetX, event.offsetY);
 
     this.startX = event.offsetX;
     this.startY = event.offsetY;

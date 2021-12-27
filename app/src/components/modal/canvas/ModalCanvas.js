@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { modalDataContext } from '../../../App';
 import './MadalCanvas.css'
 import Arrow from './tools/Arrow';
@@ -14,61 +14,60 @@ const Canvas = () => {
   const canvasRef = useRef();
   const localModalProperties = useContext(modalDataContext);
 
-  function clickHandler(canvas) {
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.onload = function () {
-      console.log('width', this.width);
-      console.log('height', this.height);
+  const loadImg = useCallback(
+    function (canvas) {
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.onload = function () {
+        console.log('width', this.width);
+        console.log('height', this.height);
 
-      const pr = 52500 / this.height;
-      const imgW = this.width / 100 * pr;
-      const imgH = this.height / 100 * pr;
+        const pr = 52500 / this.height;
+        const imgW = this.width / 100 * pr;
+        const imgH = this.height / 100 * pr;
 
+        ctx.drawImage(img, (700 - imgW) / 2, (525 - imgH) / 2, imgW, imgH)
+      }
+      img.src = localModalProperties.modalProperties.urlImg;
+    }, [localModalProperties.modalProperties.urlImg]
+  )
 
-      ctx.drawImage(img, (700 - imgW) / 2, (525 - imgH) / 2, imgW, imgH)
-    }
-    img.src = localModalProperties.modalProperties.urlImg;
-  }
-
-  let hand;
+  // let hand;
   function handClickHandler(event) {
-    // event.target.classList.toggle('modal-content-grid-tools-right-hand');
-    // event.target.classList.toggle('modal-content-grid-tools-right-hand-active');
-
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
-      setToolState((prev) => { return { ...prev, type: 'hand', tool: new Hand(canvasRef.current) } });
+      setToolState((prev) => { return { ...prev, type: 'hand', tool: new Hand(canvasRef.current, localModalProperties.modalProperties.urlImg) } });
     };
   }
   function arrowClickHandler(event) {
-    event.target.classList.toggle('modal-content-grid-tools-right-arrow');
-    event.target.classList.toggle('modal-content-grid-tools-right-arrow-active');
-    if (event.target.classList.contains('modal-content-grid-tools-right-arrow-active')) {
-      hand = new Arrow(canvasRef.current);
-      // setToolState(new Arrow(canvasRef.current));      
+    if (toolState.type === 'arrow') {
+      setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
-      // setToolState(null);
-      hand = new HandFree(canvasRef.current);
+      setToolState((prev) => { return { ...prev, type: 'arrow', tool: new Arrow(canvasRef.current) } });
     };
   }
 
   useEffect(() => {
+    loadImg(canvasRef.current);
     setCanvasState(canvasRef.current);
-    // setToolState(new Arrow(canvasRef.current));
-  }, [])
+  }, [loadImg]);
+
 
   return (
     <div className="modal-content-grid-edit">
-      <div className='modal-content-grid-tools-left' onClick={() => clickHandler(canvasState)}></div>
-      <canvas ref={canvasRef} className='modal-content-grid-canvas' width={700} height={525}></canvas>
-      <div className='modal-content-grid-tools-right' >
+      <div className='modal-content-grid-tools-left'>
         <div className={
           toolState.type === 'hand'
-            ? 'modal-content-grid-tools-right-hand-active'
-            : 'modal-content-grid-tools-right-hand'} onClick={handClickHandler}></div>
-        <div className='modal-content-grid-tools-right-arrow' onClick={arrowClickHandler}></div>
+            ? 'modal-content-grid-tools-left-hand-active'
+            : 'modal-content-grid-tools-left-hand'} onClick={handClickHandler}></div>
+        <div className={
+          toolState.type === 'arrow'
+            ? 'modal-content-grid-tools-left-arrow-active'
+            : 'modal-content-grid-tools-left-arrow'} onClick={arrowClickHandler}></div>
+      </div>
+      <canvas ref={canvasRef} className='modal-content-grid-canvas' width={700} height={525}></canvas>
+      <div className='modal-content-grid-tools-right' >
         <div>3</div>
         <div>4</div>
         <div>5</div>
