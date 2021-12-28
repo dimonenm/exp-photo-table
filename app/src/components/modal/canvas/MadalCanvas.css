@@ -9,6 +9,8 @@
   grid-column: 2 / 3;
 
   background: #ccc;
+
+  border: 1px solid #000;
 }
 .modal-content-grid-tools-left {
   display: grid;

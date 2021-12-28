@@ -8,11 +8,16 @@ export default class Arrow extends Tool {
   }
 
   listen() {
-    this.canvas.onmousemove = this.mouseMoveHandler.bind(this)
-    this.canvas.onmousedown = this.mouseDownHandler.bind(this)
-    this.canvas.onmouseup = this.mouseUpHandler.bind(this)
+    this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
+    this.canvas.onmousedown = this.mouseDownHandler.bind(this);
+    this.canvas.onmouseup = this.mouseUpHandler.bind(this);
+    this.canvas.onmouseleave = this.mouseLeaveHandler.bind(this);
   }
 
+  mouseLeaveHandler(event) {
+    this.mouseDown = false;
+  }
+  
   mouseUpHandler(event) {
     this.mouseDown = false;
   }

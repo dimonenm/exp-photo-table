@@ -4,16 +4,22 @@ export default class Hand extends Tool {
   constructor(canvas, loadedImg) {
     super(canvas);
     this.loadedImgBlob = loadedImg;
+    this.img = new Image();
     this.listen();
-    this.loadedImgTag = this.loadImgToCanvas(this.loadedImgBlob)
-    
+
     console.log('Hand');
+    console.log({ canvas });
   }
 
   listen() {
-    this.canvas.onmousemove = this.mouseMoveHandler.bind(this)
-    this.canvas.onmousedown = this.mouseDownHandler.bind(this)
-    this.canvas.onmouseup = this.mouseUpHandler.bind(this)
+    this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
+    this.canvas.onmousedown = this.mouseDownHandler.bind(this);
+    this.canvas.onmouseup = this.mouseUpHandler.bind(this);
+    this.canvas.onmouseleave = this.mouseLeaveHandler.bind(this);
+  }
+
+  mouseLeaveHandler(event) {
+    this.mouseDown = false;
   }
 
   mouseUpHandler(event) {
@@ -25,34 +31,30 @@ export default class Hand extends Tool {
   }
   mouseMoveHandler(event) {
     if (this.mouseDown) {
-
-      const img = new Image();
-      img.src = this.loadedImgBlob;
-      img.onload = () => this.ctx.drawImage(img, event.offsetX, 0);
+      this.shiftImg(event.offsetX);
     }
   }
 
-  // draw(x, y) {
-  //   this.ctx.lineTo(x, y);
-  //   this.ctx.stroke();
-  // }
-  shiftImg(loadedImgTag) {
-    
-    this.ctx.drawImage(this.loadedImgTag, 0, 0);
-    // this.ctx.drawImage(this.loadedImgBlob, 0, 0);
-  }
+  shiftImg(x) {
+    this.img.src = this.loadedImgBlob;
 
-  async loadImgToCanvas(lImg) {
-    const img = await this.loadImgToObj(lImg);
-    console.log('img: ', img);
-    return img;
-  }
+    this.img.onload = () => {
+      const i = this.img;
+      // console.log('this.img: ', { i });
 
-  loadImgToObj(src) {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => resolve(img);
-    })
+      const pr = 52500 / this.img.height;
+      const imgW = this.img.width / 100 * pr;
+      const imgH = this.img.height / 100 * pr;
+      console.log('imgWb', this.img.width);
+      console.log('imgWs', imgW);
+      console.log('x', x);
+      console.log('(700 - imgW + (x - 350)) / 2', (700 - imgW + (x - 350)) / 2);
+      console.log('(x - 350)', (x - 350));
+
+      this.ctx.clearRect(0, 0, 700, 525);
+
+      this.ctx.drawImage(this.img, (700 - imgW + (x - 350)) / 2, 0, imgW, imgH);
+      // this.ctx.drawImage(this.img, x, 0, 700, 525);
+    };
   }
 }
