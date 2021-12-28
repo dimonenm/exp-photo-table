@@ -3,8 +3,10 @@ import Tool from "./Tool";
 export default class Hand extends Tool {
   constructor(canvas, loadedImg) {
     super(canvas);
-    this.loadedImg = loadedImg;
+    this.loadedImgBlob = loadedImg;
     this.listen();
+    this.loadedImgTag = this.loadImgToCanvas(this.loadedImgBlob)
+    
     console.log('Hand');
   }
 
@@ -19,16 +21,14 @@ export default class Hand extends Tool {
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
-    // this.ctx.beginPath();
-    // this.ctx.strokeStyle = 'red';
-    // this.ctx.moveTo(event.offsetX, event.offsetY);
-    this.startX = event.offsetX;
+
   }
   mouseMoveHandler(event) {
     if (this.mouseDown) {
-      // this.draw(event.offsetX, event.offsetY);
-      this.endX = this.startX - event.offsetX;
-      this.shiftImg(this.endX, this.loadedImg);
+
+      const img = new Image();
+      img.src = this.loadedImgBlob;
+      img.onload = () => this.ctx.drawImage(img, event.offsetX, 0);
     }
   }
 
@@ -36,20 +36,23 @@ export default class Hand extends Tool {
   //   this.ctx.lineTo(x, y);
   //   this.ctx.stroke();
   // }
-  shiftImg(x, lImg) {
-    console.log('shiftImg');
-    console.log('lImg', lImg);
+  shiftImg(loadedImgTag) {
     
-    const img = new Image();
-    img.onload = function () {
+    this.ctx.drawImage(this.loadedImgTag, 0, 0);
+    // this.ctx.drawImage(this.loadedImgBlob, 0, 0);
+  }
 
-      const pr = 52500 / this.height;
-      const imgW = this.width / 100 * pr;
-      const imgH = this.height / 100 * pr;
+  async loadImgToCanvas(lImg) {
+    const img = await this.loadImgToObj(lImg);
+    console.log('img: ', img);
+    return img;
+  }
 
-      this.ctx.drawImage(img, 0 - x, 0, imgW, imgH)
-    }
-    img.src = lImg;
-
+  loadImgToObj(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve(img);
+    })
   }
 }
