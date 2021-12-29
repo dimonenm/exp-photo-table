@@ -3,6 +3,8 @@ import Tool from "./Tool";
 export default class Arrow extends Tool {
   constructor(canvas) {
     super(canvas);
+    this.img = new Image();
+
     this.listen();
     console.log('Arrow');
   }
@@ -36,11 +38,11 @@ export default class Arrow extends Tool {
   }
 
   draw(x1, y1, x2, y2) {
-    const img = new Image();
-    img.src = this.saved;
-    img.onload = () => {
+    this.img.src = this.saved;
+    this.img.onload = () => {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.drawImage(this.img, 0, 0, this.canvas.width, this.canvas.height);
+
       this.ctx.beginPath();
       this.ctx.strokeStyle = '#ffffff';
       this.ctx.moveTo(x1, y1);

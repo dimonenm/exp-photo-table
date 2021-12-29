@@ -26,7 +26,7 @@ const Canvas = () => {
         const imgW = this.width / 100 * pr;
         const imgH = this.height / 100 * pr;
 
-        ctx.drawImage(img, (700 - imgW) / 2, (525 - imgH) / 2, imgW, imgH)
+        ctx.drawImage(img, (700 - imgW) / 2, 0, imgW, imgH)
       }
       img.src = localModalProperties.modalProperties.urlImg;
     }, [localModalProperties.modalProperties.urlImg]
