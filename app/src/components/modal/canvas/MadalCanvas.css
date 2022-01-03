@@ -17,17 +17,11 @@
   grid-column: 1 / 2;
 
   grid-template-columns: 40px;
-  /* grid-template-columns: minmax(40px, 1fr) minmax(40px, 1fr) minmax(40px, 1fr); */
   grid-template-rows: 40px 40px 1fr;
 
   grid-gap: 5px;
 
   margin: 5px;
-
-  /* grid-row-start: 1;
-  grid-row-end: 3; */
-
-  /* background: rgb(107, 109, 223); */
 }
 
 .modal-content-grid-tools-left-hand,
