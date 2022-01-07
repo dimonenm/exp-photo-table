@@ -81,12 +81,5 @@ export default class Arrow extends Tool {
     // console.log('c: ', c);
     // console.log('проверка AC - ', Math.sqrt(Math.pow(AB, 2) + Math.pow(BC, 2) - (((AB * BC) * 2) * Math.cos(a))));
 
-
-
-    // console.log('x1', x1, 'y1', y1);
-    // console.log('x2', x2, 'y2', y2);
-    // console.log(((180 * Math.atan((y2 - y1) / (x2 - x1))) / Math.PI));
-    // this.img.onload = () => {
-    // }
   }
 }
