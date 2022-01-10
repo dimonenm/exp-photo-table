@@ -39,16 +39,60 @@ export default class Arrow extends Tool {
 
   draw(x1, y1, x2, y2) {
     this.img.src = this.saved;
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.img, 0, 0, this.canvas.width, this.canvas.height);
 
+    const lineangle = Math.atan2(y2 - y1, x2 - x1);
+    console.log('lineangle: ', lineangle);
+    const d = 20;
+    // const angle = Math.PI / 12;
+    const angle = ((Math.PI / 2) * 25) / 100;
+    console.log('angle: ', angle);
+    // const h = Math.abs(d / Math.cos(angle));
+    const h = 20;
+
+    // const angle1 = lineangle + Math.PI + angle;
+    const angle1 = lineangle + angle;
+    console.log('angle1: ', angle1);
+    const topx = x1 + Math.cos(angle1) * h;
+    const topy = y1 + Math.sin(angle1) * h;
+
+    const angle2 = lineangle - angle;
+    const botx = x1 + Math.cos(angle2) * h;
+    const boty = y1 + Math.sin(angle2) * h;
+
     this.ctx.beginPath();
+
     this.ctx.strokeStyle = '#ffffff';
+    this.ctx.lineWidth = 3;
+    this.ctx.lineCap = 'round';
+
     this.ctx.moveTo(x1, y1);
     this.ctx.lineTo(x2, y2);
+
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(Math.floor(topx), Math.floor(topy));
+
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(botx, boty);
+
     this.ctx.stroke();
 
-    console.log();
+    // console.log(`x1 - ${x1}, y1 - ${y1}`);
+    // console.log(`x2 - ${x2}, y2 - ${y2}`);
+    // console.log(`topx - ${Math.floor(topx)}, topy - ${Math.floor(topy)}`);
+    // const AB = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    // console.log('AB: ', AB);
+    // console.log(`Math.atan2 - `, Math.atan2((y2 - y1), (x2 - x1)) * Math.PI);
+
+    // const lineangle = Math.atan2((y2 - y1), (x2 - x1));
+    // const d = 10;
+    // const angle = 25;
+    // const h = Math.abs(d / Math.cos(angle));
+
+    // var angle1 = lineangle + Math.PI + angle;
+    // var topx = x2 + Math.cos(angle1) * h;
+    // var topy = y2 + Math.sin(angle1) * h;
 
     // определение угла
     // if (x2 - x1 >= 0)
