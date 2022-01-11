@@ -1,0 +1,58 @@
+.modal-content-grid-edit {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr;
+
+  height: 100%;
+}
+.modal-content-grid-canvas {
+  display: grid;
+  grid-column: 2 / 3;
+
+  background: #ccc;
+
+  border: 1px solid #000;
+}
+.modal-content-grid-tools-left {
+  display: grid;
+  grid-column: 1 / 2;
+
+  grid-template-columns: 40px;
+  grid-template-rows: 40px 40px 1fr;
+
+  grid-gap: 5px;
+
+  margin: 5px;
+}
+
+.modal-content-grid-tools-left-hand,
+.modal-content-grid-tools-left-hand-active,
+.modal-content-grid-tools-left-arrow,
+.modal-content-grid-tools-left-arrow-active {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.modal-content-grid-tools-left-hand {
+  background-image: url("../../../img/handBtn.svg");
+}
+.modal-content-grid-tools-left-hand-active {
+  background-image: url("../../../img/handBtnActive.svg");
+}
+.modal-content-grid-tools-left-arrow {
+  background-image: url("../../../img/arrow-down-left-square.svg");
+}
+.modal-content-grid-tools-left-arrow-active {
+  background-image: url("../../../img/arrow-down-left-square-active.svg");
+}
+
+.modal-content-grid-tools-right {
+  display: grid;
+
+  grid-column: 3 / 4;
+
+  margin: 5px;
+
+  grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+  grid-template-rows: 40px 40px 1fr;
+
+  gap: 5px 5px;
+}

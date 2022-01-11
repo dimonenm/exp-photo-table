@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { modalDataContext } from '../../../App';
-import './MadalCanvas.css'
+// import './MadalCanvas.css';
+import './ModalCanvas.scss';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
