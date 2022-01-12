@@ -1,10 +1,12 @@
 import Tool from "./Tool";
 
 export default class Hand extends Tool {
-  constructor(canvas, loadedImg) {
+  constructor(canvas, loadedImg, canvasState, setCanvasState) {
     super(canvas);
     this.img = new Image();
     this.img.src = loadedImg;
+    this.canvasState = canvasState;
+    this.setCanvasState = setCanvasState;
     this.listen();
     
     this.img.onload = () => {
@@ -13,10 +15,11 @@ export default class Hand extends Tool {
       this.imgHeight = this.img.height / 100 * this.pr;
       this.imgOffset = (700 - this.imgWidth) / 2;
       this.offsetValue = 0;
-      this.lastOffsetValue = 0;
+      this.lastOffsetValue = this.canvasState.lastOffsetValue;
     }   
 
     console.log('Hand');
+    console.log('canvasState - ', canvasState);
   }
 
   listen() {
@@ -34,6 +37,7 @@ export default class Hand extends Tool {
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.lastOffsetValue = this.offsetValue;
+    this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
