@@ -64,6 +64,7 @@ const ModalCanvas = () => {
     }
     img.src = canvasState.img;
   }, [canvasState]);
+  console.log('modal canvas rendering');
 
 
   return (

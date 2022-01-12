@@ -390,7 +390,7 @@ const ModalContent = () => {
     // const img = new Image();
     // img.src = localModalProperties.modalProperties.urlImg;
     // // console.log(img);
-    console.log(localModalProperties);
+    // console.log(localModalProperties);
     // fetch(localModalProperties.modalProperties.urlImg)
     //   .then((data) => {
     //     return data.text();
