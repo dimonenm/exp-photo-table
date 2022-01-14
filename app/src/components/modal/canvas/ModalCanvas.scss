@@ -7,14 +7,14 @@
   .modal-content-grid-tools-left {
     display: grid;
     grid-column: 1 / 2;
-  
+
     grid-template-columns: 40px;
     grid-template-rows: 40px 40px 1fr;
-  
+
     grid-gap: 5px;
-  
+
     margin: 5px;
-  
+
     &-hand,
     &-hand-active,
     &-arrow,
@@ -22,7 +22,7 @@
       background-repeat: no-repeat;
       background-position: center center;
     }
-  
+
     &-hand {
       background-image: url("../../../img/handBtn.svg");
     }
@@ -40,24 +40,180 @@
   .modal-content-grid-canvas {
     display: grid;
     grid-column: 2 / 3;
-  
+
     background: #ccc;
-  
+
     border: 1px solid #000;
   }
 
-  .modal-content-grid-tools-right {
+  .modal-content-grid-properties-right {
     display: grid;
-  
+
     grid-column: 3 / 4;
-  
+
     margin: 5px;
-  
-    grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
-    // grid-template-rows: 40px 40px 1fr;
-  
+
+    // grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+    grid-template-rows: 50px minmax(50px, max-content) 50px 50px;
+
     grid-gap: 5px 5px;
+
+    &-title {
+      display: grid;
+      align-items: center;
+
+      font-family: "Times New Roman", Times, serif;
+      font-size: 24px;
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+    &-orientation {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+      // grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
+      grid-gap: 5px 5px;
+
+      padding: 5px;
+
+      &-vertical,
+      &-vertical-active,
+      &-horizontal,
+      &-horizontal-active,
+      &-panorama,
+      &-panorama-active {
+        height: 40px;
+        width: 40px;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+
+      &-vertical {
+        background-image: url("../../../img/btnOrientationVertical.svg");
+      }
+      &-horizontal {
+        background-image: url("../../../img/btnOrientationHorizontal.svg");
+      }
+      &-panorama {
+        background-image: url("../../../img/btnOrientationPanorama.svg");
+      }
+
+      &-vertical-active {
+        background-image: url("../../../img/btnOrientationVerticalActive.svg");
+      }
+      &-horizontal-active {
+        background-image: url("../../../img/btnOrientationHorizontalActive.svg");
+      }
+      &-panorama-active {
+        background-image: url("../../../img/btnOrientationPanoramaActive.svg");
+      }
+    }
+
+    &-zoom {
+      display: grid;
+      // grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+      grid-template-rows: 25px 25px;
+      // grid-gap: 5px 5px;
+
+      // padding: 5px;
+      &-range {
+        height: 25px;
+
+        /*Сбрасывание стилей Range*/
+        & input[type="range"] {
+          -webkit-appearance: none; /* Скрываем слайдер, чтобы иметь возможность создать пользовательский слайдер. */
+          width: 100%; /* Для Firefox нужна отдельная ширина. */
+          margin: 0;
+        }
+
+        & input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+        }
+
+        & input[type="range"]:focus {
+          outline: none; /* Удаляем синюю рамку. Для доступности на различных платформах вам нужно применить кое-какой трюк со стилями. */
+        }
+
+        & input[type="range"]::-ms-track {
+          width: 100%;
+          cursor: pointer;
+          background: transparent; /* Скрываем слайдер, чтобы иметь возможность добавить собственные стили */
+          border-color: transparent;
+          color: transparent;
+        }
+        /*Стили для ползунка*/
+        /* Специальные стили для WebKit/Blink */
+        & input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: 1px solid #000000;
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+
+          margin-top: -3px;
+        }
+
+        & input[type="range"]:focus-visible::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: 1px solid #000000;
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+
+          margin-top: -3px;
+        }
+
+        /* Все то же самое для Firefox */
+        & input[type="range"]::-moz-range-thumb {
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+        }
+
+        /* Все то же самое для IE */
+        & input[type="range"]::-ms-thumb {
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+        }
+        /*Стили для шкалы*/
+        & input[type="range"]::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 10px;
+          cursor: pointer;
+          background: #6c757d;
+        }
+
+        & input[type="range"]:focus::-webkit-slider-runnable-track {
+          background: #6c757d;
+        }
+
+        & input[type="range"]::-moz-range-track {
+          width: 100%;
+          height: 18px;
+          cursor: pointer;
+          background: #6c757d;
+        }
+      }
+      &-scale {
+        display: grid;
+        align-items: center;
+
+        font-family: "Times New Roman", Times, serif;
+        font-size: 18px;
+        text-align: center;
+
+        overflow: hidden;
+
+        height: 25px;
+      }
+    }
   }
 }
-
-

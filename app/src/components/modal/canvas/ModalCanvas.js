@@ -80,11 +80,25 @@ const ModalCanvas = () => {
             : 'modal-content-grid-tools-left-arrow'} onClick={arrowClickHandler}></div>
       </div>
       <canvas ref={canvasRef} className='modal-content-grid-canvas' width={700} height={525}></canvas>
-      <div className='modal-content-grid-tools-right' >
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
+      <div className='modal-content-grid-properties-right' >
+        <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
+        <div className='modal-content-grid-properties-right-orientation'>
+          <div className='modal-content-grid-properties-right-orientation-vertical'></div>
+          <div className='modal-content-grid-properties-right-orientation-horizontal'></div>
+          <div className='modal-content-grid-properties-right-orientation-panorama'></div>
+        </div>
+        <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
+        <div className='modal-content-grid-properties-right-zoom'>
+          <div className='modal-content-grid-properties-right-zoom-range'>
+            <input
+              type="range"
+              step="0.1"
+              min="0.1"
+              max="2"
+            ></input>
+          </div>
+          <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: 100%</div>
+        </div>
       </div>
     </div>
 

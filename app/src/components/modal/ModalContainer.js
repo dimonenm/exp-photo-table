@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ModalHeader from './ModalHeader';
 import ModalContent from './ModalContent';
 import { modalDataContext } from '../../App';
-import './ModalContainer.css';
+import './ModalContainer.scss';
 
 const ModalContainer = () => {
   const localModalProperties = useContext(modalDataContext);
@@ -55,7 +55,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
-      <div className="modal-container" >
+      <div className="modal-container edit-photo" >
         <ModalHeader name={'Редактирование иллюстрации'} />
         <ModalContent />
       </div>

@@ -11,17 +11,21 @@
     z-index: 20;
 
     margin: auto;
-    
+
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
 
-    background-color: #F8F9FA;
+    background-color: #f8f9fa;
 
     border: 1px solid #000;
 }
 
 .set-photo-table-data {
     max-height: 440px;
+}
+
+.edit-photo {
+    max-width: 960px;
 }
