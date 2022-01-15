@@ -56,8 +56,12 @@ function App() {
 
   useEffect(() => {
     loadSettings().then(data => {
-      setSettings(data);
-      setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit}})
+      if (data) {
+        setSettings(data);
+        setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });        
+      } else {
+        console.log(`Произошла ошибка в App.js:61`);
+      }
     });
   }, []);
 

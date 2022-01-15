@@ -10,6 +10,7 @@ const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
   const [canvasState, setCanvasState] = useState(
     {
+      orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
       lastOffsetValue: 0,
       arrows: []
@@ -45,7 +46,15 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'arrow', tool: new Arrow(canvasRef.current) } });
     };
   }
-
+  function orientationVerticalClickHandler() {
+    setCanvasState((prev) => { return { ...prev, orientation: 'vertical' } })
+  }
+  function orientationHorizontalClickHandler() {
+    setCanvasState((prev) => { return { ...prev, orientation: 'horizontal' } })
+  }
+  function orientationPanoramaClickHandler() {
+    setCanvasState((prev) => { return { ...prev, orientation: 'panorama' } })
+  }
 
 
 
@@ -83,9 +92,22 @@ const ModalCanvas = () => {
       <div className='modal-content-grid-properties-right' >
         <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
         <div className='modal-content-grid-properties-right-orientation'>
-          <div className='modal-content-grid-properties-right-orientation-vertical'></div>
-          <div className='modal-content-grid-properties-right-orientation-horizontal'></div>
-          <div className='modal-content-grid-properties-right-orientation-panorama'></div>
+          <div
+            className={canvasState.orientation === "vertical" ?
+              'modal-content-grid-properties-right-orientation-vertical-active' :
+              'modal-content-grid-properties-right-orientation-vertical'}
+            onClick={orientationVerticalClickHandler}
+          ></div>
+          <div className={canvasState.orientation === "horizontal" ?
+            'modal-content-grid-properties-right-orientation-horizontal-active' :
+            'modal-content-grid-properties-right-orientation-horizontal'}
+            onClick={orientationHorizontalClickHandler}
+          ></div>
+          <div className={canvasState.orientation === "panorama" ?
+            'modal-content-grid-properties-right-orientation-panorama-active' :
+            'modal-content-grid-properties-right-orientation-panorama'}
+            onClick={orientationPanoramaClickHandler}
+          ></div>
         </div>
         <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
         <div className='modal-content-grid-properties-right-zoom'>
