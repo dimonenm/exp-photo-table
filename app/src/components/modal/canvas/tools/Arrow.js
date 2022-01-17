@@ -48,13 +48,11 @@ export default class Arrow extends Tool {
     const d = (Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)) / 100) * 50;
     // const angle = Math.PI / 12;
     const angle = ((Math.PI / 2) * 25) / 100;
-    // console.log('angle: ', angle);
     const h = Math.abs((d > 20 ? 20 : d) / Math.cos(angle));
     // const h = 20;
 
     // const angle1 = lineangle + Math.PI + angle;
     const angle1 = lineangle + angle;
-    // console.log('angle1: ', angle1);
     const topx = x1 + Math.cos(angle1) * h;
     const topy = y1 + Math.sin(angle1) * h;
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { modalDataContext } from '../../../App';
-// import './MadalCanvas.css';
 import './ModalCanvas.scss';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
