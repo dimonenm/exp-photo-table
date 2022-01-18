@@ -10,10 +10,12 @@ export default class Hand extends Tool {
     this.listen();
     
     this.img.onload = () => {
-      this.pr = 52500 / this.img.height;
+      this.pr = canvas.height * 100 / this.img.height;
+      // this.pr = 52500 / this.img.height;
       this.imgWidth = this.img.width / 100 * this.pr;
       this.imgHeight = this.img.height / 100 * this.pr;
-      this.imgOffset = (700 - this.imgWidth) / 2;
+      this.imgOffset = (canvas.width - this.imgWidth) / 2;
+      // this.imgOffset = (700 - this.imgWidth) / 2;
       this.offsetValue = 0;
       this.lastOffsetValue = this.canvasState.lastOffsetValue;
     }   
