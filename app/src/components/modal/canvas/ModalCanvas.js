@@ -12,6 +12,7 @@ const ModalCanvas = () => {
       orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
       lastOffsetValue: 0,
+      zoom: '100',
       arrows: []
     }
   );
@@ -48,56 +49,131 @@ const ModalCanvas = () => {
   function orientationVerticalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValue: 0 } })
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "785" } });
-    if (toolState.type === 'hand') {
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'hand',
-          tool: new Hand(
-            canvasRef.current,
-            localModalProperties.modalProperties.urlImg,
-            canvasState,
-            setCanvasState)
-        }
-      });
-    }
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          localModalProperties.modalProperties.urlImg,
+          canvasState,
+          setCanvasState)
+      }
+    });
+    // if (toolState.type === 'hand') {
+    //   setToolState((prev) => {
+    //     return {
+    //       ...prev,
+    //       type: 'hand',
+    //       tool: new Hand(
+    //         canvasRef.current,
+    //         localModalProperties.modalProperties.urlImg,
+    //         canvasState,
+    //         setCanvasState)
+    //     }
+    //   });
+    // }
   }
   function orientationHorizontalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValue: 0 } });
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "960" } });
-    if (toolState.type === 'hand') {
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'hand',
-          tool: new Hand(
-            canvasRef.current,
-            localModalProperties.modalProperties.urlImg,
-            canvasState,
-            setCanvasState)
-        }
-      });
-    }
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          localModalProperties.modalProperties.urlImg,
+          canvasState,
+          setCanvasState)
+      }
+    });
+    // if (toolState.type === 'hand') {
+    //   setToolState((prev) => {
+    //     return {
+    //       ...prev,
+    //       type: 'hand',
+    //       tool: new Hand(
+    //         canvasRef.current,
+    //         localModalProperties.modalProperties.urlImg,
+    //         canvasState,
+    //         setCanvasState)
+    //     }
+    //   });
+    // }
   }
   function orientationPanoramaClickHandler() {
-    setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValue: 0 } })
+    setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValue: 0 } });
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "1010" } });
-    if (toolState.type === 'hand') {
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'hand',
-          tool: new Hand(
-            canvasRef.current,
-            localModalProperties.modalProperties.urlImg,
-            canvasState,
-            setCanvasState)
-        }
-      });
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          localModalProperties.modalProperties.urlImg,
+          canvasState,
+          setCanvasState)
+      }
+    });
+    // if (toolState.type === 'hand') {
+    //   setToolState((prev) => {
+    //     return {
+    //       ...prev,
+    //       type: 'hand',
+    //       tool: new Hand(
+    //         canvasRef.current,
+    //         localModalProperties.modalProperties.urlImg,
+    //         canvasState,
+    //         setCanvasState)
+    //     }
+    //   });
+    // }
+  }
+  function renderProperties(toolType) {
+    if (toolType === 'hand') {
+      return (
+        <>
+          <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
+          <div className='modal-content-grid-properties-right-orientation'>
+            <div
+              className={canvasState.orientation === "vertical" ?
+                'modal-content-grid-properties-right-orientation-vertical-active' :
+                'modal-content-grid-properties-right-orientation-vertical'}
+              onClick={orientationVerticalClickHandler}
+            ></div>
+            <div className={canvasState.orientation === "horizontal" ?
+              'modal-content-grid-properties-right-orientation-horizontal-active' :
+              'modal-content-grid-properties-right-orientation-horizontal'}
+              onClick={orientationHorizontalClickHandler}
+            ></div>
+            <div className={canvasState.orientation === "panorama" ?
+              'modal-content-grid-properties-right-orientation-panorama-active' :
+              'modal-content-grid-properties-right-orientation-panorama'}
+              onClick={orientationPanoramaClickHandler}
+            ></div>
+          </div>
+          <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
+          <div className='modal-content-grid-properties-right-zoom'>
+            <div className='modal-content-grid-properties-right-zoom-range'>
+              <input
+                type="range"
+                step="1"
+                min="100"
+                max="400"
+                value={canvasState.zoom}
+                onChange={(event) => {
+                  setCanvasState((prev) => { return { ...prev, zoom: event.target.value } })
+                }
+                }
+              ></input>
+            </div>
+            <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: {canvasState.zoom}%</div>
+          </div>
+        </>
+      );
     }
   }
-
-
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
@@ -142,38 +218,9 @@ const ModalCanvas = () => {
       // width={700}
       // height={525}
       ></canvas>
-      <div className='modal-content-grid-properties-right' >
-        <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
-        <div className='modal-content-grid-properties-right-orientation'>
-          <div
-            className={canvasState.orientation === "vertical" ?
-              'modal-content-grid-properties-right-orientation-vertical-active' :
-              'modal-content-grid-properties-right-orientation-vertical'}
-            onClick={orientationVerticalClickHandler}
-          ></div>
-          <div className={canvasState.orientation === "horizontal" ?
-            'modal-content-grid-properties-right-orientation-horizontal-active' :
-            'modal-content-grid-properties-right-orientation-horizontal'}
-            onClick={orientationHorizontalClickHandler}
-          ></div>
-          <div className={canvasState.orientation === "panorama" ?
-            'modal-content-grid-properties-right-orientation-panorama-active' :
-            'modal-content-grid-properties-right-orientation-panorama'}
-            onClick={orientationPanoramaClickHandler}
-          ></div>
-        </div>
-        <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
-        <div className='modal-content-grid-properties-right-zoom'>
-          <div className='modal-content-grid-properties-right-zoom-range'>
-            <input
-              type="range"
-              step="0.1"
-              min="0.1"
-              max="2"
-            ></input>
-          </div>
-          <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: 100%</div>
-        </div>
+      <div className='modal-content-grid-properties-right'>
+        <div className='modal-content-grid-properties-right-title'>Свойства</div>
+        {renderProperties(toolState.type)}
       </div>
     </div>
 

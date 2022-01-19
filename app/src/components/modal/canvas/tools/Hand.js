@@ -34,13 +34,13 @@ export default class Hand extends Tool {
   mouseLeaveHandler(event) {
     this.mouseDown = false;
     this.lastOffsetValue = this.offsetValue;
-    this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
+    // this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
   }
 
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.lastOffsetValue = this.offsetValue;
-    this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
+    // this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
   }
   mouseDownHandler(event) {
     this.mouseDown = true;

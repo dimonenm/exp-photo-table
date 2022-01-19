@@ -54,7 +54,7 @@
     margin: 5px;
 
     // grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
-    grid-template-rows: 50px minmax(50px, max-content) 50px 50px;
+    grid-template-rows: 50px minmax(50px, max-content) repeat(3, 50px);
 
     grid-gap: 5px 5px;
 
