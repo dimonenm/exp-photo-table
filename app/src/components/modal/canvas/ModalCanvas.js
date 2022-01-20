@@ -130,6 +130,20 @@ const ModalCanvas = () => {
     //   });
     // }
   }
+  function zoomRangeChangeHandler(event) {
+    setCanvasState((prev) => { return { ...prev, zoom: event.target.value } });
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          localModalProperties.modalProperties.urlImg,
+          { ...canvasState, zoom: event.target.value},
+          setCanvasState)
+      }
+    });
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -158,14 +172,11 @@ const ModalCanvas = () => {
             <div className='modal-content-grid-properties-right-zoom-range'>
               <input
                 type="range"
-                step="1"
+                step="10"
                 min="100"
                 max="400"
                 value={canvasState.zoom}
-                onChange={(event) => {
-                  setCanvasState((prev) => { return { ...prev, zoom: event.target.value } })
-                }
-                }
+                onChange={zoomRangeChangeHandler}
               ></input>
             </div>
             <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: {canvasState.zoom}%</div>
@@ -179,20 +190,17 @@ const ModalCanvas = () => {
     const ctx = canvasRef.current.getContext('2d');
     const img = new Image();
     img.onload = function () {
-      // console.log('width ctx', ctx.canvas.width);
-      // console.log('height ctx', ctx.canvas.height);
-      // console.log('ctx', ctx);
 
       const pr = ctx.canvas.height * 100 / this.height;
-      const imgW = this.width / 100 * pr;
-      const imgH = this.height / 100 * pr;
+      const zoom = +canvasState.zoom / 100;
+      const imgW = (this.width / 100 * pr) * zoom;
+      const imgH = (this.height / 100 * pr) * zoom;
 
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + canvasState.lastOffsetValue, 0, imgW, imgH);
     }
     img.src = canvasState.img;
   }, [canvasState]);
   console.log('modal canvas rendering');
-
 
   return (
     <div className="modal-content-grid-edit">

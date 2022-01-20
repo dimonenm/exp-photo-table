@@ -11,9 +11,10 @@ export default class Hand extends Tool {
     
     this.img.onload = () => {
       this.pr = canvas.height * 100 / this.img.height;
+      this.zoom = +this.canvasState.zoom / 100;
       // this.pr = 52500 / this.img.height;
-      this.imgWidth = this.img.width / 100 * this.pr;
-      this.imgHeight = this.img.height / 100 * this.pr;
+      this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;
+      this.imgHeight = (this.img.height / 100 * this.pr) * this.zoom;
       this.imgOffset = (canvas.width - this.imgWidth) / 2;
       // this.imgOffset = (700 - this.imgWidth) / 2;
       this.offsetValue = 0;
@@ -33,14 +34,14 @@ export default class Hand extends Tool {
 
   mouseLeaveHandler(event) {
     this.mouseDown = false;
-    this.lastOffsetValue = this.offsetValue;
+    // this.lastOffsetValue = this.offsetValue;
     // this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
   }
 
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.lastOffsetValue = this.offsetValue;
-    // this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
+    this.setCanvasState((prev) => { return { ...prev, lastOffsetValue: this.lastOffsetValue}})
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
