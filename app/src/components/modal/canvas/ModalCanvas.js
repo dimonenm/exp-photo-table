@@ -60,19 +60,6 @@ const ModalCanvas = () => {
           setCanvasState)
       }
     });
-    // if (toolState.type === 'hand') {
-    //   setToolState((prev) => {
-    //     return {
-    //       ...prev,
-    //       type: 'hand',
-    //       tool: new Hand(
-    //         canvasRef.current,
-    //         localModalProperties.modalProperties.urlImg,
-    //         canvasState,
-    //         setCanvasState)
-    //     }
-    //   });
-    // }
   }
   function orientationHorizontalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValue: 0 } });
@@ -88,19 +75,6 @@ const ModalCanvas = () => {
           setCanvasState)
       }
     });
-    // if (toolState.type === 'hand') {
-    //   setToolState((prev) => {
-    //     return {
-    //       ...prev,
-    //       type: 'hand',
-    //       tool: new Hand(
-    //         canvasRef.current,
-    //         localModalProperties.modalProperties.urlImg,
-    //         canvasState,
-    //         setCanvasState)
-    //     }
-    //   });
-    // }
   }
   function orientationPanoramaClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValue: 0 } });
@@ -116,19 +90,6 @@ const ModalCanvas = () => {
           setCanvasState)
       }
     });
-    // if (toolState.type === 'hand') {
-    //   setToolState((prev) => {
-    //     return {
-    //       ...prev,
-    //       type: 'hand',
-    //       tool: new Hand(
-    //         canvasRef.current,
-    //         localModalProperties.modalProperties.urlImg,
-    //         canvasState,
-    //         setCanvasState)
-    //     }
-    //   });
-    // }
   }
   function zoomRangeChangeHandler(event) {
     setCanvasState((prev) => { return { ...prev, zoom: event.target.value } });
