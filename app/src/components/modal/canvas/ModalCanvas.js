@@ -12,6 +12,7 @@ const ModalCanvas = () => {
       orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
       lastOffsetValue: 0,
+      lastOffsetValueY: 0,
       zoom: '100',
       arrows: []
     }
@@ -157,7 +158,7 @@ const ModalCanvas = () => {
       const imgW = (this.width / 100 * pr) * zoom;
       const imgH = (this.height / 100 * pr) * zoom;
 
-      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + canvasState.lastOffsetValue, 0, imgW, imgH);
+      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + canvasState.lastOffsetValue, ((ctx.canvas.height - imgH) / 2) + canvasState.lastOffsetValueY, imgW, imgH);
     }
     img.src = canvasState.img;
   }, [canvasState]);
