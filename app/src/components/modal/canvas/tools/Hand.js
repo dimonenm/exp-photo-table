@@ -25,7 +25,7 @@ export default class Hand extends Tool {
     }   
 
     console.log('Hand');
-    console.log('canvasState - ', canvasState);
+    // console.log('canvasState - ', canvasState);
   }
 
   listen() {

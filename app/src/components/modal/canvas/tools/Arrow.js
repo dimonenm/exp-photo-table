@@ -4,6 +4,18 @@ export default class Arrow extends Tool {
   constructor(canvas) {
     super(canvas);
     this.img = new Image();
+    this.arrowData = {
+      x1: 0,
+      y1: 0,
+      x2: 0,
+      y2: 0,
+      topx: 0,
+      topy: 0,
+      botx: 0,
+      boty: 0,
+      strokeStyleColor: '#ffffff',
+      lineWidth: 2
+    };
 
     this.listen();
     console.log('Arrow');
@@ -22,6 +34,9 @@ export default class Arrow extends Tool {
 
   mouseUpHandler(event) {
     this.mouseDown = false;
+
+    console.log('arrowData', this.arrowData);
+
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
@@ -77,5 +92,17 @@ export default class Arrow extends Tool {
 
     this.ctx.stroke();
 
+    this.arrowData = {
+      x1: x1,
+      y1: y1,
+      x2: x2,
+      y2: y2,
+      topx: Math.floor(topx),
+      topy: Math.floor(topy),
+      botx: Math.floor(botx),
+      boty: Math.floor(boty),
+      strokeStyleColor: this.ctx.strokeStyle,
+      lineWidth: this.ctx.lineWidth
+    };
   }
 }

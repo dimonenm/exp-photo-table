@@ -14,6 +14,8 @@ const ModalCanvas = () => {
       lastOffsetValue: 0,
       lastOffsetValueY: 0,
       zoom: '100',
+      arrowsColor: '#ffffff',
+      arrowsWidth: '2',
       arrows: []
     }
   );
@@ -106,6 +108,34 @@ const ModalCanvas = () => {
       }
     });
   }
+  function arrowColorChangeHandler(event) {
+    setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
+    // setToolState((prev) => {
+    //   return {
+    //     ...prev,
+    //     type: 'hand',
+    //     tool: new Hand(
+    //       canvasRef.current,
+    //       localModalProperties.modalProperties.urlImg,
+    //       { ...canvasState, zoom: event.target.value},
+    //       setCanvasState)
+    //   }
+    // });
+  }
+  function arrowWidthChangeHandler(event) {
+    setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
+    // setToolState((prev) => {
+    //   return {
+    //     ...prev,
+    //     type: 'hand',
+    //     tool: new Hand(
+    //       canvasRef.current,
+    //       localModalProperties.modalProperties.urlImg,
+    //       { ...canvasState, zoom: event.target.value},
+    //       setCanvasState)
+    //   }
+    // });
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -134,7 +164,7 @@ const ModalCanvas = () => {
             <div className='modal-content-grid-properties-right-zoom-range'>
               <input
                 type="range"
-                step="10"
+                step="5"
                 min="100"
                 max="400"
                 value={canvasState.zoom}
@@ -145,7 +175,36 @@ const ModalCanvas = () => {
           </div>
         </>
       );
-    }
+    };
+
+    if (toolType === 'arrow') {
+      return (
+        <>
+          <div className='modal-content-grid-properties-right-title'>Цвет стрелок:</div>
+          <div className='modal-content-grid-properties-right-arrow-color'>
+            <input
+              type="color"
+              value={canvasState.arrowsColor}
+              onChange={arrowColorChangeHandler}
+            ></input>
+          </div>
+          <div className='modal-content-grid-properties-right-title'>Ширина стрелок:</div>
+          <div className='modal-content-grid-properties-right-zoom'>
+            <div className='modal-content-grid-properties-right-zoom-range'>
+              <input
+                type="range"
+                step="1"
+                min="1"
+                max="5"
+                value={canvasState.arrowsWidth}
+                onChange={arrowWidthChangeHandler}
+              ></input>
+            </div>
+            <div className='modal-content-grid-properties-right-zoom-scale'>Значение: {canvasState.arrowsWidth}</div>
+          </div>
+        </>
+      );
+    };
   }
 
   useEffect(() => {
