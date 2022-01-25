@@ -11,12 +11,12 @@ const ModalCanvas = () => {
     {
       orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
-      lastOffsetValue: 0,
+      lastOffsetValueX: 0,
       lastOffsetValueY: 0,
       zoom: '100',
       arrowsColor: '#ffffff',
       arrowsWidth: '2',
-      arrows: []
+      arrowsArray: []
     }
   );
   const [toolState, setToolState] = useState({
@@ -46,11 +46,21 @@ const ModalCanvas = () => {
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
-      setToolState((prev) => { return { ...prev, type: 'arrow', tool: new Arrow(canvasRef.current) } });
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'arrow',
+          tool: new Arrow(
+            canvasRef.current,
+            localModalProperties.modalProperties.urlImg,
+            canvasState,
+            setCanvasState)
+        }
+      });
     };
   }
   function orientationVerticalClickHandler() {
-    setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValue: 0 } })
+    setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "785" } });
     setToolState((prev) => {
       return {
@@ -65,7 +75,7 @@ const ModalCanvas = () => {
     });
   }
   function orientationHorizontalClickHandler() {
-    setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValue: 0 } });
+    setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 } });
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "960" } });
     setToolState((prev) => {
       return {
@@ -80,7 +90,7 @@ const ModalCanvas = () => {
     });
   }
   function orientationPanoramaClickHandler() {
-    setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValue: 0 } });
+    setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "1010" } });
     setToolState((prev) => {
       return {
@@ -110,31 +120,31 @@ const ModalCanvas = () => {
   }
   function arrowColorChangeHandler(event) {
     setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
-    // setToolState((prev) => {
-    //   return {
-    //     ...prev,
-    //     type: 'hand',
-    //     tool: new Hand(
-    //       canvasRef.current,
-    //       localModalProperties.modalProperties.urlImg,
-    //       { ...canvasState, zoom: event.target.value},
-    //       setCanvasState)
-    //   }
-    // });
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'arrow',
+        tool: new Arrow(
+          canvasRef.current,
+          localModalProperties.modalProperties.urlImg,
+          { ...canvasState, arrowsColor: event.target.value },
+          setCanvasState)
+      }
+    });
   }
   function arrowWidthChangeHandler(event) {
     setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
-    // setToolState((prev) => {
-    //   return {
-    //     ...prev,
-    //     type: 'hand',
-    //     tool: new Hand(
-    //       canvasRef.current,
-    //       localModalProperties.modalProperties.urlImg,
-    //       { ...canvasState, zoom: event.target.value},
-    //       setCanvasState)
-    //   }
-    // });
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'arrow',
+        tool: new Arrow(
+          canvasRef.current,
+          localModalProperties.modalProperties.urlImg,
+          { ...canvasState, arrowsWidth: event.target.value },
+          setCanvasState)
+      }
+    });
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
@@ -217,7 +227,7 @@ const ModalCanvas = () => {
       const imgW = (this.width / 100 * pr) * zoom;
       const imgH = (this.height / 100 * pr) * zoom;
 
-      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + canvasState.lastOffsetValue, ((ctx.canvas.height - imgH) / 2) + canvasState.lastOffsetValueY, imgW, imgH);
+      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + canvasState.lastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + canvasState.lastOffsetValueY, imgW, imgH);
     }
     img.src = canvasState.img;
   }, [canvasState]);
@@ -244,8 +254,6 @@ const ModalCanvas = () => {
         height={canvasState.orientation === "horizontal" ? 525 :
           canvasState.orientation === "vertical" ? 700 :
             canvasState.orientation === "panorama" ? 460 : null}
-      // width={700}
-      // height={525}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>

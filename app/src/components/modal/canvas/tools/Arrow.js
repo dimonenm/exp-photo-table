@@ -1,9 +1,13 @@
 import Tool from "./Tool";
 
 export default class Arrow extends Tool {
-  constructor(canvas) {
+  constructor(canvas, loadedImg, canvasState, setCanvasState) {
     super(canvas);
     this.img = new Image();
+    this.img.src = loadedImg;
+    this.canvasState = canvasState;
+    console.log('this.canvasState: ', this.canvasState);
+    this.setCanvasState = setCanvasState;
     this.arrowData = {
       x1: 0,
       y1: 0,
@@ -13,8 +17,8 @@ export default class Arrow extends Tool {
       topy: 0,
       botx: 0,
       boty: 0,
-      strokeStyleColor: '#ffffff',
-      lineWidth: 2
+      strokeStyleColor: this.canvasState.arrowsColor,
+      lineWidth: this.canvasState.arrowsWidth
     };
 
     this.listen();
@@ -35,7 +39,14 @@ export default class Arrow extends Tool {
   mouseUpHandler(event) {
     this.mouseDown = false;
 
-    console.log('arrowData', this.arrowData);
+    // console.log('arrowData', this.arrowData);
+    const arrowsArrayLocal = [...this.canvasState.arrowsArray];
+    console.log('this.arrowData: ', this.arrowData);
+    console.log('arrowsArrayLocal: ', arrowsArrayLocal);
+    arrowsArrayLocal.push(this.arrowData);
+    console.log('this.arrowData: ', this.arrowData);
+    console.log('arrowsArrayLocal: ', arrowsArrayLocal);
+    this.setCanvasState((prev) => { return { ...prev, arrowsArray: arrowsArrayLocal}})
 
   }
   mouseDownHandler(event) {
@@ -77,8 +88,8 @@ export default class Arrow extends Tool {
 
     this.ctx.beginPath();
 
-    this.ctx.strokeStyle = '#ffffff';
-    this.ctx.lineWidth = 2;
+    this.ctx.strokeStyle = this.canvasState.arrowsColor;
+    this.ctx.lineWidth = this.canvasState.arrowsWidth;
     this.ctx.lineCap = 'round';
 
     this.ctx.moveTo(x1, y1);
@@ -100,9 +111,7 @@ export default class Arrow extends Tool {
       topx: Math.floor(topx),
       topy: Math.floor(topy),
       botx: Math.floor(botx),
-      boty: Math.floor(boty),
-      strokeStyleColor: this.ctx.strokeStyle,
-      lineWidth: this.ctx.lineWidth
+      boty: Math.floor(boty)
     };
   }
 }
