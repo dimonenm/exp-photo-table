@@ -6,7 +6,6 @@ export default class Arrow extends Tool {
     this.img = new Image();
     this.img.src = loadedImg;
     this.canvasState = canvasState;
-    console.log('this.canvasState: ', this.canvasState);
     this.setCanvasState = setCanvasState;
     this.arrowData = {
       x1: 0,
@@ -38,16 +37,7 @@ export default class Arrow extends Tool {
 
   mouseUpHandler(event) {
     this.mouseDown = false;
-
-    // console.log('arrowData', this.arrowData);
-    const arrowsArrayLocal = [...this.canvasState.arrowsArray];
-    console.log('this.arrowData: ', this.arrowData);
-    console.log('arrowsArrayLocal: ', arrowsArrayLocal);
-    arrowsArrayLocal.push(this.arrowData);
-    console.log('this.arrowData: ', this.arrowData);
-    console.log('arrowsArrayLocal: ', arrowsArrayLocal);
-    this.setCanvasState((prev) => { return { ...prev, arrowsArray: arrowsArrayLocal}})
-
+    this.setCanvasState((prev) => { return { ...prev, arrowsArray: [...this.canvasState.arrowsArray, this.arrowData] } })
   }
   mouseDownHandler(event) {
     this.mouseDown = true;

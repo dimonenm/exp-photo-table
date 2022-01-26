@@ -113,7 +113,7 @@ const ModalCanvas = () => {
         tool: new Hand(
           canvasRef.current,
           localModalProperties.modalProperties.urlImg,
-          { ...canvasState, zoom: event.target.value},
+          { ...canvasState, zoom: event.target.value },
           setCanvasState)
       }
     });
@@ -232,6 +232,8 @@ const ModalCanvas = () => {
     img.src = canvasState.img;
   }, [canvasState]);
   console.log('modal canvas rendering');
+  console.log('canvasState.arrowsArray', canvasState.arrowsArray);
+
 
   return (
     <div className="modal-content-grid-edit">
