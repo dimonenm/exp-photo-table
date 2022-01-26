@@ -1,12 +1,15 @@
 import Tool from "./Tool";
 
 export default class Arrow extends Tool {
-  constructor(canvas, loadedImg, canvasState, setCanvasState) {
+  constructor(canvas, loadedImg, canvasState, setCanvasState, arrowsState, setArrowsState, callBack) {
     super(canvas);
     this.img = new Image();
     this.img.src = loadedImg;
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
+    this.arrowsState = arrowsState;
+    this.setArrowsState = setArrowsState;
+    this.callBack = callBack;
     this.arrowData = {
       x1: 0,
       y1: 0,
@@ -37,7 +40,8 @@ export default class Arrow extends Tool {
 
   mouseUpHandler(event) {
     this.mouseDown = false;
-    this.setCanvasState((prev) => { return { ...prev, arrowsArray: [...this.canvasState.arrowsArray, this.arrowData] } })
+    this.callBack(this.arrowData);
+    // this.setArrowsState((prev) => { return [...this.arrowsState].push(this.arrowData) })
   }
   mouseDownHandler(event) {
     this.mouseDown = true;

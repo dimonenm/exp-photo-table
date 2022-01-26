@@ -23,6 +23,18 @@ const ModalCanvas = () => {
     type: 'handFree',
     tool: null
   });
+  const [arrowsState, setArrowsState] = useState([
+    {
+      botx: 593,
+      boty: 155,
+      topx: 606,
+      topy: 165,
+      x1: 588,
+      x2: 635,
+      y1: 176,
+      y2: 117
+    }
+  ]);
   const canvasRef = useRef();
 
   function handClickHandler(event) {
@@ -54,10 +66,26 @@ const ModalCanvas = () => {
             canvasRef.current,
             localModalProperties.modalProperties.urlImg,
             canvasState,
-            setCanvasState)
+            setCanvasState,
+            arrowsState,
+            setArrowsState,
+            callBack)
         }
       });
     };
+  }
+
+  function callBack(arrow) {
+    console.log('arrowsState', arrowsState);
+    console.log('arrow', arrow);
+    const tempArr = [...arrowsState];
+    console.log('tempArr: ', tempArr);
+    tempArr.push(arrow);
+    console.log('tempArr: ', tempArr);
+
+    // setArrowsState(() => {
+    //   return prev.push(arrow)
+    // })
   }
   function orientationVerticalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
@@ -232,7 +260,7 @@ const ModalCanvas = () => {
     img.src = canvasState.img;
   }, [canvasState]);
   console.log('modal canvas rendering');
-  console.log('canvasState.arrowsArray', canvasState.arrowsArray);
+  console.log('arrowsState', arrowsState);
 
 
   return (
