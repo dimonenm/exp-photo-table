@@ -40,6 +40,7 @@ export default class Hand extends Tool {
     this.mouseDown = false;
     this.lastOffsetValueX = this.offsetValueX;
     this.lastOffsetValueY = this.offsetValueY;
+    // this.ctx.scale(0.1, 0.1);
     this.setCanvasState((prev) => { return { ...prev, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
   }
   mouseDownHandler(event) {
@@ -63,6 +64,7 @@ export default class Hand extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffset + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
+
     }
   }
 }

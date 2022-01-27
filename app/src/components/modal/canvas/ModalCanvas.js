@@ -227,13 +227,49 @@ const ModalCanvas = () => {
       const imgW = (this.width / 100 * pr) * zoom;
       const imgH = (this.height / 100 * pr) * zoom;
 
-      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + canvasState.lastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + canvasState.lastOffsetValueY, imgW, imgH);
+
+      if (canvasState.arrowsArray.length > 0) {
+        // console.log(canvasState.arrowsArray);
+        for (const item of canvasState.arrowsArray) {
+          // console.log(item);
+          const lineangle = Math.atan2(item.y2 - item.y1, item.x2 - item.x1);
+          const d = (Math.sqrt(Math.pow((item.x1 - item.x2), 2) + Math.pow((item.y1 - item.y2), 2)) / 100) * 50;
+          const angle = ((Math.PI / 2) * 25) / 100;
+          const h = Math.abs((d > 20 ? 20 : d) / Math.cos(angle));
+
+          const angle1 = lineangle + angle;
+          const topx = item.x1 + Math.cos(angle1) * h;
+          const topy = item.y1 + Math.sin(angle1) * h;
+
+          const angle2 = lineangle - angle;
+          const botx = item.x1 + Math.cos(angle2) * h;
+          const boty = item.y1 + Math.sin(angle2) * h;
+
+          ctx.beginPath();
+
+          ctx.strokeStyle = canvasState.arrowsColor;
+          ctx.lineWidth = canvasState.arrowsWidth;
+          ctx.lineCap = 'round';
+          
+          ctx.moveTo(item.x1 + canvasState.lastOffsetValueX, item.y1 + canvasState.lastOffsetValueY);
+          ctx.lineTo(item.x2 + canvasState.lastOffsetValueX, item.y2 + canvasState.lastOffsetValueY);
+
+          ctx.moveTo(item.x1 + canvasState.lastOffsetValueX, item.y1 + canvasState.lastOffsetValueY);
+          ctx.lineTo(Math.floor(topx) + canvasState.lastOffsetValueX, Math.floor(topy) + canvasState.lastOffsetValueY);
+
+          ctx.moveTo(item.x1 + canvasState.lastOffsetValueX, item.y1 + canvasState.lastOffsetValueY);
+          ctx.lineTo(Math.floor(botx) + canvasState.lastOffsetValueX, Math.floor(boty) + canvasState.lastOffsetValueY);
+
+          ctx.stroke();
+        }
+      }
     }
     img.src = canvasState.img;
   }, [canvasState]);
   console.log('modal canvas rendering');
-  console.log('canvasState', canvasState);
+  // console.log('canvasState', canvasState);
 
 
   return (
