@@ -1,30 +1,23 @@
 import Tool from "./Tool";
 
 export default class Arrow extends Tool {
-  constructor(canvas, loadedImg, canvasState, setCanvasState, arrowsState, setArrowsState, callBack) {
+  constructor(canvas, loadedImg, canvasState, setCanvasState) {
     super(canvas);
     this.img = new Image();
     this.img.src = loadedImg;
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
-    this.arrowsState = arrowsState;
-    this.setArrowsState = setArrowsState;
-    this.callBack = callBack;
+    this.arrowsArr = [...canvasState.arrowsArray];
     this.arrowData = {
       x1: 0,
       y1: 0,
       x2: 0,
-      y2: 0,
-      topx: 0,
-      topy: 0,
-      botx: 0,
-      boty: 0,
-      strokeStyleColor: this.canvasState.arrowsColor,
-      lineWidth: this.canvasState.arrowsWidth
+      y2: 0
     };
 
     this.listen();
     console.log('Arrow');
+    console.log(this);
   }
 
   listen() {
@@ -40,8 +33,10 @@ export default class Arrow extends Tool {
 
   mouseUpHandler(event) {
     this.mouseDown = false;
-    this.callBack(this.arrowData);
-    // this.setArrowsState((prev) => { return [...this.arrowsState].push(this.arrowData) })
+    this.arrowsArr.push(this.arrowData);
+    this.setCanvasState((prev) => {
+      return { ...prev, arrowsArray: this.arrowsArr }
+    })
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
@@ -59,7 +54,7 @@ export default class Arrow extends Tool {
 
   draw(x1, y1, x2, y2) {
     this.img.src = this.saved;
-    // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.img, 0, 0, this.canvas.width, this.canvas.height);
 
     const lineangle = Math.atan2(y2 - y1, x2 - x1);
@@ -93,7 +88,7 @@ export default class Arrow extends Tool {
     this.ctx.lineTo(Math.floor(topx), Math.floor(topy));
 
     this.ctx.moveTo(x1, y1);
-    this.ctx.lineTo(botx, boty);
+    this.ctx.lineTo(Math.floor(botx), Math.floor(boty));
 
     this.ctx.stroke();
 
@@ -101,11 +96,7 @@ export default class Arrow extends Tool {
       x1: x1,
       y1: y1,
       x2: x2,
-      y2: y2,
-      topx: Math.floor(topx),
-      topy: Math.floor(topy),
-      botx: Math.floor(botx),
-      boty: Math.floor(boty)
+      y2: y2
     };
   }
 }
