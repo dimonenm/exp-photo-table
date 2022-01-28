@@ -7,6 +7,7 @@ export default class Hand extends Tool {
     this.img.src = loadedImg;
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
+    this.arrowsArr = [...canvasState.arrowsArray];
     this.listen();
     
     this.img.onload = () => {
@@ -41,7 +42,15 @@ export default class Hand extends Tool {
     this.lastOffsetValueX = this.offsetValueX;
     this.lastOffsetValueY = this.offsetValueY;
     // this.ctx.scale(0.1, 0.1);
-    this.setCanvasState((prev) => { return { ...prev, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
+    if (this.arrowsArr.length > 0) {
+      console.log('this.arrowsArr: ', this.arrowsArr);
+
+      for (const item of this.arrowsArr) {
+        item.offsetX = this.lastOffsetValueX;
+        item.offsetY = this.lastOffsetValueY;
+      }      
+    }
+    this.setCanvasState((prev) => { return { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
@@ -50,10 +59,10 @@ export default class Hand extends Tool {
   }
   mouseMoveHandler(event) {
     if (this.mouseDown) {
-      this.diff = event.offsetX - this.offsetXStart;
+      this.diffX = event.offsetX - this.offsetXStart;
       this.diffY = event.offsetY - this.offsetYStart;
 
-      this.offsetValueX = this.lastOffsetValueX + this.diff;
+      this.offsetValueX = this.lastOffsetValueX + this.diffX;
       if (this.offsetValueX <= this.imgOffset) { this.offsetValueX = this.imgOffset }
       if (this.offsetValueX >= -this.imgOffset) { this.offsetValueX = -this.imgOffset }
 

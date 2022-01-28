@@ -10,8 +10,10 @@ const Modal = () => {
   if (localModalProperties.modalProperties.isOpen) {
     return (
       <>
-        <LighteningBackground />
-        <ModalContainer />
+        <div className='modal'>
+          <LighteningBackground />
+          <ModalContainer />
+        </div>
       </>
     );
   }

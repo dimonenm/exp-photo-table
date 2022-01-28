@@ -253,14 +253,14 @@ const ModalCanvas = () => {
           ctx.lineWidth = canvasState.arrowsWidth;
           ctx.lineCap = 'round';
           
-          ctx.moveTo(item.x1 + canvasState.lastOffsetValueX, item.y1 + canvasState.lastOffsetValueY);
-          ctx.lineTo(item.x2 + canvasState.lastOffsetValueX, item.y2 + canvasState.lastOffsetValueY);
+          ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
+          ctx.lineTo(item.x2 + item.offsetX, item.y2 + item.offsetY);
 
-          ctx.moveTo(item.x1 + canvasState.lastOffsetValueX, item.y1 + canvasState.lastOffsetValueY);
-          ctx.lineTo(Math.floor(topx) + canvasState.lastOffsetValueX, Math.floor(topy) + canvasState.lastOffsetValueY);
+          ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
+          ctx.lineTo(Math.floor(topx) + item.offsetX, Math.floor(topy) + item.offsetY);
 
-          ctx.moveTo(item.x1 + canvasState.lastOffsetValueX, item.y1 + canvasState.lastOffsetValueY);
-          ctx.lineTo(Math.floor(botx) + canvasState.lastOffsetValueX, Math.floor(boty) + canvasState.lastOffsetValueY);
+          ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
+          ctx.lineTo(Math.floor(botx) + item.offsetX, Math.floor(boty) + item.offsetY);
 
           ctx.stroke();
         }
