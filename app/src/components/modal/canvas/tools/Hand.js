@@ -40,14 +40,16 @@ export default class Hand extends Tool {
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.lastOffsetValueX = this.offsetValueX;
+    console.log('lastOffsetValueX: ', this.lastOffsetValueX);
     this.lastOffsetValueY = this.offsetValueY;
     // this.ctx.scale(0.1, 0.1);
     if (this.arrowsArr.length > 0) {
-      console.log('this.arrowsArr: ', this.arrowsArr);
+      // console.log('this.arrowsArr: ', this.arrowsArr);
 
       for (const item of this.arrowsArr) {
-        item.offsetX = event.offsetX;
-        item.offsetY = event.offsetY;
+        console.log('item.offsetX: ', item.offsetX);
+        item.offsetX = this.lastOffsetValueX;
+        item.offsetY = this.lastOffsetValueY;
       }      
     }
     this.setCanvasState((prev) => { return { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
