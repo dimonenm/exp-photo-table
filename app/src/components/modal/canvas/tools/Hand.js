@@ -46,8 +46,8 @@ export default class Hand extends Tool {
       console.log('this.arrowsArr: ', this.arrowsArr);
 
       for (const item of this.arrowsArr) {
-        item.offsetX = this.lastOffsetValueX;
-        item.offsetY = this.lastOffsetValueY;
+        item.offsetX = event.offsetX;
+        item.offsetY = event.offsetY;
       }      
     }
     this.setCanvasState((prev) => { return { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
