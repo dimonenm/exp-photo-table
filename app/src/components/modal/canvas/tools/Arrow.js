@@ -4,7 +4,7 @@ export default class Arrow extends Tool {
   constructor(canvas, loadedImg, canvasState, setCanvasState) {
     super(canvas);
     this.img = new Image();
-    this.img.src = loadedImg;
+    // this.img.src = loadedImg;
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
     this.arrowsArr = [...canvasState.arrowsArray];
@@ -19,7 +19,7 @@ export default class Arrow extends Tool {
 
     this.listen();
     console.log('Arrow');
-    // console.log(this);
+    console.log(canvas);
   }
 
   listen() {
@@ -36,6 +36,13 @@ export default class Arrow extends Tool {
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.arrowsArr.push(this.arrowData);
+
+    console.log(this.canvasState.img);
+    this.canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      console.log('url: ', url);
+      // URL.revokeObjectURL(url);
+    }, 'image/jpeg', 1);
     this.setCanvasState((prev) => {
       return { ...prev, arrowsArray: this.arrowsArr }
     })

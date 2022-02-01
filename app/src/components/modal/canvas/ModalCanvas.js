@@ -11,6 +11,7 @@ const ModalCanvas = () => {
     {
       orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
+      imgCuted: null,
       lastOffsetValueX: 0,
       lastOffsetValueY: 0,
       zoom: '100',
@@ -269,8 +270,6 @@ const ModalCanvas = () => {
     img.src = canvasState.img;
   }, [canvasState]);
   console.log('modal canvas rendering');
-  // console.log('canvasState', canvasState);
-
 
   return (
     <div className="modal-content-grid-edit">

@@ -15,7 +15,7 @@ export default class Hand extends Tool {
       this.zoom = +this.canvasState.zoom / 100;
       this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;
       this.imgHeight = (this.img.height / 100 * this.pr) * this.zoom;
-      this.imgOffset = (canvas.width - this.imgWidth) / 2;
+      this.imgOffsetX = (canvas.width - this.imgWidth) / 2;
       this.imgOffsetY = (canvas.height - this.imgHeight) / 2;
       this.offsetValueX = 0;
       this.offsetValueY = 0;
@@ -40,16 +40,12 @@ export default class Hand extends Tool {
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.lastOffsetValueX = this.offsetValueX;
-    console.log('lastOffsetValueX: ', this.lastOffsetValueX);
     this.lastOffsetValueY = this.offsetValueY;
-    // this.ctx.scale(0.1, 0.1);
     if (this.arrowsArr.length > 0) {
-      // console.log('this.arrowsArr: ', this.arrowsArr);
 
       for (const item of this.arrowsArr) {
-        console.log('item.offsetX: ', item.offsetX);
-        item.offsetX = this.lastOffsetValueX;
-        item.offsetY = this.lastOffsetValueY;
+        item.offsetX = this.imgOffsetX + this.offsetValueX;
+        item.offsetY = this.imgOffsetY + this.offsetValueY;
       }      
     }
     this.setCanvasState((prev) => { return { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
@@ -65,8 +61,8 @@ export default class Hand extends Tool {
       this.diffY = event.offsetY - this.offsetYStart;
 
       this.offsetValueX = this.lastOffsetValueX + this.diffX;
-      if (this.offsetValueX <= this.imgOffset) { this.offsetValueX = this.imgOffset }
-      if (this.offsetValueX >= -this.imgOffset) { this.offsetValueX = -this.imgOffset }
+      if (this.offsetValueX <= this.imgOffsetX) { this.offsetValueX = this.imgOffsetX }
+      if (this.offsetValueX >= -this.imgOffsetX) { this.offsetValueX = -this.imgOffsetX }
 
       this.offsetValueY = this.lastOffsetValueY + this.diffY;
       if (this.offsetValueY <= this.imgOffsetY) { this.offsetValueY = this.imgOffsetY }
@@ -74,7 +70,7 @@ export default class Hand extends Tool {
 
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      this.ctx.drawImage(this.img, this.imgOffset + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
+      this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
 
     }
   }
