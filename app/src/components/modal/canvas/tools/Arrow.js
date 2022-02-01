@@ -19,7 +19,7 @@ export default class Arrow extends Tool {
 
     this.listen();
     console.log('Arrow');
-    console.log(canvas);
+    // console.log(canvas);
   }
 
   listen() {
@@ -37,7 +37,7 @@ export default class Arrow extends Tool {
     this.mouseDown = false;
     this.arrowsArr.push(this.arrowData);
 
-    console.log(this.canvasState.img);
+    // console.log(this.canvasState.img);
     this.canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       console.log('url: ', url);

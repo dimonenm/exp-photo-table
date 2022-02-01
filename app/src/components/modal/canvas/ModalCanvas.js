@@ -11,7 +11,7 @@ const ModalCanvas = () => {
     {
       orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
-      imgCuted: null,
+      imgCuted: false,
       lastOffsetValueX: 0,
       lastOffsetValueY: 0,
       zoom: '100',
@@ -47,6 +47,17 @@ const ModalCanvas = () => {
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
+      //   setToolState((prev) => {
+      //     return {
+      //       ...prev,
+      //       type: 'arrow',
+      //       tool: new Arrow(
+      //         canvasRef.current,
+      //         localModalProperties.modalProperties.urlImg,
+      //         canvasState,
+      //         setCanvasState)
+      //     }
+      //   });
       setToolState((prev) => {
         return {
           ...prev,
@@ -184,6 +195,11 @@ const ModalCanvas = () => {
             </div>
             <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: {canvasState.zoom}%</div>
           </div>
+          <div className='modal-content-grid-properties-right-title'>Вырезание:</div>
+          <div className='modal-content-grid-properties-right-cut'>
+            <div className='modal-content-grid-properties-right-cut-btn'></div>
+            <div className='modal-content-grid-properties-right-cut-condition'>{ canvasState.imgCuted ? "Вырезано" : "Не вырезано"}</div>
+          </div>
         </>
       );
     };
@@ -253,7 +269,7 @@ const ModalCanvas = () => {
           ctx.strokeStyle = canvasState.arrowsColor;
           ctx.lineWidth = canvasState.arrowsWidth;
           ctx.lineCap = 'round';
-          
+
           ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
           ctx.lineTo(item.x2 + item.offsetX, item.y2 + item.offsetY);
 
