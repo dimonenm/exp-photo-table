@@ -226,8 +226,30 @@
     }
 
     &-cut {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      grid-gap: 5px;
+      align-items: center;
+
+      padding: 5px;
+
       &-btn {
-        height: 25px;
+        height: 40px;
+        width: 40px;
+
+        background-image: url("../../../img/btnScissors.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+      &-btn-active {
+        height: 40px;
+        width: 40px;
+
+        background-image: url("../../../img/btnScissorsActive.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
       }
       &-condition {
         display: grid;

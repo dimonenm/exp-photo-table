@@ -158,6 +158,11 @@ const ModalCanvas = () => {
       }
     });
   }
+  function cutClickHandler(event) {
+    setCanvasState((prev => {
+      return { ...prev, imgCuted: true };
+    }))
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -197,8 +202,22 @@ const ModalCanvas = () => {
           </div>
           <div className='modal-content-grid-properties-right-title'>Вырезание:</div>
           <div className='modal-content-grid-properties-right-cut'>
-            <div className='modal-content-grid-properties-right-cut-btn'></div>
-            <div className='modal-content-grid-properties-right-cut-condition'>{ canvasState.imgCuted ? "Вырезано" : "Не вырезано"}</div>
+            <div className='modal-content-grid-properties-right-cut-btn'
+              onClick={cutClickHandler}
+              onMouseDown={(event) => {
+                event.target.classList = '';
+                event.target.classList.add('modal-content-grid-properties-right-cut-btn-active');
+              }}
+              onMouseUp={(event) => {
+                event.target.classList = '';
+                event.target.classList.add('modal-content-grid-properties-right-cut-btn');
+              }}
+              onMouseLeave={(event) => {
+                event.target.classList = '';
+                event.target.classList.add('modal-content-grid-properties-right-cut-btn');
+              }}
+            ></div>
+            <div className='modal-content-grid-properties-right-cut-condition'>{canvasState.imgCuted ? "Вырезано" : "Не вырезано"}</div>
           </div>
         </>
       );
