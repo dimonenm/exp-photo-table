@@ -36,7 +36,7 @@ const ModalCanvas = () => {
           type: 'hand',
           tool: new Hand(
             canvasRef.current,
-            localModalProperties.modalProperties.urlImg,
+            canvasState.img,
             canvasState,
             setCanvasState)
         }
@@ -47,24 +47,13 @@ const ModalCanvas = () => {
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
-      //   setToolState((prev) => {
-      //     return {
-      //       ...prev,
-      //       type: 'arrow',
-      //       tool: new Arrow(
-      //         canvasRef.current,
-      //         localModalProperties.modalProperties.urlImg,
-      //         canvasState,
-      //         setCanvasState)
-      //     }
-      //   });
       setToolState((prev) => {
         return {
           ...prev,
           type: 'arrow',
           tool: new Arrow(
             canvasRef.current,
-            localModalProperties.modalProperties.urlImg,
+            canvasState.img,
             canvasState,
             setCanvasState)
         }
@@ -80,7 +69,7 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          localModalProperties.modalProperties.urlImg,
+          canvasState.img,
           canvasState,
           setCanvasState)
       }
@@ -95,7 +84,7 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          localModalProperties.modalProperties.urlImg,
+          canvasState.img,
           canvasState,
           setCanvasState)
       }
@@ -110,7 +99,7 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          localModalProperties.modalProperties.urlImg,
+          canvasState.img,
           canvasState,
           setCanvasState)
       }
@@ -124,7 +113,7 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          localModalProperties.modalProperties.urlImg,
+          canvasState.img,
           { ...canvasState, zoom: event.target.value },
           setCanvasState)
       }
@@ -138,7 +127,7 @@ const ModalCanvas = () => {
         type: 'arrow',
         tool: new Arrow(
           canvasRef.current,
-          localModalProperties.modalProperties.urlImg,
+          canvasState.img,
           { ...canvasState, arrowsColor: event.target.value },
           setCanvasState)
       }
@@ -152,16 +141,44 @@ const ModalCanvas = () => {
         type: 'arrow',
         tool: new Arrow(
           canvasRef.current,
-          localModalProperties.modalProperties.urlImg,
+          canvasState.img,
           { ...canvasState, arrowsWidth: event.target.value },
           setCanvasState)
       }
     });
   }
   function cutClickHandler(event) {
-    setCanvasState((prev => {
-      return { ...prev, imgCuted: true };
-    }))
+
+    canvasRef.current.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      setCanvasState((prev => {
+        return {
+          ...prev,
+          img: url,
+          imgCuted: true,
+          lastOffsetValueX: 0,
+          lastOffsetValueY: 0
+        };
+      }))
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'hand',
+          tool: new Hand(
+            canvasRef.current,
+            canvasState.img,
+            canvasState,
+            setCanvasState)
+        }
+      });
+    }, 'image/jpeg', 1)
+    // console.log(canvasState.img);
+    // canvasRef.current.toBlob((blob) => {
+    //   const url = URL.createObjectURL(blob);
+    //   console.log('url: ', url);
+    //   // URL.revokeObjectURL(url);
+    // }, 'image/jpeg', 1);
+
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
