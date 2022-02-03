@@ -8,7 +8,10 @@ export default class Arrow extends Tool {
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
     this.arrowsArr = [...canvasState.arrowsArray];
+    this.arrowArrLength = 0;
     this.arrowData = {
+      num: 0,
+      text: '',
       x1: 0,
       y1: 0,
       x2: 0,
@@ -94,7 +97,15 @@ export default class Arrow extends Tool {
 
     this.ctx.stroke();
 
+    this.ctx.font = `${16 + (parseInt(this.canvasState.arrowsWidth) * 4)}px Times New Roman serif`;
+    this.ctx.fillStyle = this.canvasState.arrowsColor;
+    const x3 = x2 + Math.cos(lineangle + (((Math.PI / 2)) / 100)) * 20;
+    const y3 = y2 + Math.sin(lineangle - (((Math.PI / 2)) / 100)) * 20;
+
+    this.ctx.fillText(this.arrowData.num, Math.floor(x3), Math.floor(y3));
+
     this.arrowData = {
+      num: this.arrowsArr.length + 1,
       x1: x1,
       y1: y1,
       x2: x2,

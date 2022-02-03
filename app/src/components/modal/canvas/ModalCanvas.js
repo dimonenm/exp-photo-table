@@ -157,7 +157,8 @@ const ModalCanvas = () => {
           img: url,
           imgCuted: true,
           lastOffsetValueX: 0,
-          lastOffsetValueY: 0
+          lastOffsetValueY: 0,
+          zoom: '100'
         };
       }))
       setToolState((prev) => {
@@ -166,24 +167,19 @@ const ModalCanvas = () => {
           type: 'hand',
           tool: new Hand(
             canvasRef.current,
-            canvasState.img,
+            url,
             canvasState,
             setCanvasState)
         }
       });
     }, 'image/jpeg', 1)
-    // console.log(canvasState.img);
-    // canvasRef.current.toBlob((blob) => {
-    //   const url = URL.createObjectURL(blob);
-    //   console.log('url: ', url);
-    //   // URL.revokeObjectURL(url);
-    // }, 'image/jpeg', 1);
 
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
         <>
+          {canvasState.imgCuted ? <div className='modal-content-grid-properties-right-block'></div> : null}
           <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
           <div className='modal-content-grid-properties-right-orientation'>
             <div
@@ -316,12 +312,20 @@ const ModalCanvas = () => {
           ctx.lineTo(Math.floor(botx) + item.offsetX, Math.floor(boty) + item.offsetY);
 
           ctx.stroke();
+
+          ctx.font = `${16 + (parseInt(canvasState.arrowsWidth) * 4)}px Times New Roman serif`;
+          ctx.fillStyle = canvasState.arrowsColor;
+          const x3 = item.x2 + Math.cos(lineangle + (((Math.PI / 2)) / 100)) * 20;
+          const y3 = item.y2 + Math.sin(lineangle - (((Math.PI / 2)) / 100)) * 20;
+
+          ctx.fillText(item.num, Math.floor(x3), Math.floor(y3));
         }
       }
     }
     img.src = canvasState.img;
   }, [canvasState]);
   console.log('modal canvas rendering');
+
 
   return (
     <div className="modal-content-grid-edit">

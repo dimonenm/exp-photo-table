@@ -5,7 +5,6 @@ export default class Hand extends Tool {
     super(canvas);
     this.img = new Image();
     this.img.src = loadedImg;
-    console.log('loadedImg: ', loadedImg);
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
     this.arrowsArr = [...canvasState.arrowsArray];
