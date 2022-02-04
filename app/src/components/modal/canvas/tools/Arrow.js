@@ -1,4 +1,5 @@
 import Tool from "./Tool";
+import drawArrowArray from '../../../../services/forModalCanvas/fDrawArrowArray';
 
 export default class Arrow extends Tool {
   constructor(canvas, loadedImg, canvasState, setCanvasState) {
@@ -15,9 +16,7 @@ export default class Arrow extends Tool {
       x1: 0,
       y1: 0,
       x2: 0,
-      y2: 0,
-      offsetX: 0,
-      offsetY: 0
+      y2: 0
     };
 
     this.listen();
@@ -62,47 +61,7 @@ export default class Arrow extends Tool {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.img, 0, 0, this.canvas.width, this.canvas.height);
 
-    const lineangle = Math.atan2(y2 - y1, x2 - x1);
-    // console.log('lineangle: ', lineangle);
-    // const d = 20;
-    const d = (Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)) / 100) * 50;
-    // const angle = Math.PI / 12;
-    const angle = ((Math.PI / 2) * 25) / 100;
-    const h = Math.abs((d > 20 ? 20 : d) / Math.cos(angle));
-    // const h = 20;
-
-    // const angle1 = lineangle + Math.PI + angle;
-    const angle1 = lineangle + angle;
-    const topx = x1 + Math.cos(angle1) * h;
-    const topy = y1 + Math.sin(angle1) * h;
-
-    const angle2 = lineangle - angle;
-    const botx = x1 + Math.cos(angle2) * h;
-    const boty = y1 + Math.sin(angle2) * h;
-
-    this.ctx.beginPath();
-
-    this.ctx.strokeStyle = this.canvasState.arrowsColor;
-    this.ctx.lineWidth = this.canvasState.arrowsWidth;
-    this.ctx.lineCap = 'round';
-
-    this.ctx.moveTo(x1, y1);
-    this.ctx.lineTo(x2, y2);
-
-    this.ctx.moveTo(x1, y1);
-    this.ctx.lineTo(Math.floor(topx), Math.floor(topy));
-
-    this.ctx.moveTo(x1, y1);
-    this.ctx.lineTo(Math.floor(botx), Math.floor(boty));
-
-    this.ctx.stroke();
-
-    this.ctx.font = `${16 + (parseInt(this.canvasState.arrowsWidth) * 4)}px Times New Roman serif`;
-    this.ctx.fillStyle = this.canvasState.arrowsColor;
-    const x3 = x2 + Math.cos(lineangle + (((Math.PI / 2)) / 100)) * 20;
-    const y3 = y2 + Math.sin(lineangle - (((Math.PI / 2)) / 100)) * 20;
-
-    this.ctx.fillText(this.arrowData.num, Math.floor(x3), Math.floor(y3));
+    drawArrowArray(this.ctx, this.arrowData.num, this.canvasState.arrowsColor, this.canvasState.arrowsWidth, x1, y1, x2, y2);
 
     this.arrowData = {
       num: this.arrowsArr.length + 1,
@@ -110,8 +69,6 @@ export default class Arrow extends Tool {
       y1: y1,
       x2: x2,
       y2: y2,
-      offsetX: 0,
-      offsetY: 0
     };
   }
 }

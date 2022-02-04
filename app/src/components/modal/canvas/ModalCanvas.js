@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { modalDataContext } from '../../../App';
-import './ModalCanvas.scss';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
+import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
+import './ModalCanvas.scss';
 
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
@@ -283,42 +284,7 @@ const ModalCanvas = () => {
         // console.log(canvasState.arrowsArray);
         for (const item of canvasState.arrowsArray) {
           // console.log(item);
-          const lineangle = Math.atan2(item.y2 - item.y1, item.x2 - item.x1);
-          const d = (Math.sqrt(Math.pow((item.x1 - item.x2), 2) + Math.pow((item.y1 - item.y2), 2)) / 100) * 50;
-          const angle = ((Math.PI / 2) * 25) / 100;
-          const h = Math.abs((d > 20 ? 20 : d) / Math.cos(angle));
-
-          const angle1 = lineangle + angle;
-          const topx = item.x1 + Math.cos(angle1) * h;
-          const topy = item.y1 + Math.sin(angle1) * h;
-
-          const angle2 = lineangle - angle;
-          const botx = item.x1 + Math.cos(angle2) * h;
-          const boty = item.y1 + Math.sin(angle2) * h;
-
-          ctx.beginPath();
-
-          ctx.strokeStyle = canvasState.arrowsColor;
-          ctx.lineWidth = canvasState.arrowsWidth;
-          ctx.lineCap = 'round';
-
-          ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
-          ctx.lineTo(item.x2 + item.offsetX, item.y2 + item.offsetY);
-
-          ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
-          ctx.lineTo(Math.floor(topx) + item.offsetX, Math.floor(topy) + item.offsetY);
-
-          ctx.moveTo(item.x1 + item.offsetX, item.y1 + item.offsetY);
-          ctx.lineTo(Math.floor(botx) + item.offsetX, Math.floor(boty) + item.offsetY);
-
-          ctx.stroke();
-
-          ctx.font = `${16 + (parseInt(canvasState.arrowsWidth) * 4)}px Times New Roman serif`;
-          ctx.fillStyle = canvasState.arrowsColor;
-          const x3 = item.x2 + Math.cos(lineangle + (((Math.PI / 2)) / 100)) * 20;
-          const y3 = item.y2 + Math.sin(lineangle - (((Math.PI / 2)) / 100)) * 20;
-
-          ctx.fillText(item.num, Math.floor(x3), Math.floor(y3));
+          drawArrowArray(ctx, item.num, canvasState.arrowsColor, canvasState.arrowsWidth, item.x1, item.y1, item.x2, item.y2);
         }
       }
     }
