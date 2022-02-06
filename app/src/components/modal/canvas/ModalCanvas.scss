@@ -9,7 +9,7 @@
     grid-column: 1 / 2;
 
     grid-template-columns: 40px;
-    grid-template-rows: 40px 40px 1fr;
+    grid-template-rows: 40px 40px 40px 1fr;
 
     grid-gap: 5px;
 
@@ -18,22 +18,30 @@
     &-hand,
     &-hand-active,
     &-arrow,
-    &-arrow-active {
+    &-arrow-active,
+    &-textDesc,
+    &-textDesc-active {
       background-repeat: no-repeat;
       background-position: center center;
     }
 
     &-hand {
-      background-image: url("../../../img/handBtn.svg");
+      background-image: url("../../../img/btnHand.svg");
     }
     &-hand-active {
-      background-image: url("../../../img/handBtnActive.svg");
+      background-image: url("../../../img/btnHandActive.svg");
     }
     &-arrow {
-      background-image: url("../../../img/arrow-down-left-square.svg");
+      background-image: url("../../../img/btnArrow.svg");
     }
     &-arrow-active {
-      background-image: url("../../../img/arrow-down-left-square-active.svg");
+      background-image: url("../../../img/btnArrowActive.svg");
+    }
+    &-textDesc {
+      background-image: url("../../../img/btnTextDesc.svg");
+    }
+    &-textDesc-active {
+      background-image: url("../../../img/btnTextDescActive.svg");
     }
   }
 

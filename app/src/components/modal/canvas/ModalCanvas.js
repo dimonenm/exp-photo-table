@@ -61,6 +61,19 @@ const ModalCanvas = () => {
       });
     };
   }
+  function textDescClickHandler(event) {
+    if (toolState.type === 'textDesc') {
+      setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
+    } else {
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'textDesc',
+          tool: new HandFree(canvasRef.current)
+        }
+      });
+    };
+  }
   function orientationVerticalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "785" } });
@@ -304,6 +317,10 @@ const ModalCanvas = () => {
           toolState.type === 'arrow'
             ? 'modal-content-grid-tools-left-arrow-active'
             : 'modal-content-grid-tools-left-arrow'} onClick={arrowClickHandler}></div>
+        <div className={
+          toolState.type === 'textDesc'
+            ? 'modal-content-grid-tools-left-textDesc-active'
+            : 'modal-content-grid-tools-left-textDesc'} onClick={textDescClickHandler}></div>
       </div>
       <canvas
         ref={canvasRef}
