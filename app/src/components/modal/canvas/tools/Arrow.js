@@ -1,5 +1,6 @@
 import Tool from "./Tool";
 import drawArrowArray from '../../../../services/forModalCanvas/fDrawArrowArray';
+import Arrow_entity from '../entity/Arrow_entity';
 
 export default class Arrow extends Tool {
   constructor(canvas, loadedImg, canvasState, setCanvasState) {
@@ -9,7 +10,7 @@ export default class Arrow extends Tool {
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
     this.arrowsArr = [...canvasState.arrowsArray];
-    this.arrowArrLength = 0;
+    this.arrowArrLength = this.arrowsArr.length + 1;
     this.arrowData = {
       num: 0,
       text: '',
@@ -18,10 +19,10 @@ export default class Arrow extends Tool {
       x2: 0,
       y2: 0
     };
+    this.arrowData2 = new Arrow_entity(this.arrowArrLength);
 
     this.listen();
     console.log('Arrow');
-    // console.log(canvas);
   }
 
   listen() {

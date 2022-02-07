@@ -278,6 +278,20 @@ const ModalCanvas = () => {
         </>
       );
     };
+
+    if (toolType === 'textDesc') {
+      return (
+        <>
+          <div className='modal-content-grid-properties-right-list'>
+            <div className='modal-content-grid-properties-right-list-number'>1</div>
+            <input
+              type="text"
+            ></input>
+            <div className='modal-content-grid-properties-right-list-delete'></div>
+          </div>
+        </>
+      );
+    };
   }
 
   useEffect(() => {
