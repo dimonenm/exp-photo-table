@@ -280,17 +280,25 @@ const ModalCanvas = () => {
     };
 
     if (toolType === 'textDesc') {
-      return (
-        <>
-          <div className='modal-content-grid-properties-right-list'>
-            <div className='modal-content-grid-properties-right-list-number'>1</div>
-            <input
-              type="text"
-            ></input>
-            <div className='modal-content-grid-properties-right-list-delete'></div>
-          </div>
-        </>
-      );
+      if (canvasState.arrowsArray.length > 0) {
+        // console.log(canvasState.arrowsArray);
+        const tempRendArray = [];
+        for (const item of canvasState.arrowsArray) {
+          tempRendArray.push(
+            <div className='modal-content-grid-properties-right-list_item' key={item.getNumber()}>
+              <div className='modal-content-grid-properties-right-list_item-number'>{item.getNumber()}</div>
+              <input
+                type="text"
+                value={item.getText()}
+              ></input>
+              <div className='modal-content-grid-properties-right-list_item-delete'></div>
+            </div>
+          );
+        }
+        return tempRendArray;        
+      }
+
+      return (<div className='modal-content-grid-properties-right-title'>Данные о стрелках отсутствуют</div>);
     };
   }
 
@@ -311,7 +319,7 @@ const ModalCanvas = () => {
         // console.log(canvasState.arrowsArray);
         for (const item of canvasState.arrowsArray) {
           // console.log(item);
-          drawArrowArray(ctx, item.num, canvasState.arrowsColor, canvasState.arrowsWidth, item.x1, item.y1, item.x2, item.y2);
+          drawArrowArray(ctx, item.getNumber(), canvasState.arrowsColor, canvasState.arrowsWidth, item.x1, item.y1, item.x2, item.y2);
         }
       }
     }

@@ -1,7 +1,7 @@
 const drawArrowArray = (Ctx, Text, ArrowsColor, ArrowsWidth, X1, Y1, X2, Y2) => {
   // инициализация переменных
   const ctx = Ctx; // контекст
-  const text = Text; // текст
+  const text = Text; // текст  
   const arrowsColor = ArrowsColor; // цвет стрелок
   const arrowsWidth = ArrowsWidth; // ширина чтрелок
   const lineCap = 'round'; // вид соединения
