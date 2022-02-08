@@ -28,8 +28,9 @@ export default class Arrow_entity {
   }
 
   setNumber(value) {
-    if (typeof value === 'number') {      
+    if (typeof value === 'number') {  
       this.number = value.toString();
+      return;
     }
     this.number = value;
   }

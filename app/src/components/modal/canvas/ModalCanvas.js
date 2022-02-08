@@ -48,6 +48,21 @@ const ModalCanvas = () => {
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
+      if (!canvasState.imgCuted) {
+        canvasRef.current.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          setCanvasState((prev => {
+            return {
+              ...prev,
+              img: url,
+              imgCuted: true,
+              lastOffsetValueX: 0,
+              lastOffsetValueY: 0,
+              zoom: '100'
+            };
+          }));
+        }, 'image/jpeg', 1);        
+      }
       setToolState((prev) => {
         return {
           ...prev,
@@ -160,6 +175,41 @@ const ModalCanvas = () => {
           setCanvasState)
       }
     });
+  }
+  function arrowTextDescChangeHandler(event) {
+    const arr = [...canvasState.arrowsArray];
+
+    for (const item of arr) {
+      if (item.getNumber() === event.target.id) {
+        item.setText(event.target.value);
+      };
+    }
+
+    setCanvasState((prev => {
+      return {
+        ...prev,
+        arrowsArray: arr
+      };
+    }))
+  }
+  function arrowTextDescDeleteClickHandler(event) {
+    const filrerArray = [...canvasState.arrowsArray].filter((item) => {
+      if (item.getNumber() !== event.target.id)
+        return item;
+      return false;
+    });
+
+    const numberingArray = filrerArray.map((item, i) => {
+      item.setNumber(i + 1)
+      return item;
+    })
+
+    setCanvasState((prev => {
+      return {
+        ...prev,
+        arrowsArray: numberingArray
+      };
+    }))
   }
   function cutClickHandler(event) {
 
@@ -281,7 +331,6 @@ const ModalCanvas = () => {
 
     if (toolType === 'textDesc') {
       if (canvasState.arrowsArray.length > 0) {
-        // console.log(canvasState.arrowsArray);
         const tempRendArray = [];
         for (const item of canvasState.arrowsArray) {
           tempRendArray.push(
@@ -289,13 +338,20 @@ const ModalCanvas = () => {
               <div className='modal-content-grid-properties-right-list_item-number'>{item.getNumber()}</div>
               <input
                 type="text"
+                id={item.getNumber()}
+                placeholder='Введите описание...'
                 value={item.getText()}
+                onChange={arrowTextDescChangeHandler}
               ></input>
-              <div className='modal-content-grid-properties-right-list_item-delete'></div>
+              <div
+                className='modal-content-grid-properties-right-list_item-delete'
+                id={item.getNumber()}
+                onClick={arrowTextDescDeleteClickHandler}
+              ></div>
             </div>
           );
         }
-        return tempRendArray;        
+        return tempRendArray;
       }
 
       return (<div className='modal-content-grid-properties-right-title'>Данные о стрелках отсутствуют</div>);
