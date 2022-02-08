@@ -5,7 +5,8 @@
     width: 80%;
     height: max-content;
     /* max-height: 760px; */
-    max-width: 1120px;
+    // max-width: 1120px;
+    max-width: max-content;
 
     position: fixed;
     z-index: 30;
@@ -22,16 +23,16 @@
     border: 1px solid #000;
 }
 
-.set-photo-table-data {
-    max-height: 440px;
-}
+// .set-photo-table-data {
+//     max-height: 440px;
+// }
 
-.edit-photo-785 {
-    max-width: 785px;
-}
-.edit-photo-960 {
-    max-width: 960px;
-}
-.edit-photo-1010 {
-    max-width: 1010px;
-}
+// .edit-photo-785 {
+//     max-width: 785px;
+// }
+// .edit-photo-960 {
+//     max-width: 960px;
+// }
+// .edit-photo-1010 {
+//     max-width: 1010px;
+// }
