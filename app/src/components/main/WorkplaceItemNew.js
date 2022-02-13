@@ -1,6 +1,8 @@
 import React from 'react';
+import GallaryImage from './entities/GalleryImage'
 
-const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGalleryImages, downloadedImages, setDownloadedImages }) => {
+
+const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGalleryImages }) => {
 
     function dragover(event) {
         event.preventDefault();
@@ -17,9 +19,12 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGallery
     function dragdrop(event) {
         event.preventDefault();
         event.target.classList.remove('workplace-item-new-hovered');
-
+        
+        const gallaryImage = new GallaryImage()
+        gallaryImage.setName(currentGalleryImage.nameImg)
+        gallaryImage.setUrl(currentGalleryImage.urlImg)
         const arr = [...galleryImages];
-        arr.push(currentGalleryImage);
+        arr.push(gallaryImage);        
 
         setGalleryImages(arr);
     }

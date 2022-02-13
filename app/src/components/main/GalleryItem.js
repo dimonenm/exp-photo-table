@@ -19,7 +19,6 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
   }
 
   const dragStartHandler = (event) => {
-    // event.target.classList.add('gallery-item-hold');
     setTimeout(() => event.target.classList.add('gallery-item-hide'), 0);
     setCurrentGalleryImage({ nameImg: name, urlImg: url, textImg: null });
   }
@@ -30,7 +29,7 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
     }
 
     let isFindedInGalleryImages = galleryImages.find(item => {
-      if (name === item.nameImg) return true;
+      if (name === item.getName()) return true;
       return false;
     })
 
@@ -44,9 +43,6 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
   if (hiden) {
     return (
       <div className="gallery-item gallery-item-hide"
-        onDoubleClick={dbClickHandler}
-        onDragStart={dragStartHandler}
-        onDragEnd={dragEndHandler}
         draggable="false"
       >
         <div className="gallery-item-name">{shortName ? shortName : name}</div>

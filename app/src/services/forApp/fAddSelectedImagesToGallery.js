@@ -11,9 +11,10 @@ function addSelectedImagesToArrForGallery(
         arrGalleryImages.unshift(<WorkplaceItem
             key={index}
             index={index}
-            name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-            img={item.urlImg}
-            text={item.textImg}
+            name={`Иллюстрация ${index + 1}`}
+            // name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+            img={item.getUrl()}
+            text={item.getText()}
             setModalProperties={setModalProperties}
         />);
     });

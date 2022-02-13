@@ -17,7 +17,7 @@ function addDownloadedImagesToArrforGallery(
     let isHasInGalleryImages = false;
     if (galleryImages.length) {
       galleryImages.forEach(img => {
-        if (item.name === img.nameImg) {
+        if (item.name === img.getName()) {
           isHasInGalleryImages = true;
         }
       })
