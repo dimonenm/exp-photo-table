@@ -89,6 +89,19 @@ const ModalCanvas = () => {
       });
     };
   }
+  function imgDescClickHandler(event) {
+    if (toolState.type === 'imgDesc') {
+      setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
+    } else {
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'imgDesc',
+          tool: new HandFree(canvasRef.current)
+        }
+      });
+    };
+  }
   function orientationVerticalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
     localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "785" } });
@@ -399,6 +412,10 @@ const ModalCanvas = () => {
           toolState.type === 'textDesc'
             ? 'modal-content-grid-tools-left-textDesc-active'
             : 'modal-content-grid-tools-left-textDesc'} onClick={textDescClickHandler}></div>
+        <div className={
+          toolState.type === 'imgDesc'
+            ? 'modal-content-grid-tools-left-imgDesc-active'
+            : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
       </div>
       <canvas
         ref={canvasRef}

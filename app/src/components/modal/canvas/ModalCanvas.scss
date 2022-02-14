@@ -9,7 +9,7 @@
     grid-column: 1 / 2;
 
     grid-template-columns: 40px;
-    grid-template-rows: 40px 40px 40px 1fr;
+    grid-template-rows: 40px 40px 40px 40px 1fr;
 
     grid-gap: 5px;
 
@@ -18,9 +18,11 @@
     &-hand,
     &-hand-active,
     &-arrow,
-    &-arrow-active,
+    &-arrow-active, 
     &-textDesc,
-    &-textDesc-active {
+    &-textDesc-active,
+    &-imgDesc,
+    &-imgDesc-active {
       background-repeat: no-repeat;
       background-position: center center;
     }
@@ -42,6 +44,12 @@
     }
     &-textDesc-active {
       background-image: url("../../../img/btnTextDescActive.svg");
+    }
+    &-imgDesc {
+      background-image: url("../../../img/btnDescription.svg");
+    }
+    &-imgDesc-active {
+      background-image: url("../../../img/btnDescriptionActive.svg");
     }
   }
 
