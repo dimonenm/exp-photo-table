@@ -12,6 +12,7 @@ const ModalCanvas = () => {
     {
       orientation: 'horizontal',
       img: localModalProperties.modalProperties.urlImg,
+      imgDesc: '',
       imgCuted: false,
       lastOffsetValueX: 0,
       lastOffsetValueY: 0,
@@ -61,7 +62,7 @@ const ModalCanvas = () => {
               zoom: '100'
             };
           }));
-        }, 'image/jpeg', 1);        
+        }, 'image/jpeg', 1);
       }
       setToolState((prev) => {
         return {
@@ -202,6 +203,14 @@ const ModalCanvas = () => {
       return {
         ...prev,
         arrowsArray: arr
+      };
+    }))
+  }
+  function imgDescChangeHandler(event) {
+    setCanvasState((prev => {
+      return {
+        ...prev,
+        imgDesc: event.target.value
       };
     }))
   }
@@ -368,6 +377,17 @@ const ModalCanvas = () => {
       }
 
       return (<div className='modal-content-grid-properties-right-title'>Данные о стрелках отсутствуют</div>);
+    };
+
+    if (toolType === 'imgDesc') {
+      return (
+        <div className='modal-content-grid-properties-right-text-area'>
+          <textarea
+            placeholder='Введите описание изображения...'
+            onChange={imgDescChangeHandler}
+          ></textarea>
+        </div>
+      );
     };
   }
 
