@@ -24,6 +24,7 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGallery
         gallaryImage.setName(currentGalleryImage.nameImg)
         gallaryImage.setUrl(currentGalleryImage.urlImg)
         const arr = [...galleryImages];
+        gallaryImage.setIndex(arr.length + 1);
         arr.push(gallaryImage);        
 
         setGalleryImages(arr);

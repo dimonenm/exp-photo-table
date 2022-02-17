@@ -9,5 +9,7 @@ export default class Tool {
     this.canvas.onmousemove = null;
     this.canvas.onmousedown = null;
     this.canvas.onmouseup = null;
+    this.canvas.onmouseleave = null;
+    this.canvas.onmouseenter = null;
   }
 }

@@ -9,9 +9,9 @@ function addSelectedImagesToArrForGallery(
 
     galleryImages.forEach((item, index) => {
         arrGalleryImages.unshift(<WorkplaceItem
-            key={index}
-            index={index}
-            name={`Иллюстрация ${index + 1}`}
+            key={item.getIndex()}
+            index={item.getIndex()}
+            name={`Иллюстрация ${item.getIndex()}`}
             // name={`Иллюстрация ${arrGalleryImages.length + 1}`}
             img={item.getUrl()}
             text={item.getText()}

@@ -31,14 +31,22 @@ export default class Hand extends Tool {
     this.canvas.onmousedown = this.mouseDownHandler.bind(this);
     this.canvas.onmouseup = this.mouseUpHandler.bind(this);
     this.canvas.onmouseleave = this.mouseLeaveHandler.bind(this);
+    this.canvas.onmouseenter  = this.mouseEnterHandler.bind(this);
   }
 
   mouseLeaveHandler(event) {
     this.mouseDown = false;
+    event.target.classList.remove('modal-content-grid-canvas-grab');
+  }
+
+  mouseEnterHandler(event) {
+    event.target.classList.add('modal-content-grid-canvas-grab');
   }
 
   mouseUpHandler(event) {
     this.mouseDown = false;
+    event.target.classList.remove('modal-content-grid-canvas-grabbing');
+    event.target.classList.add('modal-content-grid-canvas-grab');
     this.lastOffsetValueX = this.offsetValueX;
     this.lastOffsetValueY = this.offsetValueY;
     if (this.arrowsArr.length > 0) {
@@ -52,6 +60,8 @@ export default class Hand extends Tool {
   }
   mouseDownHandler(event) {
     this.mouseDown = true;
+    event.target.classList.remove('modal-content-grid-canvas-grab');
+    event.target.classList.add('modal-content-grid-canvas-grabbing');
     this.offsetXStart = event.offsetX;
     this.offsetYStart = event.offsetY;
   }

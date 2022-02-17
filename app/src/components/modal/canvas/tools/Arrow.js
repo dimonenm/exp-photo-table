@@ -29,7 +29,6 @@ export default class Arrow extends Tool {
 
   mouseUpHandler(event) {
     this.mouseDown = false;
-    // this.arrowsArr.push(this.arrowData);
     this.arrowsArr.push(this.arrowData);
     this.setCanvasState((prev) => {
       return { ...prev, arrowsArray: this.arrowsArr }

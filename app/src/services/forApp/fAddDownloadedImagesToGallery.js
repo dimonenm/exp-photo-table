@@ -5,7 +5,7 @@ function addDownloadedImagesToArrforGallery(
   arrDownloadedImages, //массив для хранения React элементов
   galleryImages, //массив изображений выбранных для фототаблицы
   setModalProperties, //сеттер со свойствами модального окна
-  setCurrentGalleryImage //сеттер со свойствами выьранного изображения
+  setCurrentGalleryImage, //сеттер со свойствами выбранного изображения
 ) {
   //Функция формирует массив с загруженными изображениями.
 

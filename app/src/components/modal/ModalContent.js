@@ -386,6 +386,7 @@ const ModalContent = () => {
     );
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
+    // console.log(localModalProperties);
 
     return (
       <ModalCanvas />

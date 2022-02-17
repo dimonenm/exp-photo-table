@@ -53,6 +53,9 @@ const ModalHeader = ({ name }) => {
     return (
       <div className="modal-header">
         <Logo>{name}</Logo>
+        <Menu>
+          <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
+        </Menu>
         <MenuBtns>
           <MenuBtnsCheckBtn />
           <MenuBtnsCloseBtn />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
+
 import Container from './containers/Container';
 import Header from './containers/Header';
 import Logo from './components/header/Logo';
@@ -10,12 +11,14 @@ import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
+
 import './App.css';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 import loadSettings from './services/forApp/fLoadSettings';
+import GalleryImage from './components/main/entities/GalleryImage';
 
 export const modalDataContext = createContext();
 
@@ -38,6 +41,7 @@ function App() {
     unit: ''
   });
   const [galleryImages, setGalleryImages] = useState([]);
+  const [galleryImg, setGalleryImg] = useState(new GalleryImage());
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
     nameImg: null,
     urlImg: null,
@@ -83,7 +87,18 @@ function App() {
   return (
     <Container>
       <modalDataContext.Provider
-        value={{ modalProperties, setModalProperties, galleryImages, setGalleryImages, photoTableData, setphotoTableData, settings, setSettings }}>
+        value={{
+          modalProperties,
+          setModalProperties,
+          galleryImages,
+          setGalleryImages,
+          galleryImg,
+          setGalleryImg,
+          photoTableData,
+          setphotoTableData,
+          settings,
+          setSettings
+        }}>
         <Modal />
       </modalDataContext.Provider>
       <Header>

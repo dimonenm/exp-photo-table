@@ -5,13 +5,16 @@ import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
 import './ModalCanvas.scss';
+import GallaryImage from '../../main/entities/GalleryImage';
 
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
+  console.log(localModalProperties);
+  console.log(localModalProperties.galleryImg);
   const [canvasState, setCanvasState] = useState(
     {
       orientation: 'horizontal',
-      img: localModalProperties.modalProperties.urlImg,
+      img: getCurrentImgUrl(localModalProperties.galleryImages),
       imgDesc: '',
       imgCuted: false,
       lastOffsetValueX: 0,
@@ -22,11 +25,29 @@ const ModalCanvas = () => {
       arrowsArray: []
     }
   );
+  const [canvasState2, setCanvasState2] = useState(
+    () => {
+      const galleryImage = new GallaryImage()
+      
+    }
+  );
   const [toolState, setToolState] = useState({
     type: 'handFree',
     tool: null
   });
   const canvasRef = useRef();
+
+  //-----сервисные функции
+  function getCurrentImgUrl(arr) {
+    let url = '';
+    arr.forEach((item) => {
+      if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
+        url = item.getUrl();
+      }
+    })
+    return url;
+  }
+  //сервисные функции-----
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -77,14 +98,29 @@ const ModalCanvas = () => {
       });
     };
   }
-  function textDescClickHandler(event) {
-    if (toolState.type === 'textDesc') {
+  function arrowtextDescClickHandler(event) {
+    if (toolState.type === 'arrowTextDesc') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
+      if (!canvasState.imgCuted) {
+        canvasRef.current.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          setCanvasState((prev => {
+            return {
+              ...prev,
+              img: url,
+              imgCuted: true,
+              lastOffsetValueX: 0,
+              lastOffsetValueY: 0,
+              zoom: '100'
+            };
+          }));
+        }, 'image/jpeg', 1);
+      }
       setToolState((prev) => {
         return {
           ...prev,
-          type: 'textDesc',
+          type: 'arrowTextDesc',
           tool: new HandFree(canvasRef.current)
         }
       });
@@ -94,6 +130,21 @@ const ModalCanvas = () => {
     if (toolState.type === 'imgDesc') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
+      if (!canvasState.imgCuted) {
+        canvasRef.current.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          setCanvasState((prev => {
+            return {
+              ...prev,
+              img: url,
+              imgCuted: true,
+              lastOffsetValueX: 0,
+              lastOffsetValueY: 0,
+              zoom: '100'
+            };
+          }));
+        }, 'image/jpeg', 1);
+      }
       setToolState((prev) => {
         return {
           ...prev,
@@ -351,7 +402,7 @@ const ModalCanvas = () => {
       );
     };
 
-    if (toolType === 'textDesc') {
+    if (toolType === 'arrowTextDesc') {
       if (canvasState.arrowsArray.length > 0) {
         const tempRendArray = [];
         for (const item of canvasState.arrowsArray) {
@@ -429,9 +480,9 @@ const ModalCanvas = () => {
             ? 'modal-content-grid-tools-left-arrow-active'
             : 'modal-content-grid-tools-left-arrow'} onClick={arrowClickHandler}></div>
         <div className={
-          toolState.type === 'textDesc'
+          toolState.type === 'arrowTextDesc'
             ? 'modal-content-grid-tools-left-textDesc-active'
-            : 'modal-content-grid-tools-left-textDesc'} onClick={textDescClickHandler}></div>
+            : 'modal-content-grid-tools-left-textDesc'} onClick={arrowtextDescClickHandler}></div>
         <div className={
           toolState.type === 'imgDesc'
             ? 'modal-content-grid-tools-left-imgDesc-active'

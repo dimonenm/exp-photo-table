@@ -61,6 +61,12 @@
 
     border: 1px solid #000;
   }
+  .modal-content-grid-canvas-grabbing{
+    cursor: grabbing;
+  }
+  .modal-content-grid-canvas-grab{
+    cursor: grab;
+  }
 
   .modal-content-grid-properties-right {
     display: grid;
