@@ -4,17 +4,25 @@ import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
-import './ModalCanvas.scss';
+
 import GallaryImage from '../../main/entities/GalleryImage';
+
+import './ModalCanvas.scss';
 
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
-  console.log(localModalProperties);
-  console.log(localModalProperties.galleryImg);
+  // console.log(localModalProperties);
+  // console.log(localModalProperties.galleryImg);
+
+  const galleryImg = localModalProperties.galleryImg;
+  const setGalleryImg = localModalProperties.setGalleryImg;
+  const galleryImages = localModalProperties.galleryImages;
+  const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
+
   const [canvasState, setCanvasState] = useState(
     {
       orientation: 'horizontal',
-      img: getCurrentImgUrl(localModalProperties.galleryImages),
+      img: getCurrentImgUrl(galleryImages),
       imgDesc: '',
       imgCuted: false,
       lastOffsetValueX: 0,
@@ -25,17 +33,24 @@ const ModalCanvas = () => {
       arrowsArray: []
     }
   );
-  const [canvasState2, setCanvasState2] = useState(
-    () => {
-      const galleryImage = new GallaryImage()
-      
-    }
-  );
   const [toolState, setToolState] = useState({
     type: 'handFree',
     tool: null
   });
   const canvasRef = useRef();
+
+  useEffect(() => {
+    const newGalleryImg = Object.assign(new GallaryImage(), galleryImg);
+    newGalleryImg.setImg(getCurrentImgUrl(galleryImages));
+    newGalleryImg.setIndex(indexImgInGallery);
+    console.log('newGalleryImg: ', newGalleryImg);
+    setGalleryImg(() => {
+      return newGalleryImg;
+    })
+    // eslint-disable-next-line
+  }, [])
+  console.log('canvasState', canvasState);
+  console.log('galleryImg', galleryImg);
 
   //-----сервисные функции
   function getCurrentImgUrl(arr) {
@@ -61,7 +76,8 @@ const ModalCanvas = () => {
             canvasRef.current,
             canvasState.img,
             canvasState,
-            setCanvasState)
+            setCanvasState,
+            setGalleryImg)
         }
       });
     };
@@ -83,6 +99,15 @@ const ModalCanvas = () => {
               zoom: '100'
             };
           }));
+          setGalleryImg((prev) => {
+            return Object.assign(new GallaryImage(), {
+              ...prev,
+              img: url,
+              imgCuted: true,
+              lastOffsetValueX: 0,
+              lastOffsetValueY: 0,
+              zoom: '100' });
+          })
         }, 'image/jpeg', 1);
       }
       setToolState((prev) => {
@@ -93,7 +118,8 @@ const ModalCanvas = () => {
             canvasRef.current,
             canvasState.img,
             canvasState,
-            setCanvasState)
+            setCanvasState,
+            setGalleryImg)
         }
       });
     };
@@ -115,6 +141,16 @@ const ModalCanvas = () => {
               zoom: '100'
             };
           }));
+          setGalleryImg((prev) => {
+            return Object.assign(new GallaryImage(), {
+              ...prev,
+              img: url,
+              imgCuted: true,
+              lastOffsetValueX: 0,
+              lastOffsetValueY: 0,
+              zoom: '100'
+            });
+          })
         }, 'image/jpeg', 1);
       }
       setToolState((prev) => {
@@ -143,6 +179,16 @@ const ModalCanvas = () => {
               zoom: '100'
             };
           }));
+          setGalleryImg((prev) => {
+            return Object.assign(new GallaryImage(), {
+              ...prev,
+              img: url,
+              imgCuted: true,
+              lastOffsetValueX: 0,
+              lastOffsetValueY: 0,
+              zoom: '100'
+            });
+          })
         }, 'image/jpeg', 1);
       }
       setToolState((prev) => {
@@ -156,7 +202,6 @@ const ModalCanvas = () => {
   }
   function orientationVerticalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
-    localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "785" } });
     setToolState((prev) => {
       return {
         ...prev,
@@ -171,7 +216,6 @@ const ModalCanvas = () => {
   }
   function orientationHorizontalClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 } });
-    localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "960" } });
     setToolState((prev) => {
       return {
         ...prev,
@@ -186,7 +230,6 @@ const ModalCanvas = () => {
   }
   function orientationPanoramaClickHandler() {
     setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
-    localModalProperties.setModalProperties((prev) => { return { ...prev, modalWidth: "1010" } });
     setToolState((prev) => {
       return {
         ...prev,

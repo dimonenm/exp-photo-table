@@ -1,14 +1,16 @@
 import Tool from "./Tool";
 import drawArrowArray from '../../../../services/forModalCanvas/fDrawArrowArray';
 import Arrow_entity from '../entities/Arrow_entity';
+import GallaryImage from "../../../main/entities/GalleryImage";
 
 export default class Arrow extends Tool {
-  constructor(canvas, loadedImg, canvasState, setCanvasState) {
+  constructor(canvas, loadedImg, canvasState, setCanvasState, setGalleryImg) {
     super(canvas);
     this.img = new Image();
     // this.img.src = loadedImg;
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
+    this.setGalleryImg = setGalleryImg;
     this.arrowsArr = [...canvasState.arrowsArray];
     this.arrowData = null;
 
@@ -32,6 +34,9 @@ export default class Arrow extends Tool {
     this.arrowsArr.push(this.arrowData);
     this.setCanvasState((prev) => {
       return { ...prev, arrowsArray: this.arrowsArr }
+    });
+    this.setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, arrowsArray: this.arrowsArr })
     });
     this.arrowData = null;
   }

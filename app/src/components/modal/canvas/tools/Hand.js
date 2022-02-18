@@ -1,12 +1,14 @@
 import Tool from "./Tool";
+import GallaryImage from "../../../main/entities/GalleryImage";
 
 export default class Hand extends Tool {
-  constructor(canvas, loadedImg, canvasState, setCanvasState) {
+  constructor(canvas, loadedImg, canvasState, setCanvasState, setGalleryImg) {
     super(canvas);
     this.img = new Image();
     this.img.src = loadedImg;
     this.canvasState = canvasState;
     this.setCanvasState = setCanvasState;
+    this.setGalleryImg = setGalleryImg;
     this.arrowsArr = [...canvasState.arrowsArray];
     this.listen();
     
@@ -57,6 +59,9 @@ export default class Hand extends Tool {
       }      
     }
     this.setCanvasState((prev) => { return { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
+    this.setGalleryImg((prev) => {      
+      return Object.assign(new GallaryImage(), { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY }); 
+    })
   }
   mouseDownHandler(event) {
     this.mouseDown = true;

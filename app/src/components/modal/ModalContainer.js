@@ -54,9 +54,8 @@ const ModalContainer = () => {
     );
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
-    const editРhotoResolution = `modal-container edit-photo-${localModalProperties.modalProperties.modalWidth}`;
     return (
-      <div className={editРhotoResolution}>
+      <div className={'modal-container'}>
         <ModalHeader name={'Редактирование иллюстрации'} />
         <ModalContent />
       </div>
