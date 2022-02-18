@@ -4,14 +4,13 @@ import Arrow_entity from '../entities/Arrow_entity';
 import GallaryImage from "../../../main/entities/GalleryImage";
 
 export default class Arrow extends Tool {
-  constructor(canvas, loadedImg, canvasState, setCanvasState, setGalleryImg) {
+  constructor(canvas, loadedImg, galleryImg, setGalleryImg) {
     super(canvas);
     this.img = new Image();
     // this.img.src = loadedImg;
-    this.canvasState = canvasState;
-    this.setCanvasState = setCanvasState;
+    this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
-    this.arrowsArr = [...canvasState.arrowsArray];
+    this.arrowsArr = [...galleryImg.getArrowsArray()];
     this.arrowData = null;
 
     this.listen();
@@ -32,9 +31,6 @@ export default class Arrow extends Tool {
   mouseUpHandler(event) {
     this.mouseDown = false;
     this.arrowsArr.push(this.arrowData);
-    this.setCanvasState((prev) => {
-      return { ...prev, arrowsArray: this.arrowsArr }
-    });
     this.setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: this.arrowsArr })
     });

@@ -2,27 +2,26 @@ import Tool from "./Tool";
 import GallaryImage from "../../../main/entities/GalleryImage";
 
 export default class Hand extends Tool {
-  constructor(canvas, loadedImg, canvasState, setCanvasState, setGalleryImg) {
+  constructor(canvas, loadedImg, galleryImg, setGalleryImg) {
     super(canvas);
     this.img = new Image();
-    this.img.src = loadedImg;
-    this.canvasState = canvasState;
-    this.setCanvasState = setCanvasState;
+    this.img.src = galleryImg.getUrl();
+    this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
-    this.arrowsArr = [...canvasState.arrowsArray];
+    this.arrowsArr = [...galleryImg.getArrowsArray()];
     this.listen();
     
     this.img.onload = () => {
       this.pr = canvas.height * 100 / this.img.height;
-      this.zoom = +this.canvasState.zoom / 100;
+      this.zoom = +this.galleryImg.getZoom() / 100;
       this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;
       this.imgHeight = (this.img.height / 100 * this.pr) * this.zoom;
       this.imgOffsetX = (canvas.width - this.imgWidth) / 2;
       this.imgOffsetY = (canvas.height - this.imgHeight) / 2;
       this.offsetValueX = 0;
       this.offsetValueY = 0;
-      this.lastOffsetValueX = this.canvasState.lastOffsetValueX;
-      this.lastOffsetValueY = this.canvasState.lastOffsetValueY;
+      this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
+      this.lastOffsetValueY = this.galleryImg.getLastOffsetValueY();
     }   
 
     console.log('Hand');
@@ -58,7 +57,6 @@ export default class Hand extends Tool {
         item.offsetY = this.imgOffsetY + this.offsetValueY;
       }      
     }
-    this.setCanvasState((prev) => { return { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY}})
     this.setGalleryImg((prev) => {      
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: this.arrowsArr, lastOffsetValueX: this.lastOffsetValueX, lastOffsetValueY: this.lastOffsetValueY }); 
     })
@@ -86,7 +84,6 @@ export default class Hand extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
-
     }
   }
 }

@@ -50,7 +50,6 @@ function App() {
   });
   const [modalProperties, setModalProperties] = useState({
     isOpen: false,
-    modalWidth: null,
     type: null,
     nameImg: null,
     urlImg: null,
