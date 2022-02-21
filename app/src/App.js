@@ -135,6 +135,7 @@ function App() {
           <WorkplaceItemNew
             name={`Иллюстрация ${arrGalleryImages.length + 1}`}
             currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
             galleryImages={galleryImages}
             setGalleryImages={setGalleryImages}
             downloadedImages={downloadedImages}

@@ -2,7 +2,7 @@ import Tool from "./Tool";
 import GallaryImage from "../../../main/entities/GalleryImage";
 
 export default class Hand extends Tool {
-  constructor(canvas, loadedImg, galleryImg, setGalleryImg) {
+  constructor(canvas, galleryImg, setGalleryImg) {
     super(canvas);
     this.img = new Image();
     this.img.src = galleryImg.getUrl();

@@ -2,7 +2,7 @@ import React from 'react';
 import GallaryImage from './entities/GalleryImage'
 
 
-const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGalleryImages }) => {
+const WorkplaceItemNew = ({ name, currentGalleryImage, setCurrentGalleryImage, galleryImages, setGalleryImages }) => {
 
     function dragover(event) {
         event.preventDefault();
@@ -28,6 +28,7 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, galleryImages, setGallery
         arr.push(gallaryImage);        
 
         setGalleryImages(arr);
+        setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
     }
 
     return (

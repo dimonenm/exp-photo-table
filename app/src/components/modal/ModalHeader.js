@@ -16,11 +16,11 @@ const ModalHeader = ({ name }) => {
     return (
       <div className="modal-header">
         <Logo>{localModalProperties.modalProperties.nameImg}</Logo>
-        <Menu>
+        {/* <Menu>
           <MenuItem notActive={true}>Выделить область</MenuItem>
           <MenuItem notActive={true}>Обрезать</MenuItem>
-          {/* <MenuItem notActive={true}>Удалить из списка</MenuItem> */}
-        </Menu>
+          <MenuItem notActive={true}>Удалить из списка</MenuItem>
+        </Menu> */}
         <MenuBtns>
           <MenuBtnsCloseBtn />
         </MenuBtns>
@@ -38,17 +38,17 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-  if (localModalProperties.modalProperties.type === "cutPhoto") {
-    return (
-      <div className="modal-header">
-        <Logo>{name}</Logo>
-        <MenuBtns>
-          <MenuBtnsCheckBtn />
-          <MenuBtnsCloseBtn />
-        </MenuBtns>
-      </div>
-    );
-  }
+  // if (localModalProperties.modalProperties.type === "cutPhoto") {
+  //   return (
+  //     <div className="modal-header">
+  //       <Logo>{name}</Logo>
+  //       <MenuBtns>
+  //         <MenuBtnsCheckBtn />
+  //         <MenuBtnsCloseBtn />
+  //       </MenuBtns>
+  //     </div>
+  //   );
+  // }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <div className="modal-header">
@@ -63,22 +63,22 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-  if (localModalProperties.modalProperties.type === "setGalleryImageData") {
-    return (
-      <div className="modal-header">
-        <Logo>{name}</Logo>
-        <Menu>
-          <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
-          <MenuItem type={'forCutPhoto'}>Обрезать</MenuItem>
-          <MenuItem type={'forEditPhoto'}>Редактировать</MenuItem>
-        </Menu>
-        <MenuBtns>
-          <MenuBtnsCheckBtn />
-          <MenuBtnsCloseBtn />
-        </MenuBtns>
-      </div>
-    );
-  }
+  // if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+  //   return (
+  //     <div className="modal-header">
+  //       <Logo>{name}</Logo>
+  //       <Menu>
+  //         <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
+  //         <MenuItem type={'forCutPhoto'}>Обрезать</MenuItem>
+  //         <MenuItem type={'forEditPhoto'}>Редактировать</MenuItem>
+  //       </Menu>
+  //       <MenuBtns>
+  //         <MenuBtnsCheckBtn />
+  //         <MenuBtnsCloseBtn />
+  //       </MenuBtns>
+  //     </div>
+  //   );
+  // }
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
       <div className="modal-header">

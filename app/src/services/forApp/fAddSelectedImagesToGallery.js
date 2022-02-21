@@ -14,7 +14,7 @@ function addSelectedImagesToArrForGallery(
             name={`Иллюстрация ${item.getIndex()}`}
             // name={`Иллюстрация ${arrGalleryImages.length + 1}`}
             img={item.getUrl()}
-            text={item.getText()}
+            text={item.getImgDesc()}
             setModalProperties={setModalProperties}
         />);
     });

@@ -9,23 +9,11 @@ const WorkplaceItem = ({ index, name, img, text, setModalProperties }) => {
   const dbClickHandler = (event) => {
     event.preventDefault();
     setModalProperties(prev => {
-      // return (
-      //   {
-      //     ...prev,
-      //     isOpen: true,
-      //     type: "setGalleryImageData",
-      //     urlImg: img,
-      //     textImg: text,
-      //     indexImgInGallery: index
-      //   }
-      // );
       return (
         {
           ...prev,
           isOpen: true,
           type: "editPhoto",
-          // urlImg: img,
-          // textImg: text,
           indexImgInGallery: index
         }
       );

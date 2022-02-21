@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import saveSettings from '../../services/forModalHeader/fSaveSettings';
+import GallaryImage from '../main/entities/GalleryImage';
 import "./MenuBtnsCheckBtn.css";
 
 
@@ -26,15 +27,20 @@ const MenuBtnsCheckBtn = () => {
       });
     }
   }
-
   if (localModalProperties.modalProperties.isOpen &&
-    localModalProperties.modalProperties.type === "setGalleryImageData") {
+    localModalProperties.modalProperties.type === "editPhoto") {
     clickHandler = () => {
 
-      const tempGalleryImages = [...localModalProperties.galleryImages];
-      tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].textImg = localModalProperties.modalProperties.textImg;
-      localModalProperties.setGalleryImages(tempGalleryImages);
+      const newGalleryImg = localModalProperties.galleryImg;
+      const newGalleryImages = localModalProperties.galleryImages.map((item) => {
+        if (item.getIndex() === newGalleryImg.getIndex()) {
+          return Object.assign(new GallaryImage(), newGalleryImg);
+        }
+        return item;
+      });
 
+      localModalProperties.setGalleryImages(newGalleryImages);
+      localModalProperties.setGalleryImg(new GallaryImage());
       localModalProperties.setModalProperties(() => {
         return {
           isOpen: false,
@@ -47,6 +53,27 @@ const MenuBtnsCheckBtn = () => {
       });
     }
   }
+
+  // if (localModalProperties.modalProperties.isOpen &&
+  //   localModalProperties.modalProperties.type === "setGalleryImageData") {
+  //   clickHandler = () => {
+
+  //     const tempGalleryImages = [...localModalProperties.galleryImages];
+  //     tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].textImg = localModalProperties.modalProperties.textImg;
+  //     localModalProperties.setGalleryImages(tempGalleryImages);
+
+  //     localModalProperties.setModalProperties(() => {
+  //       return {
+  //         isOpen: false,
+  //         type: null,
+  //         nameImg: null,
+  //         urlImg: null,
+  //         textImg: null,
+  //         indexImgInGallery: null
+  //       }
+  //     });
+  //   }
+  // }
 
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "cutPhoto") {

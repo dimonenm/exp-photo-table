@@ -1,20 +1,40 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
+import GallaryImage from '../main/entities/GalleryImage';
 import './LighteningBackground.css';
 
 const LighteningBackground = () => {
     const localModalProperties = useContext(modalDataContext);
+    let clickHandler;
 
-    function clickHandler() {
-        localModalProperties.setModalProperties(() => {
-            return {
-                isOpen: false,
-                type: null,
-                nameImg: null,
-                urlImg: null
-            }
-        });
+    if (localModalProperties.modalProperties.isOpen &&
+        localModalProperties.modalProperties.type === "editPhoto") {
+        clickHandler = () => {
+            localModalProperties.setModalProperties(() => {
+                return {
+                    isOpen: false,
+                    type: null,
+                    nameImg: null,
+                    urlImg: null,
+                    textImg: null,
+                    indexImgInGallery: null
+                }
+            });
+            localModalProperties.setGalleryImg(new GallaryImage());
+        }
+    } else {
+        clickHandler = () => {
+            localModalProperties.setModalProperties(() => {
+                return {
+                    isOpen: false,
+                    type: null,
+                    nameImg: null,
+                    urlImg: null
+                }
+            });
+        }
     }
+
 
     return <div className="lightening-background" onClick={clickHandler}></div>;
 }

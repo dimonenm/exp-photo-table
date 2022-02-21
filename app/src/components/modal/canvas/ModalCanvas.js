@@ -18,39 +18,11 @@ const ModalCanvas = () => {
   const setGalleryImg = localModalProperties.setGalleryImg;
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
-
-  // const [canvasState, setCanvasState] = useState(
-  //   {
-  //     orientation: 'horizontal',
-  //     img: getCurrentImgUrl(galleryImages),
-  //     imgDesc: '',
-  //     imgCuted: false,
-  //     lastOffsetValueX: 0,
-  //     lastOffsetValueY: 0,
-  //     zoom: '100',
-  //     arrowsColor: '#ffffff',
-  //     arrowsWidth: '2',
-  //     arrowsArray: []
-  //   }
-  // );
   const [toolState, setToolState] = useState({
     type: 'handFree',
     tool: null
   });
   const canvasRef = useRef();
-
-  useEffect(() => {
-    const newGalleryImg = Object.assign(new GallaryImage(), galleryImg);
-    newGalleryImg.setUrl(getCurrentImgUrl(galleryImages));
-    newGalleryImg.setIndex(indexImgInGallery);
-    console.log('newGalleryImg: ', newGalleryImg);
-    setGalleryImg(() => {
-      return newGalleryImg;
-    })
-    // eslint-disable-next-line
-  }, [])
-  // console.log('canvasState', canvasState);
-  console.log('galleryImg', galleryImg);
 
   //-----сервисные функции
   function getCurrentImgUrl(arr) {
@@ -68,25 +40,12 @@ const ModalCanvas = () => {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
-      // setToolState((prev) => {
-      //   return {
-      //     ...prev,
-      //     type: 'hand',
-      //     tool: new Hand(
-      //       canvasRef.current,
-      //       canvasState.img,
-      //       canvasState,
-      //       setCanvasState,
-      //       setGalleryImg)
-      //   }
-      // });
       setToolState((prev) => {
         return {
           ...prev,
           type: 'hand',
           tool: new Hand(
             canvasRef.current,
-            galleryImg.getUrl(),
             galleryImg,
             setGalleryImg)
         }
@@ -100,51 +59,47 @@ const ModalCanvas = () => {
       if (!galleryImg.getImgCuted()) {
         canvasRef.current.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
-          // setCanvasState((prev => {
-          //   return {
-          //     ...prev,
-          //     img: url,
-          //     imgCuted: true,
-          //     lastOffsetValueX: 0,
-          //     lastOffsetValueY: 0,
-          //     zoom: '100'
-          //   };
-          // }));
+          console.log('url: ', url);
           setGalleryImg((prev) => {
             return Object.assign(new GallaryImage(), {
               ...prev,
-              img: url,
+              url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
             });
-          })
+          });
+          setToolState((prev) => {
+            return {
+              ...prev,
+              type: 'arrow',
+              tool: new Arrow(
+                canvasRef.current,
+                Object.assign(new GallaryImage(), {
+                  ...galleryImg,
+                  url: url,
+                  imgCuted: true,
+                  lastOffsetValueX: 0,
+                  lastOffsetValueY: 0,
+                  zoom: '100'
+                }),
+                setGalleryImg)
+            }
+          });
         }, 'image/jpeg', 1);
+      } else {
+        setToolState((prev) => {
+          return {
+            ...prev,
+            type: 'arrow',
+            tool: new Arrow(
+              canvasRef.current,
+              galleryImg,
+              setGalleryImg)
+          }
+        });
       }
-      // setToolState((prev) => {
-      //   return {
-      //     ...prev,
-      //     type: 'arrow',
-      //     tool: new Arrow(
-      //       canvasRef.current,
-      //       canvasState.img,
-      //       canvasState,
-      //       setCanvasState,
-      //       setGalleryImg)
-      //   }
-      // });
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'arrow',
-          tool: new Arrow(
-            canvasRef.current,
-            galleryImg.getUrl(),
-            galleryImg,
-            setGalleryImg)
-        }
-      });
     };
   }
   function arrowtextDescClickHandler(event) {
@@ -154,26 +109,16 @@ const ModalCanvas = () => {
       if (!galleryImg.getImgCuted()) {
         canvasRef.current.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
-          // setCanvasState((prev => {
-          //   return {
-          //     ...prev,
-          //     img: url,
-          //     imgCuted: true,
-          //     lastOffsetValueX: 0,
-          //     lastOffsetValueY: 0,
-          //     zoom: '100'
-          //   };
-          // }));
           setGalleryImg((prev) => {
             return Object.assign(new GallaryImage(), {
               ...prev,
-              img: url,
+              url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
             });
-          })
+          });
         }, 'image/jpeg', 1);
       }
       setToolState((prev) => {
@@ -192,26 +137,16 @@ const ModalCanvas = () => {
       if (!galleryImg.getImgCuted()) {
         canvasRef.current.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
-          // setCanvasState((prev => {
-          //   return {
-          //     ...prev,
-          //     img: url,
-          //     imgCuted: true,
-          //     lastOffsetValueX: 0,
-          //     lastOffsetValueY: 0,
-          //     zoom: '100'
-          //   };
-          // }));
           setGalleryImg((prev) => {
             return Object.assign(new GallaryImage(), {
               ...prev,
-              img: url,
+              url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
             });
-          })
+          });
         }, 'image/jpeg', 1);
       }
       setToolState((prev) => {
@@ -234,7 +169,6 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          galleryImg.getUrl(),
           galleryImg,
           setGalleryImg)
       }
@@ -251,7 +185,6 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          galleryImg.getUrl(),
           galleryImg,
           setGalleryImg)
       }
@@ -268,7 +201,6 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          galleryImg.getUrl(),
           galleryImg,
           setGalleryImg)
       }
@@ -276,8 +208,12 @@ const ModalCanvas = () => {
   }
   function zoomRangeChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, zoom: event.target.value } });
+
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
+
     setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, zoom: event.target.value });
+      // return Object.assign(new GallaryImage(), { ...prev, zoom: event.target.value });
+      return newState;
     })
     setToolState((prev) => {
       return {
@@ -285,8 +221,7 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          galleryImg.getUrl(),
-          galleryImg,
+          newState,
           setGalleryImg)
       }
     });
@@ -302,7 +237,6 @@ const ModalCanvas = () => {
         type: 'arrow',
         tool: new Arrow(
           canvasRef.current,
-          galleryImg.getUrl(),
           galleryImg,
           setGalleryImg)
       }
@@ -310,8 +244,12 @@ const ModalCanvas = () => {
   }
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
+
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, arrowsWidth: event.target.value });
+
     setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, arrowsWidth: event.target.value });
+      // return Object.assign(new GallaryImage(), { ...prev, arrowsWidth: event.target.value });
+      return newState;
     })
     setToolState((prev) => {
       return {
@@ -319,8 +257,7 @@ const ModalCanvas = () => {
         type: 'arrow',
         tool: new Arrow(
           canvasRef.current,
-          galleryImg.getUrl(),
-          galleryImg,
+          newState,
           setGalleryImg)
       }
     });
@@ -333,24 +270,11 @@ const ModalCanvas = () => {
         item.setText(event.target.value);
       };
     }
-
-    // setCanvasState((prev => {
-    //   return {
-    //     ...prev,
-    //     arrowsArray: arr
-    //   };
-    // }))
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: arr });
     })
   }
   function imgDescChangeHandler(event) {
-    // setCanvasState((prev => {
-    //   return {
-    //     ...prev,
-    //     imgDesc: event.target.value
-    //   };
-    // }))
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, imgDesc: event.target.value });
     })
@@ -381,16 +305,6 @@ const ModalCanvas = () => {
 
     canvasRef.current.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
-      // setCanvasState((prev => {
-      //   return {
-      //     ...prev,
-      //     img: url,
-      //     imgCuted: true,
-      //     lastOffsetValueX: 0,
-      //     lastOffsetValueY: 0,
-      //     zoom: '100'
-      //   };
-      // }))
       setGalleryImg((prev) => {
         return Object.assign(new GallaryImage(), {
           ...prev,
@@ -404,16 +318,11 @@ const ModalCanvas = () => {
       setToolState((prev) => {
         return {
           ...prev,
-          type: 'hand',
-          tool: new Hand(
-            canvasRef.current,
-            url,
-            galleryImg,
-            setGalleryImg)
+          type: 'handFree',
+          tool: new HandFree(canvasRef.current)
         }
       });
     }, 'image/jpeg', 1)
-
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
@@ -444,7 +353,7 @@ const ModalCanvas = () => {
             <div className='modal-content-grid-properties-right-zoom-range'>
               <input
                 type="range"
-                step="5"
+                step="10"
                 min="100"
                 max="400"
                 value={galleryImg.getZoom()}
@@ -538,12 +447,23 @@ const ModalCanvas = () => {
         <div className='modal-content-grid-properties-right-text-area'>
           <textarea
             placeholder='Введите описание изображения...'
+            value={galleryImg.getImgDesc()}
             onChange={imgDescChangeHandler}
           ></textarea>
         </div>
       );
     };
   }
+
+  useEffect(() => {
+    const newGalleryImg = Object.assign(new GallaryImage(), galleryImg);
+    newGalleryImg.setUrl(getCurrentImgUrl(galleryImages));
+    newGalleryImg.setIndex(indexImgInGallery);
+    setGalleryImg(() => {
+      return newGalleryImg;
+    })
+    // eslint-disable-next-line
+  }, [])
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');

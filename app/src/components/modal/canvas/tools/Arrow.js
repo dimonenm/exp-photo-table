@@ -4,7 +4,7 @@ import Arrow_entity from '../entities/Arrow_entity';
 import GallaryImage from "../../../main/entities/GalleryImage";
 
 export default class Arrow extends Tool {
-  constructor(canvas, loadedImg, galleryImg, setGalleryImg) {
+  constructor(canvas, galleryImg, setGalleryImg) {
     super(canvas);
     this.img = new Image();
     // this.img.src = loadedImg;
@@ -15,6 +15,7 @@ export default class Arrow extends Tool {
 
     this.listen();
     console.log('Arrow');
+    console.log('galleryImg.getUrl()', this.galleryImg);
   }
 
   listen() {
@@ -56,7 +57,7 @@ export default class Arrow extends Tool {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.img, 0, 0, this.canvas.width, this.canvas.height);
 
-    drawArrowArray(this.ctx, this.arrowData.getNumber(), this.canvasState.arrowsColor, this.canvasState.arrowsWidth, x1, y1, x2, y2);
+    drawArrowArray(this.ctx, this.arrowData.getNumber(), this.galleryImg.getArrowsColor(), this.galleryImg.getArrowsWidth(), x1, y1, x2, y2);
 
     this.arrowData.setNumber(this.arrowsArr.length + 1);
     this.arrowData.setX1(x1);
