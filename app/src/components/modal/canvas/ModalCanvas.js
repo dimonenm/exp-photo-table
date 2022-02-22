@@ -25,15 +25,24 @@ const ModalCanvas = () => {
   const canvasRef = useRef();
 
   //-----сервисные функции
-  function getCurrentImgUrl(arr) {
-    let url = '';
-    arr.forEach((item) => {
-      if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
-        url = item.getUrl();
-      }
-    })
-    return url;
-  }
+  // function getCurrentImgUrl(arr) {
+  //   let url = '';
+  //   arr.forEach((item) => {
+  //     if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
+  //       url = item.getUrl();
+  //     }
+  //   })
+  //   return url;
+  // }
+  // function getCurrentImgName(arr) {
+  //   let name = '';
+  //   arr.forEach((item) => {
+  //     if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
+  //       name = item.getName();
+  //     }
+  //   })
+  //   return name;
+  // }
   //сервисные функции-----
 
   function handClickHandler(event) {
@@ -456,11 +465,13 @@ const ModalCanvas = () => {
   }
 
   useEffect(() => {
-    const newGalleryImg = Object.assign(new GallaryImage(), galleryImg);
-    newGalleryImg.setUrl(getCurrentImgUrl(galleryImages));
-    newGalleryImg.setIndex(indexImgInGallery);
-    setGalleryImg(() => {
-      return newGalleryImg;
+    galleryImages.forEach((item) => {
+      if (item.getIndex() === indexImgInGallery) {
+        const newGalleryImg = Object.assign(new GallaryImage(), item);
+        setGalleryImg(() => {
+          return newGalleryImg;
+        })
+      }
     })
     // eslint-disable-next-line
   }, [])
