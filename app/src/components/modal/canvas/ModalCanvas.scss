@@ -14,6 +14,7 @@
     grid-gap: 5px;
 
     margin: 5px;
+    // margin: 5px;
 
     &-hand,
     &-hand-active,
@@ -60,12 +61,6 @@
     background: #ccc;
 
     border: 1px solid #000;
-  }
-  .modal-content-grid-canvas-grabbing{
-    cursor: grabbing;
-  }
-  .modal-content-grid-canvas-grab{
-    cursor: grab;
   }
 
   .modal-content-grid-properties-right {
@@ -338,33 +333,6 @@
         border: 1px solid #343a40;
         border-radius: 0;
         outline: none;
-      }
-    }
-
-    &-text-area {
-      display: grid;
-      grid-row: 2 / 6;
-
-      textarea {
-        font-family: "Times New Roman", Times, serif;
-        font-size: 24px;
-        text-align: center;
-        line-height: 1;
-
-        padding: 0;
-
-        border: 1px solid #000;
-        border-radius: 0;
-        outline: none;
-        resize: none;
-        overflow: auto;
-      }
-      textarea::-webkit-scrollbar {
-        width: 2px;
-        height: 0;
-      }
-      textarea::-webkit-scrollbar-thumb {
-        background-color: #343a40;
       }
     }
   }
