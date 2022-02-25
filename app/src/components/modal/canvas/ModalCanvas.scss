@@ -335,5 +335,20 @@
         outline: none;
       }
     }
+    &-text-area {
+            display: grid;
+      
+      padding: 0 5px;
+
+      textarea {
+        background-color: #f8f9fa;
+
+        resize: none;
+
+        border: 1px solid #343a40;
+        border-radius: 0;
+        outline: none;
+      }
+    }
   }
 }
