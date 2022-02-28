@@ -29,9 +29,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   function delImgFromPhotoTable(event) {
     event.preventDefault()
 
-    // const tempGalleryImages = [...localModalProperties.galleryImages];
-    // tempGalleryImages.splice(localModalProperties.modalProperties.indexImgInGallery, 1);
-    // localModalProperties.setGalleryImages(tempGalleryImages);
     const filteredGalleryImages = [...localModalProperties.galleryImages].filter((item) => {
       if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
         return false;
@@ -577,7 +574,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       });
 
       Packer.toBlob(doc).then(blob => {
-        saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
+        // saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
         console.log("Document created successfully");
       });
     }
