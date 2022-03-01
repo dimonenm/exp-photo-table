@@ -1,5 +1,5 @@
 import React from 'react';
-import GallaryImage from './entities/GalleryImage'
+import GallaryImage from '../../entities/GalleryImage'
 
 
 const WorkplaceItemNew = ({ name, currentGalleryImage, setCurrentGalleryImage, galleryImages, setGalleryImages }) => {

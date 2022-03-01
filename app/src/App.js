@@ -18,7 +18,7 @@ import './App.css';
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 import loadSettings from './services/forApp/fLoadSettings';
-import GalleryImage from './components/main/entities/GalleryImage';
+import GalleryImage from './entities/GalleryImage';
 
 export const modalDataContext = createContext();
 

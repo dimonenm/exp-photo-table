@@ -1,7 +1,7 @@
 import Tool from "./Tool";
 import drawArrowArray from '../../../../services/forModalCanvas/fDrawArrowArray';
-import Arrow_entity from '../entities/Arrow_entity';
-import GallaryImage from "../../../main/entities/GalleryImage";
+import Arrow_entity from '../../../../entities/Arrow_entity';
+import GallaryImage from "../../../../entities/GalleryImage";
 
 export default class Arrow extends Tool {
   constructor(canvas, galleryImg, setGalleryImg) {

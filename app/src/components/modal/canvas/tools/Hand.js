@@ -1,5 +1,5 @@
 import Tool from "./Tool";
-import GallaryImage from "../../../main/entities/GalleryImage";
+import GallaryImage from "../../../../entities/GalleryImage";
 
 export default class Hand extends Tool {
   constructor(canvas, galleryImg, setGalleryImg) {

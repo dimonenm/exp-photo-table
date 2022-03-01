@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-import GallaryImage from '../main/entities/GalleryImage';
+import GallaryImage from '../../entities/GalleryImage';
 import "./MenuBtnsCloseBtn.css";
 
 const MenuBtnsCloseBtn = () => {

@@ -5,7 +5,7 @@ import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
 
-import GallaryImage from '../../main/entities/GalleryImage';
+import GallaryImage from '../../../entities/GalleryImage';
 
 import './ModalCanvas.scss';
 

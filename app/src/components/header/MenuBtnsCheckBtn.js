@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import saveSettings from '../../services/forModalHeader/fSaveSettings';
-import GallaryImage from '../main/entities/GalleryImage';
+import GallaryImage from '../../entities/GalleryImage';
 import "./MenuBtnsCheckBtn.css";
 
 

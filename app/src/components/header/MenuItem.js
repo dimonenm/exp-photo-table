@@ -3,7 +3,7 @@ import { modalDataContext } from '../../App';
 import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 import { saveAs } from "file-saver";
 import "./MenuItem.css";
-import GallaryImage from '../main/entities/GalleryImage';
+import GallaryImage from '../../entities/GalleryImage';
 
 const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties }) => {
 
