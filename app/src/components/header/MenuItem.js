@@ -4,6 +4,7 @@ import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, Pa
 import { saveAs } from "file-saver";
 import "./MenuItem.css";
 import GallaryImage from '../../entities/GalleryImage';
+import WordDocument from '../../entities/WordDocument';
 
 const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties }) => {
 
@@ -74,6 +75,8 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
+
+    const wordDocument = new WordDocument();
 
     const sectionsArr = [];
 
