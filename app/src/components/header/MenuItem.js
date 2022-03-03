@@ -78,6 +78,9 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
 
     const wordDocument = new WordDocument();
 
+    console.log(wordDocument);
+    console.log(localModalProperties);
+
     const sectionsArr = [];
 
     if (
