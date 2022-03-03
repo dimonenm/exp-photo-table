@@ -2,10 +2,8 @@ export default class GallaryImage {
   constructor() {
     this.index = 0;
     this.name = '';
-    // this.text = '';
     this.url = '';
     this.orientation = 'horizontal';
-    // this.img = '';
     this.imgDesc = '';
     this.imgCuted = false;
     this.lastOffsetValueX = 0;
@@ -22,18 +20,12 @@ export default class GallaryImage {
   getName() {
     return this.name;
   }
-  // getText() {
-  //   return this.text;
-  // }
   getUrl() {
     return this.url;
   }
   getOrientation() {
     return this.orientation;
   }
-  // getImg() {
-  //   return this.img;
-  // }
   getImgDesc() {
     return this.imgDesc;
   }
@@ -65,18 +57,12 @@ export default class GallaryImage {
   setName(value) {
     this.name = value;
   }
-  // setText(value) {
-  //   this.text = value;
-  // }
   setUrl(value) {
     this.url = value;
   }
   setOrientation(value) {
     this.orientation = value;
   }
-  // setImg(value) {
-  //   this.img = value;
-  // }
   setImgDesc(value) {
     this.imgDesc = value;
   }

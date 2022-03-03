@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
 import "./MenuItem.css";
 import GallaryImage from '../../entities/GalleryImage';
 import WordDocument from '../../entities/WordDocument';
@@ -76,10 +76,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
 
-    const wordDocument = new WordDocument();
+    const wordDocument = new WordDocument(galleryImages, photoTableData);
 
     console.log(wordDocument);
-    console.log(localModalProperties);
+    // console.log(galleryImages, photoTableData);
+    // console.log(wordDocument.getGalleryImages());
 
     const sectionsArr = [];
 

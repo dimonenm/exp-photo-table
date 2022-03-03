@@ -60,6 +60,13 @@
     background: #ccc;
 
     border: 1px solid #000;
+
+    &-grab{
+      cursor: grab;
+    }
+    &-grabbing{
+      cursor: grabbing;
+    }
   }
 
   .modal-content-grid-properties-right {

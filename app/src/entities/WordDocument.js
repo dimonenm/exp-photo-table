@@ -1,9 +1,12 @@
-import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
+// import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
+import { Packer } from "docx";
 import { saveAs } from "file-saver";
 export default class WordDocument{
-  constructor() {
+  constructor(galleryImages, photoTableData) {
     this.title = '';
     this.sections = [];
+    this.galleryImages = galleryImages;
+    this.photoTableData = photoTableData;
   }
   // функции доступа к полям
   getTitle() {
@@ -11,6 +14,12 @@ export default class WordDocument{
   }
   getSections() {
     return this.sections;
+  }
+  getGalleryImages() {
+    return this.galleryImages;
+  }
+  getPhotoTableData() {
+    return this.photoTableData;
   }
   // функции изменения полей
   setTitle(value) {
