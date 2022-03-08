@@ -1,10 +1,10 @@
 import { Paragraph, Footer, TextRun, AlignmentType } from "docx";
 
 export default class TitlePage {
-
   
   constructor() {
     this.FONT = "Times New Roman";
+    this.officialStatus = 'специалист';
 
     this.properties = {
       page: {
