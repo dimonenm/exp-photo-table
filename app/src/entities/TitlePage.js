@@ -1,4 +1,5 @@
 import { Paragraph, Footer, TextRun, AlignmentType } from "docx";
+import PanoramaImg from "./PanoramaImg";
 
 export default class TitlePage {
 
@@ -120,7 +121,7 @@ export default class TitlePage {
           ]
         }
       ),
-
+      new Paragraph(new PanoramaImg(galleryImages)),
     ];
     this.footers = {
       default: new Footer({
@@ -141,4 +142,9 @@ export default class TitlePage {
       })
     };
   }  
+
+    // функции доступа к полям
+  getChildren() {
+    return this.children;
+  }
 }
