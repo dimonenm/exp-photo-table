@@ -77,10 +77,13 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     event.preventDefault();
 
     const wordDocument = new WordDocument(galleryImages, photoTableData);
+    wordDocument.addTitlePage();
+    wordDocument.saveDocument();
 
     console.log(wordDocument);
     // console.log(galleryImages, photoTableData);
     // console.log(wordDocument.getGalleryImages());
+
 
     const sectionsArr = [];
 
