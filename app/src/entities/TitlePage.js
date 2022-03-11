@@ -1,9 +1,9 @@
-import { Paragraph, Footer, TextRun, AlignmentType } from "docx";
+import { Paragraph, Footer, TextRun, ImageRun, AlignmentType } from "docx";
 import PanoramaImg from "./PanoramaImg";
 
 export default class TitlePage {
 
-  
+
   constructor(galleryImages, photoTableData) {
 
     this.FONT = "Times New Roman";
@@ -121,7 +121,20 @@ export default class TitlePage {
           ]
         }
       ),
-      new Paragraph(new PanoramaImg(galleryImages)),
+      new Paragraph(
+        {
+          alignment: AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              font: this.FONT,
+              size: 24,
+              break: 1,
+            }),
+            new ImageRun(this.addPanoramaImg(galleryImages))            
+          ]
+        }
+
+      ),
     ];
     this.footers = {
       default: new Footer({
@@ -141,10 +154,16 @@ export default class TitlePage {
         ],
       })
     };
-  }  
+  }
 
-    // функции доступа к полям
+  // функции доступа к полям
   getChildren() {
     return this.children;
+  }
+
+  // служебные функции
+  addPanoramaImg(galleryImages) {
+    const panoramaImg = new PanoramaImg(galleryImages);
+    return panoramaImg;
   }
 }
