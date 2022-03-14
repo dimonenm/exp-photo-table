@@ -12,8 +12,6 @@ export default class PanoramaImg {
 
     this.findWidthAndHeight();
 
-    // console.log(this.galleryImages);
-
     //   [
     //   new TextRun({
     //     font: "Times New Roman",
