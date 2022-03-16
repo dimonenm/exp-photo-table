@@ -57,7 +57,6 @@ export default class PanoramaImg {
   // служебные функции
   // defineWidthAndHeight() {
   findWidthAndHeight() {
-    // console.log(this.galleryImages[0].orientation);
     switch (this.galleryImages[0].orientation) {
       case 'panorama':
         this.setWidth(600);
