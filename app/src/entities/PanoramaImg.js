@@ -1,6 +1,7 @@
 export default class PanoramaImg {
 
   constructor(galleryImages) {
+
     this.data = null;
     this.width = null;
     this.height = null;
@@ -11,6 +12,7 @@ export default class PanoramaImg {
     this.galleryImages = galleryImages;
 
     this.findWidthAndHeight();
+    this.loadStreamForData(this.galleryImages[0].url);
 
     //   [
     //   new TextRun({
@@ -74,5 +76,8 @@ export default class PanoramaImg {
       default:
         break;
     }
+  }
+  async loadStreamForData(url) {
+    await fetch(url).then(r => this.data = r.blob());
   }
 }

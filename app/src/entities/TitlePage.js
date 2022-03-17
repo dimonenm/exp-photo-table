@@ -162,8 +162,9 @@ export default class TitlePage {
   }
 
   // служебные функции
-  addPanoramaImg(galleryImages) {
-    const panoramaImg = new PanoramaImg(galleryImages);
+  async addPanoramaImg(galleryImages) {
+    const panoramaImg = await new PanoramaImg(galleryImages);
+    console.log('panoramaImg: ', panoramaImg);    
     return panoramaImg;
   }
 }

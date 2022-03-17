@@ -239,6 +239,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
           if (i === 0) {
             for (let j = i; j < 2; j++) {
               let blob = await fetch(galleryImages[j]?.urlImg).then(r => r.blob());
+              console.log('blob: ', blob);
               tempParagraphArr.push(
                 new Paragraph(
                   {
