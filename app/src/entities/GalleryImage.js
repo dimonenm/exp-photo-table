@@ -3,6 +3,7 @@ export default class GallaryImage {
     this.index = 0;
     this.name = '';
     this.url = '';
+    this.data = '';
     this.orientation = 'horizontal';
     this.imgDesc = '';
     this.imgCuted = false;
@@ -22,6 +23,9 @@ export default class GallaryImage {
   }
   getUrl() {
     return this.url;
+  }
+  getData() {
+    return this.data;
   }
   getOrientation() {
     return this.orientation;
@@ -59,6 +63,9 @@ export default class GallaryImage {
   }
   setUrl(value) {
     this.url = value;
+  }
+  setData(value) {
+    this.data = value;
   }
   setOrientation(value) {
     this.orientation = value;

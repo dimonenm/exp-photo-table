@@ -3,7 +3,6 @@ import PanoramaImg from "./PanoramaImg";
 
 export default class TitlePage {
 
-
   constructor(galleryImages, photoTableData) {
 
     this.FONT = "Times New Roman";
@@ -12,7 +11,9 @@ export default class TitlePage {
     this.OFFICIAL_STATUS = 'специалист';
     this.ZIP_CODE = '295006';
     this.ADDRESS = 'г. Симферополь, ул. Павленко, 1а';
-    this.TEL = '(3652) 66-74-34';
+    this.TEL = '(3652) 66-74-34';    
+    this.galleryImages = galleryImages;
+    this.photoTableData = photoTableData;
 
     this.testOn = true;
 
@@ -120,21 +121,7 @@ export default class TitlePage {
             })
           ]
         }
-      ),
-      new Paragraph(
-        {
-          alignment: AlignmentType.CENTER,
-          children: [
-            new TextRun({
-              font: this.FONT,
-              size: 24,
-              break: 1,
-            }),
-            new ImageRun(this.addPanoramaImg(galleryImages))            
-          ]
-        }
-
-      ),
+      )
     ];
     this.footers = {
       default: new Footer({
@@ -160,11 +147,39 @@ export default class TitlePage {
   getChildren() {
     return this.children;
   }
-
+  // функции изменения полей
+  setChildren(value) {
+    this.children = value;
+  }
   // служебные функции
-  async addPanoramaImg(galleryImages) {
-    const panoramaImg = await new PanoramaImg(galleryImages);
-    console.log('panoramaImg: ', panoramaImg);    
-    return panoramaImg;
+  async addPanoramaImg() {
+    const panoramaImg = new PanoramaImg();
+    await panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
+    await panoramaImg.loadImgStreamForData(this.galleryImages[0].url);
+
+    const paragraph = new Paragraph(
+      {
+        alignment: AlignmentType.CENTER,
+        children: [
+          new TextRun({
+            font: this.FONT,
+            size: 24,
+            break: 1,
+          }),
+          new TextRun({
+            text: 'img',
+            font: this.FONT,
+            size: 24,
+          }),
+          new ImageRun({ data: panoramaImg.getData(), transformation: panoramaImg.getTransformation()})
+        ]
+      }
+    );
+
+    const children = this.getChildren();
+
+    children.push(paragraph);
+
+    this.setChildren(children);
   }
 }

@@ -9,7 +9,6 @@ export default class WordDocument{
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
-    // this.titlePage = new TitlePage(this.galleryImages, this.photoTableData)
     this.testOn = true;
   }
   // функции доступа к полям
@@ -33,8 +32,9 @@ export default class WordDocument{
     this.sections = value;
   }
   // служебные функции
-  addTitlePage() {
+  async addTitlePage() {
     const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
+    await titlePage.addPanoramaImg();
     const sections = this.getSections();
     sections.push(titlePage);
     this.setSections(sections);
