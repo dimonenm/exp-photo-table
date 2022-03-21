@@ -157,7 +157,7 @@ export default class TitlePage {
     await panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
     await panoramaImg.loadImgStreamForData(this.galleryImages[0].url);
 
-    const paragraph = new Paragraph(
+    const paragraphImg = new Paragraph(
       {
         alignment: AlignmentType.CENTER,
         children: [
@@ -166,20 +166,57 @@ export default class TitlePage {
             size: 24,
             break: 1,
           }),
+          new ImageRun({ data: panoramaImg.getData(), transformation: panoramaImg.getTransformation() })
+        ]
+      }
+    );
+
+    const paragraphDesc = new Paragraph(
+      {
+        alignment: AlignmentType.JUSTIFIED,
+        children: [
           new TextRun({
-            text: 'img',
-            font: this.FONT,
-            size: 24,
+            text: `Фото №${this.galleryImages[0].index}. `,
+            font: "Times New Roman",
+            size: 26,
+            bold: true,
           }),
-          new ImageRun({ data: panoramaImg.getData(), transformation: panoramaImg.getTransformation()})
+          new TextRun({
+            text: this.galleryImages[0].imgDesc,
+            font: "Times New Roman",
+            size: 26,
+          }),
+          this.descAddedArrows()
         ]
       }
     );
 
     const children = this.getChildren();
 
-    children.push(paragraph);
+    children.push(paragraphImg);
+    children.push(paragraphDesc);
 
     this.setChildren(children);
+  }
+
+  descAddedArrows() {
+    if (this.galleryImages[0].arrowsArray.length > 0) {
+      let str = ''
+
+      for (const item of this.galleryImages[0].arrowsArray) {
+        if (str) {
+          str += `, ${item.number}. ${item.text}`;
+        }
+        if (!str) {
+          str += `${item.number}. ${item.text}`;
+        }        
+      }
+      // console.log('this.galleryImages[0]: ', this.galleryImages[0].arrowsArray);
+      return new TextRun({
+        text: ` (${str}).`,
+        // font: "Times New Roman",
+        // size: 26,
+      })
+    }
   }
 }
