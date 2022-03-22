@@ -153,9 +153,14 @@ export default class TitlePage {
   }
   // служебные функции
   async addPanoramaImg() {
+    const canvas = document.createElement('canvas');
+    console.log('canvas: ', canvas);
+    const ctx = canvas.current.getContext('2d');
+    const img = new Image();
+
     const panoramaImg = new PanoramaImg();
     await panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
-    await panoramaImg.loadImgStreamForData(this.galleryImages[0].url);
+    await panoramaImg.loadImgStreamForData(this.galleryImages[0]);
 
     const paragraphImg = new Paragraph(
       {

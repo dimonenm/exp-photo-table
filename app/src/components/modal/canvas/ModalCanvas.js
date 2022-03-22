@@ -11,8 +11,6 @@ import './ModalCanvas.scss';
 
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
-  // console.log(localModalProperties);
-  // console.log(localModalProperties.galleryImg);
 
   const galleryImg = localModalProperties.galleryImg;
   const setGalleryImg = localModalProperties.setGalleryImg;
@@ -23,27 +21,6 @@ const ModalCanvas = () => {
     tool: null
   });
   const canvasRef = useRef();
-
-  //-----сервисные функции
-  // function getCurrentImgUrl(arr) {
-  //   let url = '';
-  //   arr.forEach((item) => {
-  //     if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
-  //       url = item.getUrl();
-  //     }
-  //   })
-  //   return url;
-  // }
-  // function getCurrentImgName(arr) {
-  //   let name = '';
-  //   arr.forEach((item) => {
-  //     if (item.getIndex() === localModalProperties.modalProperties.indexImgInGallery) {
-  //       name = item.getName();
-  //     }
-  //   })
-  //   return name;
-  // }
-  //сервисные функции-----
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -490,9 +467,7 @@ const ModalCanvas = () => {
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
 
       if (galleryImg.getArrowsArray().length > 0) {
-        // console.log(canvasState.arrowsArray);
         for (const item of galleryImg.getArrowsArray()) {
-          // console.log(item);
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
         }
       }

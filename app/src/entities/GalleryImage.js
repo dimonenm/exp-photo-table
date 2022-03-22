@@ -15,6 +15,7 @@ export default class GallaryImage {
     this.arrowsArray = [];
   }
 
+  // функции доступа к полям
   getIndex() {
     return this.index;
   }
@@ -55,6 +56,7 @@ export default class GallaryImage {
     return this.arrowsArray;
   }
 
+  // функции изменения полей
   setIndex(value) {
     this.index = value;
   }
