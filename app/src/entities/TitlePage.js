@@ -12,6 +12,7 @@ export default class TitlePage {
     this.ZIP_CODE = '295006';
     this.ADDRESS = 'г. Симферополь, ул. Павленко, 1а';
     this.TEL = '(3652) 66-74-34';    
+    this.CANVAS_HEIGHT = 460;    
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
@@ -153,36 +154,11 @@ export default class TitlePage {
   }
   // служебные функции
   async addPanoramaImg() {
-    const canvas = document.createElement('canvas');
-    // console.log('canvas: ', canvas);
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    // console.log('this.galleryImages[0].getUrl(): ', this.galleryImages[0].getUrl());
-
-    img.onload = function () {
-      console.log('this.height', this.height);
-      console.log('this.width', this.width);
-      console.log('ctx.canvas.height', ctx.height);
-
-      // const pr = ctx.canvas.height * 100 / this.height;
-      // const zoom = +galleryImg.getZoom() / 100;
-      // const imgW = (this.width / 100 * pr) * zoom;
-      // const imgH = (this.height / 100 * pr) * zoom;
-
-      // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      // ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-
-      // if (galleryImg.getArrowsArray().length > 0) {
-      //   for (const item of galleryImg.getArrowsArray()) {
-      //     drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
-      //   }
-      // }
-    }
-    img.src = this.galleryImages[0].getUrl();
 
     const panoramaImg = new PanoramaImg();
     await panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
-    await panoramaImg.loadImgStreamForData(this.galleryImages[0]);
+    // await panoramaImg.loadImgStreamForData(this.galleryImages[0]);
+    await panoramaImg.loadImgData(this.galleryImages[0]);
 
     const paragraphImg = new Paragraph(
       {
