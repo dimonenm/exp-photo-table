@@ -56,11 +56,39 @@ export default class PanoramaImg {
     const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
     const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
-    const data = this.data;
-    const setData = (da, x) => { da = x };
-    // console.log(this);
+    const getData = this.getData.bind(this);
+    const setData = this.setData.bind(this);
 
-    img.onload = function () {
+    // img.onload = function () {
+    //   ctx.canvas.height = 460;
+    //   const pr = ctx.canvas.height * 100 / this.height;
+
+    //   const zoom = gallaryImageZoom / 100;
+    //   const imgW = (this.width / 100 * pr) * zoom;
+    //   const imgH = (this.height / 100 * pr) * zoom;
+
+    //   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //   ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
+
+    //   if (gallaryImageArrowsArray.length > 0) {
+    //     for (const item of gallaryImageArrowsArray) {
+    //       drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+    //     }
+    //   }
+
+    //   canvas.toBlob(function (blob) {
+    //     console.log('getData1:', getData());
+    //     setData(blob);
+    //     console.log('getData2:', getData());
+    //   }, 'image/jpeg', 1);
+
+
+    //   console.log('getData3:', getData());
+
+
+    //   // setData(canvas.toDataURL());
+    // }
+    img.addEventListener('load', async () => {
       ctx.canvas.height = 460;
       const pr = ctx.canvas.height * 100 / this.height;
 
@@ -76,14 +104,20 @@ export default class PanoramaImg {
           drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
         }
       }
+      let imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 1));
+      setData(imageBlob);
+
+      // canvas.toBlob(function (blob) {
+      //   console.log('getData1:', getData());
+      //   setData(blob);
+      //   console.log('getData2:', getData());
+      // }, 'image/jpeg', 1);
+
+      // console.log('getData3:', getData());
+
 
       // setData(canvas.toDataURL());
-      // console.log('canvas.toDataURL(): ', canvas.toDataURL());
-      // console.log('getData(): ', this.getData());
-      console.log('getData', data);
-      console.log('setData', setData(data, 10));
-      console.log('getData', data);
-    }
+    })
 
     img.src = gallaryImage.getUrl();
   }
