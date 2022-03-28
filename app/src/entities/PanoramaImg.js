@@ -64,7 +64,6 @@ export default class PanoramaImg {
     const blob = await fetch(gallaryImage.getUrl())
       .then(async response => {
         data = await response.blob();
-        // return response.blob();
       });
     // const reader = new FileReader();
     // reader.onload = function () {
