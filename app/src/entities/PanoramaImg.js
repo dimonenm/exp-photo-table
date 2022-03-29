@@ -52,7 +52,9 @@ export default class PanoramaImg {
     const img = new Image();
     const gallaryImageZoom = +gallaryImage.getZoom();
     const gallaryImageLastOffsetValueX = gallaryImage.getLastOffsetValueX();
+    console.log('gallaryImageLastOffsetValueX: ', gallaryImageLastOffsetValueX);
     const gallaryImageLastOffsetValueY = gallaryImage.getLastOffsetValueY();
+    console.log('gallaryImageLastOffsetValueY: ', gallaryImageLastOffsetValueY);
     const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
     const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
@@ -68,14 +70,21 @@ export default class PanoramaImg {
       img.addEventListener('load', function () {
         console.log('in');
         ctx.canvas.height = 460;
-        const pr = ctx.canvas.height * 100 / this.height;
+        ctx.canvas.width = 747;
+        // const pr = 100;
+        // const pr = ctx.canvas.height * 100 / this.height;
 
         const zoom = gallaryImageZoom / 100;
-        const imgW = (this.width / 100 * pr) * zoom;
-        const imgH = (this.height / 100 * pr) * zoom;
+        const imgW = this.width * zoom;
+        console.log('imgW: ', imgW);
+        const imgH = this.height * zoom;
+        console.log('imgH: ', imgH);
+        // const imgW = (this.width / 100 * pr) * zoom;
+        // const imgH = (this.height / 100 * pr) * zoom;
 
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
+        // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(img, 0, 0, imgW, imgH);
+        // ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
 
         if (gallaryImageArrowsArray.length > 0) {
           for (const item of gallaryImageArrowsArray) {
@@ -93,9 +102,11 @@ export default class PanoramaImg {
 
 
     const returnImage = await new Promise((onSuccess, onError) => {
-      onSuccess(canvas.toBlob(b => b))
+      setData(canvas.toDataURL('image/jpeg', 1))
+      onSuccess(canvas.toDataURL('image/jpeg', 1))
+      // onSuccess(canvas.toBlob(b => b))
     })
-    console.log('returnImage: ', returnImage);
+    // console.log('returnImage: ', returnImage);
 
     // let base64Data;
 
