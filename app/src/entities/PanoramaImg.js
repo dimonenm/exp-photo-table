@@ -59,53 +59,124 @@ export default class PanoramaImg {
     const getData = this.getData.bind(this);
     const setData = this.setData.bind(this);
 
+    // const response = await fetch(gallaryImage.getUrl());
+    // console.log('response: ', response);
+    // const blob = await response.blob();
+    // console.log('blob: ', blob);
 
-    let data;
-    const blob = await fetch(gallaryImage.getUrl())
-      .then(async response => {
-        data = await response.blob();
-      });
-    // const reader = new FileReader();
-    // reader.onload = function () {
-    //   console.log(this.result);
-    //   data = this.resultl
+    const renderImage = await new Promise((onSuccess, onError) => {
+      img.addEventListener('load', function () {
+        console.log('in');
+        ctx.canvas.height = 460;
+        const pr = ctx.canvas.height * 100 / this.height;
+
+        const zoom = gallaryImageZoom / 100;
+        const imgW = (this.width / 100 * pr) * zoom;
+        const imgH = (this.height / 100 * pr) * zoom;
+
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
+
+        if (gallaryImageArrowsArray.length > 0) {
+          for (const item of gallaryImageArrowsArray) {
+            drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+          }
+        }
+        onSuccess('done');
+      })      
+      
+      img.src = gallaryImage.getUrl();
+      
+    });
+
+    console.log('renderImage: ', renderImage);
+
+
+    const returnImage = await new Promise((onSuccess, onError) => {
+      onSuccess(canvas.toBlob(b => b))
+    })
+    console.log('returnImage: ', returnImage);
+
+    // let base64Data;
+
+    // const imageUrlToBase64 = async url => {
+    //   const response = await fetch(url);
+    //   const blob = await response.blob();
+    //   return new Promise((onSuccess, onError) => {
+    //     try {
+    //       const reader = new FileReader();
+    //       reader.onload = function () { onSuccess(this.result) };
+    //       reader.readAsDataURL(blob);
+    //     } catch (e) {
+    //       onError(e);
+    //     }
+    //   });
     // };
 
-    // reader.readAsDataURL(blob);
-    
-    console.log('blob: ', blob);
-    console.log('data: ', data);
+    // const imageUrlToBase64 = async url => {
+    //   const response = await fetch(url);
+    //   const blob = await response.blob();
+    //   return new Promise((onSuccess, onError) => {
+    //     try {
+    //       img.addEventListener('load', async function () {
+    //         ctx.canvas.height = 460;
+    //         const pr = ctx.canvas.height * 100 / this.height;
 
+    //         const zoom = gallaryImageZoom / 100;
+    //         const imgW = (this.width / 100 * pr) * zoom;
+    //         const imgH = (this.height / 100 * pr) * zoom;
 
-    
-    img.addEventListener('load', async function () {
-      ctx.canvas.height = 460;
-      const pr = ctx.canvas.height * 100 / this.height;
+    //         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //         ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
 
-      const zoom = gallaryImageZoom / 100;
-      const imgW = (this.width / 100 * pr) * zoom;
-      const imgH = (this.height / 100 * pr) * zoom;
+    //         if (gallaryImageArrowsArray.length > 0) {
+    //           for (const item of gallaryImageArrowsArray) {
+    //             drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+    //           }
+    //         }
+    //         setData(await new Promise(resolve => canvas.toBlob(resolve, 'image/png')))
+    //         // setData(canvas.toBlob())
+    //         console.log('canvas');
+    //         onSuccess();
+    //       })
 
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
+    //       img.src = blob;
+    //     } catch (e) {
+    //       onError(e);
+    //     }
+    //   });
+    // };
 
-      if (gallaryImageArrowsArray.length > 0) {
-        for (const item of gallaryImageArrowsArray) {
-          drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
-        }
-      }
+    // await imageUrlToBase64(gallaryImage.getUrl());
 
-      await canvas.toBlob(async (blob) => {
-        const url = URL.createObjectURL(blob);
-        console.log('url: ', url);
-        await fetch(url).then(r => {
-          console.log('r: ', r);
+    // img.addEventListener('load', async function () {
+    //   ctx.canvas.height = 460;
+    //   const pr = ctx.canvas.height * 100 / this.height;
 
-          setData(r.blob());
-        })
-      }, 'image/jpeg', 1)
-    })
+    //   const zoom = gallaryImageZoom / 100;
+    //   const imgW = (this.width / 100 * pr) * zoom;
+    //   const imgH = (this.height / 100 * pr) * zoom;
 
-    img.src = gallaryImage.getUrl();
+    //   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //   ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + gallaryImageLastOffsetValueX, ((ctx.canvas.height - imgH) / 2) + gallaryImageLastOffsetValueY, imgW, imgH);
+
+    //   if (gallaryImageArrowsArray.length > 0) {
+    //     for (const item of gallaryImageArrowsArray) {
+    //       drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+    //     }
+    //   }
+    //   // await canvas.toBlob(async (blob) => {
+    //   //   const url = URL.createObjectURL(blob);
+    //   //   // console.log('url: ', url);
+    //   //   await fetch(url).then(r => {
+    //   //     // console.log('r: ', r);
+
+    //   //     setData(r.blob());
+    //   //   })
+    //   // }, 'image/jpeg', 1)
+    // })
+
+    // img.src = base64Data;
+    // img.src = gallaryImage.getUrl();
   }
 }
