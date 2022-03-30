@@ -34,11 +34,13 @@ export default class WordDocument{
   // служебные функции
   async addTitlePage() {
     const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
-    console.log('addTitlePage: 1');
+
     await titlePage.addPanoramaImg();
-    console.log('addTitlePage: 2');
+
     const sections = this.getSections();
+
     sections.push(titlePage);
+    
     this.setSections(sections);
   }
 
