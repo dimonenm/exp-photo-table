@@ -1,0 +1,13 @@
+.modal-container-preview {
+    display: flex;
+    flex-direction: column;
+
+    max-width: max-content;
+
+    z-index: 30;
+
+
+    background-color: #f8f9fa;
+
+    border: 1px solid #000;
+}

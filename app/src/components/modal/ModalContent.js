@@ -55,7 +55,7 @@ const ModalContent = () => {
   if (localModalProperties.modalProperties.type === "preview") {
     return (
       <div className="modal-content">
-        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
+        {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
       </div>
     );
   }

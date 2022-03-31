@@ -3,6 +3,7 @@ import ModalHeader from './ModalHeader';
 import ModalContent from './ModalContent';
 import { modalDataContext } from '../../App';
 import './ModalContainer.scss';
+import './ModalContainer2.scss';
 
 const ModalContainer = () => {
   const localModalProperties = useContext(modalDataContext);
@@ -20,7 +21,7 @@ const ModalContainer = () => {
 
   if (localModalProperties.modalProperties.type === "preview") {
     return (
-      <div className="modal-container" onDoubleClick={dbClickHandler}>
+      <div className="modal-container-preview" onDoubleClick={dbClickHandler}>
         <ModalHeader />
         <ModalContent />
       </div>
