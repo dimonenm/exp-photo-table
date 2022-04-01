@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
+// import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 // import { saveAs } from "file-saver";
 import "./MenuItem.css";
 import GallaryImage from '../../entities/GalleryImage';
@@ -81,7 +81,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     wordDocument.saveDocument();
 
 
-/*
+/*old code
     const sectionsArr = [];
 
     if (
@@ -584,8 +584,8 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       Packer.toBlob(doc).then(blob => {
         // saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
         console.log("Document created successfully");
-      });*/
-    }
+      });
+    }*/
 
   }
 
