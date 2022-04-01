@@ -353,7 +353,6 @@ const ModalContent = () => {
           color={[0, 0, 0, 0.8]} // RGBA
           scale={editorData.zoom}
           rotate={0}
-        // style={{backgroundColor: 'red'}}
         />
         <div className="modal-content-data-controls">
           <div className="modal-content-data-controls-orientation">

@@ -81,9 +81,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     wordDocument.saveDocument();
 
 
-
-
-
+/*
     const sectionsArr = [];
 
     if (
@@ -586,7 +584,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       Packer.toBlob(doc).then(blob => {
         // saveAs(blob, `${photoTableData.numbOMP} ${photoTableData.unit} КУСП №${photoTableData.kusp} ${photoTableData.executor}.docx`);
         console.log("Document created successfully");
-      });
+      });*/
     }
 
   }
