@@ -26,7 +26,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     input.click();
     input.addEventListener('change', change);
   }
-
   function delImgFromPhotoTable(event) {
     event.preventDefault()
 
@@ -51,7 +50,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       }
     });
   }
-
   function forCutPhoto(event) {
     event.preventDefault();
 
