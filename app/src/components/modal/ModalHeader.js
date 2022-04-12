@@ -16,11 +16,6 @@ const ModalHeader = ({ name }) => {
     return (
       <div className="modal-header">
         <Logo>{localModalProperties.modalProperties.nameImg}</Logo>
-        {/* <Menu>
-          <MenuItem notActive={true}>Выделить область</MenuItem>
-          <MenuItem notActive={true}>Обрезать</MenuItem>
-          <MenuItem notActive={true}>Удалить из списка</MenuItem>
-        </Menu> */}
         <MenuBtns>
           <MenuBtnsCloseBtn />
         </MenuBtns>

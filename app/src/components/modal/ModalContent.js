@@ -3,6 +3,7 @@ import AvatarEditor from 'react-avatar-editor';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
 import regexpCheckingComplianceInitialsSurname from '../../services/forModalContent/fRegexpCheckingComplianceInitialsSurname';
 import ModalCanvas from './canvas/ModalCanvas';
+import ModalContentPreview from './ModalContentPreview';
 import { modalDataContext } from '../../App';
 import './ModalContent.css'
 import './ModalContentGrid.css'
@@ -53,11 +54,12 @@ const ModalContent = () => {
   })
 
   if (localModalProperties.modalProperties.type === "preview") {
-    return (
-      <div className="modal-content">
-        {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
-      </div>
-    );
+    return (<ModalContentPreview />);
+    // return (
+    //   <div className="modal-content">
+    //     {/* <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img> */}
+    //   </div>
+    // );
   }
   if (localModalProperties.modalProperties.type === "setSettings") {
     const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) }) }
