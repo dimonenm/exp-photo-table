@@ -2,12 +2,14 @@
   "name": "exp-photo-table",
   "version": "0.0.1",
   "private": true,
+  "main": "public/main.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "docx": "^7.0.0",
+    "electron": "^18.0.3",
     "file-saver": "^2.0.5",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",
@@ -21,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-dev": "electron ."
   },
   "eslintConfig": {
     "extends": [
