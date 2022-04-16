@@ -3,12 +3,20 @@ const { app, BrowserWindow } = require('electron')
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 1400,
+    title: "exp-photo-table",
+    width: 1200,
     height: 800,
+    // maxWidth: 1400,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true,
     }
   })
+
+  //either use the removeMenu() function
+  win.removeMenu();
+  // or set the Menu to null
+  // win.setMenu(null)
 
   //load the index.html from a url
   win.loadURL('http://localhost:3000');
