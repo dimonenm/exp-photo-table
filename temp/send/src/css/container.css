@@ -1,0 +1,21 @@
+.top-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /* height: calc(100vh - 2px); */
+  height: 100vh;
+  max-width: 1400px;
+  min-width: 768px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  border: 1px solid #000;
+}

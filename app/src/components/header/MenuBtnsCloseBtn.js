@@ -50,22 +50,6 @@ const MenuBtnsCloseBtn = () => {
     }
   }
 
-  // if (localModalProperties.modalProperties.isOpen &&
-  //   localModalProperties.modalProperties.type === "setGalleryImageData") {
-  //   clickHandler = () => {
-  //     localModalProperties.setModalProperties(() => {
-  //       return {
-  //         isOpen: false,
-  //         type: null,
-  //         nameImg: null,
-  //         urlImg: null,
-  //         textImg: null,
-  //         indexImgInGallery: null
-  //       }
-  //     });
-  //   }
-  // }
-
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "setSettings") {
     clickHandler = () => {
