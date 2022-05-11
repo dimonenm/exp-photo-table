@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AvatarEditor from 'react-avatar-editor';
+// import AvatarEditor from 'react-avatar-editor';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
 import regexpCheckingComplianceInitialsSurname from '../../services/forModalContent/fRegexpCheckingComplianceInitialsSurname';
 import ModalCanvas from './canvas/ModalCanvas';
@@ -12,11 +12,11 @@ const ModalContent = () => {
 
   const localModalProperties = useContext(modalDataContext);
 
-  const [editorData, setEditorData] = useState({
-    width: 700,
-    height: 525,
-    zoom: 1
-  });
+  // const [editorData, setEditorData] = useState({
+  //   width: 700,
+  //   height: 525,
+  //   zoom: 1
+  // });
   const [canvas, setCanvas] = useState();
   const [newEmployee, setNewEmployee] = useState('');
 
@@ -285,107 +285,107 @@ const ModalContent = () => {
     );
   }
 
-  if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+  // if (localModalProperties.modalProperties.type === "setGalleryImageData") {
 
-    const changeIllustrationDescriptionHandler = () => {
-      const str = document.querySelector('.illustrationDescription');
-      localModalProperties.setModalProperties((prev) => {
-        return ({
-          ...prev,
-          textImg: str.value
-        })
-      })
-    };
+  //   const changeIllustrationDescriptionHandler = () => {
+  //     const str = document.querySelector('.illustrationDescription');
+  //     localModalProperties.setModalProperties((prev) => {
+  //       return ({
+  //         ...prev,
+  //         textImg: str.value
+  //       })
+  //     })
+  //   };
 
-    return (
-      <div className="modal-content-data">
-        <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
-        <div className="modal-content-title">Описание:</div>
-        <textarea
-          className="illustrationDescription"
-          onChange={changeIllustrationDescriptionHandler}
-          rows={5}
-          placeholder="Введите описание для иллюстрации..."
-          value={
-            localModalProperties.modalProperties.textImg ?
-              localModalProperties.modalProperties.textImg :
-              ''}
-        />
-      </div>
-    );
-  }
+  //   return (
+  //     <div className="modal-content-data">
+  //       <img src={localModalProperties.modalProperties.urlImg} alt={'test'}></img>
+  //       <div className="modal-content-title">Описание:</div>
+  //       <textarea
+  //         className="illustrationDescription"
+  //         onChange={changeIllustrationDescriptionHandler}
+  //         rows={5}
+  //         placeholder="Введите описание для иллюстрации..."
+  //         value={
+  //           localModalProperties.modalProperties.textImg ?
+  //             localModalProperties.modalProperties.textImg :
+  //             ''}
+  //       />
+  //     </div>
+  //   );
+  // }
 
-  if (localModalProperties.modalProperties.type === "cutPhoto") {
-    const inputChangeHandler = (event) => {
-      setEditorData((prev) => {
-        return { ...prev, zoom: +event.target.value }
-      });
-    }
-    const orientationVerticalClickHandler = () => {
-      const tempGalleryImages = [...localModalProperties.galleryImages];
-      tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].orientation = 'vertical';
-      localModalProperties.setGalleryImages(tempGalleryImages);
+  // if (localModalProperties.modalProperties.type === "cutPhoto") {
+  //   const inputChangeHandler = (event) => {
+  //     setEditorData((prev) => {
+  //       return { ...prev, zoom: +event.target.value }
+  //     });
+  //   }
+  //   const orientationVerticalClickHandler = () => {
+  //     const tempGalleryImages = [...localModalProperties.galleryImages];
+  //     tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].orientation = 'vertical';
+  //     localModalProperties.setGalleryImages(tempGalleryImages);
 
-      setEditorData((prev) => {
-        return { ...prev, width: 393, height: 525 }
-      });
-    }
-    const orientationHorizontalClickHandler = () => {
-      const tempGalleryImages = [...localModalProperties.galleryImages];
-      tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].orientation = 'horizontal';
-      localModalProperties.setGalleryImages(tempGalleryImages);
+  //     setEditorData((prev) => {
+  //       return { ...prev, width: 393, height: 525 }
+  //     });
+  //   }
+  //   const orientationHorizontalClickHandler = () => {
+  //     const tempGalleryImages = [...localModalProperties.galleryImages];
+  //     tempGalleryImages[localModalProperties.modalProperties.indexImgInGallery].orientation = 'horizontal';
+  //     localModalProperties.setGalleryImages(tempGalleryImages);
 
-      setEditorData((prev) => {
-        return { ...prev, width: 700, height: 525 }
-      });
-    }
+  //     setEditorData((prev) => {
+  //       return { ...prev, width: 700, height: 525 }
+  //     });
+  //   }
 
-    const setEditorRef = (editor) => {
-      setCanvas(editor);
-    };
+  //   const setEditorRef = (editor) => {
+  //     setCanvas(editor);
+  //   };
 
-    return (
-      <div className="modal-content-data">
-        <AvatarEditor
-          ref={setEditorRef}
-          image={localModalProperties.modalProperties.urlImg}
-          width={editorData.width}
-          height={editorData.height}
-          border={0}
-          color={[0, 0, 0, 0.8]} // RGBA
-          scale={editorData.zoom}
-          rotate={0}
-        />
-        <div className="modal-content-data-controls">
-          <div className="modal-content-data-controls-orientation">
-            <div className="modal-content-data-controls-orientation-title">Ориентация:</div>
-            <div
-              className="modal-content-data-controls-orientation-vertical"
-              onClick={orientationVerticalClickHandler}
-            >Вертикальная</div>
-            <div
-              className="modal-content-data-controls-orientation-horizontal"
-              onClick={orientationHorizontalClickHandler}
-            >Горизонтальная</div>
-          </div>
-          <div className="modal-content-data-controls-zoom">
-            <div className="modal-content-data-controls-zoom-title">Увеличение:</div>
-            <div className="modal-content-data-controls-zoom-range">
-              <input
-                type="range"
-                step="0.1"
-                min="0.1"
-                max="2"
-                value={editorData.zoom}
-                onChange={inputChangeHandler}
-              ></input>
-            </div>
-            <div>{editorData.zoom}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  //   return (
+  //     <div className="modal-content-data">
+  //       <AvatarEditor
+  //         ref={setEditorRef}
+  //         image={localModalProperties.modalProperties.urlImg}
+  //         width={editorData.width}
+  //         height={editorData.height}
+  //         border={0}
+  //         color={[0, 0, 0, 0.8]} // RGBA
+  //         scale={editorData.zoom}
+  //         rotate={0}
+  //       />
+  //       <div className="modal-content-data-controls">
+  //         <div className="modal-content-data-controls-orientation">
+  //           <div className="modal-content-data-controls-orientation-title">Ориентация:</div>
+  //           <div
+  //             className="modal-content-data-controls-orientation-vertical"
+  //             onClick={orientationVerticalClickHandler}
+  //           >Вертикальная</div>
+  //           <div
+  //             className="modal-content-data-controls-orientation-horizontal"
+  //             onClick={orientationHorizontalClickHandler}
+  //           >Горизонтальная</div>
+  //         </div>
+  //         <div className="modal-content-data-controls-zoom">
+  //           <div className="modal-content-data-controls-zoom-title">Увеличение:</div>
+  //           <div className="modal-content-data-controls-zoom-range">
+  //             <input
+  //               type="range"
+  //               step="0.1"
+  //               min="0.1"
+  //               max="2"
+  //               value={editorData.zoom}
+  //               onChange={inputChangeHandler}
+  //             ></input>
+  //           </div>
+  //           <div>{editorData.zoom}</div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     // console.log(localModalProperties);
 

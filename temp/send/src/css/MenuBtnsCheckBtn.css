@@ -1,0 +1,11 @@
+.check-btn {
+  height: 50px;
+  width: 50px;
+  background-image: url("../img/check.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.check-btn:hover {
+  background-color: rgba(250, 250, 250, 0.5);
+}

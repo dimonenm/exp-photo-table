@@ -1,0 +1,139 @@
+.modal-content-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (200px)[3];
+      grid-template-rows: repeat(3, 200px);
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: 100%;
+}
+
+.modal-content-grid-settings-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 50px 150px;
+      grid-template-rows: 50px 150px;
+}
+
+.modal-content-grid-settings-note {
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.modal-content-grid-settings-unit {
+  -ms-grid-row: 2;
+      grid-row-start: 2;
+  grid-row-end: 3;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.modal-content-grid-settings-employee {
+  -ms-grid-column: 3;
+      grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.modal-content-grid-settings-employee-list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 50px;
+      grid-template-rows: 50px;
+  -ms-grid-row: 2;
+      grid-row-start: 2;
+  grid-row-end: 4;
+  -ms-grid-column: 3;
+      grid-column-start: 3;
+  grid-column-end: 5;
+}
+
+.modal-content-grid-settings-title {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+  text-align: center;
+}
+
+.modal-content-grid-settings-textarea {
+  display: -ms-grid;
+  display: grid;
+  padding: 10px;
+}
+
+.modal-content-grid-settings-textarea textarea {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+  text-align: center;
+  line-height: 1;
+  padding: 0;
+  border: 1px solid #000;
+  border-radius: 0;
+  outline: none;
+  resize: none;
+  overflow: auto;
+}
+
+.modal-content-grid-settings-textarea textarea::-webkit-scrollbar {
+  width: 2px;
+  height: 0;
+}
+
+.modal-content-grid-settings-textarea textarea::-webkit-scrollbar-thumb {
+  background-color: #343a40;
+}
+
+.modal-content-grid-settings-input {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+  padding: 10px;
+}
+
+.modal-content-grid-settings-input input {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24px;
+  text-align: center;
+  line-height: 1;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #000;
+  border-radius: 0;
+  outline: none;
+}
+
+.modal-content-grid-settings-list {
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  -ms-flex-line-pack: start;
+      align-content: start;
+  padding: 10px;
+}
+
+.modal-content-grid-settings-employee .modal-content-grid-settings-input {
+  -ms-grid-columns: 1fr 52px;
+      grid-template-columns: 1fr 52px;
+}
+
+.plus-btn {
+  height: 42px;
+  width: 42px;
+  margin-left: 10px;
+  background-image: url("../../img/plus-square.svg");
+  /* background-color:#000; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.plus-btn:hover {
+  background-color: rgba(250, 250, 250, 0.5);
+}

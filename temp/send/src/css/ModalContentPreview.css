@@ -1,0 +1,19 @@
+.modal-content-preview {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Roboto";
+  color: #fff;
+  padding: 20px 0;
+}
+
+.modal-content-preview img {
+  max-height: 700px;
+  max-width: 100%;
+}

@@ -37,23 +37,24 @@ const ModalContainer = () => {
     );
   }
 
-  if (localModalProperties.modalProperties.type === "setGalleryImageData") {
-    return (
-      <div className="modal-container" >
-        <ModalHeader name={'Данные иллюстрации'} />
-        <ModalContent />
-      </div>
-    );
-  }
+  // if (localModalProperties.modalProperties.type === "setGalleryImageData") {
+  //   return (
+  //     <div className="modal-container" >
+  //       <ModalHeader name={'Данные иллюстрации'} />
+  //       <ModalContent />
+  //     </div>
+  //   );
+  // }
 
-  if (localModalProperties.modalProperties.type === "cutPhoto") {
-    return (
-      <div className="modal-container" >
-        <ModalHeader name={'Обрезка иллюстрации'} />
-        <ModalContent />
-      </div>
-    );
-  }
+  // if (localModalProperties.modalProperties.type === "cutPhoto") {
+  //   return (
+  //     <div className="modal-container" >
+  //       <ModalHeader name={'Обрезка иллюстрации'} />
+  //       <ModalContent />
+  //     </div>
+  //   );
+  // }
+
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <div className={'modal-container'}>
@@ -71,5 +72,6 @@ const ModalContainer = () => {
     );
   }
 }
+
 
 export default ModalContainer;
