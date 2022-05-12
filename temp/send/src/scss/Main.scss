@@ -1,0 +1,16 @@
+.main-wrapper {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    width: 100%;
+}
+
+.main {
+    display: flex;
+    flex-grow: 1;
+    max-width: 1400px;
+    min-width: 768px;
+    padding: 10px;
+    max-height: calc(100vh - 52px) ;
+    box-sizing: border-box;
+}

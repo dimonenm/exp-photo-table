@@ -512,7 +512,6 @@ const ModalCanvas = () => {
         {renderProperties(toolState.type)}
       </div>
     </div>
-
   );
 }
 

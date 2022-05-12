@@ -27,35 +27,35 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-hand {
-  background-image: url("../../../img/btnHand.svg");
+  background-image: url("../img/btnHand.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-hand-active {
-  background-image: url("../../../img/btnHandActive.svg");
+  background-image: url("../img/btnHandActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-arrow {
-  background-image: url("../../../img/btnArrow.svg");
+  background-image: url("../img/btnArrow.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-arrow-active {
-  background-image: url("../../../img/btnArrowActive.svg");
+  background-image: url("../img/btnArrowActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-textDesc {
-  background-image: url("../../../img/btnTextDesc.svg");
+  background-image: url("../img/btnTextDesc.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-textDesc-active {
-  background-image: url("../../../img/btnTextDescActive.svg");
+  background-image: url("../img/btnTextDescActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-imgDesc {
-  background-image: url("../../../img/btnDescription.svg");
+  background-image: url("../img/btnDescription.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left-imgDesc-active {
-  background-image: url("../../../img/btnDescriptionActive.svg");
+  background-image: url("../img/btnDescriptionActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-canvas {
@@ -122,27 +122,27 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation-vertical {
-  background-image: url("../../../img/btnOrientationVertical.svg");
+  background-image: url("../img/btnOrientationVertical.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation-horizontal {
-  background-image: url("../../../img/btnOrientationHorizontal.svg");
+  background-image: url("../img/btnOrientationHorizontal.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation-panorama {
-  background-image: url("../../../img/btnOrientationPanorama.svg");
+  background-image: url("../img/btnOrientationPanorama.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation-vertical-active {
-  background-image: url("../../../img/btnOrientationVerticalActive.svg");
+  background-image: url("../img/btnOrientationVerticalActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation-horizontal-active {
-  background-image: url("../../../img/btnOrientationHorizontalActive.svg");
+  background-image: url("../img/btnOrientationHorizontalActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation-panorama-active {
-  background-image: url("../../../img/btnOrientationPanoramaActive.svg");
+  background-image: url("../img/btnOrientationPanoramaActive.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-zoom {
@@ -280,7 +280,7 @@
 .modal-content-grid-edit .modal-content-grid-properties-right-cut-btn {
   height: 40px;
   width: 40px;
-  background-image: url("../../../img/btnScissors.svg");
+  background-image: url("../img/btnScissors.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -289,7 +289,7 @@
 .modal-content-grid-edit .modal-content-grid-properties-right-cut-btn-active {
   height: 40px;
   width: 40px;
-  background-image: url("../../../img/btnScissorsActive.svg");
+  background-image: url("../img/btnScissorsActive.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -345,7 +345,7 @@
 .modal-content-grid-edit .modal-content-grid-properties-right-list_item-delete {
   width: 25px;
   height: 25px;
-  background-image: url("../../../img/smallCros.svg");
+  background-image: url("../img/smallCros.svg");
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-list_item input {

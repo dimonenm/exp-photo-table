@@ -1,0 +1,167 @@
+.workplace {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -ms-flex-preferred-size: 220px;
+      flex-basis: 220px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  font-family: "Roboto";
+  margin-left: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #000;
+  -webkit-box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+.workplace::-webkit-scrollbar {
+  width: 3px;
+}
+
+.workplace::-webkit-scrollbar-track {
+  background-color: #6c757d;
+}
+
+.workplace::-webkit-scrollbar-thumb {
+  background-color: #343a40;
+}
+
+.workplace-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-preferred-size: 200px;
+      flex-basis: 200px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 220px;
+  margin: 10px 0 0 0;
+  border: 1px solid #000;
+}
+
+.workplace-item-new {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-preferred-size: 200px;
+      flex-basis: 200px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 220px;
+  margin: 10px 0 0 0;
+  border: 1px dashed #000;
+}
+
+.workplace-item-new-hovered {
+  background-color: #c4c4c4;
+}
+
+.workplace-item-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-preferred-size: 20px;
+      flex-basis: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.workplace-item-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 100%;
+  /* background-color: #c4c4c4; */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.workplace-item-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-preferred-size: 50px;
+      flex-basis: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 10px;
+  line-height: 1;
+  text-align: center;
+}
+
+.workplace-item-plus {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 100%;
+  background-image: url("../img/plus-circle-dotted.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.workplace-data-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-preferred-size: 200px;
+      flex-basis: 200px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+  font-size: 20px;
+  /* font-weight: 500; */
+  line-height: 1;
+  text-align: center;
+  margin: 10px 0 0 0;
+  border: 1px solid #000;
+}
+
+.workplace-data-btn:hover {
+  -webkit-box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+  cursor: default;
+}

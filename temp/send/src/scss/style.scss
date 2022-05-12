@@ -4,15 +4,12 @@
     font-weight: 400;
     src: url("../fonts/Roboto-Regular.ttf");
 }
-
 html,
 body {
     min-height: 100vh;
     box-sizing: border-box;
 }
-
-body {
-  
+body {  
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -20,8 +17,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 @import './Container';
+@import './Header';
+@import './Menu';
+@import './MenuItem';
+@import './Main';
+@import './Gallery';
+@import './Workplace';
+
+
 @import './Modal';
 @import './LighteningBackground';
 @import './ModalContainer';
@@ -34,3 +38,7 @@ body {
 @import './ModalContent';
 @import './ModalContentGrid';
 @import './ModalContentPreview';
+@import './ModalContentEmployeeItem';
+@import './ModalCanvas';
+
+

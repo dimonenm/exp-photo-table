@@ -17,7 +17,8 @@ const ModalContent = () => {
   //   height: 525,
   //   zoom: 1
   // });
-  const [canvas, setCanvas] = useState();
+  const [canvas] = useState();
+  // const [canvas, setCanvas] = useState();
   const [newEmployee, setNewEmployee] = useState('');
 
   function onClickSave() {
@@ -387,8 +388,6 @@ const ModalContent = () => {
   //   );
   // }
   if (localModalProperties.modalProperties.type === "editPhoto") {
-    // console.log(localModalProperties);
-
     return (
       <ModalCanvas />
     );
