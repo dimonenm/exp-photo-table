@@ -1,0 +1,27 @@
+{
+  "name": "ElectronApplication",
+  "version": "0.1.0",
+  "description": "ElectronApplication application build with Electron",
+  "author": {
+    "name": "Arzyakov D",
+    "email": ""
+  },
+  "repository": {},
+  "dependencies": {},
+  "license": "ISC",
+  "devDependencies": {
+    "bozon": "1.2.9",
+    "jest": "28.1.0",
+    "spectron": "19.0.0"
+  },
+  "build": {
+    "appId": "com.electron.electronapplication",
+    "win": {
+      "publish": null
+    },
+    "mac": {
+      "publish": null,
+      "category": "your.app.category.type"
+    }
+  }
+}
