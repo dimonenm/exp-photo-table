@@ -1,10 +1,10 @@
 {
-  "name": "ElectronApp",
+  "name": "photo-table",
   "version": "0.1.0",
   "description": "ElectronApp application build with Electron",
   "author": {
     "name": "Arzyakov D",
-    "email": ""
+    "email": "arzuakov@yahoo.com"
   },
   "repository": {},
   "dependencies": {},
