@@ -1,4 +1,5 @@
-html, body {
+@import 'App.css';
+/* html, body {
   padding: 0;
   margin: 0;
   height: 100%;
@@ -7,27 +8,4 @@ html, body {
 
 body {
   font-family: -apple-system, "Helvetica Neue", Helvetica, sans-serif;
-}
-
-.message {
-  position: absolute;
-  width: 500px;
-  height: 250px;
-  top: 50%;
-  left: 50%;
-  color: #777;
-  font-weight: 200;
-  text-align: center;
-  margin-top: -125px;
-  margin-left: -250px;
-}
-
-.message h1 {
-  font-size: 50px;
-  font-weight: 100;
-  color: #333;
-}
-
-.message div {
-  margin-bottom: 10px;
-}
+} */
