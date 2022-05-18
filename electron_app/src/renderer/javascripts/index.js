@@ -5,14 +5,14 @@
   //   document.getElementById('details').innerHTML = 'built with Electron v' + data.electronVersion
   //   document.getElementById('versions').innerHTML = 'running on Node v' + data.nodeVersion + ' and Chromium v' + data.chromiumVersion
   // })
-  // import React from "react";
+  import React from "react";
   import { createRoot } from 'react-dom/client';
-  import { App } from './App'
+  import App from './App'
   import 'application.css'
 
 window.onload = () => {
   const container = document.getElementById('root');
   const root = createRoot(container);
-  // root.render(<App tab="home"/>);
+  root.render(<App tab="home"/>);
   console.log('first load');
 }
