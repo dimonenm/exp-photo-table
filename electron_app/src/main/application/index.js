@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 
 export default class TimerApp {
   constructor() {
+    this.subscribeForAppEvents()
     app.whenReady().then(() => this.createWindow())
   }
 
@@ -16,12 +17,12 @@ export default class TimerApp {
       autoHideMenuBar: true,
       // maxWidth: CONFIG.width,
       // maxHeight: CONFIG.height,
-      // titleBarStyle: 'hidden',
-      // titleBarOverlay: {
-      //   height: 30,
-      //   color: "#303952",
-      //   symbolColor: "#fff"
-      // },
+      titleBarStyle: 'hidden',
+      titleBarOverlay: {
+        height: 50,
+        color: "#343a40",
+        symbolColor: "#fff"
+      },
       webPreferences: {
         worldSafeExecuteJavaScript: true,
         preload: path.join(app.getAppPath(), 'preload', 'index.js')
