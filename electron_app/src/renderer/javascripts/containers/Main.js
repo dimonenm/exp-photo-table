@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Main.css";
+// import "./Main.css";
 
 const Main = ({ children }) => (
     <div className="main-wrapper">

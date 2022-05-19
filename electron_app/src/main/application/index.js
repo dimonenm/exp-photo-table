@@ -19,7 +19,7 @@ export default class TimerApp {
       // maxHeight: CONFIG.height,
       titleBarStyle: 'hidden',
       titleBarOverlay: {
-        height: 50,
+        height: 20,
         color: "#343a40",
         symbolColor: "#fff"
       },

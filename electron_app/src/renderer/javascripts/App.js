@@ -5,11 +5,11 @@ import Header from './containers/Header';
 import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
-// import Main from './containers/Main';
+import Main from './containers/Main';
 // import Workplace from './components/main/Workplace';
 // import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 // import WorkplaceItemNew from './components/main/WorkplaceItemNew';
-// import Gallery from './components/main/Gallery';
+import Gallery from './components/main/Gallery';
 // import Modal from './containers/Modal';
 
 //импорт функций
@@ -121,11 +121,11 @@ function App() {
           >Настройки</MenuItem>
         </Menu>
       </Header>
-      {/* <Main>
+      <Main>
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
-        <Workplace>
+        {/* <Workplace>
           <WorkplaceItemDataBtn
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
@@ -140,8 +140,8 @@ function App() {
             setDownloadedImages={setDownloadedImages}
           />
           {arrGalleryImages}
-        </Workplace>
-      </Main> */}
+        </Workplace> */}
+      </Main>
     </Container>
   );
 }
