@@ -82,7 +82,6 @@ function App() {
   };
 
   return (
-    // <div>ok</div>
     <Container>
       {/* <modalDataContext.Provider
         value={{
@@ -110,7 +109,7 @@ function App() {
           </MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
-          {/* <MenuItem
+          <MenuItem
             type={'forConvertToMicrosoftWord'}
             photoTableData={photoTableData}
             galleryImages={galleryImages}
@@ -119,7 +118,7 @@ function App() {
             type={'forSettings'}
             modalProperties={modalProperties}
             setModalProperties={setModalProperties}
-          >Настройки</MenuItem> */}
+          >Настройки</MenuItem>
         </Menu>
       </Header>
       {/* <Main>

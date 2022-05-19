@@ -32,10 +32,21 @@ export default class WordDocument{
     this.sections = value;
   }
   // служебные функции
-  async addTitlePage() {
+  // async addTitlePage() {
+  //   const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
+
+  //   await titlePage.addPanoramaImg();
+
+  //   const sections = this.getSections();
+
+  //   sections.push(titlePage);
+    
+  //   this.setSections(sections);
+  // }
+  addTitlePage() {
     const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
 
-    await titlePage.addPanoramaImg();
+    titlePage.addPanoramaImg();
 
     const sections = this.getSections();
 
