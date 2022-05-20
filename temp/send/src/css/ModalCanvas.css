@@ -1,22 +1,15 @@
 @charset "UTF-8";
 .modal-content-grid-edit {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px 1fr 300px;
-      grid-template-columns: 50px 1fr 300px;
+  grid-template-columns: 50px 1fr 300px;
   height: 100%;
 }
 
 .modal-content-grid-edit .modal-content-grid-tools-left {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 1;
   grid-column: 1 / 2;
-  -ms-grid-columns: 40px;
-      grid-template-columns: 40px;
-  -ms-grid-rows: 40px 40px 40px 40px 1fr;
-      grid-template-rows: 40px 40px 40px 40px 1fr;
+  grid-template-columns: 40px;
+  grid-template-rows: 40px 40px 40px 40px 1fr;
   grid-gap: 5px;
   margin: 5px;
 }
@@ -59,45 +52,32 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-canvas {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 1;
   grid-column: 2 / 3;
   background: #ccc;
   border: 1px solid #000;
 }
 
 .modal-content-grid-edit .modal-content-grid-canvas-grab {
-  cursor: -webkit-grab;
   cursor: grab;
 }
 
 .modal-content-grid-edit .modal-content-grid-canvas-grabbing {
-  cursor: -webkit-grabbing;
   cursor: grabbing;
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 1;
   grid-column: 3 / 4;
   margin: 5px;
-  -ms-grid-rows: 50px minmax(50px, max-content) (50px)[auto-fill];
-      grid-template-rows: 50px minmax(50px, -webkit-max-content) repeat(auto-fill, 50px);
-      grid-template-rows: 50px minmax(50px, max-content) repeat(auto-fill, 50px);
+  grid-template-rows: 50px minmax(50px, max-content) repeat(auto-fill, 50px);
   grid-gap: 5px 5px;
   position: relative;
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-title {
-  display: -ms-grid;
   display: grid;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-family: "Times New Roman", Times, serif;
   font-size: 24px;
   text-align: center;
@@ -105,10 +85,8 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-orientation {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(40px, 40px))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+  grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
   grid-gap: 5px 5px;
   padding: 5px;
 }
@@ -146,10 +124,8 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-zoom {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 25px 25px;
-      grid-template-rows: 25px 25px;
+  grid-template-rows: 25px 25px;
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-zoom-range {
@@ -241,11 +217,8 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-zoom-scale {
-  display: -ms-grid;
   display: grid;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
   text-align: center;
@@ -254,10 +227,8 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-arrow-color {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 50px;
-      grid-template-rows: 50px;
+  grid-template-rows: 50px;
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-arrow-color input {
@@ -266,14 +237,10 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-cut {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 40px 1fr;
-      grid-template-columns: 40px 1fr;
+  grid-template-columns: 40px 1fr;
   grid-gap: 5px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   padding: 5px;
 }
 
@@ -296,11 +263,8 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-cut-condition {
-  display: -ms-grid;
   display: grid;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
   text-align: center;
@@ -319,13 +283,9 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-list_item {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 25px 1fr 25px;
-      grid-template-columns: 25px 1fr 25px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  grid-template-columns: 25px 1fr 25px;
+  align-items: center;
   grid-gap: 5px 5px;
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
@@ -333,11 +293,8 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-list_item-number {
-  display: -ms-grid;
   display: grid;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   height: 25px;
   text-align: center;
 }
@@ -358,7 +315,6 @@
 }
 
 .modal-content-grid-edit .modal-content-grid-properties-right-text-area {
-  display: -ms-grid;
   display: grid;
   padding: 0 5px;
 }

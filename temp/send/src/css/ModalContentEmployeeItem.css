@@ -1,16 +1,11 @@
 .modal-content-grid-settings-list-item {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 52px;
-      grid-template-columns: 1fr 52px;
+  grid-template-columns: 1fr 52px;
 }
 
 .modal-content-grid-settings-list-item-name {
-  display: -ms-grid;
   display: grid;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-family: "Times New Roman", Times, serif;
   font-size: 24px;
   text-align: center;

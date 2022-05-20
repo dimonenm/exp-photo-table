@@ -18,13 +18,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 @import './Container';
-@import './Header';
+@import './Header.scss';
 @import './Menu';
 @import './MenuItem';
 @import './Main';
 @import './Gallery';
 @import './Workplace';
-
 
 @import './Modal';
 @import './LighteningBackground';
