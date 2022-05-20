@@ -1,3 +1,4 @@
+import React from 'react';
 import GalleryItem from '../../components/main/GalleryItem';
 
 function addDownloadedImagesToArrforGallery(

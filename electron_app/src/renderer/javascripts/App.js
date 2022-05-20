@@ -6,9 +6,9 @@ import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Main from './containers/Main';
-// import Workplace from './components/main/Workplace';
-// import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
-// import WorkplaceItemNew from './components/main/WorkplaceItemNew';
+import Workplace from './components/main/Workplace';
+import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
+import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 // import Modal from './containers/Modal';
 
@@ -125,7 +125,7 @@ function App() {
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
-        {/* <Workplace>
+        <Workplace>
           <WorkplaceItemDataBtn
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
@@ -140,7 +140,7 @@ function App() {
             setDownloadedImages={setDownloadedImages}
           />
           {arrGalleryImages}
-        </Workplace> */}
+        </Workplace>
       </Main>
     </Container>
   );

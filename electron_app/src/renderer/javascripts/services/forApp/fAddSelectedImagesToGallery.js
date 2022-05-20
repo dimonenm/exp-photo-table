@@ -1,3 +1,4 @@
+import React from 'react';
 import WorkplaceItem from '../../components/main/WorkplaceItem';
 
 function addSelectedImagesToArrForGallery(
