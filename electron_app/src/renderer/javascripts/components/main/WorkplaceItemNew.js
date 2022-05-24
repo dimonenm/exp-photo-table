@@ -1,5 +1,6 @@
 import React from 'react';
-import GallaryImage from '../../entities/GalleryImage'
+import GallaryImage from '../../entities/GalleryImage';
+import PlusCircleDotted from 'plus-circle-dotted.svg'
 
 
 const WorkplaceItemNew = ({ name, currentGalleryImage, setCurrentGalleryImage, galleryImages, setGalleryImages }) => {
@@ -39,7 +40,7 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, setCurrentGalleryImage, g
             onDrop={dragdrop}
         >
             <div className="workplace-item-name" >{name}</div>
-            <div className="workplace-item-plus" ></div>
+            <div className="workplace-item-plus" ><PlusCircleDotted /></div>
         </div>
     );
 }

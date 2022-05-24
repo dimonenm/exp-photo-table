@@ -92,16 +92,18 @@
 .workplace-item-plus {
     display: flex;
     flex-grow: 1;
+    justify-content: center;
+    align-items: center;
 
     width: 100%;
 
-    background-image: url("../../../images/plus-circle-dotted.svg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 50px 50px;
-
+    
     pointer-events: none;
 }
+
 
 .workplace-data-btn {
     display: flex;
