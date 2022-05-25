@@ -10,7 +10,7 @@ import Workplace from './components/main/Workplace';
 import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
-// import Modal from './containers/Modal';
+import Modal from './containers/Modal';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
@@ -83,7 +83,7 @@ function App() {
 
   return (
     <Container>
-      {/* <modalDataContext.Provider
+      <modalDataContext.Provider
         value={{
           modalProperties,
           setModalProperties,
@@ -97,7 +97,7 @@ function App() {
           setSettings
         }}>
         <Modal />
-      </modalDataContext.Provider> */}
+      </modalDataContext.Provider>
       <Header>
         <Logo>ЭКЦ РК Фототаблица 0.0.2</Logo>
         <Menu>

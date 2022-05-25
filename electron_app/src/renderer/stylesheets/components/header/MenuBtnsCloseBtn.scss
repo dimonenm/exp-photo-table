@@ -1,0 +1,11 @@
+.close-btn {
+    height: 50px;
+    width: 50px;
+
+    background-image: url("../../img/close.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.close-btn:hover {
+    background-color: rgba(250, 250, 250, 0.5);
+}

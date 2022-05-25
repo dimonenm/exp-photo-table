@@ -1,0 +1,360 @@
+.modal-content-grid-edit {
+  display: grid;
+  grid-template-columns: 50px 1fr 300px;
+
+  height: 100%;
+
+  .modal-content-grid-tools-left {
+    display: grid;
+    grid-column: 1 / 2;
+
+    grid-template-columns: 40px;
+    grid-template-rows: 40px 40px 40px 40px 1fr;
+
+    grid-gap: 5px;
+
+    margin: 5px;
+
+    &-hand,
+    &-hand-active,
+    &-arrow,
+    &-arrow-active,
+    &-textDesc,
+    &-textDesc-active,
+    &-imgDesc,
+    &-imgDesc-active {
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    &-hand {
+      background-image: url("../../../img/btnHand.svg");
+    }
+    &-hand-active {
+      background-image: url("../../../img/btnHandActive.svg");
+    }
+    &-arrow {
+      background-image: url("../../../img/btnArrow.svg");
+    }
+    &-arrow-active {
+      background-image: url("../../../img/btnArrowActive.svg");
+    }
+    &-textDesc {
+      background-image: url("../../../img/btnTextDesc.svg");
+    }
+    &-textDesc-active {
+      background-image: url("../../../img/btnTextDescActive.svg");
+    }
+    &-imgDesc {
+      background-image: url("../../../img/btnDescription.svg");
+    }
+    &-imgDesc-active {
+      background-image: url("../../../img/btnDescriptionActive.svg");
+    }
+  }
+
+  .modal-content-grid-canvas {
+    display: grid;
+    grid-column: 2 / 3;
+
+    background: #ccc;
+
+    border: 1px solid #000;
+
+    &-grab{
+      cursor: grab;
+    }
+    &-grabbing{
+      cursor: grabbing;
+    }
+  }
+
+  .modal-content-grid-properties-right {
+    display: grid;
+
+    grid-column: 3 / 4;
+
+    margin: 5px;
+
+    // grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+    grid-template-rows: 50px minmax(50px, max-content) repeat(auto-fill, 50px);
+
+    grid-gap: 5px 5px;
+
+    position: relative;
+
+    &-title {
+      display: grid;
+      align-items: center;
+
+      font-family: "Times New Roman", Times, serif;
+      font-size: 24px;
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+    &-orientation {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+      // grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
+      grid-gap: 5px 5px;
+
+      padding: 5px;
+
+      &-vertical,
+      &-vertical-active,
+      &-horizontal,
+      &-horizontal-active,
+      &-panorama,
+      &-panorama-active {
+        height: 40px;
+        width: 40px;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+
+      &-vertical {
+        background-image: url("../../../img/btnOrientationVertical.svg");
+      }
+      &-horizontal {
+        background-image: url("../../../img/btnOrientationHorizontal.svg");
+      }
+      &-panorama {
+        background-image: url("../../../img/btnOrientationPanorama.svg");
+      }
+      &-vertical-active {
+        background-image: url("../../../img/btnOrientationVerticalActive.svg");
+      }
+      &-horizontal-active {
+        background-image: url("../../../img/btnOrientationHorizontalActive.svg");
+      }
+      &-panorama-active {
+        background-image: url("../../../img/btnOrientationPanoramaActive.svg");
+      }
+    }
+
+    &-zoom {
+      display: grid;
+      // grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+      grid-template-rows: 25px 25px;
+      // grid-gap: 5px 5px;
+
+      // padding: 5px;
+      &-range {
+        height: 25px;
+
+        /*Сбрасывание стилей Range*/
+        & input[type="range"] {
+          -webkit-appearance: none; /* Скрываем слайдер, чтобы иметь возможность создать пользовательский слайдер. */
+          width: 100%; /* Для Firefox нужна отдельная ширина. */
+          margin: 0;
+        }
+
+        & input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+        }
+
+        & input[type="range"]:focus {
+          outline: none; /* Удаляем синюю рамку. Для доступности на различных платформах вам нужно применить кое-какой трюк со стилями. */
+        }
+
+        & input[type="range"]::-ms-track {
+          width: 100%;
+          cursor: pointer;
+          background: transparent; /* Скрываем слайдер, чтобы иметь возможность добавить собственные стили */
+          border-color: transparent;
+          color: transparent;
+        }
+        /*Стили для ползунка*/
+        /* Специальные стили для WebKit/Blink */
+        & input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: 1px solid #000000;
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+
+          margin-top: -3px;
+        }
+
+        & input[type="range"]:focus-visible::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: 1px solid #000000;
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+
+          margin-top: -3px;
+        }
+
+        /* Все то же самое для Firefox */
+        & input[type="range"]::-moz-range-thumb {
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+        }
+
+        /* Все то же самое для IE */
+        & input[type="range"]::-ms-thumb {
+          height: 18px;
+          width: 18px;
+          background: #343a40;
+          cursor: pointer;
+        }
+        /*Стили для шкалы*/
+        & input[type="range"]::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 10px;
+          cursor: pointer;
+          background: #6c757d;
+        }
+
+        & input[type="range"]:focus::-webkit-slider-runnable-track {
+          background: #6c757d;
+        }
+
+        & input[type="range"]::-moz-range-track {
+          width: 100%;
+          height: 18px;
+          cursor: pointer;
+          background: #6c757d;
+        }
+      }
+      &-scale {
+        display: grid;
+        align-items: center;
+
+        font-family: "Times New Roman", Times, serif;
+        font-size: 18px;
+        text-align: center;
+
+        overflow: hidden;
+
+        height: 25px;
+      }
+    }
+
+    &-arrow-color {
+      display: grid;
+      grid-template-rows: 50px;
+
+      input {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &-cut {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      grid-gap: 5px;
+      align-items: center;
+
+      padding: 5px;
+
+      &-btn {
+        height: 40px;
+        width: 40px;
+
+        background-image: url("../../../img/btnScissors.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+      &-btn-active {
+        height: 40px;
+        width: 40px;
+
+        background-image: url("../../../img/btnScissorsActive.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+      &-condition {
+        display: grid;
+        align-items: center;
+
+        font-family: "Times New Roman", Times, serif;
+        font-size: 18px;
+        text-align: center;
+
+        overflow: hidden;
+
+        height: 25px;
+      }
+    }
+
+    &-block {
+      background-color: #f8f9fa;
+
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      top: 0;
+      left: 0;
+
+      opacity: 0.5;
+    }
+
+    &-list_item {
+      display: grid;
+      grid-template-columns: 25px 1fr 25px;
+      align-items: center;
+      grid-gap: 5px 5px;
+
+      font-family: "Times New Roman", Times, serif;
+      font-size: 18px;
+      height: 25px;
+
+      &-number {
+        display: grid;
+        align-items: center;
+
+        height: 25px;
+
+        text-align: center;
+      }
+
+      &-delete {
+        width: 25px;
+        height: 25px;
+
+        background-image: url("../../../img/smallCros.svg");
+      }
+
+      input {
+        background-color: #f8f9fa;
+
+        height: 25px;
+
+        padding: 0 5px;
+
+        border: 1px solid #343a40;
+        border-radius: 0;
+        outline: none;
+      }
+    }
+    &-text-area {
+            display: grid;
+      
+      padding: 0 5px;
+
+      textarea {
+        background-color: #f8f9fa;
+
+        resize: none;
+
+        border: 1px solid #343a40;
+        border-radius: 0;
+        outline: none;
+      }
+    }
+  }
+}
