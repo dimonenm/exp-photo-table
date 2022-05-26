@@ -250,36 +250,36 @@
 
   padding: 5px;
 
-  &-btn {
-    height: 40px;
-    width: 40px;
+}
+.modal-content-grid-properties-right-cut-btn {
+  height: 40px;
+  width: 40px;
 
-    background-image: url("../../../../images/btnScissors.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-  }
-  &-btn-active {
-    height: 40px;
-    width: 40px;
+  background-image: url("../../../../images/btnScissors.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+.modal-content-grid-properties-right-cut-btn-active {
+  height: 40px;
+  width: 40px;
 
-    background-image: url("../../../../images/btnScissorsActive.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-  }
-  &-condition {
-    display: grid;
-    align-items: center;
+  background-image: url("../../../../images/btnScissorsActive.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+.modal-content-grid-properties-right-cut-condition {
+  display: grid;
+  align-items: center;
 
-    font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
-    text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+  text-align: center;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    height: 25px;
-  }
+  height: 25px;
 }
 .modal-content-grid-properties-right-block {
   background-color: #f8f9fa;

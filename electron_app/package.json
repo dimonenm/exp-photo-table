@@ -22,9 +22,13 @@
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.5",
     "bozon": "1.2.9",
+    "css-loader": "^6.7.1",
     "jest": "27.5.1",
     "react-svg-loader": "^3.0.3",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
     "spectron": "19.0.0",
+    "style-loader": "^3.3.1",
     "webpack": "^5.72.0"
   },
   "build": {
