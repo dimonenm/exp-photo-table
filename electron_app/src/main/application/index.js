@@ -1,8 +1,10 @@
 import path from 'path'
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { Settings } from './settings';
 
-export default class TimerApp {
+export default class PhotoTableApp {
   constructor() {
+    this.settings = new Settings();
     this.subscribeForAppEvents()
     app.whenReady().then(() => this.createWindow())
   }
@@ -52,5 +54,5 @@ export default class TimerApp {
     })
   }
 
-  
+
 }
