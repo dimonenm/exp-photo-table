@@ -62,7 +62,7 @@ export default class PhotoTableApp {
 
   subscribeForIPC() {
     ipcMain.on('setSettings', (_, data) => {
-      console.log('Main data:', data);
+      this.settings.set('settings', data)
     })
   }
 
