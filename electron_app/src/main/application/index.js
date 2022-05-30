@@ -4,8 +4,9 @@ import { Settings } from './settings';
 
 export default class PhotoTableApp {
   constructor() {
-    this.settings = new Settings();
+    this.settings = new Settings()
     this.subscribeForAppEvents()
+    this.subscribeForIPC()
     app.whenReady().then(() => this.createWindow())
   }
 
@@ -33,6 +34,11 @@ export default class PhotoTableApp {
 
     this.window.loadFile('renderer/index.html')
 
+    this.window.webContents.on('did-finish-load', () => {
+      // this.window.webContents.send('settings', JSON.stringify({ settings: this.settings.get('settings') }));
+      this.window.webContents.send('settings', this.settings.get('settings'));
+    })
+
     this.window.on('closed', () => {
       this.window = null
     })
@@ -51,6 +57,12 @@ export default class PhotoTableApp {
       if (BrowserWindow.getAllWindows().length === 0) {
         this.createWindow()
       }
+    })
+  }
+
+  subscribeForIPC() {
+    ipcMain.on('setSettings', (_, data) => {
+      console.log('Main data:', data);
     })
   }
 

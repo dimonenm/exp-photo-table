@@ -4,8 +4,11 @@
 
 import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld('MessagesAPI', {
+contextBridge.exposeInMainWorld('DataBaseAPI', {
   onLoaded: callback => {
-    ipcRenderer.on('loaded', callback)
+    ipcRenderer.on('settings', callback)
+  },
+  saveSettings: settings => {
+    ipcRenderer.send('setSettings', settings)
   }
 })
