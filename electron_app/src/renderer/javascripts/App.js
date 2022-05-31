@@ -59,7 +59,6 @@ function App() {
 
 
   globalThis.DataBaseAPI.onLoaded((_, data) => {
-    // console.log('data: ', data);
     setSettings(data);
     setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });
   })
