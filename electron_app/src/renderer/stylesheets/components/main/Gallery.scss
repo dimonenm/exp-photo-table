@@ -4,7 +4,7 @@
     flex-shrink: 0;
     flex-basis: 518px;
     flex-wrap: wrap;
-    max-width: 1150px;
+    max-width: 100%;
 
     justify-content: flex-start;
     align-content: flex-start;
@@ -17,15 +17,19 @@
 
     overflow-y: auto;
 }
+
 .gallery::-webkit-scrollbar {
     width: 6px;
 }
+
 .gallery::-webkit-scrollbar-track {
     background-color: #6c757d;
 }
+
 .gallery::-webkit-scrollbar-thumb {
     background-color: #343a40;
 }
+
 .gallery-item {
     display: flex;
     flex-direction: column;
@@ -39,14 +43,15 @@
 
     margin: 10px 0 0 10px;
 }
+
 .gallery-item-hold {
-    /* border: 1px solid #000; */
-    /* background: rgba(0, 0, 0, 0.0); */
+    border: 1px solid #000; 
 }
+
 .gallery-item-hide {
     opacity: 0.3;
-    /* display: none; */
 }
+
 .gallery-item-name {
     display: flex;
     justify-content: center;
@@ -56,12 +61,14 @@
 
     text-align: center;
 }
+
 .gallery-item-img {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     max-height: 188px;
 }
+
 .gallery-item-img img {
     object-fit: scale-down;
     object-position: top center;
