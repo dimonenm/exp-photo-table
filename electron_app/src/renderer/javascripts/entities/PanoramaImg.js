@@ -42,52 +42,12 @@ export default class PanoramaImg {
         break;
     }
   }
-  // async loadImgStreamForData(gallaryImage) {
-  //   const blob = await fetch(gallaryImage.url).then(r => this.data = r.blob());
-  //   this.setData(blob);
-  // }
-  loadImgStreamForData(gallaryImage) {
-    const blob = fetch(gallaryImage.url).then(r => this.data = r.blob());
+  async loadImgStreamForData(gallaryImage) {
+    const blob = await fetch(gallaryImage.url).then(r => this.data = r.blob());
     this.setData(blob);
   }
-  // async loadImgData(gallaryImage) {
-  //   const canvas = document.createElement('canvas');
-  //   const ctx = canvas.getContext('2d');
-  //   const img = new Image();
-  //   const gallaryImageZoom = +gallaryImage.getZoom();
-  //   const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
-  //   const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
-  //   const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
-  //   const setData = this.setData.bind(this);
 
-  //   await new Promise((onSuccess, onError) => {
-  //     img.addEventListener('load', function () {
-  //       ctx.canvas.height = 460;
-  //       ctx.canvas.width = 747;
-
-  //       const zoom = gallaryImageZoom / 100;
-  //       const imgW = this.width * zoom;
-  //       const imgH = this.height * zoom;
-
-  //       ctx.drawImage(img, 0, 0, imgW, imgH);
-
-  //       if (gallaryImageArrowsArray.length > 0) {
-  //         for (const item of gallaryImageArrowsArray) {
-  //           drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
-  //         }
-  //       }
-  //       onSuccess('done');
-  //     })      
-      
-  //     img.src = gallaryImage.getUrl();      
-  //   });
-
-  //   await new Promise((onSuccess, onError) => {
-  //     setData(canvas.toDataURL('image/jpeg', 1));
-  //     onSuccess();
-  //   });    
-  // }
-  loadImgData(gallaryImage) {
+  async loadImgData(gallaryImage) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
@@ -97,7 +57,7 @@ export default class PanoramaImg {
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
     const setData = this.setData.bind(this);
 
-    new Promise((onSuccess, onError) => {
+    await new Promise((onSuccess, onError) => {
       img.addEventListener('load', function () {
         ctx.canvas.height = 460;
         ctx.canvas.width = 747;
@@ -114,14 +74,14 @@ export default class PanoramaImg {
           }
         }
         onSuccess('done');
-      })
-
-      img.src = gallaryImage.getUrl();
+      })      
+      
+      img.src = gallaryImage.getUrl();      
     });
-
-    new Promise((onSuccess, onError) => {
+    
+    await new Promise((onSuccess, onError) => {
       setData(canvas.toDataURL('image/jpeg', 1));
       onSuccess();
-    });
-  }
+    });    
+  }  
 }
