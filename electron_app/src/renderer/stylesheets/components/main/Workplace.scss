@@ -12,7 +12,8 @@
     margin-left: 10px;
     padding-bottom: 10px;
 
-    border: 1px solid #000;
+    border: 1px solid rgba(147, 145, 145, 0.539);
+    border-radius: 5px;
 
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
 
@@ -101,29 +102,25 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 50px 50px;
-    
+
     pointer-events: none;
 }
-
 
 .workplace-data-btn {
     display: flex;
     flex-basis: 200px;
     justify-content: center;
     align-items: center;
-
     height: 50px;
-
     font-size: 20px;
     line-height: 1;
     text-align: center;
-
     margin: 10px 0 0 0;
-
-    border: 1px solid #000;
+    border: 1px solid rgba(126, 125, 125, 0.539);
+    border-radius: 10px;
 }
+
 .workplace-data-btn:hover {
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
-
     cursor: default;
 }

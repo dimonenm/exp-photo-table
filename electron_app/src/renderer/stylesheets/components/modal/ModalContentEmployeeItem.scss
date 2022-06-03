@@ -5,26 +5,39 @@
 .modal-content-grid-settings-list-item-name {
     display: grid;
     align-items: center;
-
     font-family: "Times New Roman", Times, serif;
     font-size: 24px;
     text-align: center;
     text-overflow: hidden;
-
+    border: none;
+    padding: 0;
+    border-radius: 7px;
     height: 40px;
-
-    border: 1px solid #000;
-
-    /* overflow: hidden; */
+    background-color: #fff;
+    border: 1px solid rgba(179, 172, 172, 0.537);
+}
+.modal-content-grid-settings-list-item-name:hover {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
 }
 .modal-content-grid-settings-list-item-del-btn {
-    height: 42px;
-    width: 42px;
-
+    height: 38px;
+    width: 38px;
     margin-left: 10px;
-
-    background-image: url("../../../images/plus-cros.svg");
+    border-radius: 10px;
+    background-image: url("../../../images/close.svg");
+    background-color: rgba(179, 182, 188, 0.582);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    cursor: pointer;
+}
+
+.modal-content-grid-settings-list-item-del-btn:hover {
+    background-color: rgba(253, 5, 5, 0.528);
+    transform: scale(1.1);
+    box-shadow: -2px -2px 6px 0 rgba(0, 0, 0, 0.2), 2px 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+.modal-content-grid-settings-list-item-del-btn:active {
+    transform: scale(1);
+    box-shadow: none;
 }

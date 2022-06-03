@@ -11,7 +11,8 @@
 
     padding: 0 4px 10px 0;
 
-    border: 1px solid #000;
+    border: 1px solid rgba(147, 145, 145, 0.539);
+    border-radius: 5px;
 
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
 
@@ -45,7 +46,7 @@
 }
 
 .gallery-item-hold {
-    border: 1px solid #000; 
+    border: 1px solid #000;
 }
 
 .gallery-item-hide {
