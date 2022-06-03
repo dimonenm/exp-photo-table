@@ -32,21 +32,10 @@ export default class WordDocument{
     this.sections = value;
   }
   // служебные функции
-  // async addTitlePage() {
-  //   const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
-
-  //   await titlePage.addPanoramaImg();
-
-  //   const sections = this.getSections();
-
-  //   sections.push(titlePage);
-    
-  //   this.setSections(sections);
-  // }
-  addTitlePage() {
+  async addTitlePage() {
     const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
 
-    titlePage.addPanoramaImg();
+    await titlePage.addPanoramaImg();
 
     const sections = this.getSections();
 
@@ -54,6 +43,17 @@ export default class WordDocument{
     
     this.setSections(sections);
   }
+  // addTitlePage() {
+  //   const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
+
+  //   titlePage.addPanoramaImg();
+
+  //   const sections = this.getSections();
+
+  //   sections.push(titlePage);
+    
+  //   this.setSections(sections);
+  // }
 
   saveDocument() {
     this.setTitle(`${this.testOn ? "123" : this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.testOn ? "2564" : this.photoTableData.kusp} - ${this.photoTableData.executor}`);

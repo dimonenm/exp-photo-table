@@ -15,7 +15,6 @@ import Modal from './containers/Modal';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
-import loadSettings from './services/forApp/fLoadSettings';
 import GalleryImage from './entities/GalleryImage';
 
 export const modalDataContext = createContext();
@@ -56,24 +55,10 @@ function App() {
     cut: false
   });
 
-
-
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);
     setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });
   })
-
-  // useEffect(() => {
-  //   loadSettings().then(data => {
-  //     if (data) {
-  //       setSettings(data);
-  //       setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });        
-  //     } else {
-  //       console.log(`Произошла ошибка в App.js:61`);
-  //     }
-  //   });
-  // }, []);
-
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
