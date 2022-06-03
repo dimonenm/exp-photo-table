@@ -2,7 +2,8 @@
 import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
-export default class WordDocument{
+import PhotoPage from "./PhotoPage";
+export default class WordDocument {
   constructor(galleryImages, photoTableData) {
     this.title = '';
     this.sections = [];
@@ -40,20 +41,15 @@ export default class WordDocument{
     const sections = this.getSections();
 
     sections.push(titlePage);
-    
+
     this.setSections(sections);
   }
-  // addTitlePage() {
-  //   const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
+  addPhotoPages() {    
+    const sections = this.getSections();
+    console.log('sections: ', sections);
+    const photoPage = new PhotoPage(this.galleryImages, this.photoTableData);
+  }
 
-  //   titlePage.addPanoramaImg();
-
-  //   const sections = this.getSections();
-
-  //   sections.push(titlePage);
-    
-  //   this.setSections(sections);
-  // }
 
   saveDocument() {
     this.setTitle(`${this.testOn ? "123" : this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.testOn ? "2564" : this.photoTableData.kusp} - ${this.photoTableData.executor}`);

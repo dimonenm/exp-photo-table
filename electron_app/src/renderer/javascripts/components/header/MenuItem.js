@@ -74,17 +74,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     event.preventDefault();
 
     const wordDocument = new WordDocument(galleryImages, photoTableData);
-    await wordDocument.addTitlePage();    
+    await wordDocument.addTitlePage();
+    wordDocument.addPhotoPages();
+
     wordDocument.saveDocument();
   }
-  // function convertToMicrosoftWord(event) {
-  //   event.preventDefault();
-
-  //   const wordDocument = new WordDocument(galleryImages, photoTableData);
-  //   wordDocument.addTitlePage();    
-  //   wordDocument.saveDocument();
-  // }
-
   function forSetSettingsModal(event) {
     event.preventDefault();
 
@@ -135,7 +129,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       <div className="menu-item" onClick={forEditPhoto}><a href="/" >{children}</a></div>
     );
   }
-
   return (
     <div className="menu-item"><a href="/" >{children}</a></div>
   );
