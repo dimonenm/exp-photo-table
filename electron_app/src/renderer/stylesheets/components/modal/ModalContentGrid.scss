@@ -33,11 +33,12 @@
     grid-column-end: 5;
 }
 .modal-content-grid-settings-title {
+    margin-top: 30px;
     display: grid;
     align-items: center;
     font-family: "Roboto", sans-serif;
     font-weight: normal;
-    font-size: 24px;
+    font-size: 18px;
     text-align: center;
 }
 .modal-content-grid-settings-textarea {
@@ -81,7 +82,7 @@
     font-size: 24px;
     text-align: center;
     line-height: 1;
-    height: 40px;
+    height: 35px;
     padding: 0;
     border-radius: 7px;
     border: 1px solid rgba(179, 172, 172, 0.5);
@@ -104,14 +105,14 @@
     grid-template-columns: 1fr 52px;
 }
 .plus-btn {
-    height: 38px;
-    width: 38px;
+    height: 35px;
+    width: 35px;
 
     margin-left: 10px;
     border: none;
 
     background-image: url("../../../images/plus_only-1.svg");
-    background-color: rgba(100, 148, 237, 0.5);
+    background-color: rgba(100, 148, 237, 0.699);
     border-radius: 20px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -122,11 +123,13 @@
 .plus-btn:hover {
     transform: scale(1.1);
     box-shadow: -2px -2px 8px 0 rgba(45, 45, 45, 0.2), 2px 2px 8px 0 rgba(45, 45, 45, 0.2);
+    background-color: rgba(40, 108, 235, 0.849);
 }
 
 .plus-btn:active {
     transform: scale(1);
     box-shadow: none;
+    
 }
 
 ::-webkit-scrollbar {
