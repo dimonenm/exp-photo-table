@@ -45,9 +45,15 @@ export default class WordDocument {
     this.setSections(sections);
   }
   addPhotoPages() {    
-    const sections = this.getSections();
-    console.log('sections: ', sections);
-    const photoPage = new PhotoPage(this.galleryImages, this.photoTableData);
+    const photoPages = []; 
+    let evenOrOdd = true;
+    let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2);
+    console.log('pagesCount: ', pagesCount);
+
+    
+
+    // const photoPage = new PhotoPage(this.galleryImages, this.photoTableData);
+    // const sections = this.getSections();
   }
 
 

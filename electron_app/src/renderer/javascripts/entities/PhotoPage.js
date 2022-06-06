@@ -144,6 +144,19 @@ export default class PhotoPage {
   setChildren(value) {
     this.children = value;
   }
+  setProperties(uneven) {
+    uneven ? 
+      this.properties = {
+        page: {
+          margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
+        }
+      } :
+      this.properties = {
+        page: {
+          margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
+        }
+      }
+  }
   // служебные функции
   async addPanoramaImg() {
 
