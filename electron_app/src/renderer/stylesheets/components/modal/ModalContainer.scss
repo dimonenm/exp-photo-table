@@ -1,10 +1,13 @@
 .modal-container {
     display: flex;
     flex-direction: column;
+    height: max-content;
+
+    max-height: 90%;
+    min-height: fit-content;
 
 
     width: 80%;
-    height: max-content;
     max-width: max-content;
 
     min-width: fit-content;
