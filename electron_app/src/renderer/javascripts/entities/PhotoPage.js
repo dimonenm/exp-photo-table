@@ -1,4 +1,5 @@
-import { Paragraph, Footer, TextRun, ImageRun, AlignmentType } from "docx";
+import { Paragraph, Header, Footer, TextRun, ImageRun, AlignmentType, PageNumber } from "docx";
+import PhotoTableImg from "./PhotoTableImg";
 
 export default class PhotoPage {
 
@@ -6,7 +7,7 @@ export default class PhotoPage {
     this.FONT = "Times New Roman";
     this.CENTER = AlignmentType.CENTER;
     this.JUSTIFIED = AlignmentType.JUSTIFIED;
-    this.CANVAS_HEIGHT = 460;
+    // this.CANVAS_HEIGHT = 460;
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
@@ -15,107 +16,23 @@ export default class PhotoPage {
         margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
       }
     };
-    this.children = [
-      new Paragraph(
-        {
-          alignment: this.CENTER,
-          children: [
-            new TextRun({
-              text: "МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ",
-              bold: true,
-              font: this.FONT,
-              size: 28,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: this.CENTER,
-          children: [
-            new TextRun({
-              text: "ПО РЕСПУБЛИКЕ КРЫМ",
-              bold: true,
-              font: this.FONT,
-              size: 28,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: this.CENTER,
-          children: [
-            new TextRun({
-              text: "ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР",
-              bold: true,
-              font: this.FONT,
-              size: 28,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: this.JUSTIFIED,
-          thematicBreak: true,
-          children: [
-            new TextRun({
-              text: `${this.ZIP_CODE}, ${this.ADDRESS}`,
-              bold: false,
-              font: this.FONT,
-              size: 24,
-              break: 2,
-            }),
-            new TextRun({
-              text: `                                   тел. ${this.TEL}`,
-              bold: false,
-              font: this.FONT,
-              size: 24,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: this.CENTER,
-          children: [
-            new TextRun({
-              text: "ФОТОТАБЛИЦА",
-              bold: true,
-              font: this.FONT,
-              size: 36,
-              break: 2,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: this.CENTER,
-          children: [
-            new TextRun({
-              font: this.FONT,
-              size: 24,
-              break: 1,
-            })
-          ]
-        }
-      ),
-      new Paragraph(
-        {
-          alignment: this.JUSTIFIED,
-          indent: { firstLine: 721 },
-          children: [
-            new TextRun({
-              text: `к протоколу осмотра места происшествия от ${this.testOn ? "2022-03-10" : photoTableData.dateForDoc} по факту ${this.testOn ? "кражи имущества" : photoTableData.factOMP} по адресу: ${this.testOn ? "г. Симферополь, ул. Балаклавская 68" : photoTableData.adressOMP}.`,
-              font: this.FONT,
-              size: 24,
-            })
-          ]
-        }
-      )
-    ];
+    this.headers = {
+      default: new Header({
+        children: [
+          new Paragraph({
+            alignment: this.CENTER,
+            children: [
+              new TextRun({
+                children: [PageNumber.CURRENT],
+                font: this.FONT,
+                size: 24,
+              }),
+            ],
+          }),
+        ],
+      }),
+    }
+    this.children = [];
     this.footers = {
       default: new Footer({
         children: [
@@ -158,11 +75,10 @@ export default class PhotoPage {
       }
   }
   // служебные функции
-  async addPanoramaImg() {
-
-    const panoramaImg = new PanoramaImg();
-    panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
-    await panoramaImg.loadImgData(this.galleryImages[0]);
+  async addFirstImg(imgIndex) {
+    const photoTableImg = new PhotoTableImg();
+    photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
+    await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
 
     const paragraphImg = new Paragraph(
       {
@@ -173,7 +89,7 @@ export default class PhotoPage {
             size: 24,
             break: 1,
           }),
-          new ImageRun({ data: panoramaImg.getData(), transformation: panoramaImg.getTransformation() })
+          new ImageRun({ data: photoTableImg.getData(), transformation: photoTableImg.getTransformation() })
         ]
       }
     );
@@ -183,17 +99,17 @@ export default class PhotoPage {
         alignment: AlignmentType.JUSTIFIED,
         children: [
           new TextRun({
-            text: `Фото №${this.galleryImages[0].index}. `,
+            text: `Фото №${this.galleryImages[imgIndex].index}. `,
             font: "Times New Roman",
             size: 26,
             bold: true,
           }),
           new TextRun({
-            text: this.galleryImages[0].imgDesc,
+            text: this.galleryImages[imgIndex].imgDesc,
             font: "Times New Roman",
             size: 26,
           }),
-          this.descAddedArrows()
+          this.descAddedArrows(imgIndex)
         ]
       }
     );
@@ -206,11 +122,58 @@ export default class PhotoPage {
     this.setChildren(children);
   }
 
-  descAddedArrows() {
-    if (this.galleryImages[0].arrowsArray.length > 0) {
+  async addSecondImg(imgIndex) {
+    const photoTableImg = new PhotoTableImg();
+    photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
+    await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
+
+    const paragraphImg = new Paragraph(
+      {
+        alignment: AlignmentType.CENTER,
+        children: [
+          new TextRun({
+            font: this.FONT,
+            size: 24,
+            break: 1,
+          }),
+          new ImageRun({ data: photoTableImg.getData(), transformation: photoTableImg.getTransformation() })
+        ]
+      }
+    );
+
+    const paragraphDesc = new Paragraph(
+      {
+        alignment: AlignmentType.JUSTIFIED,
+        children: [
+          new TextRun({
+            text: `Фото №${this.galleryImages[imgIndex].index}. `,
+            font: "Times New Roman",
+            size: 26,
+            bold: true,
+          }),
+          new TextRun({
+            text: this.galleryImages[imgIndex].imgDesc,
+            font: "Times New Roman",
+            size: 26,
+          }),
+          this.descAddedArrows(imgIndex)
+        ]
+      }
+    );
+
+    const children = this.getChildren();
+
+    children.push(paragraphImg);
+    children.push(paragraphDesc);
+
+    this.setChildren(children);
+  }
+
+  descAddedArrows(imgIndex) {
+    if (this.galleryImages[imgIndex].arrowsArray.length > 0) {
       let str = ''
 
-      for (const item of this.galleryImages[0].arrowsArray) {
+      for (const item of this.galleryImages[imgIndex].arrowsArray) {
         if (str) {
           str += `, ${item.number}. ${item.text}`;
         }

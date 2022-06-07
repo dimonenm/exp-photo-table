@@ -4,7 +4,6 @@ import PanoramaImg from "./PanoramaImg";
 export default class TitlePage {
 
   constructor(galleryImages, photoTableData) {
-
     this.FONT = "Times New Roman";
     this.CENTER = AlignmentType.CENTER;
     this.JUSTIFIED = AlignmentType.JUSTIFIED;

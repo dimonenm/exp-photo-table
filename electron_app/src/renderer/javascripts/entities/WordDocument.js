@@ -44,16 +44,26 @@ export default class WordDocument {
 
     this.setSections(sections);
   }
-  addPhotoPages() {    
-    const photoPages = []; 
+  async addPhotoPages() {
+    const photoPages = [];
     let evenOrOdd = true;
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2);
     console.log('pagesCount: ', pagesCount);
+    for (let page = 1; page <= pagesCount; page++) {
+      const photoPage = new PhotoPage(this.galleryImages, this.photoTableData);
 
-    
+      photoPage.setProperties(page % 2);
 
-    // const photoPage = new PhotoPage(this.galleryImages, this.photoTableData);
-    // const sections = this.getSections();
+      await photoPage.addFirstImg(page * 2 - 1);
+      if (this.galleryImages[page * 2])
+        await photoPage.addSecondImg(page * 2);
+
+      const sections = this.getSections();
+
+      sections.push(photoPage);
+
+      this.setSections(sections);
+    }
   }
 
 
