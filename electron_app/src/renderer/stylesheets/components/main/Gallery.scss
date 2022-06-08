@@ -44,21 +44,26 @@
     flex-direction: column;
     flex-basis: 132px;
 
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Roboto", Times, serif;
     font-size: 12px;
     line-height: 1;
 
     height: 213px;
 
     margin: 10px 0 0 10px;
+    border-radius:7px;
+    box-shadow: 2px 2px 8px rgba(154, 155, 155, 0.884);
 }
 
 .gallery-item-hold {
-    border: 1px solid #000;
+    
+    border-radius:7px;
+    box-shadow: 2px 2px 8px rgba(154, 155, 155, 0.884);
 }
 
 .gallery-item-hide {
     opacity: 0.3;
+    border-radius:7px;
 }
 
 .gallery-item-name {
