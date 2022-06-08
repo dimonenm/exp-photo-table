@@ -6,7 +6,7 @@ import { modalDataContext } from '../../App';
 import GallaryImage from '../../entities/GalleryImage';
 import WordDocument from '../../entities/WordDocument';
 
-const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties }) => {
+const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties, settings }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -72,7 +72,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
-
+    console.log('localModalProperties: ', localModalProperties);
     const wordDocument = new WordDocument(galleryImages, photoTableData);
     await wordDocument.addTitlePage();
     await wordDocument.addPhotoPages();

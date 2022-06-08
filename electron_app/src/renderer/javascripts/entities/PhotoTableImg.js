@@ -63,8 +63,10 @@ export default class PhotoTableImg {
         ctx.canvas.width = 747;
         break;
       case 'vertical':
-        ctx.canvas.height = 700;
-        ctx.canvas.width = 525;
+        ctx.canvas.height = 632;
+        // ctx.canvas.height = 700;
+        ctx.canvas.width = 474;
+        // ctx.canvas.width = 525;
         break;
       case 'horizontal':
         ctx.canvas.height = 525;

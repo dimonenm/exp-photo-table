@@ -105,6 +105,7 @@ function App() {
             type={'forConvertToMicrosoftWord'}
             photoTableData={photoTableData}
             galleryImages={galleryImages}
+            settings={settings}
           >Конвертировать в Microsoft Word</MenuItem>
           <MenuItem
             type={'forSettings'}

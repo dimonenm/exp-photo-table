@@ -501,10 +501,10 @@ const ModalCanvas = () => {
         ref={canvasRef}
         className='modal-content-grid-canvas'
         width={galleryImg.getOrientation() === "horizontal" ? 700 :
-          galleryImg.getOrientation() === "vertical" ? 525 :
+          galleryImg.getOrientation() === "vertical" ? 474 :
             galleryImg.getOrientation() === "panorama" ? 747 : null}
         height={galleryImg.getOrientation() === "horizontal" ? 525 :
-          galleryImg.getOrientation() === "vertical" ? 700 :
+          galleryImg.getOrientation() === "vertical" ? 632 :
             galleryImg.getOrientation() === "panorama" ? 460 : null}
       ></canvas>
       <div className='modal-content-grid-properties-right'>

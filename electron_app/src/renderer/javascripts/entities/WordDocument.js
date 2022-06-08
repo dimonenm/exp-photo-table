@@ -46,7 +46,6 @@ export default class WordDocument {
   }
   async addPhotoPages() {
     const photoPages = [];
-    let evenOrOdd = true;
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2);
     console.log('pagesCount: ', pagesCount);
     for (let page = 1; page <= pagesCount; page++) {
