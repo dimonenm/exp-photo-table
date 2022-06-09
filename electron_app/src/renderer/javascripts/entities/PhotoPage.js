@@ -169,6 +169,13 @@ export default class PhotoPage {
     this.setChildren(children);
   }
 
+  addSupplement() {
+    
+    const children = this.getChildren();
+
+    this.setChildren(children);
+  }
+
   descAddedArrows(imgIndex) {
     if (this.galleryImages[imgIndex].arrowsArray.length > 0) {
       let str = ''
