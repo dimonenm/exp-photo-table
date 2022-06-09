@@ -1,10 +1,16 @@
 .modal-container {
     display: flex;
     flex-direction: column;
+    height: max-content;
+
+    max-height: 90%;
+    min-height: fit-content;
+
 
     width: 80%;
-    height: max-content;
     max-width: max-content;
+
+    min-width: fit-content;
 
     position: fixed;
     z-index: 30;
@@ -16,7 +22,10 @@
     bottom: 0;
     right: 0;
 
-    background-color: #f8f9fa;
 
-    border: 1px solid #000;
+    background-color: rgba(241, 241, 241, 0.4);
+    backdrop-filter: blur(12px);
+
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
 }

@@ -107,6 +107,24 @@ const ModalContent = () => {
             <input type="text" onChange={changeUnitHandler} value={localModalProperties.settings.unit}></input>
           </div>
         </div>
+        <div className="modal-content-grid-settings-container modal-content-grid-settings-zip">
+          <div className="modal-content-grid-settings-title">Почтовый индекс</div>
+          <div className="modal-content-grid-settings-input">
+            <input type="text"></input>
+          </div>
+        </div>
+        <div className="modal-content-grid-settings-container modal-content-grid-settings-adres">
+          <div className="modal-content-grid-settings-title">Адрес</div>
+          <div className="modal-content-grid-settings-input">
+            <input type="text"></input>
+          </div>
+        </div>
+        <div className="modal-content-grid-settings-container modal-content-grid-settings-tel">
+          <div className="modal-content-grid-settings-title">Телефон</div>
+          <div className="modal-content-grid-settings-input">
+            <input type="text"></input>
+          </div>
+        </div>
         <div className="modal-content-grid-settings-employee-list">
           <div className="modal-content-grid-settings-title">Список сотрудников</div>
           <div className="modal-content-grid-settings-list">
