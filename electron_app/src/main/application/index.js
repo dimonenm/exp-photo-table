@@ -65,6 +65,4 @@ export default class PhotoTableApp {
       this.settings.set('settings', data)
     })
   }
-
-
 }

@@ -77,6 +77,13 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     await wordDocument.addTitlePage();    
     wordDocument.saveDocument();
   }
+  // function convertToMicrosoftWord(event) {
+  //   event.preventDefault();
+
+  //   const wordDocument = new WordDocument(galleryImages, photoTableData);
+  //   wordDocument.addTitlePage();    
+  //   wordDocument.saveDocument();
+  // }
 
   function forSetSettingsModal(event) {
     event.preventDefault();

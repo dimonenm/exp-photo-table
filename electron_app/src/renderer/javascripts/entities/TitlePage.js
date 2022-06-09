@@ -153,59 +153,11 @@ export default class TitlePage {
     this.children = value;
   }
   // служебные функции
-  // async addPanoramaImg() {
-
-  //   const panoramaImg = new PanoramaImg();
-  //   panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
-  //   await panoramaImg.loadImgData(this.galleryImages[0]);    
-
-  //   const paragraphImg = new Paragraph(
-  //     {
-  //       alignment: AlignmentType.CENTER,
-  //       children: [
-  //         new TextRun({
-  //           font: this.FONT,
-  //           size: 24,
-  //           break: 1,
-  //         }),
-  //         new ImageRun({ data: panoramaImg.getData(), transformation: panoramaImg.getTransformation() })
-  //       ]
-  //     }
-  //   );
-
-  //   const paragraphDesc = new Paragraph(
-  //     {
-  //       alignment: AlignmentType.JUSTIFIED,
-  //       children: [
-  //         new TextRun({
-  //           text: `Фото №${this.galleryImages[0].index}. `,
-  //           font: "Times New Roman",
-  //           size: 26,
-  //           bold: true,
-  //         }),
-  //         new TextRun({
-  //           text: this.galleryImages[0].imgDesc,
-  //           font: "Times New Roman",
-  //           size: 26,
-  //         }),
-  //         this.descAddedArrows()
-  //       ]
-  //     }
-  //   );
-
-  //   const children = this.getChildren();
-
-  //   children.push(paragraphImg);
-  //   children.push(paragraphDesc);
-
-  //   this.setChildren(children);
-  // }
-  
-  addPanoramaImg() {
+  async addPanoramaImg() {
 
     const panoramaImg = new PanoramaImg();
     panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
-    panoramaImg.loadImgData(this.galleryImages[0]);
+    await panoramaImg.loadImgData(this.galleryImages[0]);    
 
     const paragraphImg = new Paragraph(
       {
@@ -248,7 +200,7 @@ export default class TitlePage {
 
     this.setChildren(children);
   }
-
+  
   descAddedArrows() {
     if (this.galleryImages[0].arrowsArray.length > 0) {
       let str = ''

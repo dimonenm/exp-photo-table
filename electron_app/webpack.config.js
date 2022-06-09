@@ -9,7 +9,17 @@ module.exports = {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/react', '@babel/preset-env']
+              presets: [
+                "@babel/react",
+                // '@babel/preset-env',
+                ['@babel/preset-env',
+                  {
+                    targets: {
+                      esmodules: true,
+                    },
+                  }
+                ]
+              ]
             }
           }
         },
