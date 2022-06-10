@@ -4,11 +4,12 @@ import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
 import PhotoPage from "./PhotoPage";
 export default class WordDocument {
-  constructor(galleryImages, photoTableData) {
+  constructor(galleryImages, photoTableData, settings) {
     this.title = '';
     this.sections = [];
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
+    this.settings = settings;
 
     this.testOn = true;
   }
@@ -34,7 +35,7 @@ export default class WordDocument {
   }
   // служебные функции
   async addTitlePage() {
-    const titlePage = new TitlePage(this.galleryImages, this.photoTableData);
+    const titlePage = new TitlePage(this.galleryImages, this.photoTableData, this.settings);
 
     await titlePage.addPanoramaImg();
 
@@ -45,15 +46,16 @@ export default class WordDocument {
     this.setSections(sections);
   }
   async addPhotoPages() {
-    const photoPages = [];
+
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2);
-    console.log('pagesCount: ', pagesCount);
+
     for (let page = 1; page <= pagesCount; page++) {
-      const photoPage = new PhotoPage(this.galleryImages, this.photoTableData);
+      const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
 
       photoPage.setProperties(page % 2);
 
       await photoPage.addFirstImg(page * 2 - 1);
+
       if (this.galleryImages[page * 2])
         await photoPage.addSecondImg(page * 2);
 
@@ -63,8 +65,25 @@ export default class WordDocument {
 
       this.setSections(sections);
     }
-  }
 
+    if (this.galleryImages.length % 2) {
+      const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
+      photoPage.setProperties((pagesCount + 1) % 2);
+      photoPage.addSupplement();     
+      
+      const sections = this.getSections();
+      
+      sections.push(photoPage);
+      
+      this.setSections(sections);
+    } else {
+      const sections = this.getSections();
+      const photoPage = sections.pop()
+      photoPage.addSupplement();
+      sections.push(photoPage);
+      this.setSections(sections);
+    }
+  }
 
   saveDocument() {
     this.setTitle(`${this.testOn ? "123" : this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.testOn ? "2564" : this.photoTableData.kusp} - ${this.photoTableData.executor}`);

@@ -73,7 +73,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
     console.log('localModalProperties: ', localModalProperties);
-    const wordDocument = new WordDocument(galleryImages, photoTableData);
+    const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
     await wordDocument.addTitlePage();
     await wordDocument.addPhotoPages();
 

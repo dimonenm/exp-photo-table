@@ -3,15 +3,14 @@ import PanoramaImg from "./PanoramaImg";
 
 export default class TitlePage {
 
-  constructor(galleryImages, photoTableData) {
+  constructor(galleryImages, photoTableData, settings) {
     this.FONT = "Times New Roman";
     this.CENTER = AlignmentType.CENTER;
     this.JUSTIFIED = AlignmentType.JUSTIFIED;
-    this.OFFICIAL_STATUS = 'специалист';
-    this.ZIP_CODE = '295006';
-    this.ADDRESS = 'г. Симферополь, ул. Павленко, 1а';
-    this.TEL = '(3652) 66-74-34';    
-    this.CANVAS_HEIGHT = 460;    
+    this.OFFICIAL_STATUS = settings.official_status;
+    this.ZIP_CODE = settings.zip_code;
+    this.ADDRESS = settings.address;
+    this.TEL = settings.tel;
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 

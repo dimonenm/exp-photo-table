@@ -3,11 +3,15 @@ import PhotoTableImg from "./PhotoTableImg";
 
 export default class PhotoPage {
 
-  constructor(galleryImages, photoTableData) {
+  constructor(galleryImages, photoTableData, settings) {
     this.FONT = "Times New Roman";
     this.CENTER = AlignmentType.CENTER;
     this.JUSTIFIED = AlignmentType.JUSTIFIED;
-    // this.CANVAS_HEIGHT = 460;
+    this.OFFICIAL_STATUS = settings.official_status;
+    this.NOTE = settings.note;
+    this.INDENT_VERTICAL = { firstLine: 2024 };
+    this.INDENT_HORIZONTAL = { firstLine: 1048 };
+    this.INDENT_PANORAMA = { firstLine: 0 };
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
@@ -62,7 +66,7 @@ export default class PhotoPage {
     this.children = value;
   }
   setProperties(uneven) {
-    uneven ? 
+    uneven ?
       this.properties = {
         page: {
           margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
@@ -82,7 +86,7 @@ export default class PhotoPage {
 
     const paragraphImg = new Paragraph(
       {
-        alignment: AlignmentType.CENTER,
+        alignment: this.CENTER,
         children: [
           new TextRun({
             font: this.FONT,
@@ -96,7 +100,8 @@ export default class PhotoPage {
 
     const paragraphDesc = new Paragraph(
       {
-        alignment: AlignmentType.JUSTIFIED,
+        alignment: this.JUSTIFIED,
+        indent: this.galleryImages[imgIndex].orientation === 'horizontal' ? this.INDENT_HORIZONTAL : this.galleryImages[imgIndex].orientation === 'vertical' ? this.INDENT_VERTICAL : this.INDENT_PANORAMA,
         children: [
           new TextRun({
             text: `Фото №${this.galleryImages[imgIndex].index}. `,
@@ -129,7 +134,7 @@ export default class PhotoPage {
 
     const paragraphImg = new Paragraph(
       {
-        alignment: AlignmentType.CENTER,
+        alignment: this.CENTER,
         children: [
           new TextRun({
             font: this.FONT,
@@ -143,7 +148,8 @@ export default class PhotoPage {
 
     const paragraphDesc = new Paragraph(
       {
-        alignment: AlignmentType.JUSTIFIED,
+        alignment: this.JUSTIFIED,
+        indent: this.galleryImages[imgIndex].orientation === 'horizontal' ? this.INDENT_HORIZONTAL : this.galleryImages[imgIndex].orientation === 'vertical' ? this.INDENT_VERTICAL : this.INDENT_PANORAMA,
         children: [
           new TextRun({
             text: `Фото №${this.galleryImages[imgIndex].index}. `,
@@ -170,8 +176,28 @@ export default class PhotoPage {
   }
 
   addSupplement() {
-    
+
+    const paragraphSupplement = new Paragraph(
+      {
+        alignment: this.JUSTIFIED,
+        children: [
+          new TextRun({
+            font: this.FONT,
+            size: 24,
+            break: 1,
+          }),
+          new TextRun({
+            text: `${this.NOTE}`,
+            bold: false,
+            font: this.FONT,
+            size: 24,
+          })
+        ]
+      })
+
     const children = this.getChildren();
+
+    children.push(paragraphSupplement);
 
     this.setChildren(children);
   }

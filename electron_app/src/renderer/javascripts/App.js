@@ -33,9 +33,13 @@ function App() {
     executor: null
   });
   const [settings, setSettings] = useState({
-    note: '',
+    address: '',
     executors: [],
-    unit: ''
+    note: '',
+    official_status: '',
+    tel: '',
+    unit: '',
+    zip_code: ''
   });
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState(new GalleryImage());
