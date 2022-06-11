@@ -91,8 +91,8 @@
   display: grid;
   align-items: center;
 
-  font-family: "Times New Roman", Times, serif;
-  font-size: 24px;
+  font-family: "Roboto", Times, serif;
+  font-size: 18px;
   text-align: center;
 
   overflow: hidden;
@@ -222,8 +222,8 @@
   display: grid;
   align-items: center;
 
-  font-family: "Times New Roman", Times, serif;
-  font-size: 18px;
+  font-family: "Roboto", Times, serif;
+  font-size: 16px;
   text-align: center;
 
   overflow: hidden;
@@ -270,8 +270,8 @@
   display: grid;
   align-items: center;
 
-  font-family: "Times New Roman", Times, serif;
-  font-size: 18px;
+  font-family: "Roboro", Times, serif;
+  font-size: 16px;
   text-align: center;
 
   overflow: hidden;
@@ -296,8 +296,8 @@
   align-items: center;
   grid-gap: 5px 5px;
 
-  font-family: "Times New Roman", Times, serif;
-  font-size: 18px;
+  font-family: "Roboto", Times, serif;
+  font-size: 16px;
   height: 25px;
 
   &-number {
@@ -338,8 +338,9 @@
 
     resize: none;
 
-    border: 1px solid #343a40;
-    border-radius: 0;
+    border: none;
+    border-radius: 7px;
     outline: none;
+    box-shadow: rgba(128, 129, 130, 0.646)
   }
 }

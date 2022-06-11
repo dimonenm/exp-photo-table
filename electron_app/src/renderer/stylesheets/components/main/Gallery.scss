@@ -5,18 +5,13 @@
     flex-basis: 518px;
     flex-wrap: wrap;
     max-width: 100%;
-
     justify-content: flex-start;
     align-content: flex-start;
-
-    padding: 0 4px 10px 0;
-
     border: 1px solid rgba(147, 145, 145, 0.539);
     border-radius: 5px;
-
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
-
     overflow-y: auto;
+    height: 97%;
 }
 
 .gallery::-webkit-scrollbar {

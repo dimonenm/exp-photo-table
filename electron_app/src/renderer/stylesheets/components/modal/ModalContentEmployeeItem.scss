@@ -1,18 +1,19 @@
 .modal-content-grid-settings-list-item {
     display: grid;
     grid-template-columns: 1fr 52px;
+    align-items:center;
 }
 .modal-content-grid-settings-list-item-name {
     display: grid;
     align-items: center;
     font-family: "Times New Roman", Times, serif;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     text-overflow: hidden;
     border: none;
     padding: 0;
     border-radius: 7px;
-    height: 35px;
+    height: 30px;
     background-color: #fff;
     border: 1px solid rgba(179, 172, 172, 0.537);
 }
@@ -20,8 +21,8 @@
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
 }
 .modal-content-grid-settings-list-item-del-btn {
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     margin-left: 10px;
     border-radius: 10px;
     background-image: url("../../../images/close.svg");
