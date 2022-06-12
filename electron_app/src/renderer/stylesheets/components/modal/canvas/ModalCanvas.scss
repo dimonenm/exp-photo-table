@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 50px 1fr 300px;
   height: 100%;
-  overflow:auto;
+  overflow: auto;
 }
 
 
@@ -19,6 +19,7 @@
   margin: 5px;
 
 }
+
 .modal-content-grid-tools-left-hand,
 .modal-content-grid-tools-left-hand-active,
 .modal-content-grid-tools-left-arrow,
@@ -30,27 +31,51 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 .modal-content-grid-tools-left-hand {
   background-image: url("../../../../images/btnHand.svg");
 }
+
+.modal-content-grid-tools-left-hand:hover {
+  transform: scale(1.1);
+}
+
 .modal-content-grid-tools-left-hand-active {
   background-image: url("../../../../images/btnHandActive.svg");
 }
+
 .modal-content-grid-tools-left-arrow {
   background-image: url("../../../../images/btnArrow.svg");
 }
+
+.modal-content-grid-tools-left-arrow:hover {
+  transform: scale(1.1);
+}
+
 .modal-content-grid-tools-left-arrow-active {
   background-image: url("../../../../images/btnArrowActive.svg");
 }
+
 .modal-content-grid-tools-left-textDesc {
   background-image: url("../../../../images/btnTextDesc.svg");
 }
+
+.modal-content-grid-tools-left-textDesc:hover {
+  transform: scale(1.1);
+}
+
 .modal-content-grid-tools-left-textDesc-active {
   background-image: url("../../../../images/btnTextDescActive.svg");
 }
+
 .modal-content-grid-tools-left-imgDesc {
   background-image: url("../../../../images/btnDescription.svg");
 }
+
+.modal-content-grid-tools-left-imgDesc:hover {
+  transform: scale(1.1);
+}
+
 .modal-content-grid-tools-left-imgDesc-active {
   background-image: url("../../../../images/btnDescriptionActive.svg");
 }
@@ -64,10 +89,12 @@
   background: #ccc;
 
 }
-.modal-content-grid-canvas-grab{
+
+.modal-content-grid-canvas-grab {
   cursor: grab;
 }
-.modal-content-grid-canvas-grabbing{
+
+.modal-content-grid-canvas-grabbing {
   cursor: grabbing;
 }
 
@@ -87,6 +114,7 @@
   position: relative;
 
 }
+
 .modal-content-grid-properties-right-title {
   display: grid;
   align-items: center;
@@ -97,6 +125,7 @@
 
   overflow: hidden;
 }
+
 .modal-content-grid-properties-right-orientation {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
@@ -105,6 +134,7 @@
   padding: 5px;
 
 }
+
 .modal-content-grid-properties-right-orientation-vertical,
 .modal-content-grid-properties-right-orientation-vertical-active,
 .modal-content-grid-properties-right-orientation-horizontal,
@@ -122,18 +152,23 @@
 .modal-content-grid-properties-right-orientation-vertical {
   background-image: url("../../../../images/btnOrientationVertical.svg");
 }
+
 .modal-content-grid-properties-right-orientation-horizontal {
   background-image: url("../../../../images/btnOrientationHorizontal.svg");
 }
+
 .modal-content-grid-properties-right-orientation-panorama {
   background-image: url("../../../../images/btnOrientationPanorama.svg");
 }
+
 .modal-content-grid-properties-right-orientation-vertical-active {
   background-image: url("../../../../images/btnOrientationVerticalActive.svg");
 }
+
 .modal-content-grid-properties-right-orientation-horizontal-active {
   background-image: url("../../../../images/btnOrientationHorizontalActive.svg");
 }
+
 .modal-content-grid-properties-right-orientation-panorama-active {
   background-image: url("../../../../images/btnOrientationPanoramaActive.svg");
 }
@@ -143,29 +178,39 @@
   grid-template-rows: 25px 25px;
 
 }
+
 .modal-content-grid-properties-right-zoom-range {
   height: 25px;
 
 }
+
 /*Сбрасывание стилей Range*/
 .modal-content-grid-properties-right-zoom-range input[type="range"] {
-  -webkit-appearance: none; /* Скрываем слайдер, чтобы иметь возможность создать пользовательский слайдер. */
-  width: 100%; /* Для Firefox нужна отдельная ширина. */
+  -webkit-appearance: none;
+  /* Скрываем слайдер, чтобы иметь возможность создать пользовательский слайдер. */
+  width: 100%;
+  /* Для Firefox нужна отдельная ширина. */
   margin: 0;
 }
+
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
 }
+
 .modal-content-grid-properties-right-zoom-range input[type="range"]:focus {
-  outline: none; /* Удаляем синюю рамку. Для доступности на различных платформах вам нужно применить кое-какой трюк со стилями. */
+  outline: none;
+  /* Удаляем синюю рамку. Для доступности на различных платформах вам нужно применить кое-какой трюк со стилями. */
 }
+
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-ms-track {
   width: 100%;
   cursor: pointer;
-  background: transparent; /* Скрываем слайдер, чтобы иметь возможность добавить собственные стили */
+  background: transparent;
+  /* Скрываем слайдер, чтобы иметь возможность добавить собственные стили */
   border-color: transparent;
   color: transparent;
 }
+
 /*Стили для ползунка*/
 /* Специальные стили для WebKit/Blink */
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-webkit-slider-thumb {
@@ -178,6 +223,7 @@
 
   margin-top: -3px;
 }
+
 .modal-content-grid-properties-right-zoom-range input[type="range"]:focus-visible::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 1px solid #000000;
@@ -188,6 +234,7 @@
 
   margin-top: -3px;
 }
+
 /* Все то же самое для Firefox */
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-moz-range-thumb {
   height: 18px;
@@ -195,6 +242,7 @@
   background: #343a40;
   cursor: pointer;
 }
+
 /* Все то же самое для IE */
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-ms-thumb {
   height: 18px;
@@ -202,6 +250,7 @@
   background: #343a40;
   cursor: pointer;
 }
+
 /*Стили для шкалы*/
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
@@ -209,15 +258,18 @@
   cursor: pointer;
   background: #6c757d;
 }
+
 .modal-content-grid-properties-right-zoom-range input[type="range"]:focus::-webkit-slider-runnable-track {
   background: #6c757d;
 }
+
 .modal-content-grid-properties-right-zoom-range input[type="range"]::-moz-range-track {
   width: 100%;
   height: 18px;
   cursor: pointer;
   background: #6c757d;
 }
+
 .modal-content-grid-properties-right-zoom-scale {
   display: grid;
   align-items: center;
@@ -230,6 +282,7 @@
 
   height: 25px;
 }
+
 .modal-content-grid-properties-right-arrow-color {
   display: grid;
   grid-template-rows: 50px;
@@ -239,6 +292,7 @@
     height: 100%;
   }
 }
+
 .modal-content-grid-properties-right-cut {
   display: grid;
   grid-template-columns: 40px 1fr;
@@ -248,6 +302,7 @@
   padding: 5px;
 
 }
+
 .modal-content-grid-properties-right-cut-btn {
   height: 40px;
   width: 40px;
@@ -257,6 +312,7 @@
   background-position: center center;
   background-size: contain;
 }
+
 .modal-content-grid-properties-right-cut-btn-active {
   height: 40px;
   width: 40px;
@@ -266,6 +322,7 @@
   background-position: center center;
   background-size: contain;
 }
+
 .modal-content-grid-properties-right-cut-condition {
   display: grid;
   align-items: center;
@@ -278,6 +335,7 @@
 
   height: 25px;
 }
+
 .modal-content-grid-properties-right-block {
   background-color: #f8f9fa;
 
@@ -290,6 +348,7 @@
 
   opacity: 0.5;
 }
+
 .modal-content-grid-properties-right-list_item {
   display: grid;
   grid-template-columns: 25px 1fr 25px;
@@ -323,14 +382,15 @@
 
     padding: 0 5px;
 
-    border: 1px solid #343a40;
+    border: 1px solid #7c7f83;
     border-radius: 0;
     outline: none;
   }
 }
+
 .modal-content-grid-properties-right-text-area {
-        display: grid;
-  
+  display: grid;
+
   padding: 0 5px;
 
   textarea {
