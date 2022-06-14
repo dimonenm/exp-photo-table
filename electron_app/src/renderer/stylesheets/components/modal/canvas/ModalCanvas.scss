@@ -359,34 +359,35 @@
   font-size: 16px;
   height: 25px;
 
-  &-number {
-    display: grid;
-    align-items: center;
+}
+.modal-content-grid-properties-right-list_item-number {
+  display: grid;
+  align-items: center;
 
-    height: 25px;
+  height: 25px;
 
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  &-delete {
-    width: 25px;
-    height: 25px;
+.modal-content-grid-properties-right-list_item-delete {
+  width: 25px;
+  height: 25px;
 
-    background-image: url("../../../../images/smallCros.svg");
-  }
+  background-image: url("../../../../images/smallCros.svg");
+}
 
-  input {
-    background-color: #f8f9fa;
+.modal-content-grid-properties-right-list_item input {
+  background-color: #f8f9fa;
 
-    height: 25px;
+  height: 25px;
 
-    padding: 0 5px;
+  padding: 0 5px;
 
     border: 1px solid #7c7f83;
     border-radius: 0;
     outline: none;
   }
-}
+
 
 .modal-content-grid-properties-right-text-area {
   display: grid;

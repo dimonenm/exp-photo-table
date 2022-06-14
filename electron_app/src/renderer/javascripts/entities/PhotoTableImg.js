@@ -1,6 +1,6 @@
 import drawArrowArray from '../services/forModalCanvas/fDrawArrowArray';
-export default class PanoramaImg {
 
+export default class PhotoTableImg {
   constructor() {
     this.data = null;
     this.transformation = {
@@ -57,15 +57,32 @@ export default class PanoramaImg {
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
     const setData = this.setData.bind(this);
 
-    await new Promise((onSuccess, onError) => {
-      img.addEventListener('load', function () {
+    switch (gallaryImage.orientation) {
+      case 'panorama':
         ctx.canvas.height = 460;
         ctx.canvas.width = 747;
+        break;
+      case 'vertical':
+        ctx.canvas.height = 632;
+        // ctx.canvas.height = 700;
+        ctx.canvas.width = 474;
+        // ctx.canvas.width = 525;
+        break;
+      case 'horizontal':
+        ctx.canvas.height = 525;
+        ctx.canvas.width = 700;
+        break;
+      default:
+        break;
+    }
+
+    await new Promise((onSuccess, onError) => {
+      img.addEventListener('load', function () {
 
         const zoom = gallaryImageZoom / 100;
         const imgW = this.width * zoom;
         const imgH = this.height * zoom;
-        
+
         ctx.drawImage(img, 0, 0, imgW, imgH);
 
         if (gallaryImageArrowsArray.length > 0) {
@@ -73,15 +90,15 @@ export default class PanoramaImg {
             drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
           }
         }
-        onSuccess('done');
-      })      
-      
-      img.src = gallaryImage.getUrl();      
+        onSuccess();
+      })
+
+      img.src = gallaryImage.getUrl();
     });
-    
+
     await new Promise((onSuccess, onError) => {
       setData(canvas.toDataURL('image/jpeg', 1));
       onSuccess();
-    });    
-  }  
+    });
+  }
 }

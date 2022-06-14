@@ -65,6 +65,9 @@ const ModalContent = () => {
   if (localModalProperties.modalProperties.type === "setSettings") {
     const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) }) }
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
+    const changeZipCodeHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, zip_code: event.target.value }) }) }
+    const changeTelHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, tel: event.target.value }) }) }
+    const changeAddressHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, address: event.target.value }) }) }
     const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
       if (newEmployee !== '' && regexpCheckingComplianceInitialsSurname(newEmployee)) {
@@ -110,19 +113,19 @@ const ModalContent = () => {
         <div className="modal-content-grid-settings-container modal-content-grid-settings-zip">
           <div className="modal-content-grid-settings-title">Почтовый индекс</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text"></input>
+            <input type="text" onChange={changeZipCodeHandler} value={localModalProperties.settings.zip_code}></input>
           </div>
         </div>
         <div className="modal-content-grid-settings-container modal-content-grid-settings-adres">
           <div className="modal-content-grid-settings-title">Адрес</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text"></input>
+            <input type="text" onChange={changeAddressHandler} value={localModalProperties.settings.address}></input>
           </div>
         </div>
         <div className="modal-content-grid-settings-container modal-content-grid-settings-tel">
           <div className="modal-content-grid-settings-title">Телефон</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text"></input>
+            <input type="text" onChange={changeTelHandler} value={localModalProperties.settings.tel}></input>
           </div>
         </div>
         <div className="modal-content-grid-settings-employee-list">
@@ -304,6 +307,7 @@ const ModalContent = () => {
     );
   }
 
+  /*
   // if (localModalProperties.modalProperties.type === "setGalleryImageData") {
 
   //   const changeIllustrationDescriptionHandler = () => {
@@ -405,6 +409,7 @@ const ModalContent = () => {
   //     </div>
   //   );
   // }
+  */
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <ModalCanvas />

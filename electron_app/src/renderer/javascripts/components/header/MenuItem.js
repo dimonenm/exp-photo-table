@@ -6,7 +6,7 @@ import { modalDataContext } from '../../App';
 import GallaryImage from '../../entities/GalleryImage';
 import WordDocument from '../../entities/WordDocument';
 
-const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties }) => {
+const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImages, photoTableData, modalProperties, setModalProperties, settings }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -72,19 +72,13 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
+    console.log('localModalProperties: ', localModalProperties);
+    const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
+    await wordDocument.addTitlePage();
+    await wordDocument.addPhotoPages();
 
-    const wordDocument = new WordDocument(galleryImages, photoTableData);
-    await wordDocument.addTitlePage();    
     wordDocument.saveDocument();
   }
-  // function convertToMicrosoftWord(event) {
-  //   event.preventDefault();
-
-  //   const wordDocument = new WordDocument(galleryImages, photoTableData);
-  //   wordDocument.addTitlePage();    
-  //   wordDocument.saveDocument();
-  // }
-
   function forSetSettingsModal(event) {
     event.preventDefault();
 
@@ -135,7 +129,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       <div className="menu-item" onClick={forEditPhoto}><a href="/" >{children}</a></div>
     );
   }
-
   return (
     <div className="menu-item"><a href="/" >{children}</a></div>
   );
