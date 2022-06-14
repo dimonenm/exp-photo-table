@@ -5,7 +5,6 @@
   overflow: auto;
 }
 
-
 /*modal-content-grid-tools-left*/
 .modal-content-grid-tools-left {
   display: grid;
@@ -17,7 +16,6 @@
   grid-gap: 5px;
 
   margin: 5px;
-
 }
 
 .modal-content-grid-tools-left-hand,
@@ -80,14 +78,12 @@
   background-image: url("../../../../images/btnDescriptionActive.svg");
 }
 
-
 /*modal-content-grid-canvas*/
 .modal-content-grid-canvas {
   display: grid;
   grid-column: 2 / 3;
 
   background: #ccc;
-
 }
 
 .modal-content-grid-canvas-grab {
@@ -97,7 +93,6 @@
 .modal-content-grid-canvas-grabbing {
   cursor: grabbing;
 }
-
 
 /*modal-content-grid-properties-right*/
 .modal-content-grid-properties-right {
@@ -112,7 +107,6 @@
   grid-gap: 5px 5px;
 
   position: relative;
-
 }
 
 .modal-content-grid-properties-right-title {
@@ -132,7 +126,6 @@
   grid-gap: 5px 5px;
 
   padding: 5px;
-
 }
 
 .modal-content-grid-properties-right-orientation-vertical,
@@ -176,12 +169,10 @@
 .modal-content-grid-properties-right-zoom {
   display: grid;
   grid-template-rows: 25px 25px;
-
 }
 
 .modal-content-grid-properties-right-zoom-range {
   height: 25px;
-
 }
 
 /*Сбрасывание стилей Range*/
@@ -300,7 +291,6 @@
   align-items: center;
 
   padding: 5px;
-
 }
 
 .modal-content-grid-properties-right-cut-btn {
@@ -326,8 +316,8 @@
 .modal-content-grid-properties-right-cut-condition {
   display: grid;
   align-items: center;
-
-  font-family: "Roboro", Times, serif;
+  margin-right: 40px;
+  font-family: "Roboto", Times, serif;
   font-size: 16px;
   text-align: center;
 
@@ -358,7 +348,6 @@
   font-family: "Roboto", Times, serif;
   font-size: 16px;
   height: 25px;
-
 }
 .modal-content-grid-properties-right-list_item-number {
   display: grid;
@@ -372,10 +361,22 @@
 .modal-content-grid-properties-right-list_item-delete {
   width: 25px;
   height: 25px;
-
+  background-color: #6c757dcc;
+  border-radius: 7px;
   background-image: url("../../../../images/smallCros.svg");
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
 }
-
+.modal-content-grid-properties-right-list_item-delete:hover {
+  background-color: rgba(253, 5, 5, 0.829);
+  transform: scale(1.1);
+  box-shadow: -2px -2px 6px 0 rgba(0, 0, 0, 0.2), 2px 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+.modal-content-grid-properties-right-list_item-delete:active {
+  transform: scale(1);
+  box-shadow: none;
+}
 .modal-content-grid-properties-right-list_item input {
   background-color: #f8f9fa;
 
@@ -383,25 +384,22 @@
 
   padding: 0 5px;
 
-    border: 1px solid #7c7f83;
-    border-radius: 0;
-    outline: none;
-  }
+  border: none;
+  border-radius: 7px;
+  box-shadow: 2px 2px 10px rgba(133, 131, 131, 0.747);
+  outline: none;
+}
 
-
-.modal-content-grid-properties-right-text-area {
+.modal-content-grid-properties-right-text-area textarea {
   display: grid;
-
+  margin-left: 15px;
+  width: 250px;
+  height: 70px;
   padding: 0 5px;
-
-  textarea {
-    background-color: #f8f9fa;
-
-    resize: none;
-
-    border: none;
-    border-radius: 7px;
-    outline: none;
-    box-shadow: rgba(128, 129, 130, 0.646)
-  }
+  box-shadow: 2px 2px 10px rgba(95, 96, 97, 0.726);
+  border-radius: 7px;
+  background-color: #f8f9fa;
+  border: none;
+  outline: none;
+  resize: none;
 }
