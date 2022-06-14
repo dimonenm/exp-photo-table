@@ -43,7 +43,7 @@ export default class PhotoTableApp {
       this.window = null
     })
 
-    this.window.webContents.openDevTools({ mode: 'detach' });
+    // this.window.webContents.openDevTools({ mode: 'detach' });
   }
 
   subscribeForAppEvents() {

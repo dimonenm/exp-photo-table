@@ -35,21 +35,8 @@
     "appId": "com.electron.electronapp",
     "win": {
       "publish": null,
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true
+      "target": ["nsis","portable"],
+      "arch": ["x64", "ia32"]  
     },
     "mac": {
       "publish": null,

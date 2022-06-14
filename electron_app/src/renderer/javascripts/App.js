@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 
 import Container from './containers/Container';
 import Header from './containers/Header';
