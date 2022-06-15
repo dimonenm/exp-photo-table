@@ -2,9 +2,6 @@ import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import saveSettings from '../../services/forModalHeader/fSaveSettings';
 import GallaryImage from '../../entities/GalleryImage';
-// import "./MenuBtnsCheckBtn.css";
-
-
 
 const MenuBtnsCheckBtn = () => {
 
@@ -78,7 +75,6 @@ const MenuBtnsCheckBtn = () => {
       });
     }
   }
-
   return (<div className="check-btn" onClick={clickHandler}></div>)
 }
 

@@ -4,10 +4,7 @@ import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
-
 import GallaryImage from '../../../entities/GalleryImage';
-
-// import './ModalCanvas.scss';
 
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
@@ -474,8 +471,6 @@ const ModalCanvas = () => {
     }
     img.src = galleryImg.getUrl();
   }, [galleryImg]);
-  console.log('modal canvas rendering');
-
 
   return (
     <div className="modal-content-grid-edit">

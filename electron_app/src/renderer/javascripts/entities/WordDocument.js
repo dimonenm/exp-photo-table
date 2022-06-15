@@ -1,4 +1,3 @@
-// import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";

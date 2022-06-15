@@ -211,9 +211,7 @@ export default class TitlePage {
       }
       
       return new TextRun({
-        text: ` (${str}).`,
-        // font: "Times New Roman",
-        // size: 26,
+        text: ` (${str}).`
       })
     }
   }

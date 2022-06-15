@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 
-// import "./ModalContentEmployeeItem.css";
-
 const ModalContentEmployeeItem = ({ name }) => {
   const localModalProperties = useContext(modalDataContext);
 

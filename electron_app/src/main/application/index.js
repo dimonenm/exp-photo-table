@@ -18,8 +18,6 @@ export default class PhotoTableApp {
       minWidth: CONFIG.width,
       minHeight: CONFIG.height,
       autoHideMenuBar: true,
-      // maxWidth: CONFIG.width,
-      // maxHeight: CONFIG.height,
       titleBarStyle: 'hidden',
       titleBarOverlay: {
         height: 20,
@@ -35,7 +33,6 @@ export default class PhotoTableApp {
     this.window.loadFile('renderer/index.html')
 
     this.window.webContents.on('did-finish-load', () => {
-      // this.window.webContents.send('settings', JSON.stringify({ settings: this.settings.get('settings') }));
       this.window.webContents.send('settings', this.settings.get('settings'));
     })
 
@@ -43,7 +40,7 @@ export default class PhotoTableApp {
       this.window = null
     })
 
-    // this.window.webContents.openDevTools({ mode: 'detach' });
+    this.window.webContents.openDevTools({ mode: 'detach' });
   }
 
   subscribeForAppEvents() {

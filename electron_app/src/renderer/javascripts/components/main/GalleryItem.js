@@ -72,8 +72,6 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
       </div>
     );
   }
-
-
 }
 
 export default GalleryItem;

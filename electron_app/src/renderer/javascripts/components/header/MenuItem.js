@@ -1,8 +1,5 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-// import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
-// import { saveAs } from "file-saver";
-// import "./MenuItem.css";
 import GallaryImage from '../../entities/GalleryImage';
 import WordDocument from '../../entities/WordDocument';
 
@@ -50,16 +47,16 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       }
     });
   }
-  function forCutPhoto(event) {
-    event.preventDefault();
+  // function forCutPhoto(event) {
+  //   event.preventDefault();
 
-    localModalProperties.setModalProperties(() => {
-      return {
-        ...localModalProperties.modalProperties,
-        type: 'cutPhoto'
-      }
-    });
-  }
+  //   localModalProperties.setModalProperties(() => {
+  //     return {
+  //       ...localModalProperties.modalProperties,
+  //       type: 'cutPhoto'
+  //     }
+  //   });
+  // }
   function forEditPhoto(event) {
     event.preventDefault();
 
@@ -119,11 +116,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       <div className="menu-item" onClick={delImgFromPhotoTable}><a href="/" >{children}</a></div>
     );
   }
-  if (type === 'forCutPhoto') {
-    return (
-      <div className="menu-item" onClick={forCutPhoto}><a href="/" >{children}</a></div>
-    );
-  }
+  // if (type === 'forCutPhoto') {
+  //   return (
+  //     <div className="menu-item" onClick={forCutPhoto}><a href="/" >{children}</a></div>
+  //   );
+  // }
   if (type === 'forEditPhoto') {
     return (
       <div className="menu-item" onClick={forEditPhoto}><a href="/" >{children}</a></div>
