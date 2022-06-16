@@ -14,7 +14,7 @@ const ModalContent = () => {
   if (localModalProperties.modalProperties.type === "preview") {
     return (<ModalContentPreview />);
   }
-  if (localModalProperties.modalProperties.type === "setSettings") {
+  if (localModalProperties.modalProperties.type === "setSettings") {    
     const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) }) }
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
     const changeZipCodeHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, zip_code: event.target.value }) }) }
@@ -22,7 +22,8 @@ const ModalContent = () => {
     const changeAddressHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, address: event.target.value }) }) }
     const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
-      if (newEmployee !== '' && regexpCheckingComplianceInitialsSurname(newEmployee)) {
+      // if (newEmployee !== '' && regexpCheckingComplianceInitialsSurname(newEmployee)) { вариант с проверкой имени по шаблону
+      if (newEmployee !== '') {
 
         if (localModalProperties.settings.executors.find(item => item === newEmployee)) {
           console.log('Сотрудник уже добавлен');
