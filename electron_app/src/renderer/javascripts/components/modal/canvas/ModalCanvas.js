@@ -42,7 +42,6 @@ const ModalCanvas = () => {
       if (!galleryImg.getImgCuted()) {
         canvasRef.current.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
-          console.log('url: ', url);
           setGalleryImg((prev) => {
             return Object.assign(new GallaryImage(), {
               ...prev,
