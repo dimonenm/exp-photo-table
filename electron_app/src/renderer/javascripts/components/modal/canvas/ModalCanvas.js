@@ -313,21 +313,20 @@ const ModalCanvas = () => {
           {galleryImg.getImgCuted() ? <div className='modal-content-grid-properties-right-block'></div> : null}
           <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
           <div className='modal-content-grid-properties-right-orientation'>
-            <div
-              className={galleryImg.getOrientation() === "vertical" ?
-                'modal-content-grid-properties-right-orientation-vertical-active' :
-                'modal-content-grid-properties-right-orientation-vertical'}
-              onClick={orientationVerticalClickHandler}
+            <div className={galleryImg.getOrientation() === "panorama" ?
+              'modal-content-grid-properties-right-orientation-panorama-active' :
+              'modal-content-grid-properties-right-orientation-panorama'}
+              onClick={orientationPanoramaClickHandler}
             ></div>
             <div className={galleryImg.getOrientation() === "horizontal" ?
               'modal-content-grid-properties-right-orientation-horizontal-active' :
               'modal-content-grid-properties-right-orientation-horizontal'}
               onClick={orientationHorizontalClickHandler}
             ></div>
-            <div className={galleryImg.getOrientation() === "panorama" ?
-              'modal-content-grid-properties-right-orientation-panorama-active' :
-              'modal-content-grid-properties-right-orientation-panorama'}
-              onClick={orientationPanoramaClickHandler}
+            <div className={galleryImg.getOrientation() === "vertical" ?
+                'modal-content-grid-properties-right-orientation-vertical-active' :
+                'modal-content-grid-properties-right-orientation-vertical'}
+              onClick={orientationVerticalClickHandler}
             ></div>
           </div>
           <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
