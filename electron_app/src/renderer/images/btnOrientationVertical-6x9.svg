@@ -1,0 +1,21 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @font-face {
+      font-family: "Roboto";
+      src: url("../fonts/Roboto-Regular.ttf");
+    }
+
+    .text {
+      font-family: "Roboto";
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+  <rect x="5" y="2" width="30" height="36" stroke="#343A40" stroke-width="2" rx="5" />
+  <path id="my_path" d="M 25,30.5 25,5 " fill="transparent"/>
+  <text class="text" fill="#343A40">
+    <textPath xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#my_path">
+      6x9
+    </textPath>
+  </text>
+</svg>
