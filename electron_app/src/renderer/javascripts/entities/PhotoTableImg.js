@@ -42,10 +42,6 @@ export default class PhotoTableImg {
         break;
     }
   }
-  // async loadImgStreamForData(gallaryImage) {
-  //   const blob = await fetch(gallaryImage.url).then(r => this.data = r.blob());
-  //   this.setData(blob);
-  // }
 
   async loadImgData(gallaryImage) {
     const canvas = document.createElement('canvas');
@@ -64,9 +60,7 @@ export default class PhotoTableImg {
         break;
       case 'vertical':
         ctx.canvas.height = 632;
-        // ctx.canvas.height = 700;
         ctx.canvas.width = 474;
-        // ctx.canvas.width = 525;
         break;
       case 'horizontal':
         ctx.canvas.height = 525;

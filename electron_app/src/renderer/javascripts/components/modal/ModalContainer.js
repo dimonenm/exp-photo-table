@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import ModalHeader from './ModalHeader';
 import ModalContent from './ModalContent';
 import { modalDataContext } from '../../App';
-// import './ModalContainer.scss';
-// import './ModalContainer2.scss';
 
 const ModalContainer = () => {
   const localModalProperties = useContext(modalDataContext);
@@ -27,7 +25,6 @@ const ModalContainer = () => {
       </div>
     );
   }
-
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
     return (
       <div className="modal-container" >
@@ -36,25 +33,6 @@ const ModalContainer = () => {
       </div>
     );
   }
-
-  // if (localModalProperties.modalProperties.type === "setGalleryImageData") {
-  //   return (
-  //     <div className="modal-container" >
-  //       <ModalHeader name={'Данные иллюстрации'} />
-  //       <ModalContent />
-  //     </div>
-  //   );
-  // }
-
-  // if (localModalProperties.modalProperties.type === "cutPhoto") {
-  //   return (
-  //     <div className="modal-container" >
-  //       <ModalHeader name={'Обрезка иллюстрации'} />
-  //       <ModalContent />
-  //     </div>
-  //   );
-  // }
-
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <div className={'modal-container'}>
@@ -72,6 +50,5 @@ const ModalContainer = () => {
     );
   }
 }
-
 
 export default ModalContainer;

@@ -1,4 +1,3 @@
-// import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
 import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
@@ -10,8 +9,6 @@ export default class WordDocument {
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
     this.settings = settings;
-
-    this.testOn = true;
   }
   // функции доступа к полям
   getTitle() {
@@ -86,7 +83,7 @@ export default class WordDocument {
   }
 
   saveDocument() {
-    this.setTitle(`${this.testOn ? "123" : this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.testOn ? "2564" : this.photoTableData.kusp} - ${this.photoTableData.executor}`);
+    this.setTitle(`${this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.photoTableData.kusp} - ${this.photoTableData.executor}`);
 
     const doc = new Document({
       title: this.getTitle(),

@@ -6,7 +6,6 @@ import MenuItem from '../header/MenuItem';
 import MenuBtnsCheckBtn from '../header/MenuBtnsCheckBtn';
 import MenuBtnsCloseBtn from '../header/MenuBtnsCloseBtn';
 import { modalDataContext } from '../../App';
-// import './ModalHeader.css'
 
 const ModalHeader = ({ name }) => {
 
@@ -33,17 +32,6 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-  // if (localModalProperties.modalProperties.type === "cutPhoto") {
-  //   return (
-  //     <div className="modal-header">
-  //       <Logo>{name}</Logo>
-  //       <MenuBtns>
-  //         <MenuBtnsCheckBtn />
-  //         <MenuBtnsCloseBtn />
-  //       </MenuBtns>
-  //     </div>
-  //   );
-  // }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <div className="modal-header">
@@ -58,22 +46,6 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-  // if (localModalProperties.modalProperties.type === "setGalleryImageData") {
-  //   return (
-  //     <div className="modal-header">
-  //       <Logo>{name}</Logo>
-  //       <Menu>
-  //         <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
-  //         <MenuItem type={'forCutPhoto'}>Обрезать</MenuItem>
-  //         <MenuItem type={'forEditPhoto'}>Редактировать</MenuItem>
-  //       </Menu>
-  //       <MenuBtns>
-  //         <MenuBtnsCheckBtn />
-  //         <MenuBtnsCloseBtn />
-  //       </MenuBtns>
-  //     </div>
-  //   );
-  // }
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
       <div className="modal-header">
@@ -85,7 +57,6 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
-
 }
 
 export default ModalHeader;

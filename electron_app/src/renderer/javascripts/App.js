@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 
 import Container from './containers/Container';
 import Header from './containers/Header';
@@ -95,7 +95,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.0.2</Logo>
+        <Logo>ЭКЦ РК Фототаблица 0.1.1</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}

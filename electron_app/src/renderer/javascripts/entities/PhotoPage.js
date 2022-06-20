@@ -214,11 +214,8 @@ export default class PhotoPage {
           str += `${item.number}. ${item.text}`;
         }
       }
-      // console.log('this.galleryImages[0]: ', this.galleryImages[0].arrowsArray);
       return new TextRun({
-        text: ` (${str}).`,
-        // font: "Times New Roman",
-        // size: 26,
+        text: ` (${str}).`
       })
     }
   }

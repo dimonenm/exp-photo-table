@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-// import './ModalContentPreview.scss';
 
 const ModalContentPreview = () => {
 

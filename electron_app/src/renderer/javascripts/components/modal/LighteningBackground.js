@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import GallaryImage from '../../entities/GalleryImage';
-// import './LighteningBackground.css';
 
 const LighteningBackground = () => {
     const localModalProperties = useContext(modalDataContext);
@@ -34,7 +33,6 @@ const LighteningBackground = () => {
             });
         }
     }
-
 
     return <div className="lightening-background" onClick={clickHandler}></div>;
 }

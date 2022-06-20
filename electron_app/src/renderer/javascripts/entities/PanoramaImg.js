@@ -42,10 +42,6 @@ export default class PanoramaImg {
         break;
     }
   }
-  // async loadImgStreamForData(gallaryImage) {
-  //   const blob = await fetch(gallaryImage.url).then(r => this.data = r.blob());
-  //   this.setData(blob);
-  // }
 
   async loadImgData(gallaryImage) {
     const canvas = document.createElement('canvas');

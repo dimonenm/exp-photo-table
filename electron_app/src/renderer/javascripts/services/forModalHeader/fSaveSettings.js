@@ -1,5 +1,4 @@
 function saveSettings(settings) {
-  console.log("saveSettings");
   globalThis.DataBaseAPI.saveSettings(settings)
 }
 

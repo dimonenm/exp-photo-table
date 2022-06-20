@@ -1,8 +1,5 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
-// import { Document, Packer, Paragraph, Header, Footer, TextRun, AlignmentType, PageNumber, ImageRun } from "docx";
-// import { saveAs } from "file-saver";
-// import "./MenuItem.css";
 import GallaryImage from '../../entities/GalleryImage';
 import WordDocument from '../../entities/WordDocument';
 
@@ -47,16 +44,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
         isOpen: false,
         type: null,
         indexImgInGallery: null
-      }
-    });
-  }
-  function forCutPhoto(event) {
-    event.preventDefault();
-
-    localModalProperties.setModalProperties(() => {
-      return {
-        ...localModalProperties.modalProperties,
-        type: 'cutPhoto'
       }
     });
   }
@@ -117,11 +104,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   if (type === 'forDelImgFromPhotoTable') {
     return (
       <div className="menu-item" onClick={delImgFromPhotoTable}><a href="/" >{children}</a></div>
-    );
-  }
-  if (type === 'forCutPhoto') {
-    return (
-      <div className="menu-item" onClick={forCutPhoto}><a href="/" >{children}</a></div>
     );
   }
   if (type === 'forEditPhoto') {

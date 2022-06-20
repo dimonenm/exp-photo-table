@@ -20,7 +20,6 @@ export class Settings{
 
   read(key) {
     return JSON.parse(readFileSync(this.file(key)))
-    // return JSON.parse(readFileSync(this.file(key)).toString('utf-8'))
   }
 
   write(key, data) {

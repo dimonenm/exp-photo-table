@@ -14,8 +14,6 @@ export default class TitlePage {
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
-    this.testOn = true;
-
     this.properties = {
       page: {
         margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
@@ -211,11 +209,9 @@ export default class TitlePage {
           str += `${item.number}. ${item.text}`;
         }        
       }
-      // console.log('this.galleryImages[0]: ', this.galleryImages[0].arrowsArray);
+      
       return new TextRun({
-        text: ` (${str}).`,
-        // font: "Times New Roman",
-        // size: 26,
+        text: ` (${str}).`
       })
     }
   }

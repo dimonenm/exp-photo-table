@@ -13,10 +13,10 @@
   </style>
   <rect width="40" height="40" fill="#343A40" rx="5" />
   <rect x="5" y="2" width="30" height="36" stroke="#F8F9FA" stroke-width="2" rx="5" />
-  <path id="my_path" d="M 25,33 25,5 " fill="transparent" />
+  <path id="my_path" d="M 25,30.5 25,5 " fill="transparent" />
   <text x="0" y="0" class="text" fill="#F8F9FA">
     <textPath xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#my_path">
-      9x12
+      6x9
     </textPath>
   </text>
 </svg>

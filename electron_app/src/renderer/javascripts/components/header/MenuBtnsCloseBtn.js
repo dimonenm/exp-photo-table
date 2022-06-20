@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { modalDataContext } from '../../App';
 import GallaryImage from '../../entities/GalleryImage';
-// import "./MenuBtnsCloseBtn.css";
 
 const MenuBtnsCloseBtn = () => {
   const localModalProperties = useContext(modalDataContext);
@@ -81,8 +80,7 @@ const MenuBtnsCloseBtn = () => {
       });
       localModalProperties.setGalleryImg(new GallaryImage());
     }
-  }
-  
+  }  
   return (<div className="close-btn" onClick={clickHandler}></div>)
 }
 

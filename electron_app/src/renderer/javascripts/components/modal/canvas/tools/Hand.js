@@ -23,8 +23,6 @@ export default class Hand extends Tool {
       this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
       this.lastOffsetValueY = this.galleryImg.getLastOffsetValueY();
     }   
-
-    console.log('Hand');
   }
 
   listen() {
@@ -34,16 +32,13 @@ export default class Hand extends Tool {
     this.canvas.onmouseleave = this.mouseLeaveHandler.bind(this);
     this.canvas.onmouseenter  = this.mouseEnterHandler.bind(this);
   }
-
   mouseLeaveHandler(event) {
     this.mouseDown = false;
     event.target.classList.remove('modal-content-grid-canvas-grab');
   }
-
   mouseEnterHandler(event) {
     event.target.classList.add('modal-content-grid-canvas-grab');
   }
-
   mouseUpHandler(event) {
     this.mouseDown = false;
     event.target.classList.remove('modal-content-grid-canvas-grabbing');
