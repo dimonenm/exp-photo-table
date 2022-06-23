@@ -128,12 +128,27 @@
   padding: 5px;
 }
 
+.modal-content-grid-properties-right-scale_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+  grid-gap: 5px 5px;
+
+  padding: 5px;
+}
+
 .modal-content-grid-properties-right-orientation-vertical,
 .modal-content-grid-properties-right-orientation-vertical-active,
 .modal-content-grid-properties-right-orientation-horizontal,
 .modal-content-grid-properties-right-orientation-horizontal-active,
 .modal-content-grid-properties-right-orientation-panorama,
-.modal-content-grid-properties-right-orientation-panorama-active {
+.modal-content-grid-properties-right-orientation-panorama-active,
+.modal-content-grid-properties-right-orientation-9X6,
+.modal-content-grid-properties-right-orientation-9X6-active,
+.modal-content-grid-properties-right-orientation-6X9,
+.modal-content-grid-properties-right-orientation-6X9-active,
+.modal-content-grid-properties-right-orientation-scale_grid-btn,
+.modal-content-grid-properties-right-orientation-scale_grid-btn-active
+{
   height: 40px;
   width: 40px;
 
@@ -154,6 +169,17 @@
   background-image: url("../../../../images/btnOrientationPanorama.svg");
 }
 
+.modal-content-grid-properties-right-orientation-9X6 {
+  background-image: url("../../../../images/btnOrientationHorizontal9x6.svg");
+}
+
+.modal-content-grid-properties-right-orientation-6X9 {
+  background-image: url("../../../../images/btnOrientationVertical6x9.svg");
+}
+.modal-content-grid-properties-right-orientation-scale_grid-btn {
+  background-image: url("../../../../images/btnScaleGrid.svg");
+}
+
 .modal-content-grid-properties-right-orientation-vertical-active {
   background-image: url("../../../../images/btnOrientationVerticalActive.svg");
 }
@@ -164,6 +190,17 @@
 
 .modal-content-grid-properties-right-orientation-panorama-active {
   background-image: url("../../../../images/btnOrientationPanoramaActive.svg");
+}
+
+.modal-content-grid-properties-right-orientation-9X6-active {
+  background-image: url("../../../../images/btnOrientationHorizonta9x6Active.svg");
+}
+
+.modal-content-grid-properties-right-orientation-6X9-active {
+  background-image: url("../../../../images/btnOrientationVertical6x9Active.svg");
+}
+.modal-content-grid-properties-right-orientation-scale_grid-btn-active {
+  background-image: url("../../../../images/btnScaleGridActive.svg");
 }
 
 .modal-content-grid-properties-right-zoom {

@@ -272,13 +272,6 @@ const ModalCanvas = () => {
       item.setNumber(i + 1)
       return item;
     })
-
-    // setCanvasState((prev => {
-    //   return {
-    //     ...prev,
-    //     arrowsArray: numberingArray
-    //   };
-    // }))
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
@@ -306,6 +299,36 @@ const ModalCanvas = () => {
       });
     }, 'image/jpeg', 1)
   }
+  function orientation9X6ClickHandler() {
+    setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, orientation: '9X6', lastOffsetValueX: 0 });
+    })
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          galleryImg,
+          setGalleryImg)
+      }
+    });
+  }
+  function orientation6X9ClickHandler() {
+    setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, orientation: '6X9', lastOffsetValueX: 0 });
+    })
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          galleryImg,
+          setGalleryImg)
+      }
+    });
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -327,6 +350,22 @@ const ModalCanvas = () => {
                 'modal-content-grid-properties-right-orientation-vertical-active' :
                 'modal-content-grid-properties-right-orientation-vertical'}
               onClick={orientationVerticalClickHandler}
+            ></div>
+            <div className={galleryImg.getOrientation() === "9X6" ?
+                'modal-content-grid-properties-right-orientation-9X6-active' :
+                'modal-content-grid-properties-right-orientation-9X6'}
+              onClick={orientation9X6ClickHandler}
+            ></div>
+            <div className={galleryImg.getOrientation() === "6X9" ?
+                'modal-content-grid-properties-right-orientation-6X9-active' :
+                'modal-content-grid-properties-right-orientation-6X9'}
+              onClick={orientation6X9ClickHandler}
+            ></div>
+          </div>
+          <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
+          <div className='modal-content-grid-properties-right-scale_grid'>
+            <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
+              onClick={null}
             ></div>
           </div>
           <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
@@ -495,10 +534,14 @@ const ModalCanvas = () => {
         className='modal-content-grid-canvas'
         width={galleryImg.getOrientation() === "horizontal" ? 700 :
           galleryImg.getOrientation() === "vertical" ? 474 :
-            galleryImg.getOrientation() === "panorama" ? 747 : null}
+            galleryImg.getOrientation() === "panorama" ? 747 :
+              galleryImg.getOrientation() === "9X6" ? 700 : 
+                galleryImg.getOrientation() === "6X9" ? 474 : null}
         height={galleryImg.getOrientation() === "horizontal" ? 525 :
           galleryImg.getOrientation() === "vertical" ? 632 :
-            galleryImg.getOrientation() === "panorama" ? 460 : null}
+            galleryImg.getOrientation() === "panorama" ? 460 : 
+              galleryImg.getOrientation() === "9X6" ? 525 : 
+                galleryImg.getOrientation() === "6X9" ? 632 : null}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
