@@ -329,6 +329,10 @@ const ModalCanvas = () => {
       }
     });
   }
+  function zoomScaleGridClickHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
+    event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -365,7 +369,7 @@ const ModalCanvas = () => {
           <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
           <div className='modal-content-grid-properties-right-scale_grid'>
             <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
-              onClick={null}
+              onClick={event => zoomScaleGridClickHandler(event)}
             ></div>
           </div>
           <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
