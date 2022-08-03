@@ -17,6 +17,7 @@ const ModalCanvas = () => {
     type: 'handFree',
     tool: null
   });
+  const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
 
   function handClickHandler(event) {
@@ -30,7 +31,8 @@ const ModalCanvas = () => {
           tool: new Hand(
             canvasRef.current,
             galleryImg,
-            setGalleryImg)
+            setGalleryImg,
+            isZoomScaleGrid)
         }
       });
     };
@@ -330,6 +332,35 @@ const ModalCanvas = () => {
     });
   }
   function zoomScaleGridClickHandler(event) {
+    if (isZoomScaleGrid) {
+      setIsZoomScaleGrid(false)
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'hand',
+          tool: new Hand(
+            canvasRef.current,
+            galleryImg,
+            setGalleryImg,
+            false)
+        }
+      });
+    } else {
+      setIsZoomScaleGrid(true)
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'hand',
+          tool: new Hand(
+            canvasRef.current,
+            galleryImg,
+            setGalleryImg,
+            true)
+        }
+      });
+    }
+    
+
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
@@ -509,9 +540,19 @@ const ModalCanvas = () => {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
         }
       }
+      if (isZoomScaleGrid) {
+        console.log('ctx.canvas.width', ctx.canvas.width);
+        console.log('galleryImg', galleryImg.getOrientation());
+        ctx.beginPath();
+
+        ctx.moveTo(0, 0);
+        ctx.lineTo(100, 100);
+
+        ctx.stroke();
+      }
     }
     img.src = galleryImg.getUrl();
-  }, [galleryImg]);
+  }, [galleryImg, isZoomScaleGrid]);
 
   return (
     <div className="modal-content-grid-edit">

@@ -2,13 +2,14 @@ import Tool from "./Tool";
 import GallaryImage from "../../../../entities/GalleryImage";
 
 export default class Hand extends Tool {
-  constructor(canvas, galleryImg, setGalleryImg) {
+  constructor(canvas, galleryImg, setGalleryImg, isZoomScaleGrid) {
     super(canvas);
     this.img = new Image();
     this.img.src = galleryImg.getUrl();
     this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
     this.arrowsArr = [...galleryImg.getArrowsArray()];
+    this.isZoomScaleGrid = isZoomScaleGrid;
     this.listen();
     
     this.img.onload = () => {
@@ -79,6 +80,17 @@ export default class Hand extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
+
+      if (this.isZoomScaleGrid) {
+        this.ctx.beginPath();
+  
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(100, 100);
+  
+        this.ctx.stroke();
+      }
     }
   }
+
+  
 }
