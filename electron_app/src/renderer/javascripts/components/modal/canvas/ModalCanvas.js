@@ -161,7 +161,7 @@ const ModalCanvas = () => {
   function orientationHorizontalClickHandler() {
     setToolState((prev) => {
       const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
-      
+
       setGalleryImg(() => {
         return newGallaryImage;
       })
@@ -322,29 +322,35 @@ const ModalCanvas = () => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
-  function cutClickHandler(event) {
-    zoomScaleGridClickHandler()
-
-    canvasRef.current.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      const newGallaryImage = Object.assign(new GallaryImage(), {
-        ...galleryImg,
-        url: url,
-        imgCuted: true,
-        lastOffsetValueX: 0,
-        lastOffsetValueY: 0,
-        zoom: '100' })
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'handFree',
-          tool: new HandFree(canvasRef.current)
-        }
-      });
-    }, 'image/jpeg', 1)
+  async function cutClickHandler(event) {
+    function f1() {
+      setIsZoomScaleGrid(false)
+    }
+    function f2() {
+      canvasRef.current.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const newGallaryImage = Object.assign(new GallaryImage(), {
+          ...galleryImg,
+          url: url,
+          imgCuted: true,
+          lastOffsetValueX: 0,
+          lastOffsetValueY: 0,
+          zoom: '100'
+        })
+        setGalleryImg(() => {
+          return newGallaryImage;
+        })
+        setToolState((prev) => {
+          return {
+            ...prev,
+            type: 'handFree',
+            tool: new HandFree(canvasRef.current)
+          }
+        });
+      }, 'image/jpeg', 1)
+    }
+    await f1()
+    await f2()
   }
   function drawScaleGrid(ctx, orientation) {
     if (orientation === 'horizontal') {
@@ -488,7 +494,7 @@ const ModalCanvas = () => {
         }
       });
     }
-    
+
 
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
@@ -511,18 +517,18 @@ const ModalCanvas = () => {
               onClick={orientationHorizontalClickHandler}
             ></div>
             <div className={galleryImg.getOrientation() === "vertical" ?
-                'modal-content-grid-properties-right-orientation-vertical-active' :
-                'modal-content-grid-properties-right-orientation-vertical'}
+              'modal-content-grid-properties-right-orientation-vertical-active' :
+              'modal-content-grid-properties-right-orientation-vertical'}
               onClick={orientationVerticalClickHandler}
             ></div>
             <div className={galleryImg.getOrientation() === "9X6" ?
-                'modal-content-grid-properties-right-orientation-9X6-active' :
-                'modal-content-grid-properties-right-orientation-9X6'}
+              'modal-content-grid-properties-right-orientation-9X6-active' :
+              'modal-content-grid-properties-right-orientation-9X6'}
               onClick={orientation9X6ClickHandler}
             ></div>
             <div className={galleryImg.getOrientation() === "6X9" ?
-                'modal-content-grid-properties-right-orientation-6X9-active' :
-                'modal-content-grid-properties-right-orientation-6X9'}
+              'modal-content-grid-properties-right-orientation-6X9-active' :
+              'modal-content-grid-properties-right-orientation-6X9'}
               onClick={orientation6X9ClickHandler}
             ></div>
           </div>
@@ -669,7 +675,7 @@ const ModalCanvas = () => {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
         }
-      }      
+      }
       if (isZoomScaleGrid) {
         drawScaleGrid(ctx, galleryImg.getOrientation())
       }
@@ -703,12 +709,12 @@ const ModalCanvas = () => {
         width={galleryImg.getOrientation() === "horizontal" ? 700 :
           galleryImg.getOrientation() === "vertical" ? 474 :
             galleryImg.getOrientation() === "panorama" ? 747 :
-              galleryImg.getOrientation() === "9X6" ? 700 : 
+              galleryImg.getOrientation() === "9X6" ? 700 :
                 galleryImg.getOrientation() === "6X9" ? 474 : null}
         height={galleryImg.getOrientation() === "horizontal" ? 525 :
           galleryImg.getOrientation() === "vertical" ? 632 :
-            galleryImg.getOrientation() === "panorama" ? 460 : 
-              galleryImg.getOrientation() === "9X6" ? 525 : 
+            galleryImg.getOrientation() === "panorama" ? 460 :
+              galleryImg.getOrientation() === "9X6" ? 525 :
                 galleryImg.getOrientation() === "6X9" ? 632 : null}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
