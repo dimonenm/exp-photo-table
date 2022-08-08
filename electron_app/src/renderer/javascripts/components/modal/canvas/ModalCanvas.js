@@ -142,38 +142,6 @@ const ModalCanvas = () => {
       });
     };
   }
-  function orientationVerticalClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: 'vertical', lastOffsetValueX: 0 });
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          galleryImg,
-          setGalleryImg)
-      }
-    });
-  }
-  function orientationHorizontalClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 } });
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 });
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          galleryImg,
-          setGalleryImg)
-      }
-    });
-  }
   function orientationPanoramaClickHandler() {
     // setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
     setGalleryImg((prev) => {
@@ -187,6 +155,82 @@ const ModalCanvas = () => {
           canvasRef.current,
           galleryImg,
           setGalleryImg)
+      }
+    });
+  }
+  function orientationHorizontalClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
+      
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  function orientationVerticalClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  function orientation9X6ClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '9X6', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  function orientation6X9ClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '6X9', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
       }
     });
   }
@@ -279,18 +323,19 @@ const ModalCanvas = () => {
     })
   }
   function cutClickHandler(event) {
+    zoomScaleGridClickHandler()
 
     canvasRef.current.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
-      setGalleryImg((prev) => {
-        return Object.assign(new GallaryImage(), {
-          ...prev,
-          url: url,
-          imgCuted: true,
-          lastOffsetValueX: 0,
-          lastOffsetValueY: 0,
-          zoom: '100'
-        });
+      const newGallaryImage = Object.assign(new GallaryImage(), {
+        ...galleryImg,
+        url: url,
+        imgCuted: true,
+        lastOffsetValueX: 0,
+        lastOffsetValueY: 0,
+        zoom: '100' })
+      setGalleryImg(() => {
+        return newGallaryImage;
       })
       setToolState((prev) => {
         return {
@@ -301,35 +346,119 @@ const ModalCanvas = () => {
       });
     }, 'image/jpeg', 1)
   }
-  function orientation9X6ClickHandler() {
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: '9X6', lastOffsetValueX: 0 });
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          galleryImg,
-          setGalleryImg)
+  function drawScaleGrid(ctx, orientation) {
+    if (orientation === 'horizontal') {
+      const linesHorizontal = 12
+      const linesVertical = 9
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
       }
-    });
-  }
-  function orientation6X9ClickHandler() {
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: '6X9', lastOffsetValueX: 0 });
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          galleryImg,
-          setGalleryImg)
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
       }
-    });
+    }
+    if (orientation === 'vertical') {
+      const linesHorizontal = 9
+      const linesVertical = 12
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
+    if (orientation === '9X6') {
+      const linesHorizontal = 9
+      const linesVertical = 6
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
+    if (orientation === '6X9') {
+      const linesHorizontal = 6
+      const linesVertical = 9
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
   }
   function zoomScaleGridClickHandler(event) {
     if (isZoomScaleGrid) {
@@ -510,6 +639,7 @@ const ModalCanvas = () => {
     };
   }
 
+
   useEffect(() => {
     galleryImages.forEach((item) => {
       if (item.getIndex() === indexImgInGallery) {
@@ -539,16 +669,9 @@ const ModalCanvas = () => {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
         }
-      }
+      }      
       if (isZoomScaleGrid) {
-        console.log('ctx.canvas.width', ctx.canvas.width);
-        console.log('galleryImg', galleryImg.getOrientation());
-        ctx.beginPath();
-
-        ctx.moveTo(0, 0);
-        ctx.lineTo(100, 100);
-
-        ctx.stroke();
+        drawScaleGrid(ctx, galleryImg.getOrientation())
       }
     }
     img.src = galleryImg.getUrl();
