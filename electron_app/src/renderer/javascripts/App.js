@@ -74,7 +74,7 @@ function App() {
 
   if (galleryImages) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, arrGalleryImages, setModalProperties);
+    arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
   };
 
   return (
