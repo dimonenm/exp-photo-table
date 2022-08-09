@@ -250,7 +250,8 @@ const ModalCanvas = () => {
         tool: new Hand(
           canvasRef.current,
           newState,
-          setGalleryImg)
+          setGalleryImg,
+          isZoomScaleGrid)
       }
     });
   }
@@ -322,11 +323,9 @@ const ModalCanvas = () => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
-  async function cutClickHandler(event) {
-    function f1() {
-      setIsZoomScaleGrid(false)
-    }
-    function f2() {
+  function cutClickHandler(event) {
+    setIsZoomScaleGrid(false)
+    setTimeout(() => {
       canvasRef.current.toBlob((blob) => {
         const url = URL.createObjectURL(blob);
         const newGallaryImage = Object.assign(new GallaryImage(), {
@@ -347,10 +346,8 @@ const ModalCanvas = () => {
             tool: new HandFree(canvasRef.current)
           }
         });
-      }, 'image/jpeg', 1)
-    }
-    await f1()
-    await f2()
+      }, 'image/jpeg', 1)      
+    },0)
   }
   function drawScaleGrid(ctx, orientation) {
     if (orientation === 'horizontal') {
