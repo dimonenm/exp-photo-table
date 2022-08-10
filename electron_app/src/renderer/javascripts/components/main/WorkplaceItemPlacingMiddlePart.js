@@ -19,14 +19,21 @@ const WorkplaceItemPlacingMiddlePart = ({ index, galleryImages, setGalleryImages
     event.preventDefault();
     event.target.classList.remove('workplace-item-middle-part-hovered');
 
-    const gallaryImage = new GallaryImage()
-    // gallaryImage.setName(currentGalleryImage.nameImg)
-    // gallaryImage.setUrl(currentGalleryImage.urlImg)
-    // const arr = [...galleryImages];
-    // gallaryImage.setIndex(arr.length + 1);
-    // arr.push(gallaryImage);
+    const arr = [...galleryImages];
 
-    // setGalleryImages(arr);
+    const gallaryImage = new GallaryImage()
+    gallaryImage.setName(currentGalleryImage.nameImg)
+    gallaryImage.setUrl(currentGalleryImage.urlImg)
+
+    let indexCounter = 1
+    
+    arr.splice(index, 0, gallaryImage)    
+    arr.forEach((item) => {
+      item.setIndex(indexCounter)
+      indexCounter++
+    })
+    
+    setGalleryImages(arr);
     setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
   }
 

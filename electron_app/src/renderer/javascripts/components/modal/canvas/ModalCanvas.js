@@ -42,36 +42,30 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
       if (!galleryImg.getImgCuted()) {
-        canvasRef.current.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          setGalleryImg((prev) => {
-            return Object.assign(new GallaryImage(), {
-              ...prev,
+        setIsZoomScaleGrid(false)
+        setTimeout(() => {
+          canvasRef.current.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const newGallaryImage = Object.assign(new GallaryImage(), {
+              ...galleryImg,
               url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
+            })
+            setGalleryImg(() => {
+              return newGallaryImage;
+            })
+            setToolState((prev) => {
+              return {
+                ...prev,
+                type: 'handFree',
+                tool: new HandFree(canvasRef.current)
+              }
             });
-          });
-          setToolState((prev) => {
-            return {
-              ...prev,
-              type: 'arrow',
-              tool: new Arrow(
-                canvasRef.current,
-                Object.assign(new GallaryImage(), {
-                  ...galleryImg,
-                  url: url,
-                  imgCuted: true,
-                  lastOffsetValueX: 0,
-                  lastOffsetValueY: 0,
-                  zoom: '100'
-                }),
-                setGalleryImg)
-            }
-          });
-        }, 'image/jpeg', 1);
+          }, 'image/jpeg', 1)
+        }, 0)
       } else {
         setToolState((prev) => {
           return {
@@ -91,19 +85,30 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
       if (!galleryImg.getImgCuted()) {
-        canvasRef.current.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          setGalleryImg((prev) => {
-            return Object.assign(new GallaryImage(), {
-              ...prev,
+        setIsZoomScaleGrid(false)
+        setTimeout(() => {
+          canvasRef.current.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const newGallaryImage = Object.assign(new GallaryImage(), {
+              ...galleryImg,
               url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
+            })
+            setGalleryImg(() => {
+              return newGallaryImage;
+            })
+            setToolState((prev) => {
+              return {
+                ...prev,
+                type: 'handFree',
+                tool: new HandFree(canvasRef.current)
+              }
             });
-          });
-        }, 'image/jpeg', 1);
+          }, 'image/jpeg', 1)
+        }, 0)
       }
       setToolState((prev) => {
         return {
@@ -119,19 +124,30 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
       if (!galleryImg.getImgCuted()) {
-        canvasRef.current.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          setGalleryImg((prev) => {
-            return Object.assign(new GallaryImage(), {
-              ...prev,
+        setIsZoomScaleGrid(false)
+        setTimeout(() => {
+          canvasRef.current.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const newGallaryImage = Object.assign(new GallaryImage(), {
+              ...galleryImg,
               url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
+            })
+            setGalleryImg(() => {
+              return newGallaryImage;
+            })
+            setToolState((prev) => {
+              return {
+                ...prev,
+                type: 'handFree',
+                tool: new HandFree(canvasRef.current)
+              }
             });
-          });
-        }, 'image/jpeg', 1);
+          }, 'image/jpeg', 1)
+        }, 0)
       }
       setToolState((prev) => {
         return {
@@ -346,10 +362,12 @@ const ModalCanvas = () => {
             tool: new HandFree(canvasRef.current)
           }
         });
-      }, 'image/jpeg', 1)      
-    },0)
+      }, 'image/jpeg', 1)
+    }, 0)
   }
   function drawScaleGrid(ctx, orientation) {
+    ctx.strokeStyle = '#454545';
+
     if (orientation === 'horizontal') {
       const linesHorizontal = 12
       const linesVertical = 9

@@ -127,15 +127,19 @@ function App() {
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
-          <WorkplaceItemNew
-            name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}
-          />
+          {
+            arrGalleryImages.length ?
+              null :
+              <WorkplaceItemNew
+                name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+                currentGalleryImage={currentGalleryImage}
+                setCurrentGalleryImage={setCurrentGalleryImage}
+                galleryImages={galleryImages}
+                setGalleryImages={setGalleryImages}
+                downloadedImages={downloadedImages}
+                setDownloadedImages={setDownloadedImages}
+              />
+          }
           {arrGalleryImages}
         </Workplace>
       </Main>
