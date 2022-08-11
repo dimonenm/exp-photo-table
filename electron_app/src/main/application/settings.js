@@ -2,7 +2,7 @@ import path from 'path'
 import { mkdirSync, existsSync, readFileSync, writeFileSync } from 'fs'
 import { app } from 'electron'
 
-export class Settings{
+export class Settings {
   constructor() {
     this.directory = path.join(app.getPath('userData'), 'settings');
 
@@ -29,7 +29,7 @@ export class Settings{
   file(key) {
     const file = path.join(this.directory, `${key}.json`)
     if (!existsSync(file)) {
-      writeFileSync(file, '{"note": "", "executors": [], "unit": ""}', { flag: 'wx' })
+      writeFileSync(file, '{"address": "Адрес не указан", "executors": [], "note": "Примечание: не указано", "official_status": "специалист", "tel": "Телефон не указан", "unit": "Подразделение не указано", "zip_code": "Почтовый индекс не указан"}', { flag: 'wx' })
     }
     return file
   }
