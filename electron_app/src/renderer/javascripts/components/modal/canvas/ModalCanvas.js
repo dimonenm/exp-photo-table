@@ -17,6 +17,7 @@ const ModalCanvas = () => {
     type: 'handFree',
     tool: null
   });
+  const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
 
   function handClickHandler(event) {
@@ -30,7 +31,8 @@ const ModalCanvas = () => {
           tool: new Hand(
             canvasRef.current,
             galleryImg,
-            setGalleryImg)
+            setGalleryImg,
+            isZoomScaleGrid)
         }
       });
     };
@@ -40,36 +42,30 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
       if (!galleryImg.getImgCuted()) {
-        canvasRef.current.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          setGalleryImg((prev) => {
-            return Object.assign(new GallaryImage(), {
-              ...prev,
+        setIsZoomScaleGrid(false)
+        setTimeout(() => {
+          canvasRef.current.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const newGallaryImage = Object.assign(new GallaryImage(), {
+              ...galleryImg,
               url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
+            })
+            setGalleryImg(() => {
+              return newGallaryImage;
+            })
+            setToolState((prev) => {
+              return {
+                ...prev,
+                type: 'handFree',
+                tool: new HandFree(canvasRef.current)
+              }
             });
-          });
-          setToolState((prev) => {
-            return {
-              ...prev,
-              type: 'arrow',
-              tool: new Arrow(
-                canvasRef.current,
-                Object.assign(new GallaryImage(), {
-                  ...galleryImg,
-                  url: url,
-                  imgCuted: true,
-                  lastOffsetValueX: 0,
-                  lastOffsetValueY: 0,
-                  zoom: '100'
-                }),
-                setGalleryImg)
-            }
-          });
-        }, 'image/jpeg', 1);
+          }, 'image/jpeg', 1)
+        }, 0)
       } else {
         setToolState((prev) => {
           return {
@@ -89,19 +85,30 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
       if (!galleryImg.getImgCuted()) {
-        canvasRef.current.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          setGalleryImg((prev) => {
-            return Object.assign(new GallaryImage(), {
-              ...prev,
+        setIsZoomScaleGrid(false)
+        setTimeout(() => {
+          canvasRef.current.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const newGallaryImage = Object.assign(new GallaryImage(), {
+              ...galleryImg,
               url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
+            })
+            setGalleryImg(() => {
+              return newGallaryImage;
+            })
+            setToolState((prev) => {
+              return {
+                ...prev,
+                type: 'handFree',
+                tool: new HandFree(canvasRef.current)
+              }
             });
-          });
-        }, 'image/jpeg', 1);
+          }, 'image/jpeg', 1)
+        }, 0)
       }
       setToolState((prev) => {
         return {
@@ -117,19 +124,30 @@ const ModalCanvas = () => {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
       if (!galleryImg.getImgCuted()) {
-        canvasRef.current.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          setGalleryImg((prev) => {
-            return Object.assign(new GallaryImage(), {
-              ...prev,
+        setIsZoomScaleGrid(false)
+        setTimeout(() => {
+          canvasRef.current.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const newGallaryImage = Object.assign(new GallaryImage(), {
+              ...galleryImg,
               url: url,
               imgCuted: true,
               lastOffsetValueX: 0,
               lastOffsetValueY: 0,
               zoom: '100'
+            })
+            setGalleryImg(() => {
+              return newGallaryImage;
+            })
+            setToolState((prev) => {
+              return {
+                ...prev,
+                type: 'handFree',
+                tool: new HandFree(canvasRef.current)
+              }
             });
-          });
-        }, 'image/jpeg', 1);
+          }, 'image/jpeg', 1)
+        }, 0)
       }
       setToolState((prev) => {
         return {
@@ -139,38 +157,6 @@ const ModalCanvas = () => {
         }
       });
     };
-  }
-  function orientationVerticalClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: 'vertical', lastOffsetValueX: 0 });
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          galleryImg,
-          setGalleryImg)
-      }
-    });
-  }
-  function orientationHorizontalClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 } });
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 });
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          galleryImg,
-          setGalleryImg)
-      }
-    });
   }
   function orientationPanoramaClickHandler() {
     // setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
@@ -185,6 +171,82 @@ const ModalCanvas = () => {
           canvasRef.current,
           galleryImg,
           setGalleryImg)
+      }
+    });
+  }
+  function orientationHorizontalClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  function orientationVerticalClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  function orientation9X6ClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '9X6', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  function orientation6X9ClickHandler() {
+    setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '6X9', lastOffsetValueX: 0 })
+
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid)
       }
     });
   }
@@ -204,7 +266,8 @@ const ModalCanvas = () => {
         tool: new Hand(
           canvasRef.current,
           newState,
-          setGalleryImg)
+          setGalleryImg,
+          isZoomScaleGrid)
       }
     });
   }
@@ -272,39 +335,184 @@ const ModalCanvas = () => {
       item.setNumber(i + 1)
       return item;
     })
-
-    // setCanvasState((prev => {
-    //   return {
-    //     ...prev,
-    //     arrowsArray: numberingArray
-    //   };
-    // }))
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
   function cutClickHandler(event) {
-
-    canvasRef.current.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      setGalleryImg((prev) => {
-        return Object.assign(new GallaryImage(), {
-          ...prev,
+    setIsZoomScaleGrid(false)
+    setTimeout(() => {
+      canvasRef.current.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const newGallaryImage = Object.assign(new GallaryImage(), {
+          ...galleryImg,
           url: url,
           imgCuted: true,
           lastOffsetValueX: 0,
           lastOffsetValueY: 0,
           zoom: '100'
+        })
+        setGalleryImg(() => {
+          return newGallaryImage;
+        })
+        setToolState((prev) => {
+          return {
+            ...prev,
+            type: 'handFree',
+            tool: new HandFree(canvasRef.current)
+          }
         });
-      })
+      }, 'image/jpeg', 1)
+    }, 0)
+  }
+  function drawScaleGrid(ctx, orientation) {
+    ctx.strokeStyle = '#454545';
+
+    if (orientation === 'horizontal') {
+      const linesHorizontal = 12
+      const linesVertical = 9
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
+    if (orientation === 'vertical') {
+      const linesHorizontal = 9
+      const linesVertical = 12
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
+    if (orientation === '9X6') {
+      const linesHorizontal = 9
+      const linesVertical = 6
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
+    if (orientation === '6X9') {
+      const linesHorizontal = 6
+      const linesVertical = 9
+      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+      const gridPitchVertical = ctx.canvas.height / linesVertical
+      let counterHorizontal = gridPitchHorizontal
+      let counterVertical = gridPitchVertical
+      for (let i = 0; i < (linesHorizontal - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(counterHorizontal, 0);
+        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+
+        ctx.stroke();
+
+        counterHorizontal = counterHorizontal + gridPitchHorizontal
+      }
+      for (let i = 0; i < (linesVertical - 1); i++) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, counterVertical);
+        ctx.lineTo(ctx.canvas.width, counterVertical);
+
+        ctx.stroke();
+
+        counterVertical = counterVertical + gridPitchVertical
+      }
+    }
+  }
+  function zoomScaleGridClickHandler(event) {
+    if (isZoomScaleGrid) {
+      setIsZoomScaleGrid(false)
       setToolState((prev) => {
         return {
           ...prev,
-          type: 'handFree',
-          tool: new HandFree(canvasRef.current)
+          type: 'hand',
+          tool: new Hand(
+            canvasRef.current,
+            galleryImg,
+            setGalleryImg,
+            false)
         }
       });
-    }, 'image/jpeg', 1)
+    } else {
+      setIsZoomScaleGrid(true)
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'hand',
+          tool: new Hand(
+            canvasRef.current,
+            galleryImg,
+            setGalleryImg,
+            true)
+        }
+      });
+    }
+
+
+    event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
+    event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
@@ -313,21 +521,36 @@ const ModalCanvas = () => {
           {galleryImg.getImgCuted() ? <div className='modal-content-grid-properties-right-block'></div> : null}
           <div className='modal-content-grid-properties-right-title'>Ориентация:</div>
           <div className='modal-content-grid-properties-right-orientation'>
-            <div
-              className={galleryImg.getOrientation() === "vertical" ?
-                'modal-content-grid-properties-right-orientation-vertical-active' :
-                'modal-content-grid-properties-right-orientation-vertical'}
-              onClick={orientationVerticalClickHandler}
+            <div className={galleryImg.getOrientation() === "panorama" ?
+              'modal-content-grid-properties-right-orientation-panorama-active' :
+              'modal-content-grid-properties-right-orientation-panorama'}
+              onClick={orientationPanoramaClickHandler}
             ></div>
             <div className={galleryImg.getOrientation() === "horizontal" ?
               'modal-content-grid-properties-right-orientation-horizontal-active' :
               'modal-content-grid-properties-right-orientation-horizontal'}
               onClick={orientationHorizontalClickHandler}
             ></div>
-            <div className={galleryImg.getOrientation() === "panorama" ?
-              'modal-content-grid-properties-right-orientation-panorama-active' :
-              'modal-content-grid-properties-right-orientation-panorama'}
-              onClick={orientationPanoramaClickHandler}
+            <div className={galleryImg.getOrientation() === "vertical" ?
+              'modal-content-grid-properties-right-orientation-vertical-active' :
+              'modal-content-grid-properties-right-orientation-vertical'}
+              onClick={orientationVerticalClickHandler}
+            ></div>
+            <div className={galleryImg.getOrientation() === "9X6" ?
+              'modal-content-grid-properties-right-orientation-9X6-active' :
+              'modal-content-grid-properties-right-orientation-9X6'}
+              onClick={orientation9X6ClickHandler}
+            ></div>
+            <div className={galleryImg.getOrientation() === "6X9" ?
+              'modal-content-grid-properties-right-orientation-6X9-active' :
+              'modal-content-grid-properties-right-orientation-6X9'}
+              onClick={orientation6X9ClickHandler}
+            ></div>
+          </div>
+          <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
+          <div className='modal-content-grid-properties-right-scale_grid'>
+            <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
+              onClick={event => zoomScaleGridClickHandler(event)}
             ></div>
           </div>
           <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
@@ -437,6 +660,7 @@ const ModalCanvas = () => {
     };
   }
 
+
   useEffect(() => {
     galleryImages.forEach((item) => {
       if (item.getIndex() === indexImgInGallery) {
@@ -467,9 +691,12 @@ const ModalCanvas = () => {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
         }
       }
+      if (isZoomScaleGrid) {
+        drawScaleGrid(ctx, galleryImg.getOrientation())
+      }
     }
     img.src = galleryImg.getUrl();
-  }, [galleryImg]);
+  }, [galleryImg, isZoomScaleGrid]);
 
   return (
     <div className="modal-content-grid-edit">
@@ -496,10 +723,14 @@ const ModalCanvas = () => {
         className='modal-content-grid-canvas'
         width={galleryImg.getOrientation() === "horizontal" ? 700 :
           galleryImg.getOrientation() === "vertical" ? 474 :
-            galleryImg.getOrientation() === "panorama" ? 747 : null}
+            galleryImg.getOrientation() === "panorama" ? 747 :
+              galleryImg.getOrientation() === "9X6" ? 700 :
+                galleryImg.getOrientation() === "6X9" ? 474 : null}
         height={galleryImg.getOrientation() === "horizontal" ? 525 :
           galleryImg.getOrientation() === "vertical" ? 632 :
-            galleryImg.getOrientation() === "panorama" ? 460 : null}
+            galleryImg.getOrientation() === "panorama" ? 460 :
+              galleryImg.getOrientation() === "9X6" ? 525 :
+                galleryImg.getOrientation() === "6X9" ? 632 : null}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>

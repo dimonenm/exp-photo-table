@@ -10,8 +10,11 @@
       font-size: 14px;
     }
   </style>
-  <rect x="2" y="5" width="36" height="30" stroke="#343A40" stroke-width="2" rx="5" />
-  <text x="5" y="25" class="text" fill="#343A40">
-    12x9
+  <rect x="10" y="2" width="20" height="36" stroke="#343A40" stroke-width="2" rx="5" />
+   <path id="my_path" d="M 25,34 25,5 " fill="transparent"/>
+  <text class="text" fill="#343A40">
+    <textPath xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#my_path">
+      9x16
+    </textPath>
   </text>
 </svg>

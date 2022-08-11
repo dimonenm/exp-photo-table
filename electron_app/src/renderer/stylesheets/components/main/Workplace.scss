@@ -68,6 +68,25 @@
     background-color: #c4c4c4;
 }
 
+.workplace-item-middle-part {
+    display: flex;
+    flex-basis: 200px;
+
+    height: 5px;
+
+    margin: 10px 0 0 0;
+
+    transition: height 200ms linear;
+}
+
+.workplace-item-middle-part-hovered {
+    height: 20px;
+    background-color: #c4c4c4;
+
+    border: 1px dashed #000;
+    border-radius: 7px;
+}
+
 .workplace-item-name {
     display: flex;
     flex-basis: 20px;

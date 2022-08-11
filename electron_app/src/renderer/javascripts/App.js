@@ -74,7 +74,7 @@ function App() {
 
   if (galleryImages) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, arrGalleryImages, setModalProperties);
+    arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
   };
 
   return (
@@ -95,7 +95,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.1.0</Logo>
+        <Logo>ЭКЦ РК Фототаблица 0.1.1</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
@@ -127,15 +127,19 @@ function App() {
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
-          <WorkplaceItemNew
-            name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}
-          />
+          {
+            arrGalleryImages.length ?
+              null :
+              <WorkplaceItemNew
+                name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+                currentGalleryImage={currentGalleryImage}
+                setCurrentGalleryImage={setCurrentGalleryImage}
+                galleryImages={galleryImages}
+                setGalleryImages={setGalleryImages}
+                downloadedImages={downloadedImages}
+                setDownloadedImages={setDownloadedImages}
+              />
+          }
           {arrGalleryImages}
         </Workplace>
       </Main>

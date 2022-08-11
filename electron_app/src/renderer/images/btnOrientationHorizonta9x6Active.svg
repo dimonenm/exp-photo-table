@@ -4,14 +4,16 @@
       font-family: "Roboto";
       src: url("../fonts/Roboto-Regular.ttf");
     }
+
     .text {
       font-family: "Roboto";
       font-weight: bold;
       font-size: 14px;
     }
   </style>
-  <rect x="2" y="5" width="36" height="30" stroke="#343A40" stroke-width="2" rx="5" />
-  <text x="5" y="25" class="text" fill="#343A40">
-    12x9
+  <rect width="40" height="40" fill="#343A40" rx="5" />
+  <rect x="2" y="5" width="36" height="30" stroke="#F8F9FA" stroke-width="2" rx="5" />
+  <text x="9.5" y="25" class="text" fill="#F8F9FA">
+    9x6
   </text>
 </svg>

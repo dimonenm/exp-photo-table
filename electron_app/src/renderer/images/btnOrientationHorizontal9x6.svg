@@ -11,7 +11,7 @@
     }
   </style>
   <rect x="2" y="5" width="36" height="30" stroke="#343A40" stroke-width="2" rx="5" />
-  <text x="5" y="25" class="text" fill="#343A40">
-    12x9
+  <text x="9.5" y="25" class="text" fill="#343A40">
+    9x6
   </text>
 </svg>
