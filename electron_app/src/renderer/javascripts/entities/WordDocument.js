@@ -9,6 +9,7 @@ export default class WordDocument {
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
     this.settings = settings;
+    this.parityCheck = true;
   }
   // функции доступа к полям
   getTitle() {
@@ -49,7 +50,9 @@ export default class WordDocument {
     for (let page = 1; page <= pagesCount; page++) {
       const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
 
-      photoPage.setProperties(page % 2);
+      photoPage.setProperties(this.parityCheck);
+      // photoPage.setProperties(page % 2);
+      this.parityCheck = !this.parityCheck
 
       await photoPage.addFirstImg(page * 2 - 1);
 
@@ -65,13 +68,14 @@ export default class WordDocument {
 
     if (this.galleryImages.length % 2) {
       const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
-      photoPage.setProperties((pagesCount + 1) % 2);
-      photoPage.addSupplement();     
-      
+      photoPage.setProperties(this.parityCheck);
+      // photoPage.setProperties((pagesCount + 1) % 2);
+      photoPage.addSupplement();
+
       const sections = this.getSections();
-      
+
       sections.push(photoPage);
-      
+
       this.setSections(sections);
     } else {
       const sections = this.getSections();
@@ -92,7 +96,6 @@ export default class WordDocument {
 
     Packer.toBlob(doc).then(blob => {
       saveAs(blob, `${this.getTitle()}.docx`);
-      console.log("Document created successfully");
     });
   }
 }
