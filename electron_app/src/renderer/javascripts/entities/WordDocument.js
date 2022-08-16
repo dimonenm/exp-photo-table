@@ -9,7 +9,7 @@ export default class WordDocument {
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
     this.settings = settings;
-    this.parityCheck = true;
+    this.parityCheck = false;
   }
   // функции доступа к полям
   getTitle() {

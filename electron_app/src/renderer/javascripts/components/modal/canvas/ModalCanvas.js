@@ -662,6 +662,7 @@ const ModalCanvas = () => {
 
 
   useEffect(() => {
+    console.log('galleryImages', galleryImages);
     galleryImages.forEach((item) => {
       if (item.getIndex() === indexImgInGallery) {
         const newGalleryImg = Object.assign(new GallaryImage(), item);

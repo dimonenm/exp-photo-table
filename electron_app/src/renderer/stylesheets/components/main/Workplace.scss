@@ -72,16 +72,25 @@
     display: flex;
     flex-basis: 200px;
 
-    height: 5px;
+    height: 20px;
+
+    background-image: url("../../../images/plus-circle-dotted.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px 20px;
+
+    border: 1px dashed #000;
+    border-radius: 7px;
 
     margin: 10px 0 0 0;
 
-    transition: height 200ms linear;
+    transition: all 200ms linear;
 }
 
 .workplace-item-middle-part-hovered {
-    height: 20px;
+    height: 40px;
     background-color: #c4c4c4;
+    background-size: 40px 40px;
 
     border: 1px dashed #000;
     border-radius: 7px;

@@ -32,11 +32,17 @@ export default class PhotoTableImg {
       case 'panorama':
         this.setTransformation(604, 340);
         break;
+      case 'horizontal':
+        this.setTransformation(454, 340);
+        break;
       case 'vertical':
         this.setTransformation(340, 454);
         break;
-      case 'horizontal':
-        this.setTransformation(454, 340);
+      case '9X6':
+        this.setTransformation(340, 227);
+        break;
+      case '6X9':
+        this.setTransformation(227, 340);
         break;
       default:
         break;
@@ -58,13 +64,21 @@ export default class PhotoTableImg {
         ctx.canvas.height = 460;
         ctx.canvas.width = 747;
         break;
+      case 'horizontal':
+        ctx.canvas.height = 525;
+        ctx.canvas.width = 700;
+        break;
       case 'vertical':
         ctx.canvas.height = 632;
         ctx.canvas.width = 474;
         break;
-      case 'horizontal':
+      case '9X6':
+        ctx.canvas.height = 350;
+        ctx.canvas.width = 525;
+        break;
+      case '6X9':
         ctx.canvas.height = 525;
-        ctx.canvas.width = 700;
+        ctx.canvas.width = 340;
         break;
       default:
         break;
