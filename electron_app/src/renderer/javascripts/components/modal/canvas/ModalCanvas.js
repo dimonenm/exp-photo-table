@@ -662,7 +662,6 @@ const ModalCanvas = () => {
 
 
   useEffect(() => {
-    console.log('galleryImages', galleryImages);
     galleryImages.forEach((item) => {
       if (item.getIndex() === indexImgInGallery) {
         const newGalleryImg = Object.assign(new GallaryImage(), item);
@@ -724,12 +723,14 @@ const ModalCanvas = () => {
         className='modal-content-grid-canvas'
         width={galleryImg.getOrientation() === "horizontal" ? 700 :
           galleryImg.getOrientation() === "vertical" ? 474 :
-            galleryImg.getOrientation() === "panorama" ? 747 :
+            // galleryImg.getOrientation() === "panorama" ? 747 :
+            galleryImg.getOrientation() === "panorama" ? 700 :
               galleryImg.getOrientation() === "9X6" ? 700 :
                 galleryImg.getOrientation() === "6X9" ? 474 : null}
         height={galleryImg.getOrientation() === "horizontal" ? 525 :
           galleryImg.getOrientation() === "vertical" ? 632 :
-            galleryImg.getOrientation() === "panorama" ? 460 :
+            // galleryImg.getOrientation() === "panorama" ? 460 :
+            galleryImg.getOrientation() === "panorama" ? 350 :
               galleryImg.getOrientation() === "9X6" ? 525 :
                 galleryImg.getOrientation() === "6X9" ? 632 : null}
       ></canvas>

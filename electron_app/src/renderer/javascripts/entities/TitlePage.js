@@ -11,6 +11,7 @@ export default class TitlePage {
     this.ZIP_CODE = settings.zip_code;
     this.ADDRESS = settings.address;
     this.TEL = settings.tel;
+    this.INDENT_PANORAMA = { firstLine: 1900 };
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
@@ -152,7 +153,7 @@ export default class TitlePage {
   async addPanoramaImg() {
 
     const panoramaImg = new PanoramaImg();
-    panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
+    // panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
     await panoramaImg.loadImgData(this.galleryImages[0]);    
 
     const paragraphImg = new Paragraph(
@@ -172,6 +173,7 @@ export default class TitlePage {
     const paragraphDesc = new Paragraph(
       {
         alignment: AlignmentType.JUSTIFIED,
+        indent: this.INDENT_PANORAMA,
         children: [
           new TextRun({
             text: `Фото №${this.galleryImages[0].index}. `,

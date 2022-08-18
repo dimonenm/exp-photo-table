@@ -3,9 +3,13 @@ export default class PanoramaImg {
 
   constructor() {
     this.data = null;
+    // this.transformation = {
+    //   width: null,
+    //   height: null
+    // };
     this.transformation = {
-      width: null,
-      height: null
+      width: 340,
+      height: 680
     };
   }
 
@@ -27,21 +31,22 @@ export default class PanoramaImg {
     };
   }
   // служебные функции
-  findWidthAndHeight(orientation) {
-    switch (orientation) {
-      case 'panorama':
-        this.setTransformation(604, 340);
-        break;
-      case 'vertical':
-        this.setTransformation(340, 454);
-        break;
-      case 'horizontal':
-        this.setTransformation(454, 340);
-        break;
-      default:
-        break;
-    }
-  }
+  // findWidthAndHeight(orientation) {
+  //   switch (orientation) {
+  //     case 'panorama':
+  //       // this.setTransformation(604, 340);
+  //       this.setTransformation(340, 680);
+  //       break;
+  //     // case 'vertical':
+  //     //   this.setTransformation(340, 454);
+  //     //   break;
+  //     // case 'horizontal':
+  //     //   this.setTransformation(454, 340);
+  //     //   break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
   async loadImgData(gallaryImage) {
     const canvas = document.createElement('canvas');
@@ -55,12 +60,17 @@ export default class PanoramaImg {
 
     await new Promise((onSuccess, onError) => {
       img.addEventListener('load', function () {
-        ctx.canvas.height = 460;
-        ctx.canvas.width = 747;
+        // ctx.canvas.height = 460;
+        // ctx.canvas.width = 747;
+        ctx.canvas.height = 700;
+        ctx.canvas.width = 350;
 
         const zoom = gallaryImageZoom / 100;
         const imgW = this.width * zoom;
         const imgH = this.height * zoom;
+
+        ctx.translate(0, 700);
+        ctx.rotate(270 * Math.PI / 180)
         
         ctx.drawImage(img, 0, 0, imgW, imgH);
 
