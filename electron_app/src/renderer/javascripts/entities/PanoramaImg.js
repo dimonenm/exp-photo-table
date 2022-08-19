@@ -3,10 +3,6 @@ export default class PanoramaImg {
 
   constructor() {
     this.data = null;
-    // this.transformation = {
-    //   width: null,
-    //   height: null
-    // };
     this.transformation = {
       width: 340,
       height: 680
@@ -24,30 +20,8 @@ export default class PanoramaImg {
   setData(value) {
     this.data = value;
   }
-  setTransformation(w, h) {
-    this.transformation = {
-      width: w,
-      height: h
-    };
-  }
-  // служебные функции
-  // findWidthAndHeight(orientation) {
-  //   switch (orientation) {
-  //     case 'panorama':
-  //       // this.setTransformation(604, 340);
-  //       this.setTransformation(340, 680);
-  //       break;
-  //     // case 'vertical':
-  //     //   this.setTransformation(340, 454);
-  //     //   break;
-  //     // case 'horizontal':
-  //     //   this.setTransformation(454, 340);
-  //     //   break;
-  //     default:
-  //       break;
-  //   }
-  // }
 
+  // служебные функции
   async loadImgData(gallaryImage) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -60,8 +34,6 @@ export default class PanoramaImg {
 
     await new Promise((onSuccess, onError) => {
       img.addEventListener('load', function () {
-        // ctx.canvas.height = 460;
-        // ctx.canvas.width = 747;
         ctx.canvas.height = 700;
         ctx.canvas.width = 350;
 

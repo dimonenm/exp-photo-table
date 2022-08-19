@@ -95,7 +95,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.1.1</Logo>
+        <Logo>ЭКЦ РК Фототаблица 0.1.2</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}

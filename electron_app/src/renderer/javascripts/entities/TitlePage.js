@@ -153,7 +153,6 @@ export default class TitlePage {
   async addPanoramaImg() {
 
     const panoramaImg = new PanoramaImg();
-    // panoramaImg.findWidthAndHeight(this.galleryImages[0].orientation);
     await panoramaImg.loadImgData(this.galleryImages[0]);    
 
     const paragraphImg = new Paragraph(

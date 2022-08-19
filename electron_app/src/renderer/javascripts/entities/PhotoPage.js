@@ -11,7 +11,6 @@ export default class PhotoPage {
     this.NOTE = settings.note;
     this.INDENT_VERTICAL = { firstLine: 2024 };
     this.INDENT_HORIZONTAL = { firstLine: 1048 };
-    this.INDENT_PANORAMA = { firstLine: 0 };
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
@@ -65,7 +64,7 @@ export default class PhotoPage {
   setChildren(value) {
     this.children = value;
   }
-  setProperties(uneven) {
+  setParity(uneven) {
     uneven ?
       this.properties = {
         page: {

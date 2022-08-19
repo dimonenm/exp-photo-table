@@ -43,15 +43,25 @@ export default class WordDocument {
 
     this.setSections(sections);
   }
+
   async addPhotoPages() {
 
-    let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2);
+    let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
+
+    class PhotoPageItem {
+      isFilled = false
+      fillingDegree = 0
+      images = []
+    }
+
+    console.log('this.galleryImages', this.galleryImages);
+    for (let item of this.galleryImages) console.log('item', item);
+    console.log('this.galleryImages', this.galleryImages);
 
     for (let page = 1; page <= pagesCount; page++) {
       const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
 
-      photoPage.setProperties(this.parityCheck);
-      // photoPage.setProperties(page % 2);
+      photoPage.setParity(this.parityCheck); // устанавливается четность страницы фототаблицы
       this.parityCheck = !this.parityCheck
 
       await photoPage.addFirstImg(page * 2 - 1);
@@ -68,8 +78,7 @@ export default class WordDocument {
 
     if (this.galleryImages.length % 2) {
       const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
-      photoPage.setProperties(this.parityCheck);
-      // photoPage.setProperties((pagesCount + 1) % 2);
+      photoPage.setParity(this.parityCheck);
       photoPage.addSupplement();
 
       const sections = this.getSections();

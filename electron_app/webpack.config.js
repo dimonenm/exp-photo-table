@@ -23,17 +23,6 @@ module.exports = {
             }
           }
         },
-        // {
-        //   test: /\.svg$/,
-        //   use: [
-        //     {
-        //       loader: 'babel-loader'
-        //     },
-        //     {
-        //       loader: 'react-svg-loader'
-        //     }
-        //   ]
-        // },
         {
           test: /\.s[ac]ss$/i,
           use: [
