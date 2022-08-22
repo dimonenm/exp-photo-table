@@ -46,7 +46,7 @@ export default class WordDocument {
 
   async addPhotoPages() {
 
-    let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
+    const photoPages = []
 
     class PhotoPageItem {
       isFilled = false
@@ -54,9 +54,12 @@ export default class WordDocument {
       images = []
     }
 
-    console.log('this.galleryImages', this.galleryImages);
-    for (let item of this.galleryImages) console.log('item', item);
-    console.log('this.galleryImages', this.galleryImages);
+    for (const page of this.galleryImages) {
+      console.log(page);
+    }
+    
+    
+    let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
 
     for (let page = 1; page <= pagesCount; page++) {
       const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
