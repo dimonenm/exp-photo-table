@@ -51,13 +51,62 @@ export default class WordDocument {
     class PhotoPageItem {
       isFilled = false
       fillingDegree = 0
+      parity = false
       images = []
+      constructor() { }
+      getIsFilled() {
+        return this.isFilled
+      }
+      getFillingDegree() {
+        return this.fillingDegree
+      }
+      getParity() {
+        return this.parity
+      }
+      getImages() {
+        return this.images
+      }
+      setIsFilled(value) {
+        this.isFilled = value
+      }
+      setFillingDegree(value) {
+        this.fillingDegree = value
+      }
+      setParity(value) {
+        this.parity = value
+      }
+      setImages(value) {
+        this.images.push(value)
+      }
+    }
+    class ImgItem {
+      index = ''
+      orientation = ''
+      constructor(index, orientation) {
+        this.index = index
+        this.orientation = orientation
+      }
+      getIndex() {
+        return this.index
+      }
+      getOrientation() {
+        return this.orientation
+      }
+      setIndex(value) {
+        this.index = value
+      }
+      setOrientation(value) {
+        this.orientation = value
+      }
     }
 
-    for (const page of this.galleryImages) {
-      console.log(page);
-    }
-    
+    for (const img of this.galleryImages) {
+      console.log(img);
+      new ImgItem(img.index, img.orientation)
+      if (photoPages.length === 0) {
+        const photoPageItem = new PhotoPageItem()
+      }
+    }    
     
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
 

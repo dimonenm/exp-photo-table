@@ -80,7 +80,7 @@ export default class PhotoPage {
   // служебные функции
   async addFirstImg(imgIndex) {
     const photoTableImg = new PhotoTableImg();
-    photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
+    // photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
     await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
 
     const paragraphImg = new Paragraph(
@@ -128,7 +128,7 @@ export default class PhotoPage {
 
   async addSecondImg(imgIndex) {
     const photoTableImg = new PhotoTableImg();
-    photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
+    // photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
     await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
 
     const paragraphImg = new Paragraph(

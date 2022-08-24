@@ -27,27 +27,27 @@ export default class PhotoTableImg {
     };
   }
   // служебные функции
-  findWidthAndHeight(orientation) {
-    switch (orientation) {
-      case 'panorama':
-        this.setTransformation(604, 340);
-        break;
-      case 'horizontal':
-        this.setTransformation(454, 340);
-        break;
-      case 'vertical':
-        this.setTransformation(340, 454);
-        break;
-      case '9X6':
-        this.setTransformation(340, 227);
-        break;
-      case '6X9':
-        this.setTransformation(227, 340);
-        break;
-      default:
-        break;
-    }
-  }
+  // findWidthAndHeight(orientation) {
+  //   switch (orientation) {
+  //     case 'panorama':
+  //       this.setTransformation(604, 340);
+  //       break;
+  //     case 'horizontal':
+  //       this.setTransformation(454, 340);
+  //       break;
+  //     case 'vertical':
+  //       this.setTransformation(340, 454);
+  //       break;
+  //     case '9X6':
+  //       this.setTransformation(340, 227);
+  //       break;
+  //     case '6X9':
+  //       this.setTransformation(227, 340);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
   async loadImgData(gallaryImage) {
     const canvas = document.createElement('canvas');
