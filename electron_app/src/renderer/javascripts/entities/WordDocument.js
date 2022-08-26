@@ -47,7 +47,7 @@ export default class WordDocument {
   async addPhotoPages() {
 
     const photoPages = []
-
+    
     class PhotoPageItem {
       isFilled = false
       fillingDegree = 0
@@ -100,13 +100,37 @@ export default class WordDocument {
       }
     }
 
-    for (const img of this.galleryImages) {
-      console.log(img);
-      new ImgItem(img.index, img.orientation)
+    for (const img of this.galleryImages) { 
       if (photoPages.length === 0) {
-        const photoPageItem = new PhotoPageItem()
+        if (img.orientation !== "panorama") {
+          const photoPageItem = new PhotoPageItem()
+          const imgItem = new ImgItem(img.index, img.orientation)
+          photoPageItem.setImages(imgItem)
+          if (imgItem.getOrientation === "6X9") {
+            photoPageItem.setFillingDegree(photoPageItem.getFillingDegree() + 1)
+          }
+          if (imgItem.getOrientation !== "6X9") {
+            photoPageItem.setFillingDegree(photoPageItem.getFillingDegree() + 2)
+          }
+          photoPages.push(photoPageItem)          
+        }
+      }
+      if (photoPages.length > 0) {
+        if (img.orientation !== "panorama") {
+          const photoPageItem = new PhotoPageItem()
+          const imgItem = new ImgItem(img.index, img.orientation)
+          photoPageItem.setImages(imgItem)
+          if (imgItem.getOrientation === "6X9") {
+            photoPageItem.setFillingDegree(photoPageItem.getFillingDegree() + 1)
+          }
+          if (imgItem.getOrientation !== "6X9") {
+            photoPageItem.setFillingDegree(photoPageItem.getFillingDegree() + 2)
+          }
+          photoPages.push(photoPageItem)          
+        }
       }
     }    
+    console.log('photoPages: ', photoPages);
     
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
 
