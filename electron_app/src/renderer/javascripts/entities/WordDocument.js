@@ -44,9 +44,7 @@ export default class WordDocument {
     this.setSections(sections);
   }
 
-  async addPhotoPages() {
-
-    const photoPages = []
+  async addPhotoPages() {    
 
     class PhotoPageItem {
       isFilled = false
@@ -54,6 +52,8 @@ export default class WordDocument {
       secondHalf = false
       parity = false
       images = []
+      firstHalfImages = []
+      secondHalfImages = []
       constructor() { }
       getIsFilled() {
         return this.isFilled
@@ -63,6 +63,12 @@ export default class WordDocument {
       }
       getSecondHalf() {
         return this.secondHalf
+      }
+      getFirstHalfImages() {
+        return this.firstHalfImages
+      }
+      getSecondHalfImages() {
+        return this.secondHalfImages
       }
       getParity() {
         return this.parity
@@ -79,6 +85,12 @@ export default class WordDocument {
       setSecondHalf(value) {
         this.secondHalf = value
       }
+      setFirstHalfImages(value) {
+        this.firstHalfImages = value
+      }
+      setSecondHalfImages(value) {
+        this.secondHalfImages = value
+      }
       setParity(value) {
         this.parity = value
       }
@@ -87,6 +99,12 @@ export default class WordDocument {
       }
       pushImage(value) {
         this.images.push(value)
+      }
+      pushFirstHalfImages(value) {
+        this.firstHalfImages.push(value)
+      }
+      pushSecondHalfImages(value) {
+        this.secondHalfImages.push(value)
       }
     }
     class ImgItem {
@@ -110,80 +128,71 @@ export default class WordDocument {
       }
     }
 
+    const photoPages = [new PhotoPageItem()]
+
     for (const img of this.galleryImages) {
-      if (!photoPages.length) {
-        if (img.orientation !== "panorama") {
-          const photoPageItem = new PhotoPageItem()
-          const imgItem = new ImgItem(img.index, img.orientation)
-          photoPageItem.pushImage(imgItem)
-          if (imgItem.getOrientation() !== "6X9") photoPageItem.setFirstHalf(true)
-          photoPageItem.setParity(this.parityCheck)
-          this.parityCheck = !this.parityCheck
-          photoPages.push(photoPageItem)
-        }
-      } else {
-        if (img.orientation !== "panorama") {
-          const imgItem = new ImgItem(img.index, img.orientation)
-          if (photoPages[photoPages.length - 1].getIsFilled() === false)
-          {
-            if (//проверка на незаполненность первой половины и маленькую фотографию
-              photoPages[photoPages.length - 1].getFirstHalf() === false
-              && imgItem.getOrientation() === "6X9"
-            )
-            {
-              photoPages[photoPages.length - 1].pushImage(imgItem)
-              photoPages[photoPages.length - 1].setFirstHalf(true)
+
+      if (img.orientation !== "panorama") {
+        const imgItem = new ImgItem(img.index, img.orientation)
+        const lastPage = photoPages[photoPages.length - 1]
+
+        if (lastPage.getIsFilled() === false) {
+          if (lastPage.getFirstHalfImages().length === 0) {
+            lastPage.pushFirstHalfImages(imgItem)
+            if (imgItem.getOrientation() !== "6X9") lastPage.setFirstHalf(true)
+          }
+          else if (lastPage.getFirstHalfImages().length > 0 && lastPage.getFirstHalf() !== true) {
+            if (imgItem.getOrientation() === "6X9") {
+              lastPage.pushFirstHalfImages(imgItem)
+              lastPage.setFirstHalf(true)
             }
-            else if (//проверка на незаполненность первой половины и большую фотографию
-              photoPages[photoPages.length - 1].getFirstHalf() === false
-              && imgItem.getOrientation() !== "6X9"
-            )
-            {
-              photoPages[photoPages.length - 1].pushImage(imgItem)
-              photoPages[photoPages.length - 1].setFirstHalf(true)
-              photoPages[photoPages.length - 1].setSecondHalf(true)
-              photoPages[photoPages.length - 1].setIsFilled(true)
+            else if (imgItem.getOrientation() !== "6X9") {
+              lastPage.setFirstHalf(true)
+              lastPage.pushSecondHalfImages(imgItem)
+              lastPage.setSecondHalf(true)
+              lastPage.setIsFilled(true)
             }
-            else if (//проверка на незаполненность второй половины, наличие фотографии второй половины и маленькую фотографию
-              photoPages[photoPages.length - 1].getSecondHalf() === false
-              && photoPages[photoPages.length - 1].getImages().length < 3
-              && imgItem.getOrientation() === "6X9"
-            )
-            {
-              photoPages[photoPages.length - 1].pushImage(imgItem)
+          }
+          else if (lastPage.getFirstHalf() && lastPage.getSecondHalfImages().length === 0) {
+            lastPage.pushSecondHalfImages(imgItem)
+            if (imgItem.getOrientation() !== "6X9") {
+              lastPage.setSecondHalf(true)
+              lastPage.setIsFilled(true)
             }
-            else if (//проверка на незаполненность второй половины, маленькую фотографию второй половины и маленькую фотографию
-              photoPages[photoPages.length - 1].getSecondHalf() === false
-              && photoPages[photoPages.length - 1].getImages()[photoPages[photoPages.length - 1].getImages().length - 1].getOrientation() === "6X9"
-              && imgItem.getOrientation() === "6X9"
-            )
-            {
-              photoPages[photoPages.length - 1].pushImage(imgItem)
-              photoPages[photoPages.length - 1].setSecondHalf(true)
-              photoPages[photoPages.length - 1].setIsFilled(true)
-            } else if (//проверка на незаполненность второй половины, наличие фотографии второй половины, большую фотографию второй половины и большую фотографию
-              photoPages[photoPages.length - 1].getSecondHalf() === false
-              && photoPages[photoPages.length - 1].getImages().length < 3
-              && photoPages[photoPages.length - 1].getImages()[photoPages[photoPages.length - 1].getImages().length - 1].getOrientation() !== "6X9"
-              && imgItem.getOrientation() !== "6X9")
-            {
-              photoPages[photoPages.length - 1].pushImage(imgItem)
-              photoPages[photoPages.length - 1].setSecondHalf(true)
-              photoPages[photoPages.length - 1].setIsFilled(true)
+          }
+          else if (lastPage.getFirstHalf() && lastPage.getSecondHalfImages().length > 0 && lastPage.getSecondHalf() !== true) {
+            if (imgItem.getOrientation() === "6X9") {
+              lastPage.pushSecondHalfImages(imgItem)
+              lastPage.setSecondHalf(true)
+              lastPage.setIsFilled(true)
             }
-          } else {
-            if (img.orientation !== "panorama") {
+            else if (imgItem.getOrientation() !== "6X9") {
+              lastPage.setSecondHalf(true)
+              lastPage.setIsFilled(true)
+
               const photoPageItem = new PhotoPageItem()
-              const imgItem = new ImgItem(img.index, img.orientation)
-              photoPageItem.pushImage(imgItem)
-              if (imgItem.getOrientation() !== "6X9") photoPageItem.setFirstHalf(true)
-              photoPageItem.setParity(this.parityCheck)
-              this.parityCheck = !this.parityCheck
+              photoPageItem.pushFirstHalfImages(imgItem)
+              photoPageItem.setFirstHalf(true)
               photoPages.push(photoPageItem)
             }
           }
         }
+        else if (lastPage.getIsFilled()) {
+          const photoPageItem = new PhotoPageItem()
+          if (imgItem.getOrientation() === "6X9") {
+            photoPageItem.pushFirstHalfImages(imgItem)
+          }
+          else if (imgItem.getOrientation() !== "6X9") {
+            photoPageItem.pushFirstHalfImages(imgItem)
+            photoPageItem.setFirstHalf(true)
+          }
+          photoPages.push(photoPageItem)
+        }
       }
+    }
+    for (const page of photoPages) {
+      page.setParity(this.parityCheck)
+      this.parityCheck = !this.parityCheck
     }
     console.log('photoPages: ', photoPages);
 
