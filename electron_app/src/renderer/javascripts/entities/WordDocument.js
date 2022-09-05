@@ -1,4 +1,4 @@
-import { Document, Packer } from "docx";
+import { Document, Packer, Paragraph, Header, Footer, TextRun, ImageRun, AlignmentType, PageNumber } from "docx";
 import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
 import PhotoPage from "./PhotoPage";
@@ -44,9 +44,22 @@ export default class WordDocument {
     this.setSections(sections);
   }
 
-  async addPhotoPages() {    
+  async addPhotoPages() {
 
     class PhotoPageItem {
+      // свойства документа
+      FONT = "Times New Roman"
+      CENTER = AlignmentType.CENTER
+      JUSTIFIED = AlignmentType.JUSTIFIED
+      INDENT_VERTICAL = { firstLine: 2024 }
+      INDENT_HORIZONTAL = { firstLine: 1048 }
+      official_status = null
+      note = null
+      properties = null
+      headers = null
+      children = []
+      footers = null
+      // служебные свойства 
       isFilled = false
       firstHalf = false
       secondHalf = false
@@ -54,7 +67,46 @@ export default class WordDocument {
       images = []
       firstHalfImages = []
       secondHalfImages = []
-      constructor() { }
+      constructor(galleryImages, photoTableData, settings) { 
+        this.galleryImages = galleryImages;
+        this.photoTableData = photoTableData;
+        this.official_status = settings.official_status;
+        this.note = settings.note;
+        this.headers = {
+          default: new Header({
+            children: [
+              new Paragraph({
+                alignment: this.CENTER,
+                children: [
+                  new TextRun({
+                    children: [PageNumber.CURRENT],
+                    font: this.FONT,
+                    size: 24,
+                  }),
+                ],
+              }),
+            ],
+          }),
+        }
+        this.footers = {
+          default: new Footer({
+            children: [
+              new Paragraph(
+                {
+                  alignment: this.CENTER,
+                  children: [
+                    new TextRun({
+                      text: `${this.OFFICIAL_STATUS} _______________ ${photoTableData.executor}`,
+                      font: this.FONT,
+                      size: 24,
+                    })
+                  ]
+                }
+              ),
+            ],
+          })
+        }
+      }
       getIsFilled() {
         return this.isFilled
       }
@@ -128,7 +180,8 @@ export default class WordDocument {
       }
     }
 
-    const photoPages = [new PhotoPageItem()]
+    const photoPages = [new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)]
+    
 
     for (const img of this.galleryImages) {
 
@@ -178,7 +231,7 @@ export default class WordDocument {
           }
         }
         else if (lastPage.getIsFilled()) {
-          const photoPageItem = new PhotoPageItem()
+          const photoPageItem = new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)
           if (imgItem.getOrientation() === "6X9") {
             photoPageItem.pushFirstHalfImages(imgItem)
           }
@@ -195,6 +248,11 @@ export default class WordDocument {
       this.parityCheck = !this.parityCheck
     }
     console.log('photoPages: ', photoPages);
+
+
+
+
+
 
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
 

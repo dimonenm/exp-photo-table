@@ -20,12 +20,12 @@ export default class PhotoTableImg {
   setData(value) {
     this.data = value;
   }
-  setTransformation(w, h) {
-    this.transformation = {
-      width: w,
-      height: h
-    };
-  }
+  // setTransformation(w, h) {
+  //   this.transformation = {
+  //     width: w,
+  //     height: h
+  //   };
+  // }
   // служебные функции
   // findWidthAndHeight(orientation) {
   //   switch (orientation) {
