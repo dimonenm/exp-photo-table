@@ -82,6 +82,7 @@ export default class PhotoPage {
     const photoTableImg = new PhotoTableImg();
     // photoTableImg.findWidthAndHeight(this.galleryImages[imgIndex].orientation);
     await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
+    console.log('photoTableImg: ', photoTableImg);
 
     const paragraphImg = new Paragraph(
       {

@@ -2,6 +2,7 @@ import { Document, Packer, Paragraph, Header, Footer, TextRun, ImageRun, Alignme
 import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
 import PhotoPage from "./PhotoPage";
+import PhotoTableImg from "./PhotoTableImg";
 export default class WordDocument {
   constructor(galleryImages, photoTableData, settings) {
     this.title = '';
@@ -158,6 +159,52 @@ export default class WordDocument {
       pushSecondHalfImages(value) {
         this.secondHalfImages.push(value)
       }
+      async addFirstImg(imgIndex) {
+        const photoTableImg = new PhotoTableImg();
+        await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
+
+        const paragraphImg = new Paragraph(
+          {
+            alignment: this.CENTER,
+            children: [
+              new TextRun({
+                font: this.FONT,
+                size: 24,
+                break: 1,
+              }),
+              new ImageRun({ data: photoTableImg.getData() })
+            ]
+          }
+        );
+
+        const paragraphDesc = new Paragraph(
+          {
+            alignment: this.JUSTIFIED,
+            indent: this.galleryImages[imgIndex].orientation === 'horizontal' ? this.INDENT_HORIZONTAL : this.galleryImages[imgIndex].orientation === 'vertical' ? this.INDENT_VERTICAL : this.INDENT_PANORAMA,
+            children: [
+              new TextRun({
+                text: `Фото №${this.galleryImages[imgIndex].index}. `,
+                font: "Times New Roman",
+                size: 26,
+                bold: true,
+              }),
+              new TextRun({
+                text: this.galleryImages[imgIndex].imgDesc,
+                font: "Times New Roman",
+                size: 26,
+              }),
+              this.descAddedArrows(imgIndex)
+            ]
+          }
+        );
+
+        const children = this.getChildren();
+
+        children.push(paragraphImg);
+        children.push(paragraphDesc);
+
+        this.setChildren(children);
+      }
     }
     class ImgItem {
       index = ''
@@ -230,7 +277,7 @@ export default class WordDocument {
             }
           }
         }
-        else if (lastPage.getIsFilled()) {
+        else if (lastPage.getIsFilled() === true) {
           const photoPageItem = new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)
           if (imgItem.getOrientation() === "6X9") {
             photoPageItem.pushFirstHalfImages(imgItem)
