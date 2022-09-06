@@ -161,24 +161,28 @@ export default class WordDocument {
       pushSecondHalfImages(value) {
         this.secondHalfImages.push(value)
       }
-      async addFirstLineImg(imgIndex) {
-        const photoTableImg = new PhotoTableImg();
+      async addFirstLineImg() {
 
-        await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
+        const children = this.getChildren();
 
-        const paragraphImg = new Paragraph(
-          {
-            alignment: this.CENTER,
-            children: [
-              new TextRun({
-                font: this.FONT,
-                size: 24,
-                break: 1,
-              }),
-              new ImageRun({ data: photoTableImg.getData() })
-            ]
-          }
-        );
+        if (this.getFirstHalfImages().length === 1) {
+          
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.CENTER,
+                children: [
+                  new TextRun({
+                    font: this.FONT,
+                    size: 24,
+                    break: 1,
+                  }),
+                  new ImageRun({ data: this.getFirstHalfImages()[0].getData() })
+                ]
+              }
+            )
+          );
+        }
 
         const paragraphDesc = new Paragraph(
           {
@@ -201,9 +205,9 @@ export default class WordDocument {
           }
         );
 
-        const children = this.getChildren();
+        
 
-        children.push(paragraphImg);
+        
         children.push(paragraphDesc);
 
         this.setChildren(children);
