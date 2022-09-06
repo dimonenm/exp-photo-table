@@ -362,7 +362,7 @@ export default class WordDocument {
             lastPage.pushFirstHalfImages(imgItem)
             if (imgItem.getOrientation() !== "6X9") lastPage.setFirstHalf(true)
           }
-          else if (lastPage.getFirstHalfImages().length > 0 && lastPage.getFirstHalf() !== true) {
+          else if (lastPage.getFirstHalfImages().length > 0 && lastPage.getFirstHalf() === false) {
             if (imgItem.getOrientation() === "6X9") {
               lastPage.pushFirstHalfImages(imgItem)
               lastPage.setFirstHalf(true)
@@ -391,7 +391,7 @@ export default class WordDocument {
               lastPage.setSecondHalf(true)
               lastPage.setIsFilled(true)
 
-              const photoPageItem = new PhotoPageItem()
+              const photoPageItem = new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)
               photoPageItem.pushFirstHalfImages(imgItem)
               photoPageItem.setFirstHalf(true)
               photoPages.push(photoPageItem)
