@@ -3,6 +3,8 @@ import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
 import PhotoPage from "./PhotoPage";
 import PhotoTableImg from "./PhotoTableImg";
+import drawArrowArray from '../services/forModalCanvas/fDrawArrowArray';
+
 export default class WordDocument {
   constructor(galleryImages, photoTableData, settings) {
     this.title = '';
@@ -68,7 +70,7 @@ export default class WordDocument {
       images = []
       firstHalfImages = []
       secondHalfImages = []
-      constructor(galleryImages, photoTableData, settings) { 
+      constructor(galleryImages, photoTableData, settings) {
         this.galleryImages = galleryImages;
         this.photoTableData = photoTableData;
         this.official_status = settings.official_status;
@@ -159,8 +161,9 @@ export default class WordDocument {
       pushSecondHalfImages(value) {
         this.secondHalfImages.push(value)
       }
-      async addFirstImg(imgIndex) {
+      async addFirstLineImg(imgIndex) {
         const photoTableImg = new PhotoTableImg();
+
         await photoTableImg.loadImgData(this.galleryImages[imgIndex]);
 
         const paragraphImg = new Paragraph(
@@ -209,31 +212,149 @@ export default class WordDocument {
     class ImgItem {
       index = ''
       orientation = ''
-      constructor(index, orientation) {
+      data = ''
+      description = ''
+      url = ''
+      zoom = ''
+      arrowsColor = ''
+      arrowsWidth = ''
+      arrowsArray = []
+      constructor({ index, orientation, imgDesc, url, zoom, arrowsColor, arrowsWidth, arrowsArray}) {
         this.index = index
         this.orientation = orientation
+        this.description = imgDesc
+        this.url = url
+        this.zoom = zoom
+        this.arrowsColor = arrowsColor
+        this.arrowsWidth = arrowsWidth
+        this.arrowsArray = arrowsArray
       }
+      // функции доступа к полям
       getIndex() {
         return this.index
       }
       getOrientation() {
         return this.orientation
       }
+      getData() {
+        return this.data;
+      }
+      getDescription() {
+        return this.description
+      }
+      getUrl() {
+        return this.url
+      }
+      getZoom() {
+        return this.zoom
+      }
+      getArrowsColor() {
+        return this.arrowsColor
+      }
+      getArrowsWidth() {
+        return this.arrowsWidth
+      }
+      getArrowsArray() {
+        return this.arrowsArray
+      }
+      // функции изменения полей
       setIndex(value) {
         this.index = value
       }
       setOrientation(value) {
         this.orientation = value
       }
+      setData(value) {
+        this.data = value
+      }
+      setDescription(value) {
+        this.description = value
+      }
+      setUrl(value) {
+        this.url = value
+      }
+      setZoom(value) {
+        this.zoom = value
+      }
+      setArrowsColor(value) {
+        this.arrowsColor = value
+      }
+      setArrowsWidth(value) {
+        this.arrowsWidth = value
+      }
+      setArrowsArray(value) {
+        this.arrowsArray = value
+      }
+      // служебные функции
+      async loadImgData() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        const gallaryImageZoom = +this.zoom;
+        const gallaryImageArrowsArray = this.arrowsArray;
+        const gallaryImageArrowsColor = this.arrowsColor;
+        const gallaryImageArrowsWidth = this.arrowsWidth;
+
+        switch (this.orientation) {
+          case 'panorama':
+            ctx.canvas.height = 460;
+            ctx.canvas.width = 747;
+            break;
+          case 'horizontal':
+            ctx.canvas.height = 525;
+            ctx.canvas.width = 700;
+            break;
+          case 'vertical':
+            ctx.canvas.height = 632;
+            ctx.canvas.width = 474;
+            break;
+          case '9X6':
+            ctx.canvas.height = 350;
+            ctx.canvas.width = 525;
+            break;
+          case '6X9':
+            ctx.canvas.height = 525;
+            ctx.canvas.width = 340;
+            break;
+          default:
+            break;
+        }
+
+        await new Promise((onSuccess, onError) => {
+          img.addEventListener('load', function () {
+
+            const zoom = gallaryImageZoom / 100;
+            const imgW = this.width * zoom;
+            const imgH = this.height * zoom;
+
+            ctx.drawImage(img, 0, 0, imgW, imgH);
+
+            if (gallaryImageArrowsArray.length > 0) {
+              for (const item of gallaryImageArrowsArray) {
+                drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+              }
+            }
+            onSuccess();
+          })
+
+          img.src = this.url;
+        });
+
+        await new Promise((onSuccess, onError) => {
+          this.setData(canvas.toDataURL('image/jpeg', 1));
+          onSuccess();
+        });
+      }
     }
 
     const photoPages = [new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)]
-    
+
 
     for (const img of this.galleryImages) {
 
       if (img.orientation !== "panorama") {
-        const imgItem = new ImgItem(img.index, img.orientation)
+        const imgItem = new ImgItem(img)
+        imgItem.loadImgData()
         const lastPage = photoPages[photoPages.length - 1]
 
         if (lastPage.getIsFilled() === false) {
