@@ -34,6 +34,9 @@ export default class WordDocument {
   setSections(value) {
     this.sections = value;
   }
+  pushSections(value) {
+    this.sections.push(value);
+  }
   // служебные функции
   async addTitlePage() {
     const titlePage = new TitlePage(this.galleryImages, this.photoTableData, this.settings);
@@ -46,7 +49,6 @@ export default class WordDocument {
 
     this.setSections(sections);
   }
-
   async addPhotoPages() {
 
     class PhotoPageItem {
@@ -411,6 +413,34 @@ export default class WordDocument {
 
         this.setChildren(children);
       }
+      addSupplementItem() {
+        
+        const children = this.getChildren();
+        
+        const paragraphSupplement = new Paragraph(
+          {
+            alignment: this.JUSTIFIED,
+            children: [
+              new TextRun({
+                font: this.FONT,
+                size: 24,
+                break: 1,
+              }),
+              new TextRun({
+                text: `${this.NOTE}`,
+                bold: false,
+                font: this.FONT,
+                size: 24,
+              })
+            ]
+          })
+
+
+        children.push(paragraphSupplement);
+
+        this.setChildren(children);
+      }
+
     }
     class ImgItem {
       index = ''
@@ -552,7 +582,6 @@ export default class WordDocument {
 
     const photoPages = [new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)]
 
-
     for (const img of this.galleryImages) {
 
       if (img.orientation !== "panorama") {
@@ -614,19 +643,32 @@ export default class WordDocument {
         }
       }
     }
+
     for (const page of photoPages) {
       page.addFirstLineItem()
       page.addSecondLineItem()
-
       page.setParity(this.parityCheck)
       this.parityCheck = !this.parityCheck
     }
+
+    if (photoPages[photoPages.length - 1].getIsFilled() === true) {
+      const photoPageItem = new PhotoPageItem(this.galleryImages, this.photoTableData, this.settings)
+      photoPageItem.addSupplementItem()
+      photoPages.push(photoPageItem)
+    } else if (photoPages[photoPages.length - 1].getIsFilled() === false) {
+      photoPages[photoPages.length - 1].addSupplementItem()
+    }
+
+    for (const page of photoPages) {
+      this.pushSections(page)
+    }
+
     console.log('photoPages: ', photoPages);
 
 
 
 
-
+/*
 
     let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
 
@@ -665,6 +707,7 @@ export default class WordDocument {
       sections.push(photoPage);
       this.setSections(sections);
     }
+    */
   }
 
   saveDocument() {
