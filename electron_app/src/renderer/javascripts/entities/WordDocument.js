@@ -110,6 +110,7 @@ export default class WordDocument {
           })
         }
       }
+      // функции доступа к полям
       getIsFilled() {
         return this.isFilled
       }
@@ -131,6 +132,7 @@ export default class WordDocument {
       getImages() {
         return this.images
       }
+      // функции изменения полей
       setIsFilled(value) {
         this.isFilled = value
       }
@@ -161,12 +163,43 @@ export default class WordDocument {
       pushSecondHalfImages(value) {
         this.secondHalfImages.push(value)
       }
-      async addFirstLineImg() {
+      // служебные функции
+      getIndent(orientation) {
+        let indent = 0
+        switch (orientation) {
+          case 'horizontal':
+            indent = this.INDENT_HORIZONTAL
+            break;
+          case 'vertical':
+            indent = this.INDENT_VERTICAL
+            break;
+          default:            
+            break;
+        }
+        return indent
+      }
+      descAddedArrows(img) {
+        if (img.getArrowsArray().length > 0) {
+          let str = ''
+
+          for (const item of img.getArrowsArray()) {
+            if (str) {
+              str += `, ${item.getNumber()}. ${item.getText()}`
+            }
+            if (!str) {
+              str += `${item.getNumber()}. ${item.getText()}`
+            }
+          }
+          return new TextRun({
+            text: ` (${str}).`
+          })
+        }
+      }
+      async addFirstLineItem() {
 
         const children = this.getChildren();
 
         if (this.getFirstHalfImages().length === 1) {
-          
           children.push(
             new Paragraph(
               {
@@ -181,34 +214,200 @@ export default class WordDocument {
                 ]
               }
             )
-          );
+          )
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.JUSTIFIED,
+                indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
+                children: [
+                  new TextRun({
+                    text: `Фото №${this.getFirstHalfImages()[0].getIndex()}. `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: this.getFirstHalfImages()[0].getDescription(),
+                    font: "Times New Roman",
+                    size: 26,
+                  }),
+                  this.descAddedArrows(this.getFirstHalfImages()[0])
+                ]
+              }
+            )
+          )
+        } else if (this.getFirstHalfImages().length === 2) {
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.CENTER,
+                children: [
+                  new TextRun({
+                    font: this.FONT,
+                    size: 24,
+                    break: 1,
+                  }),
+                  new ImageRun({ data: this.getFirstHalfImages()[0].getData() }),
+                  new TextRun({
+                    text: `   `,
+                    font: this.FONT,
+                    size: 24,
+                  }),
+                  new ImageRun({ data: this.getFirstHalfImages()[1].getData() }),
+                ]
+              }
+            )
+          )
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.JUSTIFIED,
+                indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
+                children: [
+                  new TextRun({
+                    text: `Фото №${this.getFirstHalfImages()[0].getIndex()}. `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: this.getFirstHalfImages()[0].getDescription(),
+                    font: "Times New Roman",
+                    size: 26,
+                  }),
+                  this.descAddedArrows(this.getFirstHalfImages()[0]),
+                  new TextRun({
+                    text: `   `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: `Фото №${this.getFirstHalfImages()[1].getIndex()}. `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: this.getFirstHalfImages()[1].getDescription(),
+                    font: "Times New Roman",
+                    size: 26,
+                  }),
+                  this.descAddedArrows(this.getFirstHalfImages()[1]),
+                ]
+              }
+            )
+          )
         }
 
-        const paragraphDesc = new Paragraph(
-          {
-            alignment: this.JUSTIFIED,
-            indent: this.galleryImages[imgIndex].orientation === 'horizontal' ? this.INDENT_HORIZONTAL : this.galleryImages[imgIndex].orientation === 'vertical' ? this.INDENT_VERTICAL : this.INDENT_PANORAMA,
-            children: [
-              new TextRun({
-                text: `Фото №${this.galleryImages[imgIndex].index}. `,
-                font: "Times New Roman",
-                size: 26,
-                bold: true,
-              }),
-              new TextRun({
-                text: this.galleryImages[imgIndex].imgDesc,
-                font: "Times New Roman",
-                size: 26,
-              }),
-              this.descAddedArrows(imgIndex)
-            ]
-          }
-        );
+        this.setChildren(children);
+      }
+      async addSecondLineItem() {
 
-        
+        const children = this.getChildren();
 
-        
-        children.push(paragraphDesc);
+        if (this.getSecondHalfImages().length === 1) {
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.CENTER,
+                children: [
+                  new TextRun({
+                    font: this.FONT,
+                    size: 24,
+                    break: 1,
+                  }),
+                  new ImageRun({ data: this.getSecondHalfImages()[0].getData() })
+                ]
+              }
+            )
+          )
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.JUSTIFIED,
+                indent: this.getIndent(this.getSecondHalfImages()[0].getOrientation()),
+                children: [
+                  new TextRun({
+                    text: `Фото №${this.getSecondHalfImages()[0].getIndex()}. `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: this.getSecondHalfImages()[0].getDescription(),
+                    font: "Times New Roman",
+                    size: 26,
+                  }),
+                  this.descAddedArrows(this.getSecondHalfImages()[0])
+                ]
+              }
+            )
+          )
+        } else if (this.getSecondHalfImages().length === 2) {
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.CENTER,
+                children: [
+                  new TextRun({
+                    font: this.FONT,
+                    size: 24,
+                    break: 1,
+                  }),
+                  new ImageRun({ data: this.getSecondHalfImages()[0].getData() }),
+                  new TextRun({
+                    text: `   `,
+                    font: this.FONT,
+                    size: 24,
+                  }),
+                  new ImageRun({ data: this.getSecondHalfImages()[1].getData() }),
+                ]
+              }
+            )
+          )
+          children.push(
+            new Paragraph(
+              {
+                alignment: this.JUSTIFIED,
+                indent: this.getIndent(this.getSecondHalfImages()[0].getOrientation()),
+                children: [
+                  new TextRun({
+                    text: `Фото №${this.getSecondHalfImages()[0].getIndex()}. `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: this.getSecondHalfImages()[0].getDescription(),
+                    font: "Times New Roman",
+                    size: 26,
+                  }),
+                  this.descAddedArrows(this.getSecondHalfImages()[0]),
+                  new TextRun({
+                    text: `   `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: `Фото №${this.getSecondHalfImages()[1].getIndex()}. `,
+                    font: "Times New Roman",
+                    size: 26,
+                    bold: true,
+                  }),
+                  new TextRun({
+                    text: this.getSecondHalfImages()[1].getDescription(),
+                    font: "Times New Roman",
+                    size: 26,
+                  }),
+                  this.descAddedArrows(this.getSecondHalfImages()[1]),
+                ]
+              }
+            )
+          )
+        }
 
         this.setChildren(children);
       }
@@ -223,7 +422,7 @@ export default class WordDocument {
       arrowsColor = ''
       arrowsWidth = ''
       arrowsArray = []
-      constructor({ index, orientation, imgDesc, url, zoom, arrowsColor, arrowsWidth, arrowsArray}) {
+      constructor({ index, orientation, imgDesc, url, zoom, arrowsColor, arrowsWidth, arrowsArray }) {
         this.index = index
         this.orientation = orientation
         this.description = imgDesc
@@ -416,6 +615,9 @@ export default class WordDocument {
       }
     }
     for (const page of photoPages) {
+      page.addFirstLineItem()
+      page.addSecondLineItem()
+
       page.setParity(this.parityCheck)
       this.parityCheck = !this.parityCheck
     }
