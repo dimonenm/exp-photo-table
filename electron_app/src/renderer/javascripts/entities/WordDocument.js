@@ -134,6 +134,9 @@ export default class WordDocument {
       getImages() {
         return this.images
       }
+      getChildren() {
+        return this.children
+      }
       // функции изменения полей
       setIsFilled(value) {
         this.isFilled = value
@@ -155,6 +158,9 @@ export default class WordDocument {
       }
       setImages(value) {
         this.images = value
+      }
+      setChildren(value) {
+        this.children = value;
       }
       pushImage(value) {
         this.images.push(value)
@@ -199,6 +205,7 @@ export default class WordDocument {
       }
       async addFirstLineItem() {
 
+        console.log('addFirstLineItem() this: ', this);
         const children = this.getChildren();
 
         if (this.getFirstHalfImages().length === 1) {
