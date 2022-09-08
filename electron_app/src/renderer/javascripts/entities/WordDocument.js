@@ -56,8 +56,10 @@ export default class WordDocument {
       FONT = "Times New Roman"
       CENTER = AlignmentType.CENTER
       JUSTIFIED = AlignmentType.JUSTIFIED
-      INDENT_VERTICAL = { firstLine: 2024 }
-      INDENT_HORIZONTAL = { firstLine: 1048 }
+      INDENT_VERTICAL = { firstLine: 1984 }
+      INDENT_HORIZONTAL = { firstLine: 1133 }
+      INDENT_9x6 = { firstLine: 1984 }
+      INDENT_6x9 = { firstLine: 1133 }
       official_status = null
       note = null
       properties = null
@@ -156,6 +158,9 @@ export default class WordDocument {
       setParity(value) {
         this.parity = value
       }
+      setProperties(value) {
+        this.properties = value
+      }
       setImages(value) {
         this.images = value
       }
@@ -181,7 +186,13 @@ export default class WordDocument {
           case 'vertical':
             indent = this.INDENT_VERTICAL
             break;
-          default:            
+          case '9X6':
+            indent = this.INDENT_9x6
+            break;
+          case '6X9':
+            indent = this.INDENT_6x9
+            break;
+          default:
             break;
         }
         return indent
@@ -205,7 +216,6 @@ export default class WordDocument {
       }
       async addFirstLineItem() {
 
-        console.log('addFirstLineItem() this: ', this);
         const children = this.getChildren();
 
         if (this.getFirstHalfImages().length === 1) {
@@ -219,7 +229,7 @@ export default class WordDocument {
                     size: 24,
                     break: 1,
                   }),
-                  new ImageRun({ data: this.getFirstHalfImages()[0].getData() })
+                  new ImageRun({ data: this.getFirstHalfImages()[0].getData(), transformation: this.getFirstHalfImages()[0].getTransformation() })
                 ]
               }
             )
@@ -257,13 +267,13 @@ export default class WordDocument {
                     size: 24,
                     break: 1,
                   }),
-                  new ImageRun({ data: this.getFirstHalfImages()[0].getData() }),
+                  new ImageRun({ data: this.getFirstHalfImages()[0].getData(), transformation: this.getFirstHalfImages()[0].getTransformation() }),
                   new TextRun({
                     text: `   `,
                     font: this.FONT,
                     size: 24,
                   }),
-                  new ImageRun({ data: this.getFirstHalfImages()[1].getData() }),
+                  new ImageRun({ data: this.getFirstHalfImages()[1].getData(), transformation: this.getFirstHalfImages()[1].getTransformation() }),
                 ]
               }
             )
@@ -327,7 +337,7 @@ export default class WordDocument {
                     size: 24,
                     break: 1,
                   }),
-                  new ImageRun({ data: this.getSecondHalfImages()[0].getData() })
+                  new ImageRun({ data: this.getSecondHalfImages()[0].getData(), transformation: this.getSecondHalfImages()[0].getTransformation() })
                 ]
               }
             )
@@ -365,13 +375,13 @@ export default class WordDocument {
                     size: 24,
                     break: 1,
                   }),
-                  new ImageRun({ data: this.getSecondHalfImages()[0].getData() }),
+                  new ImageRun({ data: this.getSecondHalfImages()[0].getData(), transformation: this.getSecondHalfImages()[0].getTransformation() }),
                   new TextRun({
                     text: `   `,
                     font: this.FONT,
                     size: 24,
                   }),
-                  new ImageRun({ data: this.getSecondHalfImages()[1].getData() }),
+                  new ImageRun({ data: this.getSecondHalfImages()[1].getData(), transformation: this.getSecondHalfImages()[1].getTransformation() }),
                 ]
               }
             )
@@ -421,9 +431,9 @@ export default class WordDocument {
         this.setChildren(children);
       }
       addSupplementItem() {
-        
+
         const children = this.getChildren();
-        
+
         const paragraphSupplement = new Paragraph(
           {
             alignment: this.JUSTIFIED,
@@ -453,6 +463,10 @@ export default class WordDocument {
       index = ''
       orientation = ''
       data = ''
+      transformation = {
+        width: null,
+        height: null
+      }
       description = ''
       url = ''
       zoom = ''
@@ -478,6 +492,9 @@ export default class WordDocument {
       }
       getData() {
         return this.data;
+      }
+      getTransformation() {
+        return this.transformation;
       }
       getDescription() {
         return this.description
@@ -506,6 +523,12 @@ export default class WordDocument {
       }
       setData(value) {
         this.data = value
+      }
+      setTransformation(w, h) {
+        this.transformation = {
+          width: w,
+          height: h
+        };
       }
       setDescription(value) {
         this.description = value
@@ -543,18 +566,22 @@ export default class WordDocument {
           case 'horizontal':
             ctx.canvas.height = 525;
             ctx.canvas.width = 700;
+            this.setTransformation(453.33, 340)
             break;
           case 'vertical':
             ctx.canvas.height = 632;
             ctx.canvas.width = 474;
+            this.setTransformation(340, 453.33)
             break;
           case '9X6':
             ctx.canvas.height = 350;
             ctx.canvas.width = 525;
+            this.setTransformation(340, 226.66)
             break;
           case '6X9':
             ctx.canvas.height = 525;
             ctx.canvas.width = 340;
+            this.setTransformation(226.66, 340)
             break;
           default:
             break;
@@ -593,7 +620,7 @@ export default class WordDocument {
 
       if (img.orientation !== "panorama") {
         const imgItem = new ImgItem(img)
-        imgItem.loadImgData()
+        await imgItem.loadImgData()
         const lastPage = photoPages[photoPages.length - 1]
 
         if (lastPage.getIsFilled() === false) {
@@ -652,10 +679,27 @@ export default class WordDocument {
     }
 
     for (const page of photoPages) {
-      page.addFirstLineItem()
-      page.addSecondLineItem()
       page.setParity(this.parityCheck)
       this.parityCheck = !this.parityCheck
+      if (page.getParity() === false) {
+        page.setProperties(
+          {
+            page: {
+              margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
+            }
+          }
+        )
+      } else if (page.getParity() === true) {
+        page.setProperties(
+          {
+            page: {
+              margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
+            }
+          }
+        )
+      }
+      page.addFirstLineItem()
+      page.addSecondLineItem()
     }
 
     if (photoPages[photoPages.length - 1].getIsFilled() === true) {
@@ -670,51 +714,51 @@ export default class WordDocument {
       this.pushSections(page)
     }
 
-    console.log('photoPages: ', photoPages);
+    console.log('photoPages2: ', photoPages);
 
 
 
 
-/*
-
-    let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
-
-    for (let page = 1; page <= pagesCount; page++) {
-      const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
-
-      photoPage.setParity(this.parityCheck); // устанавливается четность страницы фототаблицы
-      this.parityCheck = !this.parityCheck
-
-      await photoPage.addFirstImg(page * 2 - 1);
-
-      if (this.galleryImages[page * 2])
-        await photoPage.addSecondImg(page * 2);
-
-      const sections = this.getSections();
-
-      sections.push(photoPage);
-
-      this.setSections(sections);
-    }
-
-    if (this.galleryImages.length % 2) {
-      const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
-      photoPage.setParity(this.parityCheck);
-      photoPage.addSupplement();
-
-      const sections = this.getSections();
-
-      sections.push(photoPage);
-
-      this.setSections(sections);
-    } else {
-      const sections = this.getSections();
-      const photoPage = sections.pop()
-      photoPage.addSupplement();
-      sections.push(photoPage);
-      this.setSections(sections);
-    }
-    */
+    /*
+    
+        let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
+    
+        for (let page = 1; page <= pagesCount; page++) {
+          const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
+    
+          photoPage.setParity(this.parityCheck); // устанавливается четность страницы фототаблицы
+          this.parityCheck = !this.parityCheck
+    
+          await photoPage.addFirstImg(page * 2 - 1);
+    
+          if (this.galleryImages[page * 2])
+            await photoPage.addSecondImg(page * 2);
+    
+          const sections = this.getSections();
+    
+          sections.push(photoPage);
+    
+          this.setSections(sections);
+        }
+    
+        if (this.galleryImages.length % 2) {
+          const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
+          photoPage.setParity(this.parityCheck);
+          photoPage.addSupplement();
+    
+          const sections = this.getSections();
+    
+          sections.push(photoPage);
+    
+          this.setSections(sections);
+        } else {
+          const sections = this.getSections();
+          const photoPage = sections.pop()
+          photoPage.addSupplement();
+          sections.push(photoPage);
+          this.setSections(sections);
+        }
+        */
   }
 
   saveDocument() {
