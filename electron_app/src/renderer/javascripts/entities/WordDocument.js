@@ -1,4 +1,4 @@
-import { Document, Packer, Paragraph, Header, Footer, TextRun, ImageRun, AlignmentType, PageNumber } from "docx";
+import { Document, Packer, Paragraph, Header, Footer, TextRun, ImageRun, AlignmentType, PageNumber, Table, TableRow, TableCell, WidthType, BorderStyle } from "docx";
 import { saveAs } from "file-saver";
 import TitlePage from "./TitlePage";
 import PhotoPage from "./PhotoPage";
@@ -6,6 +6,7 @@ import PhotoTableImg from "./PhotoTableImg";
 import drawArrowArray from '../services/forModalCanvas/fDrawArrowArray';
 
 export default class WordDocument {
+
   constructor(galleryImages, photoTableData, settings) {
     this.title = '';
     this.sections = [];
@@ -258,62 +259,159 @@ export default class WordDocument {
           )
         } else if (this.getFirstHalfImages().length === 2) {
           children.push(
-            new Paragraph(
+            new Table(
               {
-                alignment: this.CENTER,
-                children: [
-                  new TextRun({
-                    font: this.FONT,
-                    size: 24,
-                    break: 1,
+                rows: [
+                  new TableRow({
+                    children: [
+                      new TableCell({
+                        borders: {
+                          top: {
+                            style: BorderStyle.NONE
+                          },
+                          bottom: {
+                            style: BorderStyle.NONE
+                          },
+                          left: {
+                            style: BorderStyle.NONE
+                          },
+                          right: {
+                            style: BorderStyle.NONE
+                          },
+                        },
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.CENTER,
+                              children: [
+                                new ImageRun({ data: this.getFirstHalfImages()[0].getData(), transformation: this.getFirstHalfImages()[0].getTransformation() }),
+                              ]
+                            }
+                          )
+                        ],
+                      }),
+                      new TableCell({
+                        borders: {
+                          top: {
+                            style: BorderStyle.NONE
+                          },
+                          bottom: {
+                            style: BorderStyle.NONE
+                          },
+                          left: {
+                            style: BorderStyle.NONE
+                          },
+                          right: {
+                            style: BorderStyle.NONE
+                          },
+                        },
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.CENTER,
+                              children: [
+                                new ImageRun({ data: this.getFirstHalfImages()[1].getData(), transformation: this.getFirstHalfImages()[1].getTransformation() }),
+                              ]
+                            }
+                          )
+                        ]
+                      }),
+                    ]
                   }),
-                  new ImageRun({ data: this.getFirstHalfImages()[0].getData(), transformation: this.getFirstHalfImages()[0].getTransformation() }),
-                  new TextRun({
-                    text: `   `,
-                    font: this.FONT,
-                    size: 24,
-                  }),
-                  new ImageRun({ data: this.getFirstHalfImages()[1].getData(), transformation: this.getFirstHalfImages()[1].getTransformation() }),
-                ]
-              }
-            )
-          )
-          children.push(
-            new Paragraph(
-              {
-                alignment: this.JUSTIFIED,
-                indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
-                children: [
-                  new TextRun({
-                    text: `Фото №${this.getFirstHalfImages()[0].getIndex()}. `,
-                    font: "Times New Roman",
-                    size: 26,
-                    bold: true,
-                  }),
-                  new TextRun({
-                    text: this.getFirstHalfImages()[0].getDescription(),
-                    font: "Times New Roman",
-                    size: 26,
-                  }),
-                  this.descAddedArrows(this.getFirstHalfImages()[0]),
-                  new TextRun({
-                    text: `   `,
-                    font: "Times New Roman",
-                    size: 26,
-                    bold: true,
-                  }),
-                  new TextRun({
-                    text: `Фото №${this.getFirstHalfImages()[1].getIndex()}. `,
-                    font: "Times New Roman",
-                    size: 26,
-                    bold: true,
-                  }),
-                  new TextRun({
-                    text: this.getFirstHalfImages()[1].getDescription(),
-                    font: "Times New Roman",
-                    size: 26,
-                  }),
-                  this.descAddedArrows(this.getFirstHalfImages()[1]),
+                  new TableRow({
+                    children: [
+                      new TableCell({
+                        margins: {
+                          top: 100,
+                          bottom: 100,
+                          left: 100,
+                          right: 100,
+                        },
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: {
+                          top: {
+                            style: BorderStyle.NONE
+                          },
+                          bottom: {
+                            style: BorderStyle.NONE
+                          },
+                          left: {
+                            style: BorderStyle.NONE
+                          },
+                          right: {
+                            style: BorderStyle.NONE
+                          },
+                        },
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.JUSTIFIED,
+                              // indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
+                              children: [
+                                new TextRun({
+                                  text: `Фото №${this.getFirstHalfImages()[0].getIndex()}. `,
+                                  font: "Times New Roman",
+                                  size: 26,
+                                  bold: true,
+                                }),
+                                new TextRun({
+                                  text: this.getFirstHalfImages()[0].getDescription(),
+                                  font: "Times New Roman",
+                                  size: 26,
+                                }),
+                                this.descAddedArrows(this.getFirstHalfImages()[0])
+                              ]
+                            }
+                          )
+                        ]
+                      }),
+                      new TableCell({
+                        margins: {
+                          top: 100,
+                          bottom: 100,
+                          left: 100,
+                          right: 100,
+                        },
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: {
+                          top: {
+                            style: BorderStyle.NONE
+                          },
+                          bottom: {
+                            style: BorderStyle.NONE
+                          },
+                          left: {
+                            style: BorderStyle.NONE
+                          },
+                          right: {
+                            style: BorderStyle.NONE
+                          },
+                        },
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.JUSTIFIED,
+                              // indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
+                              children: [
+                                new TextRun({
+                                  text: `Фото №${this.getFirstHalfImages()[1].getIndex()}. `,
+                                  font: "Times New Roman",
+                                  size: 26,
+                                  bold: true,
+                                }),
+                                new TextRun({
+                                  text: this.getFirstHalfImages()[1].getDescription(),
+                                  font: "Times New Roman",
+                                  size: 26,
+                                }),
+                                this.descAddedArrows(this.getFirstHalfImages()[1]),
+                              ]
+                            }
+                          )
+                        ]
+                      }),
+                    ]
+                  })
                 ]
               }
             )
