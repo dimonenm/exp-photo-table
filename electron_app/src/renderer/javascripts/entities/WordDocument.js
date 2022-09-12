@@ -330,16 +330,24 @@ export default class WordDocument {
                         width: { size: 50, type: WidthType.PERCENTAGE },
                         borders: {
                           top: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.NONE,
+                            size: 0,
+                            color: "000000",
                           },
                           bottom: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.NONE,
+                            size: 0,
+                            color: "000000",
                           },
                           left: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.NONE,
+                            size: 0,
+                            color: "000000",
                           },
                           right: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.NONE,
+                            size: 0,
+                            color: "000000",
                           },
                         },
                         children: [
@@ -375,16 +383,24 @@ export default class WordDocument {
                         width: { size: 50, type: WidthType.PERCENTAGE },
                         borders: {
                           top: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.DASH_DOT_STROKED,
+                            size: 3,
+                            color: "FF0000",
                           },
                           bottom: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.DOUBLE,
+                            size: 3,
+                            color: "0000FF",
                           },
                           left: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.NONE,
+                            size: 3,
+                            color: "00FF00",
                           },
                           right: {
-                            style: BorderStyle.NONE
+                            style: BorderStyle.NONE,
+                            size: 3,
+                            color: "#ff8000",
                           },
                         },
                         children: [
