@@ -60,7 +60,30 @@ export default class WordDocument {
       INDENT_VERTICAL = { firstLine: 1984 }
       INDENT_HORIZONTAL = { firstLine: 1133 }
       INDENT_9x6 = { firstLine: 1984 }
-      INDENT_6x9 = { firstLine: 1133 }
+      INDENT_6x9_1 = { firstLine: 2833 }
+      INDENT_6x9_2 = { firstLine: 453.2 }
+      BORDERS = {
+        top: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+        bottom: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+        left: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+        right: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+      }
       official_status = null
       note = null
       properties = null
@@ -104,7 +127,7 @@ export default class WordDocument {
                   alignment: this.CENTER,
                   children: [
                     new TextRun({
-                      text: `${this.OFFICIAL_STATUS} _______________ ${photoTableData.executor}`,
+                      text: `${this.official_status} _______________ ${photoTableData.executor}`,
                       font: this.FONT,
                       size: 24,
                     })
@@ -178,7 +201,7 @@ export default class WordDocument {
         this.secondHalfImages.push(value)
       }
       // служебные функции
-      getIndent(orientation) {
+      getIndent(orientation, double = false) {
         let indent = 0
         switch (orientation) {
           case 'horizontal':
@@ -191,7 +214,10 @@ export default class WordDocument {
             indent = this.INDENT_9x6
             break;
           case '6X9':
-            indent = this.INDENT_6x9
+            indent = this.INDENT_6x9_1
+            if (double) {
+              indent = this.INDENT_6x9_2
+            }
             break;
           default:
             break;
@@ -261,29 +287,26 @@ export default class WordDocument {
           children.push(
             new Table(
               {
+                width: {
+                  size: 100,
+                  type: WidthType.PERCENTAGE,
+                },
                 rows: [
                   new TableRow({
                     children: [
                       new TableCell({
-                        borders: {
-                          top: {
-                            style: BorderStyle.NONE
-                          },
-                          bottom: {
-                            style: BorderStyle.NONE
-                          },
-                          left: {
-                            style: BorderStyle.NONE
-                          },
-                          right: {
-                            style: BorderStyle.NONE
-                          },
-                        },
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: this.BORDERS,
                         children: [
                           new Paragraph(
                             {
                               alignment: this.CENTER,
                               children: [
+                                new TextRun({
+                                  font: this.FONT,
+                                  size: 24,
+                                  break: 1,
+                                }),
                                 new ImageRun({ data: this.getFirstHalfImages()[0].getData(), transformation: this.getFirstHalfImages()[0].getTransformation() }),
                               ]
                             }
@@ -291,25 +314,18 @@ export default class WordDocument {
                         ],
                       }),
                       new TableCell({
-                        borders: {
-                          top: {
-                            style: BorderStyle.NONE
-                          },
-                          bottom: {
-                            style: BorderStyle.NONE
-                          },
-                          left: {
-                            style: BorderStyle.NONE
-                          },
-                          right: {
-                            style: BorderStyle.NONE
-                          },
-                        },
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: this.BORDERS,
                         children: [
                           new Paragraph(
                             {
                               alignment: this.CENTER,
                               children: [
+                                new TextRun({
+                                  font: this.FONT,
+                                  size: 24,
+                                  break: 1,
+                                }),
                                 new ImageRun({ data: this.getFirstHalfImages()[1].getData(), transformation: this.getFirstHalfImages()[1].getTransformation() }),
                               ]
                             }
@@ -328,33 +344,12 @@ export default class WordDocument {
                           right: 100,
                         },
                         width: { size: 50, type: WidthType.PERCENTAGE },
-                        borders: {
-                          top: {
-                            style: BorderStyle.NONE,
-                            size: 0,
-                            color: "000000",
-                          },
-                          bottom: {
-                            style: BorderStyle.NONE,
-                            size: 0,
-                            color: "000000",
-                          },
-                          left: {
-                            style: BorderStyle.NONE,
-                            size: 0,
-                            color: "000000",
-                          },
-                          right: {
-                            style: BorderStyle.NONE,
-                            size: 0,
-                            color: "000000",
-                          },
-                        },
+                        borders: this.BORDERS,
                         children: [
                           new Paragraph(
                             {
                               alignment: this.JUSTIFIED,
-                              // indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
+                              indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation(), true),
                               children: [
                                 new TextRun({
                                   text: `Фото №${this.getFirstHalfImages()[0].getIndex()}. `,
@@ -381,33 +376,12 @@ export default class WordDocument {
                           right: 100,
                         },
                         width: { size: 50, type: WidthType.PERCENTAGE },
-                        borders: {
-                          top: {
-                            style: BorderStyle.DASH_DOT_STROKED,
-                            size: 3,
-                            color: "FF0000",
-                          },
-                          bottom: {
-                            style: BorderStyle.DOUBLE,
-                            size: 3,
-                            color: "0000FF",
-                          },
-                          left: {
-                            style: BorderStyle.NONE,
-                            size: 3,
-                            color: "00FF00",
-                          },
-                          right: {
-                            style: BorderStyle.NONE,
-                            size: 3,
-                            color: "#ff8000",
-                          },
-                        },
+                        borders: this.BORDERS,
                         children: [
                           new Paragraph(
                             {
                               alignment: this.JUSTIFIED,
-                              // indent: this.getIndent(this.getFirstHalfImages()[0].getOrientation()),
+                              indent: this.getIndent(this.getFirstHalfImages()[1].getOrientation(), true),
                               children: [
                                 new TextRun({
                                   text: `Фото №${this.getFirstHalfImages()[1].getIndex()}. `,
@@ -480,62 +454,123 @@ export default class WordDocument {
           )
         } else if (this.getSecondHalfImages().length === 2) {
           children.push(
-            new Paragraph(
+            new Table(
               {
-                alignment: this.CENTER,
-                children: [
-                  new TextRun({
-                    font: this.FONT,
-                    size: 24,
-                    break: 1,
+                width: {
+                  size: 100,
+                  type: WidthType.PERCENTAGE,
+                },
+                rows: [
+                  new TableRow({
+                    children: [
+                      new TableCell({
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: this.BORDERS,
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.CENTER,
+                              children: [
+                                new TextRun({
+                                  font: this.FONT,
+                                  size: 24,
+                                  break: 1,
+                                }),
+                                new ImageRun({ data: this.getSecondHalfImages()[0].getData(), transformation: this.getSecondHalfImages()[0].getTransformation() }),
+                              ]
+                            }
+                          )
+                        ],
+                      }),
+                      new TableCell({
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: this.BORDERS,
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.CENTER,
+                              children: [
+                                new TextRun({
+                                  font: this.FONT,
+                                  size: 24,
+                                  break: 1,
+                                }),
+                                new ImageRun({ data: this.getSecondHalfImages()[1].getData(), transformation: this.getSecondHalfImages()[1].getTransformation() }),
+                              ]
+                            }
+                          )
+                        ]
+                      }),
+                    ]
                   }),
-                  new ImageRun({ data: this.getSecondHalfImages()[0].getData(), transformation: this.getSecondHalfImages()[0].getTransformation() }),
-                  new TextRun({
-                    text: `   `,
-                    font: this.FONT,
-                    size: 24,
-                  }),
-                  new ImageRun({ data: this.getSecondHalfImages()[1].getData(), transformation: this.getSecondHalfImages()[1].getTransformation() }),
-                ]
-              }
-            )
-          )
-          children.push(
-            new Paragraph(
-              {
-                alignment: this.JUSTIFIED,
-                indent: this.getIndent(this.getSecondHalfImages()[0].getOrientation()),
-                children: [
-                  new TextRun({
-                    text: `Фото №${this.getSecondHalfImages()[0].getIndex()}. `,
-                    font: "Times New Roman",
-                    size: 26,
-                    bold: true,
-                  }),
-                  new TextRun({
-                    text: this.getSecondHalfImages()[0].getDescription(),
-                    font: "Times New Roman",
-                    size: 26,
-                  }),
-                  this.descAddedArrows(this.getSecondHalfImages()[0]),
-                  new TextRun({
-                    text: `   `,
-                    font: "Times New Roman",
-                    size: 26,
-                    bold: true,
-                  }),
-                  new TextRun({
-                    text: `Фото №${this.getSecondHalfImages()[1].getIndex()}. `,
-                    font: "Times New Roman",
-                    size: 26,
-                    bold: true,
-                  }),
-                  new TextRun({
-                    text: this.getSecondHalfImages()[1].getDescription(),
-                    font: "Times New Roman",
-                    size: 26,
-                  }),
-                  this.descAddedArrows(this.getSecondHalfImages()[1]),
+                  new TableRow({
+                    children: [
+                      new TableCell({
+                        margins: {
+                          top: 100,
+                          bottom: 100,
+                          left: 100,
+                          right: 100,
+                        },
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: this.BORDERS,
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.JUSTIFIED,
+                              indent: this.getIndent(this.getSecondHalfImages()[0].getOrientation(), true),
+                              children: [
+                                new TextRun({
+                                  text: `Фото №${this.getSecondHalfImages()[0].getIndex()}. `,
+                                  font: "Times New Roman",
+                                  size: 26,
+                                  bold: true,
+                                }),
+                                new TextRun({
+                                  text: this.getSecondHalfImages()[0].getDescription(),
+                                  font: "Times New Roman",
+                                  size: 26,
+                                }),
+                                this.descAddedArrows(this.getSecondHalfImages()[0])
+                              ]
+                            }
+                          )
+                        ]
+                      }),
+                      new TableCell({
+                        margins: {
+                          top: 100,
+                          bottom: 100,
+                          left: 100,
+                          right: 100,
+                        },
+                        width: { size: 50, type: WidthType.PERCENTAGE },
+                        borders: this.BORDERS,
+                        children: [
+                          new Paragraph(
+                            {
+                              alignment: this.JUSTIFIED,
+                              indent: this.getIndent(this.getSecondHalfImages()[1].getOrientation(), true),
+                              children: [
+                                new TextRun({
+                                  text: `Фото №${this.getSecondHalfImages()[1].getIndex()}. `,
+                                  font: "Times New Roman",
+                                  size: 26,
+                                  bold: true,
+                                }),
+                                new TextRun({
+                                  text: this.getSecondHalfImages()[1].getDescription(),
+                                  font: "Times New Roman",
+                                  size: 26,
+                                }),
+                                this.descAddedArrows(this.getSecondHalfImages()[1]),
+                              ]
+                            }
+                          )
+                        ]
+                      }),
+                    ]
+                  })
                 ]
               }
             )
@@ -558,7 +593,7 @@ export default class WordDocument {
                 break: 1,
               }),
               new TextRun({
-                text: `${this.NOTE}`,
+                text: `${this.note}`,
                 bold: false,
                 font: this.FONT,
                 size: 24,
@@ -694,7 +729,7 @@ export default class WordDocument {
             break;
           case '6X9':
             ctx.canvas.height = 525;
-            ctx.canvas.width = 340;
+            ctx.canvas.width = 350;
             this.setTransformation(226.66, 340)
             break;
           default:
@@ -827,52 +862,6 @@ export default class WordDocument {
     for (const page of photoPages) {
       this.pushSections(page)
     }
-
-    console.log('photoPages2: ', photoPages);
-
-
-
-
-    /*
-    
-        let pagesCount = Math.ceil((this.galleryImages.length - 1) / 2); // в переменную вносится количесто страниц фототаблизы без титульной страницы
-    
-        for (let page = 1; page <= pagesCount; page++) {
-          const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
-    
-          photoPage.setParity(this.parityCheck); // устанавливается четность страницы фототаблицы
-          this.parityCheck = !this.parityCheck
-    
-          await photoPage.addFirstImg(page * 2 - 1);
-    
-          if (this.galleryImages[page * 2])
-            await photoPage.addSecondImg(page * 2);
-    
-          const sections = this.getSections();
-    
-          sections.push(photoPage);
-    
-          this.setSections(sections);
-        }
-    
-        if (this.galleryImages.length % 2) {
-          const photoPage = new PhotoPage(this.galleryImages, this.photoTableData, this.settings);
-          photoPage.setParity(this.parityCheck);
-          photoPage.addSupplement();
-    
-          const sections = this.getSections();
-    
-          sections.push(photoPage);
-    
-          this.setSections(sections);
-        } else {
-          const sections = this.getSections();
-          const photoPage = sections.pop()
-          photoPage.addSupplement();
-          sections.push(photoPage);
-          this.setSections(sections);
-        }
-        */
   }
 
   saveDocument() {
