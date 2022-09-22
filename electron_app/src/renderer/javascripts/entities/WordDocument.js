@@ -723,13 +723,17 @@ export default class WordDocument {
             this.setTransformation(340, 453.33)
             break;
           case '9X6':
-            ctx.canvas.height = 350;
-            ctx.canvas.width = 525;
+            // ctx.canvas.height = 350;
+            // ctx.canvas.width = 525;
+            ctx.canvas.height = 525;
+            ctx.canvas.width = 700;
             this.setTransformation(340, 226.66)
             break;
           case '6X9':
-            ctx.canvas.height = 525;
-            ctx.canvas.width = 350;
+            // ctx.canvas.height = 525;
+            // ctx.canvas.width = 350;
+            ctx.canvas.height = 632;
+            ctx.canvas.width = 474;
             this.setTransformation(226.66, 340)
             break;
           default:
