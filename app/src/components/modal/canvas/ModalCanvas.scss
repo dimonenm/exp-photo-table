@@ -61,25 +61,25 @@
 
     border: 1px solid #000;
 
-    &-grab{
+    &-grab {
       cursor: grab;
     }
-    &-grabbing{
+    &-grabbing {
       cursor: grabbing;
     }
   }
 
   .modal-content-grid-properties-right {
     display: grid;
-
+    grid-template-rows: 50px minmax(50px, max-content) repeat(auto-fill, 50px);
     grid-column: 3 / 4;
+    grid-gap: 5px 5px;
+
+    height: fit-content;
 
     margin: 5px;
 
     // grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
-    grid-template-rows: 50px minmax(50px, max-content) repeat(auto-fill, 50px);
-
-    grid-gap: 5px 5px;
 
     position: relative;
 
@@ -342,8 +342,8 @@
       }
     }
     &-text-area {
-            display: grid;
-      
+      display: grid;
+
       padding: 0 5px;
 
       textarea {
