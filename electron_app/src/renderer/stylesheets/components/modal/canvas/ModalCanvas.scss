@@ -11,7 +11,7 @@
   grid-column: 1 / 2;
 
   grid-template-columns: 40px;
-  grid-template-rows: 40px 40px 40px 40px 1fr;
+  grid-template-rows: 40px 40px 40px 40px 40px 1fr;
 
   grid-gap: 5px;
 
@@ -25,7 +25,9 @@
 .modal-content-grid-tools-left-textDesc,
 .modal-content-grid-tools-left-textDesc-active,
 .modal-content-grid-tools-left-imgDesc,
-.modal-content-grid-tools-left-imgDesc-active {
+.modal-content-grid-tools-left-imgDesc-active,
+.modal-content-grid-tools-left-contrast,
+.modal-content-grid-tools-left-contrast-active {
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -76,6 +78,16 @@
 
 .modal-content-grid-tools-left-imgDesc-active {
   background-image: url("../../../../images/btnDescriptionActive.svg");
+}
+.modal-content-grid-tools-left-contrast {
+  background-image: url("../../../../images/contrast_btn1-nonActive.svg");
+}
+.modal-content-grid-tools-left-contrast:hover {
+  transform: scale(1.1);
+}
+
+.modal-content-grid-tools-left-contrast-active {
+  background-image: url("../../../../images/contrast_btn1Active.svg");
 }
 
 /*modal-content-grid-canvas*/

@@ -5,7 +5,7 @@ import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
 import GallaryImage from '../../../entities/GalleryImage';
-
+import Contrast from './tools/Contrast';
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
 
@@ -658,88 +658,104 @@ const ModalCanvas = () => {
         </div>
       );
     };
+    if (toolType === 'contrast') {
+      return (
+        <div className='modal-content-grid-properties-right-text-area'>
+          <textarea
+            placeholder='Введите описание изображения...'
+            value={galleryImg.getImgDesc()}
+            onChange={imgDescChangeHandler}
+          ></textarea>
+        </div>
+      );
+    };
   }
 
 
-  useEffect(() => {
-    galleryImages.forEach((item) => {
-      if (item.getIndex() === indexImgInGallery) {
-        const newGalleryImg = Object.assign(new GallaryImage(), item);
-        setGalleryImg(() => {
-          return newGalleryImg;
-        })
-      }
-    })
-    // eslint-disable-next-line
-  }, [])
+    useEffect(() => {
+      galleryImages.forEach((item) => {
+        if (item.getIndex() === indexImgInGallery) {
+          const newGalleryImg = Object.assign(new GallaryImage(), item);
+          setGalleryImg(() => {
+            return newGalleryImg;
+          })
+        }
+      })
+      // eslint-disable-next-line
+    }, [])
 
-  useEffect(() => {
-    const ctx = canvasRef.current.getContext('2d');
-    const img = new Image();
-    img.onload = function () {
+    useEffect(() => {
+      const ctx = canvasRef.current.getContext('2d');
+      const img = new Image();
+      img.onload = function () {
 
-      const pr = ctx.canvas.height * 100 / this.height;
-      const zoom = +galleryImg.getZoom() / 100;
-      const imgW = (this.width / 100 * pr) * zoom;
-      const imgH = (this.height / 100 * pr) * zoom;
+        const pr = ctx.canvas.height * 100 / this.height;
+        const zoom = +galleryImg.getZoom() / 100;
+        const imgW = (this.width / 100 * pr) * zoom;
+        const imgH = (this.height / 100 * pr) * zoom;
 
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
 
-      if (galleryImg.getArrowsArray().length > 0) {
-        for (const item of galleryImg.getArrowsArray()) {
-          drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
+        if (galleryImg.getArrowsArray().length > 0) {
+          for (const item of galleryImg.getArrowsArray()) {
+            drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
+          }
+        }
+        if (isZoomScaleGrid) {
+          drawScaleGrid(ctx, galleryImg.getOrientation())
         }
       }
-      if (isZoomScaleGrid) {
-        drawScaleGrid(ctx, galleryImg.getOrientation())
-      }
-    }
-    img.src = galleryImg.getUrl();
-  }, [galleryImg, isZoomScaleGrid]);
+      img.src = galleryImg.getUrl();
+    }, [galleryImg, isZoomScaleGrid]);
 
-  return (
-    <div className="modal-content-grid-edit">
-      <div className='modal-content-grid-tools-left'>
-        <div className={
-          toolState.type === 'hand'
-            ? 'modal-content-grid-tools-left-hand-active'
-            : 'modal-content-grid-tools-left-hand'} onClick={handClickHandler}></div>
-        <div className={
-          toolState.type === 'arrow'
-            ? 'modal-content-grid-tools-left-arrow-active'
-            : 'modal-content-grid-tools-left-arrow'} onClick={arrowClickHandler}></div>
-        <div className={
-          toolState.type === 'arrowTextDesc'
-            ? 'modal-content-grid-tools-left-textDesc-active'
-            : 'modal-content-grid-tools-left-textDesc'} onClick={arrowtextDescClickHandler}></div>
-        <div className={
-          toolState.type === 'imgDesc'
-            ? 'modal-content-grid-tools-left-imgDesc-active'
-            : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
+    return (
+      <div className="modal-content-grid-edit">
+        <div className='modal-content-grid-tools-left'>
+          <div className={
+            toolState.type === 'hand'
+              ? 'modal-content-grid-tools-left-hand-active'
+              : 'modal-content-grid-tools-left-hand'} onClick={handClickHandler}></div>
+          <div className={
+            toolState.type === 'arrow'
+              ? 'modal-content-grid-tools-left-arrow-active'
+              : 'modal-content-grid-tools-left-arrow'} onClick={arrowClickHandler}></div>
+          <div className={
+            toolState.type === 'arrowTextDesc'
+              ? 'modal-content-grid-tools-left-textDesc-active'
+              : 'modal-content-grid-tools-left-textDesc'} onClick={arrowtextDescClickHandler}></div>
+          <div className={
+            toolState.type === 'imgDesc'
+              ? 'modal-content-grid-tools-left-imgDesc-active'
+              : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
+          <div className={
+            toolState.type === 'contrast'
+              ? 'modal-content-grid-tools-left-contrast-active'
+              : 'modal-content-grid-tools-left-contrast'} onClick={imgDescClickHandler}></div>
+        </div>
+        <canvas
+          ref={canvasRef}
+          className='modal-content-grid-canvas'
+          width={galleryImg.getOrientation() === "horizontal" ? 700 :
+            galleryImg.getOrientation() === "vertical" ? 474 :
+              // galleryImg.getOrientation() === "panorama" ? 747 :
+              galleryImg.getOrientation() === "panorama" ? 700 :
+                galleryImg.getOrientation() === "9X6" ? 700 :
+                  galleryImg.getOrientation() === "6X9" ? 474 : null}
+          height={galleryImg.getOrientation() === "horizontal" ? 525 :
+            galleryImg.getOrientation() === "vertical" ? 632 :
+              // galleryImg.getOrientation() === "panorama" ? 460 :
+              galleryImg.getOrientation() === "panorama" ? 350 :
+                galleryImg.getOrientation() === "9X6" ? 525 :
+                  galleryImg.getOrientation() === "6X9" ? 632 : null}
+        ></canvas>
+        <div className='modal-content-grid-properties-right'>
+          <div className='modal-content-grid-properties-right-title'>Свойства</div>
+          {renderProperties(toolState.type)}
+        </div>
       </div>
-      <canvas
-        ref={canvasRef}
-        className='modal-content-grid-canvas'
-        width={galleryImg.getOrientation() === "horizontal" ? 700 :
-          galleryImg.getOrientation() === "vertical" ? 474 :
-            // galleryImg.getOrientation() === "panorama" ? 747 :
-            galleryImg.getOrientation() === "panorama" ? 700 :
-              galleryImg.getOrientation() === "9X6" ? 700 :
-                galleryImg.getOrientation() === "6X9" ? 474 : null}
-        height={galleryImg.getOrientation() === "horizontal" ? 525 :
-          galleryImg.getOrientation() === "vertical" ? 632 :
-            // galleryImg.getOrientation() === "panorama" ? 460 :
-            galleryImg.getOrientation() === "panorama" ? 350 :
-              galleryImg.getOrientation() === "9X6" ? 525 :
-                galleryImg.getOrientation() === "6X9" ? 632 : null}
-      ></canvas>
-      <div className='modal-content-grid-properties-right'>
-        <div className='modal-content-grid-properties-right-title'>Свойства</div>
-        {renderProperties(toolState.type)}
-      </div>
-    </div>
-  );
-}
+    );
+  }
+
 
 export default ModalCanvas;
