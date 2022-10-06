@@ -514,6 +514,23 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
+  function contrastClickHandler(event) {
+    if (toolState.type === 'contrast') {
+      setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
+    } else {
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'contrast',
+          tool: new Hand(
+            canvasRef.current,
+            galleryImg,
+            setGalleryImg,
+            isZoomScaleGrid)
+        }
+      });
+    }; 
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -660,13 +677,14 @@ const ModalCanvas = () => {
     };
     if (toolType === 'contrast') {
       return (
-        <div className='modal-content-grid-properties-right-text-area'>
-          <textarea
-            placeholder='Введите описание изображения...'
-            value={galleryImg.getImgDesc()}
-            onChange={imgDescChangeHandler}
-          ></textarea>
+        <>
+          <div className='modal-content-grid-properties-right-title'>Контраст:</div>
+          <div className='modal-content-grid-properties-right-contrast'>
+            <div className='modal-content-grid-properties-right-contrast-range'>
+              <input type="range" id="contrast" min="0" max="200" value="100"></input>
+            </div>
         </div>
+        </>
       );
     };
   }
@@ -731,7 +749,7 @@ const ModalCanvas = () => {
           <div className={
             toolState.type === 'contrast'
               ? 'modal-content-grid-tools-left-contrast-active'
-              : 'modal-content-grid-tools-left-contrast'} onClick={imgDescClickHandler}></div>
+              : 'modal-content-grid-tools-left-contrast'} onClick={contrastClickHandler}></div>
         </div>
         <canvas
           ref={canvasRef}
