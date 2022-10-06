@@ -2,7 +2,7 @@ import Tool from "./Tool";
 import GallaryImage from "../../../../entities/GalleryImage";
 
 export default class Contrast extends Tool {
-    constructor(canvas, galleryImg, setGalleryImg, isZoomScaleGrid) {
+    constructor(canvas, galleryImg, setGalleryImg) {
         super(canvas);
         this.img = new Image();
         this.img.src = galleryImg.getUrl();

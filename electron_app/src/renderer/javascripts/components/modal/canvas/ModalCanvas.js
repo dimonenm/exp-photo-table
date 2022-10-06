@@ -531,6 +531,22 @@ const ModalCanvas = () => {
       });
     }; 
   }
+  function contrastChangeHandler(event) {
+    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
+    setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, contrast: event.target.value });
+    })
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'contrast',
+        tool: new Contrast(
+          canvasRef.current,
+          galleryImg,
+          setGalleryImg)
+      }
+    });
+  }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -681,7 +697,12 @@ const ModalCanvas = () => {
           <div className='modal-content-grid-properties-right-title'>Контраст:</div>
           <div className='modal-content-grid-properties-right-contrast'>
             <div className='modal-content-grid-properties-right-contrast-range'>
-              <input type="range" id="contrast" min="0" max="200" value="100"></input>
+              <input type="range"
+                id="contrast"
+                min="0"
+                max="200"
+                value={galleryImg.getContrast()}
+                onChange={contrastChangeHandler}></input>
             </div>
         </div>
         </>
