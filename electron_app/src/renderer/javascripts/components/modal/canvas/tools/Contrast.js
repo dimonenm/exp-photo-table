@@ -8,8 +8,6 @@ export default class Contrast extends Tool {
         this.img.src = galleryImg.getUrl();
         this.galleryImg = galleryImg;
         this.setGalleryImg = setGalleryImg;
-        this.arrowsArr = [...galleryImg.getArrowsArray()];
-        this.isZoomScaleGrid = isZoomScaleGrid;
         this.listen();
 
         this.img.onload = () => {
@@ -23,6 +21,7 @@ export default class Contrast extends Tool {
             this.offsetValueY = 0;
             this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
             this.lastOffsetValueY = this.galleryImg.getLastOffsetValueY();
+            
         }
     }
 }

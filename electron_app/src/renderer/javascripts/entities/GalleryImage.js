@@ -13,7 +13,7 @@ export default class GallaryImage {
     this.arrowsColor = '#ffffff';
     this.arrowsWidth = '2';
     this.arrowsArray = [];
-    this.contrast = '0'
+    this.contrast = '100'
   }
 
   // функции доступа к полям
