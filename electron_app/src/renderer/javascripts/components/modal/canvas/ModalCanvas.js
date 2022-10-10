@@ -536,8 +536,16 @@ const ModalCanvas = () => {
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, contrast: event.target.value });
     })
-    
   }
+  function brightnessChangeHandler(event) {
+    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
+    setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, brightness: event.target.value });
+    })
+  }
+
+
+
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -696,6 +704,17 @@ const ModalCanvas = () => {
                 onChange={contrastChangeHandler}></input>
             </div>
           </div>
+          <div className='modal-content-grid-properties-right-title'>Яркость:</div>
+          <div className='modal-content-grid-properties-right-brightness'>
+            <div className='modal-content-grid-properties-right-brightness-range'>
+              <input type="range"
+                id="brightness"
+                min="0"
+                max="200"
+                value={galleryImg.getBrightness()}
+                onChange={brightnessChangeHandler}></input>
+            </div>
+          </div>
         </>
       );
     };
@@ -725,7 +744,8 @@ const ModalCanvas = () => {
       const imgH = (this.height / 100 * pr) * zoom;
 
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      ctx.filter = `contrast(${galleryImg.getContrast()}%)`
+      ctx.filter = `contrast(${galleryImg.getContrast()}%)
+                    brightness(${galleryImg.getBrightness()}%)`
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
       
       if (galleryImg.getArrowsArray().length > 0) {
