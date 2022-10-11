@@ -744,9 +744,9 @@ const ModalCanvas = () => {
       const imgH = (this.height / 100 * pr) * zoom;
 
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
       ctx.filter = `contrast(${galleryImg.getContrast()}%)
                     brightness(${galleryImg.getBrightness()}%)`
-      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
       
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
