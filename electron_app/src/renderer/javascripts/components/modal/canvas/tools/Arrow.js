@@ -61,7 +61,10 @@ export default class Arrow extends Tool {
     this.img.src = this.saved;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.img, 0, 0, this.canvas.width, this.canvas.height);
-
+    // this.ctx.filter = `contrast(100%)
+    //                 brightness(100%)`
+    this.ctx.filter = `contrast(${this.galleryImg.getContrast()}%)
+                    brightness(${this.galleryImg.getBrightness()}%)`
     if (x2 < 40) {
       x2 = 40;
     }
