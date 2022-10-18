@@ -19,6 +19,7 @@ const ModalCanvas = () => {
   });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
+  const [contrastState, setContrastState] = useState('100')
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -536,6 +537,8 @@ const ModalCanvas = () => {
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, contrast: event.target.value });
     })
+    setContrastState(event.target.value)
+    console.log('contrastState', contrastState);
   }
   function brightnessChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
@@ -746,10 +749,12 @@ const ModalCanvas = () => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
       console.log('1', ctx.filter)
-      // ctx.filter = `contrast(100%)
-      //               brightness(100%)`
-      ctx.filter = `contrast(${galleryImg.getContrast()}%)
-                    brightness(${galleryImg.getBrightness()}%)`
+      
+      // ctx.filter = `contrast(${galleryImg.getContrast()}%)
+      //               brightness(${galleryImg.getBrightness()}%)`
+      if (galleryImg.getContrast() !== contrastState) {
+        ctx.filter = `contrast(${galleryImg.getContrast()}%)`
+      }
       console.log('2', ctx.filter)
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
