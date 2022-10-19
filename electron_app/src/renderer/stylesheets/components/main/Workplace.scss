@@ -2,7 +2,7 @@
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 220px;
+    flex-basis: 420px;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
@@ -35,10 +35,10 @@
 .workplace-item {
     display: flex;
     flex-direction: column;
-    flex-basis: 200px;
+    flex-basis: 370px;
     align-items: center;
 
-    height: 220px;
+    height: 527px;
 
     margin: 10px 0 0 0;
 
@@ -53,10 +53,10 @@
 .workplace-item-new {
     display: flex;
     flex-direction: column;
-    flex-basis: 200px;
+    flex-basis: 370px;
     align-items: center;
 
-    height: 200px;
+    height: 527px;
 
     margin: 10px 0 0 0;
 
@@ -70,7 +70,7 @@
 
 .workplace-item-middle-part {
     display: flex;
-    flex-basis: 200px;
+    flex-basis: 370px;
 
     height: 20px;
 
@@ -79,7 +79,7 @@
     background-position: center center;
     background-size: 20px 20px;
 
-    border: 1px dashed #000;
+    border: 1px dashed #958f8f;
     border-radius: 7px;
 
     margin: 10px 0 0 0;
@@ -92,7 +92,7 @@
     background-color: #c4c4c4;
     background-size: 40px 40px;
 
-    border: 1px dashed #000;
+    border: 1px dashed #958f8f;
     border-radius: 7px;
 }
 
@@ -116,7 +116,7 @@
     display: flex;
     flex-grow: 1;
 
-    width: 100%;
+    width: 80%;
 
     /* background-color: #c4c4c4; */
     background-position: center center;
@@ -126,12 +126,12 @@
 
 .workplace-item-text {
     display: flex;
-    flex-basis: 50px;
-    align-items: center;
-
+    flex-basis: 277px;
+    align-items: start;
+    width: 80%;
     font-size: 10px;
     line-height: 1;
-    text-align: center;
+    text-align: start;
 }
 
 .workplace-item-plus {
