@@ -5,7 +5,7 @@ import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
 import GallaryImage from '../../../entities/GalleryImage';
-import Contrast from './tools/Contrast';
+
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
 
@@ -19,7 +19,7 @@ const ModalCanvas = () => {
   });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
-  const [contrastState, setContrastState] = useState('100')
+  const [contrastState, setContrastState] = useState(true)
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -39,6 +39,7 @@ const ModalCanvas = () => {
     };
   }
   function arrowClickHandler(event) {
+    setContrastState(false)
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -341,6 +342,8 @@ const ModalCanvas = () => {
     })
   }
   function cutClickHandler(event) {
+    setContrastState(false)
+    console.log('cutContrastState', contrastState);
     setIsZoomScaleGrid(false)
     setTimeout(() => {
       canvasRef.current.toBlob((blob) => {
@@ -534,11 +537,11 @@ const ModalCanvas = () => {
   }
   function contrastChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
+    setContrastState(true)
+    console.log('contrastState', contrastState);
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, contrast: event.target.value });
     })
-    setContrastState(event.target.value)
-    console.log('contrastState', contrastState);
   }
   function brightnessChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
@@ -748,12 +751,16 @@ const ModalCanvas = () => {
 
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-      console.log('1', ctx.filter)
-      
+      // console.log('1', ctx.filter)
+      console.log('modalCanvas', contrastState)
+      console.log('filter', ctx.filter);
+      console.log('getContrast',galleryImg.getContrast());
       // ctx.filter = `contrast(${galleryImg.getContrast()}%)
       //               brightness(${galleryImg.getBrightness()}%)`
-      if (galleryImg.getContrast() !== contrastState) {
+      if (contrastState) {
         ctx.filter = `contrast(${galleryImg.getContrast()}%)`
+        // setContrastState(false)
+        console.log('contrastState3', contrastState);
       }
       console.log('2', ctx.filter)
       if (galleryImg.getArrowsArray().length > 0) {
