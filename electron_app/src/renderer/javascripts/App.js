@@ -11,7 +11,7 @@ import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
-
+import OrientationPlace from './components/main/OrientationPlace';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -122,6 +122,8 @@ function App() {
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
+        <OrientationPlace>
+        </OrientationPlace>
         <Workplace>
           <WorkplaceItemDataBtn
             photoTableData={photoTableData}
@@ -131,7 +133,7 @@ function App() {
             arrGalleryImages.length ?
               null :
               <WorkplaceItemNew
-                name={`Лист № ${arrGalleryImages.length + 1}`}
+                name={`Лист ${arrGalleryImages.length + 1}`}
                 currentGalleryImage={currentGalleryImage}
                 setCurrentGalleryImage={setCurrentGalleryImage}
                 galleryImages={galleryImages}
