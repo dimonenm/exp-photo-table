@@ -11,7 +11,8 @@ import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
-import OrientationPlace from './components/main/OrientationPlace';
+import OrientationMenu from './components/main/OrientationMenu';
+import OrientationMenuDataBtn from './components/main/OrientationMenuDataBtn';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -122,13 +123,13 @@ function App() {
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
-        <OrientationPlace>
-        </OrientationPlace>
-        <Workplace>
-          <WorkplaceItemDataBtn
+        <OrientationMenu>
+          <OrientationMenuDataBtn
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
+        </OrientationMenu>
+        <Workplace>
           {
             arrGalleryImages.length ?
               null :

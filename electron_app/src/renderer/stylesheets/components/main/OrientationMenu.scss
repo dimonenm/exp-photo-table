@@ -1,0 +1,41 @@
+.orientation-menu {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 180px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+
+    font-family: "Roboto";
+
+    margin-left: 10px;
+
+    border: 1px solid rgba(147, 145, 145, 0.539);
+    border-radius: 5px;
+
+    box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+
+    overflow: auto;
+    height: 97%;
+}
+
+.orientation-menu-data-btn {
+    display: flex;
+    flex-basis: 160px;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-size: 16px;
+    line-height: 1;
+    text-align: center;
+    margin: 10px 0 0 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px #64676ac7;
+    cursor: pointer;
+}
+
+.orientation-menu-data-btn:active {
+    box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
