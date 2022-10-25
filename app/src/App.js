@@ -133,7 +133,7 @@ function App() {
             setModalProperties={setModalProperties}
           />
           <WorkplaceItemNew
-            name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+            name={`Лист № ${arrGalleryImages.length + 1}`}
             currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
             galleryImages={galleryImages}
