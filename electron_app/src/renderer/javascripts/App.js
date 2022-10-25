@@ -18,6 +18,8 @@ import Orientation12x9Btn from './components/main/Orientation12x9Btn';
 import Orientation9x12Btn from './components/main/Orientation9x12Btn';
 import Orientation9x6Btn from './components/main/Orientation9x6Btn';
 import Orientation6x9Btn from './components/main/Orientation6x9Btn';
+import Orientation15x10Btn from './components/main/Orientation15x10Btn';
+import Orientation10x15Btn from './components/main/Orientation10x15Btn';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -135,6 +137,8 @@ function App() {
           />
           Ориентация:
           <OrientationPanoramaBtn>Панорама</OrientationPanoramaBtn>
+          <Orientation15x10Btn>15x10</Orientation15x10Btn>
+          <Orientation10x15Btn>10x15</Orientation10x15Btn>
           <Orientation12x9Btn>12x9</Orientation12x9Btn>
           <Orientation9x12Btn>9x12</Orientation9x12Btn>
           <Orientation9x6Btn>9x6</Orientation9x6Btn>

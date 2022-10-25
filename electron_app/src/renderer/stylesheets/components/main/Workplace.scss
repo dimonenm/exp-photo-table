@@ -2,7 +2,7 @@
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 400px;
+    flex-basis: 340px;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
@@ -35,7 +35,7 @@
 .workplace-item {
     display: flex;
     flex-direction: column;
-    flex-basis: 370px;
+    flex-basis: 320px;
     align-items: center;
 
     height: 527px;
@@ -53,12 +53,12 @@
 .workplace-item-new {
     display: flex;
     flex-direction: column;
-    flex-basis: 370px;
+    flex-basis: 320px;
     align-items: center;
 
     height: 527px;
 
-    margin: 10px 0 0 0;
+    margin: 38px 0 0 0;
 
     border: 1px dashed #000;
     border-radius: 7px;
@@ -71,7 +71,7 @@
 
 .workplace-item-middle-part {
     display: flex;
-    flex-basis: 370px;
+    flex-basis: 320px;
 
     height: 20px;
 
