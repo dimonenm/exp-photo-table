@@ -33,7 +33,6 @@ function addSelectedImagesToArrForGallery(
                 />
             </Fragment>
         );
-     
     });
     return arrGalleryImages;
 }

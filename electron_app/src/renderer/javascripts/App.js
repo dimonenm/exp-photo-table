@@ -14,6 +14,10 @@ import Modal from './containers/Modal';
 import OrientationMenu from './components/main/OrientationMenu';
 import OrientationMenuDataBtn from './components/main/OrientationMenuDataBtn';
 import OrientationPanoramaBtn from './components/main/OrientationPanoramaBtn';
+import Orientation12x9Btn from './components/main/Orientation12x9Btn';
+import Orientation9x12Btn from './components/main/Orientation9x12Btn';
+import Orientation9x6Btn from './components/main/Orientation9x6Btn';
+import Orientation6x9Btn from './components/main/Orientation6x9Btn';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -129,7 +133,12 @@ function App() {
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
+          Ориентация:
           <OrientationPanoramaBtn>Панорама</OrientationPanoramaBtn>
+          <Orientation12x9Btn>12x9</Orientation12x9Btn>
+          <Orientation9x12Btn>9x12</Orientation9x12Btn>
+          <Orientation9x6Btn>9x6</Orientation9x6Btn>
+          <Orientation6x9Btn>6x9</Orientation6x9Btn>
         </OrientationMenu>
         <Workplace>
           {
