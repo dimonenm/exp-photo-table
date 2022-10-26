@@ -24,6 +24,7 @@ import Orientation10x15Btn from './components/main/Orientation10x15Btn';
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 import GalleryImage from './entities/GalleryImage';
+import OrientationBtn from './components/main/OrientationBtn';
 
 export const modalDataContext = createContext();
 
@@ -136,6 +137,8 @@ function App() {
             setModalProperties={setModalProperties}
           />
           Ориентация:
+          <OrientationBtn type='panorama'></OrientationBtn>
+          <OrientationBtn type='15x10'></OrientationBtn>
           <OrientationPanoramaBtn>Панорама</OrientationPanoramaBtn>
           <Orientation15x10Btn>15x10</Orientation15x10Btn>
           <Orientation10x15Btn>10x15</Orientation10x15Btn>
