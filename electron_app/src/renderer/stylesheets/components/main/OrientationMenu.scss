@@ -51,7 +51,7 @@
     line-height: 1;
     margin: 10px;
     border-radius: 6px;
-    background: #D9D9D9;
+    background: #adadad;
     width: 100px;
     height: 55px;
 
@@ -82,10 +82,10 @@
 }
 
 .orientation-menu-panorama-btn:hover {
-    width: 90px;
-    height: 40px;
+    width: 100px;
+    height: 55px;
     border: 1px solid #D9D9D9;
-    box-shadow: 2px 2px 10px #64676ac7;
+    box-shadow: 2px 2px 10px #57595cc7;
 }
 
 .orientation-menu-horizontal-15x10-btn {
@@ -94,7 +94,7 @@
 }
 
 .orientation-menu-horizontal-15x10-btn:hover {
-    width: 65px;
+    width: 100px;
     height: 55px;
     border: 1px solid #D9D9D9;
     box-shadow: 2px 2px 10px #64676ac7;
@@ -104,10 +104,22 @@
     width: 40px;
     height: 50px;
 }
+.orientation-menu-vertical-10x15-btn:hover {
+    width: 100px;
+    height: 55px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 2px 2px 10px #64676ac7;
+}
 
 .orientation-menu-horizontal-12x9-btn {
     width: 45px;
     height: 35px;
+}
+.orientation-menu-horizontal-12x9-btn:hover {
+    width: 100px;
+    height: 55px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 2px 2px 10px #64676ac7;
 }
 
 .orientation-menu-vertical-9x12-btn {

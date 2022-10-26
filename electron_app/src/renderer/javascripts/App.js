@@ -139,13 +139,11 @@ function App() {
           Ориентация:
           <OrientationBtn type='panorama'></OrientationBtn>
           <OrientationBtn type='15x10'></OrientationBtn>
-          <OrientationPanoramaBtn>Панорама</OrientationPanoramaBtn>
-          <Orientation15x10Btn>15x10</Orientation15x10Btn>
-          <Orientation10x15Btn>10x15</Orientation10x15Btn>
-          <Orientation12x9Btn>12x9</Orientation12x9Btn>
-          <Orientation9x12Btn>9x12</Orientation9x12Btn>
-          <Orientation9x6Btn>9x6</Orientation9x6Btn>
-          <Orientation6x9Btn>6x9</Orientation6x9Btn>
+          <OrientationBtn type='10x15'></OrientationBtn>
+          <OrientationBtn type='12x9'></OrientationBtn>
+          <OrientationBtn type='9x12'></OrientationBtn>
+          <OrientationBtn type='9x6'></OrientationBtn>
+          <OrientationBtn type='6x9'></OrientationBtn>
         </OrientationMenu>
         <Workplace>
           {
