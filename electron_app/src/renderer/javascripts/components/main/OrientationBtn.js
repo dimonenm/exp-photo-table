@@ -59,9 +59,6 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
         console.log(arr);
         setGalleryImages(arr);
         setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
-
-
-
     }
 
 
