@@ -13,13 +13,7 @@ import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
 import OrientationMenu from './components/main/OrientationMenu';
 import OrientationMenuDataBtn from './components/main/OrientationMenuDataBtn';
-import OrientationPanoramaBtn from './components/main/OrientationPanoramaBtn';
-import Orientation12x9Btn from './components/main/Orientation12x9Btn';
-import Orientation9x12Btn from './components/main/Orientation9x12Btn';
-import Orientation9x6Btn from './components/main/Orientation9x6Btn';
-import Orientation6x9Btn from './components/main/Orientation6x9Btn';
-import Orientation15x10Btn from './components/main/Orientation15x10Btn';
-import Orientation10x15Btn from './components/main/Orientation10x15Btn';
+
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -137,13 +131,62 @@ function App() {
             setModalProperties={setModalProperties}
           />
           Ориентация:
-          <OrientationBtn type='panorama'></OrientationBtn>
-          <OrientationBtn type='15x10'></OrientationBtn>
-          <OrientationBtn type='10x15'></OrientationBtn>
-          <OrientationBtn type='12x9'></OrientationBtn>
-          <OrientationBtn type='9x12'></OrientationBtn>
-          <OrientationBtn type='9x6'></OrientationBtn>
-          <OrientationBtn type='6x9'></OrientationBtn>
+          <OrientationBtn
+            type='panorama'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='15x10'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='10x15'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='12x9'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x12'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x6'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='6x9'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
         </OrientationMenu>
         <Workplace>
           {
