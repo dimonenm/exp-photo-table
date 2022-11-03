@@ -19,6 +19,7 @@ import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloaded
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 import GalleryImage from './entities/GalleryImage';
 import OrientationBtn from './components/main/OrientationBtn';
+import PreviewTitlePage from './components/main/PreviewTitlePage';
 
 export const modalDataContext = createContext();
 
@@ -69,7 +70,7 @@ function App() {
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
-
+  let arrPreviewPages = []
   if (downloadedImages) {
     //Функция формирует массив с загруженными изображениями.
     arrDownloadedImages = addDownloadedImagesToArrForGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
@@ -78,6 +79,11 @@ function App() {
   if (galleryImages) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
     arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
+  };
+  if (galleryImages.length > 0) {
+    //Функция формирует массив с выбранными изображениями для фототаблицы.
+    arrPreviewPages.push(<PreviewTitlePage />)
+    
   };
 
   return (
@@ -202,7 +208,8 @@ function App() {
                 setDownloadedImages={setDownloadedImages}
               />
           }
-          {arrGalleryImages}
+          {/* {arrGalleryImages} */}
+          {arrPreviewPages}
         </Workplace>
       </Main>
     </Container>
