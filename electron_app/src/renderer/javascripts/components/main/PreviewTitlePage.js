@@ -3,15 +3,13 @@ import React from 'react';
 function PreviewTitlePage() {
     return (
         <div className='preview-title-page'>
-            <div>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ</div>
-            <div>ПО РЕСПУБЛИКЕ КРЫМ</div>
-            <div>ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
-            <div>                                   тел.this.TEL</div>
-            <div>ФОТОТАБЛИЦА</div>
-            <div>к протоколу осмотра места происшествия от this.testOn ? "2022-03-10" : photoTableData.dateForDoc по факту this.testOn ? "кражи имущества" : photoTableData.factOMP по адресу: this.testOn ? "г. Симферополь, ул. Балаклавская 68" : photoTableData.adressOMP</div>
-            <div>картинка</div>
-            <div>Фото №</div>
-            <div>this.OFFICIAL_STATUS _______________ photoTableData.executor</div>
+            <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
+            <div className='preview-title-page-regular'>295048, г. Симферополь, ул. Балаклавская, 68________тел.3652 733-730</div>
+            <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
+            <div className='preview-title-page-regular'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
+            <div className='preview-title-page-img'></div>
+            <div className='preview-title-page-regular'>Фото № 1. Общий вид.</div>
+            <div className='preview-title-page-regular executor'>специалист___________Р.Н. Халилов</div>
         </div>
     );
 }
