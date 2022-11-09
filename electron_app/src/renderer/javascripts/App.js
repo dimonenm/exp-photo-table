@@ -82,7 +82,16 @@ function App() {
   };
   if (galleryImages.length > 0) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    arrPreviewPages.push(<PreviewTitlePage />)
+    console.log(galleryImages[0].getUrl());
+    arrPreviewPages.push(
+      <PreviewTitlePage
+        index={galleryImages[0].getIndex()}
+        img={galleryImages[0].getUrl()}
+        text={galleryImages[0].getImgDesc()}
+        photoTableData={photoTableData}
+        settings={settings}
+        setModalProperties={setModalProperties}
+        />)
     
   };
 
