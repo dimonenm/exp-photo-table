@@ -20,6 +20,7 @@ import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImag
 import GalleryImage from './entities/GalleryImage';
 import OrientationBtn from './components/main/OrientationBtn';
 import PreviewTitlePage from './components/main/PreviewTitlePage';
+import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 
 export const modalDataContext = createContext();
 
@@ -91,8 +92,31 @@ function App() {
         photoTableData={photoTableData}
         settings={settings}
         setModalProperties={setModalProperties}
-        />)
-    
+      />)
+  };
+  if (galleryImages.length > 1) {
+    arrPreviewPages.push(
+      <PreviewDefaultPage
+        number={arrPreviewPages.length + 1}
+        index={galleryImages[1].getIndex()}
+        img={galleryImages[1].getUrl()}
+        text={galleryImages[1].getImgDesc()}
+        photoTableData={photoTableData}
+        settings={settings}
+        setModalProperties={setModalProperties}
+      />)
+  };
+  if (galleryImages.length > 2) {
+    arrPreviewPages.push(
+      <PreviewDefaultPage
+        number={arrPreviewPages.length + 1}
+        index={galleryImages[2].getIndex()}
+        img={galleryImages[2].getUrl()}
+        text={galleryImages[2].getImgDesc()}
+        photoTableData={photoTableData}
+        settings={settings}
+        setModalProperties={setModalProperties}
+      />)
   };
 
   return (
@@ -217,7 +241,6 @@ function App() {
                 setDownloadedImages={setDownloadedImages}
               />
           }
-          {/* {arrGalleryImages} */}
           {arrPreviewPages}
         </Workplace>
       </Main>
