@@ -83,7 +83,7 @@ function App() {
   };
   if (galleryImages.length > 0) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    console.log(galleryImages[0].getUrl());
+    // console.log(galleryImages[0].getUrl());
     arrPreviewPages.push(
       <PreviewTitlePage
         index={galleryImages[0].getIndex()}
@@ -93,31 +93,49 @@ function App() {
         settings={settings}
         setModalProperties={setModalProperties}
       />)
+
+
+    for (let i = 1; i < galleryImages.length; i += 2) {
+      console.log(galleryImages[i]);
+      console.log(galleryImages[i + 1]);
+      console.log('page');
+      // console.log('i ' + i + ' galleryImages.length ' + galleryImages.length );
+      arrPreviewPages.push(
+        <PreviewDefaultPage
+          number={arrPreviewPages.length + 1}
+          index={[galleryImages[i].getIndex(), galleryImages[i + 1] && galleryImages[i + 1].getIndex()]}
+          img={[galleryImages[i].getUrl(), galleryImages[i + 1] && galleryImages[i + 1].getUrl()]}
+          text={[galleryImages[i].getImgDesc(), galleryImages[i + 1] && galleryImages[i + 1].getImgDesc()]}
+          photoTableData={photoTableData}
+          settings={settings}
+          setModalProperties={setModalProperties}
+        />)
+    }
   };
-  if (galleryImages.length > 1) {
-    arrPreviewPages.push(
-      <PreviewDefaultPage
-        number={arrPreviewPages.length + 1}
-        index={galleryImages[1].getIndex()}
-        img={galleryImages[1].getUrl()}
-        text={galleryImages[1].getImgDesc()}
-        photoTableData={photoTableData}
-        settings={settings}
-        setModalProperties={setModalProperties}
-      />)
-  };
-  if (galleryImages.length > 2) {
-    arrPreviewPages.push(
-      <PreviewDefaultPage
-        number={arrPreviewPages.length + 1}
-        index={galleryImages[2].getIndex()}
-        img={galleryImages[2].getUrl()}
-        text={galleryImages[2].getImgDesc()}
-        photoTableData={photoTableData}
-        settings={settings}
-        setModalProperties={setModalProperties}
-      />)
-  };
+  // if (galleryImages.length > 1) {
+  //   arrPreviewPages.push(
+  //     <PreviewDefaultPage
+  //       number={arrPreviewPages.length + 1}
+  //       index={galleryImages[1].getIndex()}
+  //       img={galleryImages[1].getUrl()}
+  //       text={galleryImages[1].getImgDesc()}
+  //       photoTableData={photoTableData}
+  //       settings={settings}
+  //       setModalProperties={setModalProperties}
+  //     />)
+  // };
+  // if (galleryImages.length > 2) {
+  //   arrPreviewPages.push(
+  //     <PreviewDefaultPage
+  //       number={arrPreviewPages.length + 1}
+  //       index={galleryImages[2].getIndex()}
+  //       img={galleryImages[2].getUrl()}
+  //       text={galleryImages[2].getImgDesc()}
+  //       photoTableData={photoTableData}
+  //       settings={settings}
+  //       setModalProperties={setModalProperties}
+  //     />)
+  // };
 
   return (
     <Container>
