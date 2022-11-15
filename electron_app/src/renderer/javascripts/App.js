@@ -94,22 +94,35 @@ function App() {
         setModalProperties={setModalProperties}
       />)
 
-
-    for (let i = 1; i < galleryImages.length; i += 2) {
-      console.log(galleryImages[i]);
-      console.log(galleryImages[i + 1]);
-      console.log('page');
-      // console.log('i ' + i + ' galleryImages.length ' + galleryImages.length );
+    const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
+    let counterOfIndexes = 0
+    for (let i = 1; i <= countOfPages; i++) {
       arrPreviewPages.push(
         <PreviewDefaultPage
           number={arrPreviewPages.length + 1}
-          index={[galleryImages[i].getIndex(), galleryImages[i + 1] && galleryImages[i + 1].getIndex()]}
-          img={[galleryImages[i].getUrl(), galleryImages[i + 1] && galleryImages[i + 1].getUrl()]}
-          text={[galleryImages[i].getImgDesc(), galleryImages[i + 1] && galleryImages[i + 1].getImgDesc()]}
+          index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+          img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
+          text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
           photoTableData={photoTableData}
           settings={settings}
           setModalProperties={setModalProperties}
         />)
+      console.log('half', galleryImages[i + counterOfIndexes]);
+      console.log('half2', galleryImages[i + 1 + counterOfIndexes]);
+      console.log('page');
+      counterOfIndexes++
+
+      // console.log(galleryImages[]);
+    }
+
+
+
+    for (let i = 1; i < galleryImages.length; i += 2) {
+      // console.log(galleryImages[i]);
+      // console.log(galleryImages[i + 1]);
+      // console.log('page');
+      // console.log('i ' + i + ' galleryImages.length ' + galleryImages.length );
+      
     }
   };
   // if (galleryImages.length > 1) {
