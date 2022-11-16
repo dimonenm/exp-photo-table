@@ -694,18 +694,35 @@ const ModalCanvas = () => {
       if (isZoomScaleGrid) {
         drawScaleGrid(ctx, galleryImg.getOrientation())
       }
-      console.log('pr: ', pr);
-      console.log('ctx.canvas.height: ', ctx.canvas.height);
-      console.log('imgW: ', imgW);
-      console.log('imgH: ', imgH);
+      // console.log('pr: ', pr);
+      // console.log('ctx.canvas.height: ', ctx.canvas.height);
+      // console.log('imgW: ', imgW);
+      // console.log('imgH: ', imgH);
       
-      console.log('this.width: ', this.width);
-      console.log('this.height: ', this.height);
-      console.log(window.outerWidth);
+      // console.log('this.width: ', this.width);
+      // console.log('this.height: ', this.height);
     }
     img.src = galleryImg.getUrl();
   }, [galleryImg, isZoomScaleGrid]);
+  
+  console.log('window.outerWidth', window.outerWidth);
+  console.log('canvas Width', ((window.outerWidth - 350) / 100) * 90 );
+  console.log('window.outerHeight', window.outerHeight);
+  console.log('canvas Height', ((window.outerHeight - 350) / 100) * 90);
+  
+  function computeCanvasWidth() {
+    let height = computeCanvasHeight()
+    return (height / 3) * 4
+  }
+  function computeCanvasHeight() {
+    return ((window.outerHeight - 50) / 100) * 80
+  }
 
+  let canvasWidth = computeCanvasWidth()
+  let canvasHeight = computeCanvasHeight()
+
+  
+  
   return (
     <div className="modal-content-grid-edit">
       <div className='modal-content-grid-tools-left'>
@@ -731,7 +748,7 @@ const ModalCanvas = () => {
         className='modal-content-grid-canvas'
         width={
           galleryImg.getOrientation() === "panorama" ? 700 :
-            galleryImg.getOrientation() === "horizontal" ? 700 :
+            galleryImg.getOrientation() === "horizontal" ? canvasWidth :
               galleryImg.getOrientation() === "vertical" ? 474 :
                 galleryImg.getOrientation() === "9X6" ? 700 :
                   galleryImg.getOrientation() === "6X9" ? 474 :
@@ -739,7 +756,7 @@ const ModalCanvas = () => {
         }
         height={
           galleryImg.getOrientation() === "panorama" ? 350 :
-            galleryImg.getOrientation() === "horizontal" ? 525 :
+            galleryImg.getOrientation() === "horizontal" ? canvasHeight :
               galleryImg.getOrientation() === "vertical" ? 632 :
                 galleryImg.getOrientation() === "9X6" ? 525 :
                   galleryImg.getOrientation() === "6X9" ? 632 :
