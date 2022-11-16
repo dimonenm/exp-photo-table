@@ -19,6 +19,7 @@ const ModalCanvas = () => {
   });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
+  const [contrastState, setContrastState] = useState(true)
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -38,6 +39,7 @@ const ModalCanvas = () => {
     };
   }
   function arrowClickHandler(event) {
+    setContrastState(false)
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -340,6 +342,8 @@ const ModalCanvas = () => {
     })
   }
   function cutClickHandler(event) {
+    setContrastState(false)
+    console.log('cutContrastState', contrastState);
     setIsZoomScaleGrid(false)
     setTimeout(() => {
       canvasRef.current.toBlob((blob) => {
@@ -514,6 +518,40 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
+  function contrastClickHandler(event) {
+    if (toolState.type === 'contrast') {
+      setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
+    } else {
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'contrast',
+          tool: new Hand(
+            canvasRef.current,
+            galleryImg,
+            setGalleryImg,
+            isZoomScaleGrid)
+        }
+      });
+    };
+  }
+  function contrastChangeHandler(event) {
+    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
+    setContrastState(true)
+    console.log('contrastState', contrastState);
+    setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, contrast: event.target.value });
+    })
+  }
+  function brightnessChangeHandler(event) {
+    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
+    setGalleryImg((prev) => {
+      return Object.assign(new GallaryImage(), { ...prev, brightness: event.target.value });
+    })
+  }
+
+
+
   function renderProperties(toolType) {
     if (toolType === 'hand') {
       return (
@@ -658,6 +696,34 @@ const ModalCanvas = () => {
         </div>
       );
     };
+    if (toolType === 'contrast') {
+      return (
+        <>
+          <div className='modal-content-grid-properties-right-title'>Контраст:</div>
+          <div className='modal-content-grid-properties-right-contrast'>
+            <div className='modal-content-grid-properties-right-contrast-range'>
+              <input type="range"
+                id="contrast"
+                min="0"
+                max="200"
+                value={galleryImg.getContrast()}
+                onChange={contrastChangeHandler}></input>
+            </div>
+          </div>
+          <div className='modal-content-grid-properties-right-title'>Яркость:</div>
+          <div className='modal-content-grid-properties-right-brightness'>
+            <div className='modal-content-grid-properties-right-brightness-range'>
+              <input type="range"
+                id="brightness"
+                min="0"
+                max="200"
+                value={galleryImg.getBrightness()}
+                onChange={brightnessChangeHandler}></input>
+            </div>
+          </div>
+        </>
+      );
+    };
   }
 
 
@@ -685,7 +751,18 @@ const ModalCanvas = () => {
             
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-
+      // console.log('1', ctx.filter)
+      console.log('modalCanvas', contrastState)
+      console.log('filter', ctx.filter);
+      console.log('getContrast',galleryImg.getContrast());
+      // ctx.filter = `contrast(${galleryImg.getContrast()}%)
+      //               brightness(${galleryImg.getBrightness()}%)`
+      if (contrastState) {
+        ctx.filter = `contrast(${galleryImg.getContrast()}%)`
+        // setContrastState(false)
+        console.log('contrastState3', contrastState);
+      }
+      console.log('2', ctx.filter)
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
@@ -717,6 +794,10 @@ const ModalCanvas = () => {
           toolState.type === 'imgDesc'
             ? 'modal-content-grid-tools-left-imgDesc-active'
             : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
+        <div className={
+          toolState.type === 'contrast'
+            ? 'modal-content-grid-tools-left-contrast-active'
+            : 'modal-content-grid-tools-left-contrast'} onClick={contrastClickHandler}></div>
       </div>
       <canvas
         ref={canvasRef}
@@ -741,5 +822,6 @@ const ModalCanvas = () => {
     </div>
   );
 }
+
 
 export default ModalCanvas;

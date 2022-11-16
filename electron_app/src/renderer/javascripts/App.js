@@ -11,11 +11,16 @@ import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
+import OrientationMenu from './components/main/OrientationMenu';
+import OrientationMenuDataBtn from './components/main/OrientationMenuDataBtn';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 import GalleryImage from './entities/GalleryImage';
+import OrientationBtn from './components/main/OrientationBtn';
+import PreviewTitlePage from './components/main/PreviewTitlePage';
+import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 
 export const modalDataContext = createContext();
 
@@ -66,7 +71,7 @@ function App() {
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
-
+  let arrPreviewPages = []
   if (downloadedImages) {
     //Функция формирует массив с загруженными изображениями.
     arrDownloadedImages = addDownloadedImagesToArrForGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
@@ -76,6 +81,74 @@ function App() {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
     arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
   };
+  if (galleryImages.length > 0) {
+    //Функция формирует массив с выбранными изображениями для фототаблицы.
+    // console.log(galleryImages[0].getUrl());
+    arrPreviewPages.push(
+      <PreviewTitlePage
+        index={galleryImages[0].getIndex()}
+        img={galleryImages[0].getUrl()}
+        text={galleryImages[0].getImgDesc()}
+        photoTableData={photoTableData}
+        settings={settings}
+        setModalProperties={setModalProperties}
+      />)
+
+    const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
+    let counterOfIndexes = 0
+    for (let i = 1; i <= countOfPages; i++) {
+      arrPreviewPages.push(
+        <PreviewDefaultPage
+          number={arrPreviewPages.length + 1}
+          index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+          img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
+          text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
+          photoTableData={photoTableData}
+          settings={settings}
+          setModalProperties={setModalProperties}
+        />)
+      console.log('half', galleryImages[i + counterOfIndexes]);
+      console.log('half2', galleryImages[i + 1 + counterOfIndexes]);
+      console.log('page');
+      counterOfIndexes++
+
+      // console.log(galleryImages[]);
+    }
+
+
+
+    for (let i = 1; i < galleryImages.length; i += 2) {
+      // console.log(galleryImages[i]);
+      // console.log(galleryImages[i + 1]);
+      // console.log('page');
+      // console.log('i ' + i + ' galleryImages.length ' + galleryImages.length );
+      
+    }
+  };
+  // if (galleryImages.length > 1) {
+  //   arrPreviewPages.push(
+  //     <PreviewDefaultPage
+  //       number={arrPreviewPages.length + 1}
+  //       index={galleryImages[1].getIndex()}
+  //       img={galleryImages[1].getUrl()}
+  //       text={galleryImages[1].getImgDesc()}
+  //       photoTableData={photoTableData}
+  //       settings={settings}
+  //       setModalProperties={setModalProperties}
+  //     />)
+  // };
+  // if (galleryImages.length > 2) {
+  //   arrPreviewPages.push(
+  //     <PreviewDefaultPage
+  //       number={arrPreviewPages.length + 1}
+  //       index={galleryImages[2].getIndex()}
+  //       img={galleryImages[2].getUrl()}
+  //       text={galleryImages[2].getImgDesc()}
+  //       photoTableData={photoTableData}
+  //       settings={settings}
+  //       setModalProperties={setModalProperties}
+  //     />)
+  // };
 
   return (
     <Container>
@@ -122,16 +195,75 @@ function App() {
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
-        <Workplace>
-          <WorkplaceItemDataBtn
+        <OrientationMenu>
+          <OrientationMenuDataBtn
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           />
+          Ориентация:
+          <OrientationBtn
+            type='panorama'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='15x10'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='10x15'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='12x9'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x12'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x6'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='6x9'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+        </OrientationMenu>
+        <Workplace>
           {
             arrGalleryImages.length ?
               null :
               <WorkplaceItemNew
-                name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+                name={`Лист ${arrGalleryImages.length + 1}`}
                 currentGalleryImage={currentGalleryImage}
                 setCurrentGalleryImage={setCurrentGalleryImage}
                 galleryImages={galleryImages}
@@ -140,7 +272,7 @@ function App() {
                 setDownloadedImages={setDownloadedImages}
               />
           }
-          {arrGalleryImages}
+          {arrPreviewPages}
         </Workplace>
       </Main>
     </Container>

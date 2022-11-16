@@ -1,0 +1,42 @@
+.preview-default-page {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 294px;
+    align-items: center;
+    height: 415px;
+    margin: 10px 0 0 0;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 30%),
+        -23px 0 20px -23px rgb(0 0 0 / 80%),
+        23px 0 20px -23px rgb(0 0 0 / 80%),
+        0 0 40px rgb(0 0 0 / 10%) inset;
+    padding: 13px 13px 13px 26px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.preview-default-page-number{
+    font-size: 8px;
+}
+.preview-default-page-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 126px;
+    width: 168px;
+    margin-top: 5px;
+    background-size: contain;
+}
+
+.preview-default-page-photo-description {
+    display: flex;
+    width: 170px;
+    justify-content: flex-start;
+    font-size: 8px;
+}
+
+.preview-default-page-executor {
+    margin-top: 20px;
+    position: absolute;
+    bottom: 13px;
+    font-size: 8px;
+}

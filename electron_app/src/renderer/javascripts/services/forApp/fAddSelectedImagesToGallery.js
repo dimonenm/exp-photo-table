@@ -26,7 +26,7 @@ function addSelectedImagesToArrForGallery(
                 />
                 <WorkplaceItem
                     index={item.getIndex()}
-                    name={`Иллюстрация ${item.getIndex()}`}
+                    name={`Лист № ${item.getIndex()}`}
                     img={item.getUrl()}
                     text={item.getImgDesc()}
                     setModalProperties={setModalProperties}

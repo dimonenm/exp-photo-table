@@ -24,7 +24,7 @@ const WorkplaceItemDataBtn = ({ photoTableData, setModalProperties }) => {
     photoTableData.kusp !== null ||
     photoTableData.executor !== null) {
     return <div
-      className="workplace-data-btn"
+      className="orientation-menu-data-btn"
       onClick={clickHandler}
     >
       Изменить данные фототаблицы
@@ -32,7 +32,7 @@ const WorkplaceItemDataBtn = ({ photoTableData, setModalProperties }) => {
   }
 
   return <div
-    className="workplace-data-btn"
+    className="orientation-menu-data-btn"
     onClick={clickHandler}
   >Ввести данные фототаблицы</div>;
 }
