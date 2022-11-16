@@ -682,10 +682,10 @@ const ModalCanvas = () => {
       const zoom = +galleryImg.getZoom() / 100;
       const imgW = (this.width / 100 * pr) * zoom;
       const imgH = (this.height / 100 * pr) * zoom;
-            
+      
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-
+      
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
@@ -694,6 +694,14 @@ const ModalCanvas = () => {
       if (isZoomScaleGrid) {
         drawScaleGrid(ctx, galleryImg.getOrientation())
       }
+      console.log('pr: ', pr);
+      console.log('ctx.canvas.height: ', ctx.canvas.height);
+      console.log('imgW: ', imgW);
+      console.log('imgH: ', imgH);
+      
+      console.log('this.width: ', this.width);
+      console.log('this.height: ', this.height);
+      console.log(window.outerWidth);
     }
     img.src = galleryImg.getUrl();
   }, [galleryImg, isZoomScaleGrid]);
@@ -721,18 +729,21 @@ const ModalCanvas = () => {
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        width={galleryImg.getOrientation() === "horizontal" ? 700 :
-          galleryImg.getOrientation() === "vertical" ? 474 :
-            // galleryImg.getOrientation() === "panorama" ? 747 :
-            galleryImg.getOrientation() === "panorama" ? 700 :
-              galleryImg.getOrientation() === "9X6" ? 700 :
-                galleryImg.getOrientation() === "6X9" ? 474 : null}
-        height={galleryImg.getOrientation() === "horizontal" ? 525 :
-          galleryImg.getOrientation() === "vertical" ? 632 :
-            // galleryImg.getOrientation() === "panorama" ? 460 :
-            galleryImg.getOrientation() === "panorama" ? 350 :
-              galleryImg.getOrientation() === "9X6" ? 525 :
-                galleryImg.getOrientation() === "6X9" ? 632 : null}
+        width={
+          galleryImg.getOrientation() === "panorama" ? 700 :
+            galleryImg.getOrientation() === "horizontal" ? 700 :
+              galleryImg.getOrientation() === "vertical" ? 474 :
+                galleryImg.getOrientation() === "9X6" ? 700 :
+                  galleryImg.getOrientation() === "6X9" ? 474 :
+                    null
+        }
+        height={
+          galleryImg.getOrientation() === "panorama" ? 350 :
+            galleryImg.getOrientation() === "horizontal" ? 525 :
+              galleryImg.getOrientation() === "vertical" ? 632 :
+                galleryImg.getOrientation() === "9X6" ? 525 :
+                  galleryImg.getOrientation() === "6X9" ? 632 :
+                    null}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
