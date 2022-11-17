@@ -87,6 +87,8 @@ function App() {
     arrPreviewPages.push(
       <PreviewTitlePage
         index={galleryImages[0].getIndex()}
+        orientation={galleryImages[0].getOrientation()}
+        isCuted={galleryImages[0].getImgCuted()}
         img={galleryImages[0].getUrl()}
         text={galleryImages[0].getImgDesc()}
         photoTableData={photoTableData}

@@ -55,10 +55,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 126px;
-    width: 168px;
+    height: 40%;
+    width: 100%;
     margin-top: 5px;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
 }
 
 .preview-title-page-photo-description {
@@ -68,12 +70,13 @@
     font-size: 8px;
 }
 
-.preview-title-page-executor{
+.preview-title-page-executor {
     margin-top: 20px;
     position: absolute;
     bottom: 13px;
 }
-.preview-title-page-separator{
+
+.preview-title-page-separator {
     width: 100%;
     height: 1px;
     background-color: rgb(95, 94, 94);
