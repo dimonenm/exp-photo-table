@@ -17,6 +17,10 @@ const ModalCanvas = () => {
     type: 'handFree',
     tool: null
   });
+  const [canvasSize, setCanvasSize] = useState({
+    width: 0,
+    height: 0
+  });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
 
@@ -339,7 +343,7 @@ const ModalCanvas = () => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
-  function cutClickHandler(event) {
+  function cutClickHandler() {
     setIsZoomScaleGrid(false)
     setTimeout(() => {
       canvasRef.current.toBlob((blob) => {
@@ -674,6 +678,74 @@ const ModalCanvas = () => {
   }, [])
 
   useEffect(() => {
+
+    if (galleryImg.getOrientation() === "panorama") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let imgWidth = 0
+      let imgHeight = 0
+      const img = new Image()
+      img.onload = function () {
+        imgWidth = this.width
+        imgHeight = this.height
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = ((((window.outerWidth - 350) / 100) * 80) * imgHeight) / imgWidth
+        setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
+
+
+        const ctx = canvasRef.current.getContext('2d');
+        const img = new Image();
+        img.onload = function () {
+
+          const pr = ctx.canvas.height * 100 / this.height;
+          const zoom = +galleryImg.getZoom() / 100;
+          const imgW = (this.width / 100 * pr) * zoom;
+          const imgH = (this.height / 100 * pr) * zoom;
+
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
+
+          if (galleryImg.getArrowsArray().length > 0) {
+            for (const item of galleryImg.getArrowsArray()) {
+              drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
+            }
+          }
+          if (isZoomScaleGrid) {
+            drawScaleGrid(ctx, galleryImg.getOrientation())
+          }
+        }
+        img.src = galleryImg.getUrl();
+      }
+      img.src = galleryImg.getUrl();
+    }
+    if (galleryImg.getOrientation() === "horizontal" || galleryImg.getOrientation() === "9X6") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let height = ((window.outerHeight - 50) / 100) * 80
+      if (((height / 2) * 3) > (((window.outerWidth - 350) / 100) * 80)) {
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth / 3) * 2
+      } else {
+        canvasWidth = ((height / 2) * 3)
+        canvasHeight = height
+      }
+      setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
+    }
+    if (galleryImg.getOrientation() === "vertical" || galleryImg.getOrientation() === "6X9") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let width = ((window.outerWidth - 350) / 100) * 80
+      if (((width / 3) * 4) > (((window.outerHeight - 50) / 100) * 80)) {
+        canvasHeight = ((window.outerHeight - 50) / 100) * 80
+        canvasWidth = (canvasHeight / 4) * 3
+      } else {
+        canvasHeight = ((height / 3) * 4)
+        canvasWidth = width
+      }
+      setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
+    }
+
+
     const ctx = canvasRef.current.getContext('2d');
     const img = new Image();
     img.onload = function () {
@@ -682,10 +754,10 @@ const ModalCanvas = () => {
       const zoom = +galleryImg.getZoom() / 100;
       const imgW = (this.width / 100 * pr) * zoom;
       const imgH = (this.height / 100 * pr) * zoom;
-      
+
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-      
+
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
@@ -694,35 +766,16 @@ const ModalCanvas = () => {
       if (isZoomScaleGrid) {
         drawScaleGrid(ctx, galleryImg.getOrientation())
       }
-      // console.log('pr: ', pr);
-      // console.log('ctx.canvas.height: ', ctx.canvas.height);
-      // console.log('imgW: ', imgW);
-      // console.log('imgH: ', imgH);
-      
-      // console.log('this.width: ', this.width);
-      // console.log('this.height: ', this.height);
     }
     img.src = galleryImg.getUrl();
   }, [galleryImg, isZoomScaleGrid]);
-  
-  console.log('window.outerWidth', window.outerWidth);
-  console.log('canvas Width', ((window.outerWidth - 350) / 100) * 90 );
-  console.log('window.outerHeight', window.outerHeight);
-  console.log('canvas Height', ((window.outerHeight - 350) / 100) * 90);
-  
-  function computeCanvasWidth() {
-    let height = computeCanvasHeight()
-    return (height / 3) * 4
-  }
-  function computeCanvasHeight() {
-    return ((window.outerHeight - 50) / 100) * 80
-  }
 
-  let canvasWidth = computeCanvasWidth()
-  let canvasHeight = computeCanvasHeight()
 
-  
-  
+
+
+
+
+
   return (
     <div className="modal-content-grid-edit">
       <div className='modal-content-grid-tools-left'>
@@ -746,21 +799,23 @@ const ModalCanvas = () => {
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        width={
-          galleryImg.getOrientation() === "panorama" ? 700 :
-            galleryImg.getOrientation() === "horizontal" ? canvasWidth :
-              galleryImg.getOrientation() === "vertical" ? 474 :
-                galleryImg.getOrientation() === "9X6" ? 700 :
-                  galleryImg.getOrientation() === "6X9" ? 474 :
-                    null
-        }
-        height={
-          galleryImg.getOrientation() === "panorama" ? 350 :
-            galleryImg.getOrientation() === "horizontal" ? canvasHeight :
-              galleryImg.getOrientation() === "vertical" ? 632 :
-                galleryImg.getOrientation() === "9X6" ? 525 :
-                  galleryImg.getOrientation() === "6X9" ? 632 :
-                    null}
+        width={canvasSize.width}
+        // width={
+        //   galleryImg.getOrientation() === "panorama" ? canvasSize.width :
+        //     galleryImg.getOrientation() === "horizontal" ? canvasWidth :
+        //       galleryImg.getOrientation() === "vertical" ? 474 :
+        //         galleryImg.getOrientation() === "9X6" ? canvasWidth :
+        //           galleryImg.getOrientation() === "6X9" ? 474 :
+        //             null
+        // }
+        // height={
+        //   galleryImg.getOrientation() === "panorama" ? canvasHeight :
+        //     galleryImg.getOrientation() === "horizontal" ? canvasHeight :
+        //       galleryImg.getOrientation() === "vertical" ? 632 :
+        //         galleryImg.getOrientation() === "9X6" ? canvasHeight :
+        //           galleryImg.getOrientation() === "6X9" ? 632 :
+        //             null}
+        height={canvasSize.height}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
