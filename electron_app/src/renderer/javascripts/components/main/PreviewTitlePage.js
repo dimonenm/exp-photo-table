@@ -1,16 +1,21 @@
 import React from 'react';
 
 function PreviewTitlePage({ index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
-    console.log(img);
+
+    console.log(orientation)
+    console.log(isCuted)
     let height = '40%'
+    console.log(backgroundImage);
+
+    if (orientation === 'panorama' && isCuted) {
+        height = '30%'
+    }
     const backgroundImage = {
-        backgroundImage: `url(${img})`, 
+        backgroundImage: `url(${img})`,
         height
     }
-    
-    if (orientation === 'panorama' && isCuted) {
-        height = '15%'
-    }
+    console.log(backgroundImage);
+    console.log(height);
     const dbClickHandler = (event) => {
         event.preventDefault();
         setModalProperties(prev => {
@@ -25,6 +30,7 @@ function PreviewTitlePage({ index, orientation, isCuted, img, text, photoTableDa
         }
         )
     }
+
     return (
         <div className='preview-title-page'>
             <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
