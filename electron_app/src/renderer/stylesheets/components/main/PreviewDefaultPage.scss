@@ -30,10 +30,11 @@
 }
 
 .preview-default-page-photo-description {
-    display: flex;
     width: 170px;
-    justify-content: flex-start;
     font-size: 8px;
+}
+.preview-default-page-photo-description span {
+    font-weight: 800;
 }
 
 .preview-default-page-executor {

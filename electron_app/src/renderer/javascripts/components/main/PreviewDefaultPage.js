@@ -33,13 +33,13 @@ function PreviewDefaultPage({ number, index, img, text, photoTableData, settings
     imagesArr.push((
         <>
             <div className='preview-default-page-img' onDoubleClick={dbClickFirstImgHandler} style={{ backgroundImage: `url(${img[0]})` }}></div>
-            <div className='preview-default-page-photo-description'><strong>{`Фото № ${index[0]}.`}</strong>{text[0]}</div>
+            <div className='preview-default-page-photo-description'><span>{`Фото № ${index[0]}. `}</span>{text[0]}</div>
         </>))
     if (index[1] && img[1]) {
         imagesArr.push((
             <>
                 <div className='preview-default-page-img' onDoubleClick={dbClickSecondImgHandler} style={{ backgroundImage: `url(${img[1]})` }}></div>
-                <div className='preview-default-page-photo-description'><strong>{`Фото № ${index[1]}.`}</strong>{text[1]}</div>
+                <div className='preview-default-page-photo-description'><span>{`Фото № ${index[1]}. `}</span>{text[1]}</div>
             </>))
 }
     

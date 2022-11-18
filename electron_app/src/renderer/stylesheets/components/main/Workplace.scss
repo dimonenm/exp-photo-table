@@ -63,7 +63,14 @@
     border: 1px dashed #000;
     border-radius: 7px;
 }
+.workplace-item-new-title{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: center;
 
+}
 .workplace-item-new-hovered {
     background-color: #c4c4c4;
 

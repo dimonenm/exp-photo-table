@@ -39,7 +39,8 @@ function PreviewTitlePage({ index, orientation, isCuted, img, text, photoTableDa
             <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
             <div className='preview-title-page-description'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
             <div className='preview-title-page-img' onDoubleClick={dbClickHandler} style={backgroundImage}></div>
-            <div className='preview-title-page-photo-description'><strong>{`Фото № ${index}.`}</strong>{text}</div>
+            <div className='preview-title-page-photo-description'>
+                <span>{`Фото № ${index}. `}</span>{text}</div>
             <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div>
         </div>
     );

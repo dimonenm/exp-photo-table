@@ -62,13 +62,13 @@
     background-position: center top;
 }
 
-.preview-title-page-photo-description {
-    display: flex;
-    width: 170px;
-    justify-content: flex-start;
+.preview-title-page-photo-description{
+    width: 230px;
     font-size: 8px;
 }
-
+.preview-title-page-photo-description span{
+    font-weight: 800;
+}
 .preview-title-page-executor {
     margin-top: 20px;
     position: absolute;
