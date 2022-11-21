@@ -4,6 +4,7 @@ import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
+import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 
 const ModalCanvas = () => {
@@ -340,27 +341,7 @@ const ModalCanvas = () => {
   function cutClickHandler() {
     setIsZoomScaleGrid(false)
     setTimeout(() => {
-      canvasRef.current.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const newGallaryImage = Object.assign(new GallaryImage(), {
-          ...galleryImg,
-          url: url,
-          imgCuted: true,
-          lastOffsetValueX: 0,
-          lastOffsetValueY: 0,
-          zoom: '100'
-        })
-        setGalleryImg(() => {
-          return newGallaryImage;
-        })
-        setToolState((prev) => {
-          return {
-            ...prev,
-            type: 'handFree',
-            tool: new HandFree(canvasRef.current)
-          }
-        });
-      }, 'image/jpeg', 1)
+      cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState)
     }, 0)
   }
   function zoomScaleGridClickHandler(event) {
@@ -566,7 +547,7 @@ const ModalCanvas = () => {
         imgWidth = this.width
         imgHeight = this.height
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
-        canvasHeight = ((((window.outerWidth - 350) / 100) * 80) * imgHeight) / imgWidth
+        canvasHeight = (canvasWidth * imgHeight) / imgWidth
         setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
 
         renderImgInCanvas(canvasRef, galleryImg, isZoomScaleGrid)

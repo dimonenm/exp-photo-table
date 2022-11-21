@@ -1,15 +1,19 @@
 import drawArrowArray from '../services/forModalCanvas/fDrawArrowArray';
 export default class PanoramaImg {
-
+  
   constructor() {
+    this.documentWidth = 605
     this.data = null;
     this.transformation = {
-      width: 340,
-      height: 680
+      width: 0,
+      height: 0
     };
   }
 
   // функции доступа к полям
+  getDocumentWidth() {
+    return this.documentWidth;
+  }
   getData() {
     return this.data;
   }
@@ -19,6 +23,12 @@ export default class PanoramaImg {
   // функции изменения полей
   setData(value) {
     this.data = value;
+  }
+  setTransformation(valueWidth, valueHeight) {
+    this.transformation = {
+      width: valueWidth,
+      height: valueHeight
+    };
   }
 
   // служебные функции
@@ -30,32 +40,34 @@ export default class PanoramaImg {
     const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
     const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
+    const getDocumentWidth = this.getDocumentWidth.bind(this);
     const setData = this.setData.bind(this);
+    const setTransformation = this.setTransformation.bind(this);
 
-    await new Promise((onSuccess, onError) => {
-      img.addEventListener('load', function () {
-        ctx.canvas.height = 700;
-        ctx.canvas.width = 350;
-
-        const zoom = gallaryImageZoom / 100;
-        const imgW = this.width * zoom;
-        const imgH = this.height * zoom;
-
-        ctx.translate(0, 700);
-        ctx.rotate(270 * Math.PI / 180)
-        
-        ctx.drawImage(img, 0, 0, imgW, imgH);
-
-        if (gallaryImageArrowsArray.length > 0) {
-          for (const item of gallaryImageArrowsArray) {
-            drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+    if (gallaryImage.getOrientation() === 'panorama') {
+      await new Promise((onSuccess, onError) => {
+        img.addEventListener('load', function () {
+          ctx.canvas.width = this.width;
+          ctx.canvas.height = this.height;
+          setTransformation(getDocumentWidth(), (getDocumentWidth() / this.width) * this.height)
+  
+          const zoom = gallaryImageZoom / 100;
+          const imgW = this.width * zoom;
+          const imgH = this.height * zoom;
+          
+          ctx.drawImage(img, 0, 0, imgW, imgH);
+  
+          if (gallaryImageArrowsArray.length > 0) {
+            for (const item of gallaryImageArrowsArray) {
+              drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+            }
           }
-        }
-        onSuccess('done');
-      })      
-      
-      img.src = gallaryImage.getUrl();      
-    });
+          onSuccess('done');
+        })      
+        
+        img.src = gallaryImage.getUrl();      
+      });
+    }
     
     await new Promise((onSuccess, onError) => {
       setData(canvas.toDataURL('image/jpeg', 1));

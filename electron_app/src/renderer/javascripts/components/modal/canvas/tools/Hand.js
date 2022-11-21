@@ -89,8 +89,8 @@ export default class Hand extends Tool {
 
   drawScaleGrid(ctx, orientation) {
     if (orientation === 'horizontal') {
-      const linesHorizontal = 12
-      const linesVertical = 9
+      const linesHorizontal = 15
+      const linesVertical = 10
       const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
       const gridPitchVertical = ctx.canvas.height / linesVertical
       let counterHorizontal = gridPitchHorizontal

@@ -1,5 +1,7 @@
-export function cut() {
-  setIsZoomScaleGrid(false)
+import GallaryImage from '../../entities/GalleryImage';
+import HandFree from '../../components/modal/canvas/tools/HandFree';
+
+export function cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState) {
   setTimeout(() => {
     canvasRef.current.toBlob((blob) => {
       const url = URL.createObjectURL(blob);

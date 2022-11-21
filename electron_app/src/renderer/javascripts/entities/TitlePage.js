@@ -168,7 +168,6 @@ export default class TitlePage {
         ]
       }
     );
-
     const paragraphDesc = new Paragraph(
       {
         alignment: AlignmentType.JUSTIFIED,
