@@ -713,9 +713,9 @@ export default class WordDocument {
             ctx.canvas.width = 747;
             break;
           case 'horizontal':
-            ctx.canvas.height = 525;
+            ctx.canvas.height = 466.67;
             ctx.canvas.width = 700;
-            this.setTransformation(453.33, 340)
+            this.setTransformation(566.66, 377.77)
             break;
           case 'vertical':
             ctx.canvas.height = 632;
