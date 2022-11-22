@@ -158,11 +158,13 @@ const ModalCanvas = () => {
     };
   }
   function orientationPanoramaClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: 'panorama', lastOffsetValueX: 0 });
-    })
     setToolState((prev) => {
+      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'panorama', lastOffsetValueX: 0 })
+      
+      setGalleryImg(() => {
+        return newGallaryImage;
+      })
+      
       return {
         ...prev,
         type: 'hand',
@@ -174,13 +176,13 @@ const ModalCanvas = () => {
     });
   }
   function orientationHorizontalClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
+    console.log('canvasRef.current in Horizontal: ', canvasRef.current.height);
+    setGalleryImg(() => {
+      return newGallaryImage;
+    })
+
     setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
-
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-
       return {
         ...prev,
         type: 'hand',
@@ -193,13 +195,13 @@ const ModalCanvas = () => {
     });
   }
   function orientationVerticalClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
+    console.log('canvasRef.current in Vertical: ', canvasRef.current.height);
+
+    setGalleryImg(() => {
+      return newGallaryImage;
+    })
     setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
-
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-
       return {
         ...prev,
         type: 'hand',
@@ -548,13 +550,13 @@ const ModalCanvas = () => {
         imgHeight = this.height
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
         canvasHeight = (canvasWidth * imgHeight) / imgWidth
-        setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
+        setCanvasSize((prev) => { return { ...prev, width: canvasWidth, height: canvasHeight } })
 
         renderImgInCanvas(canvasRef, galleryImg, isZoomScaleGrid)
       }
       img.src = galleryImg.getUrl();
     }
-    if (galleryImg.getOrientation() === "horizontal" || galleryImg.getOrientation() === "9X6") {
+    if (galleryImg.getOrientation() === "horizontal") {
       let canvasWidth = 0
       let canvasHeight = 0
       let height = ((window.outerHeight - 50) / 100) * 80
@@ -565,7 +567,20 @@ const ModalCanvas = () => {
         canvasWidth = ((height / 2) * 3)
         canvasHeight = height
       }
-      setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
+      setCanvasSize((prev) => { return { ...prev, width: canvasWidth, height: canvasHeight } })
+    }
+    if (galleryImg.getOrientation() === "9X6") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let height = ((window.outerHeight - 50) / 100) * 80
+      if (((height / 3) * 4) > (((window.outerWidth - 350) / 100) * 80)) {
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth / 4) * 3
+      } else {
+        canvasWidth = ((height / 3) * 4)
+        canvasHeight = height
+      }
+      setCanvasSize((prev) => { return { ...prev, width: canvasWidth, height: canvasHeight } })
     }
     if (galleryImg.getOrientation() === "vertical" || galleryImg.getOrientation() === "6X9") {
       let canvasWidth = 0
@@ -578,9 +593,9 @@ const ModalCanvas = () => {
         canvasHeight = ((height / 3) * 4)
         canvasWidth = width
       }
-      setCanvasSize(() => { return { width: canvasWidth, height: canvasHeight } })
+      setCanvasSize((prev) => { return { ...prev, width: canvasWidth, height: canvasHeight } })
     }
-
+    console.log('canvasRef.current in useEffect: ', canvasRef.current.height);
     renderImgInCanvas(canvasRef, galleryImg, isZoomScaleGrid)
   }, [galleryImg, isZoomScaleGrid]);
 

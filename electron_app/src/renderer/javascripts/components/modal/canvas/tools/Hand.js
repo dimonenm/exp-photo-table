@@ -11,8 +11,9 @@ export default class Hand extends Tool {
     this.arrowsArr = [...galleryImg.getArrowsArray()];
     this.isZoomScaleGrid = isZoomScaleGrid;
     this.listen();
-
+    
     this.img.onload = () => {
+      console.log('canvas height in Hand: ', canvas.height);
       this.pr = canvas.height * 100 / this.img.height;
       this.zoom = +this.galleryImg.getZoom() / 100;
       this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;
@@ -80,7 +81,6 @@ export default class Hand extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
-
       if (this.isZoomScaleGrid) {
         this.drawScaleGrid(this.ctx, this.galleryImg.getOrientation())
       }

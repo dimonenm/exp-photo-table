@@ -59,7 +59,7 @@ export default class PhotoTableImg {
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
     const setData = this.setData.bind(this);
 
-    switch (gallaryImage.orientation) {
+    switch (gallaryImage.getOrientation()) {
       case 'panorama':
         ctx.canvas.height = 460;
         ctx.canvas.width = 747;

@@ -11,7 +11,7 @@ export default class TitlePage {
     this.ZIP_CODE = settings.zip_code;
     this.ADDRESS = settings.address;
     this.TEL = settings.tel;
-    this.INDENT_PANORAMA = { firstLine: 1900 };
+    this.INDENT_PANORAMA = { firstLine: 0 };
     this.galleryImages = galleryImages;
     this.photoTableData = photoTableData;
 
