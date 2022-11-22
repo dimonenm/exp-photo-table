@@ -160,11 +160,11 @@ const ModalCanvas = () => {
   function orientationPanoramaClickHandler() {
     setToolState((prev) => {
       const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'panorama', lastOffsetValueX: 0 })
-      
+
       setGalleryImg(() => {
         return newGallaryImage;
       })
-      
+
       return {
         ...prev,
         type: 'hand',
@@ -599,6 +599,65 @@ const ModalCanvas = () => {
     renderImgInCanvas(canvasRef, galleryImg, isZoomScaleGrid)
   }, [galleryImg, isZoomScaleGrid]);
 
+  function getCanvasSize(orientation) {
+    if (orientation === "panorama") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let imgWidth = 0
+      let imgHeight = 0
+      const img = new Image()
+      img.onload = function () {
+        imgWidth = this.width
+        imgHeight = this.height
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth * imgHeight) / imgWidth
+        return ({ width: canvasWidth, height: canvasHeight })
+      }
+      img.src = galleryImg.getUrl();
+    }
+    if (orientation === "horizontal") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let height = ((window.outerHeight - 50) / 100) * 80
+      if (((height / 2) * 3) > (((window.outerWidth - 350) / 100) * 80)) {
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth / 3) * 2
+      } else {
+        canvasWidth = ((height / 2) * 3)
+        canvasHeight = height
+      }
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
+    if (orientation === "9X6") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let height = ((window.outerHeight - 50) / 100) * 80
+      if (((height / 3) * 4) > (((window.outerWidth - 350) / 100) * 80)) {
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth / 4) * 3
+      } else {
+        canvasWidth = ((height / 3) * 4)
+        canvasHeight = height
+      }
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
+    if (orientation === "vertical" || orientation === "6X9") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let width = ((window.outerWidth - 350) / 100) * 80
+      if (((width / 3) * 4) > (((window.outerHeight - 50) / 100) * 80)) {
+        canvasHeight = ((window.outerHeight - 50) / 100) * 80
+        canvasWidth = (canvasHeight / 4) * 3
+      } else {
+        canvasHeight = ((height / 3) * 4)
+        canvasWidth = width
+      }
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
+  }
+  console.log('getCanvasSize ', getCanvasSize(galleryImg.getOrientation()));
+  console.log('getCanvasSize.height ', getCanvasSize(galleryImg.getOrientation()).height);
+
   return (
     <div className="modal-content-grid-edit">
       <div className='modal-content-grid-tools-left'>
@@ -622,8 +681,8 @@ const ModalCanvas = () => {
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        width={canvasSize.width}
-        height={canvasSize.height}
+        width={getCanvasSize(galleryImg.getOrientation()).width}
+        height={getCanvasSize(galleryImg.getOrientation()).height}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
