@@ -170,8 +170,10 @@ export function drawScaleGrid(ctx, orientation) {
   }
 }
 
-export function renderImgInCanvas(canvasRef, galleryImg, isZoomScaleGrid) {
+export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomScaleGrid) {
   const ctx = canvasRef.current.getContext('2d');
+  ctx.canvas.width = width
+  ctx.canvas.height = height
   const img = new Image();
   img.onload = function () {
 
