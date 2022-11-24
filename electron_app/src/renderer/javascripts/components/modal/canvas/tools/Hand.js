@@ -5,7 +5,6 @@ export default class Hand extends Tool {
   constructor(canvas, galleryImg, setGalleryImg, isZoomScaleGrid) {
     super(canvas);
     this.img = new Image();
-    this.img.src = galleryImg.getUrl();
     this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
     this.arrowsArr = [...galleryImg.getArrowsArray()];
@@ -25,6 +24,8 @@ export default class Hand extends Tool {
       this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
       this.lastOffsetValueY = this.galleryImg.getLastOffsetValueY();
     }
+    
+    this.img.src = galleryImg.getUrl();
   }
 
   listen() {

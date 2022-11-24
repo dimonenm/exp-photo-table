@@ -157,14 +157,14 @@ const ModalCanvas = () => {
       });
     };
   }
-  function orientationPanoramaClickHandler() {
-    setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'panorama', lastOffsetValueX: 0 })
+  async function orientationPanoramaClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'panorama', lastOffsetValueX: 0 })
 
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
+    await setGalleryImg(() => {
+      return newGallaryImage;
+    })
 
+    await setToolState((prev) => {
       return {
         ...prev,
         type: 'hand',
@@ -523,21 +523,21 @@ const ModalCanvas = () => {
     };
   }
   function getCanvasSize(orientation) {
-    if (orientation === "panorama") {
-      let canvasWidth = 0
-      let canvasHeight = 0
-      let imgWidth = 0
-      let imgHeight = 0
-      const img = new Image()
-      img.onload = function () {
-        imgWidth = this.width
-        imgHeight = this.height
-        canvasWidth = ((window.outerWidth - 350) / 100) * 80
-        canvasHeight = (canvasWidth * imgHeight) / imgWidth
-        return ({ width: canvasWidth, height: canvasHeight })
-      }
-      img.src = galleryImg.getUrl();
-    }
+    // if (orientation === "panorama") {
+    //   let canvasWidth = 0
+    //   let canvasHeight = 0
+    //   let imgWidth = 0
+    //   let imgHeight = 0
+    //   const img = new Image()
+    //   img.onload = function () {
+    //     imgWidth = this.width
+    //     imgHeight = this.height
+    //     canvasWidth = ((window.outerWidth - 350) / 100) * 80
+    //     canvasHeight = (canvasWidth * imgHeight) / imgWidth
+    //     return ({ width: canvasWidth, height: canvasHeight })
+    //   }
+    //   img.src = galleryImg.getUrl();
+    // }
     if (orientation === "horizontal") {
       let canvasWidth = 0
       let canvasHeight = 0
@@ -588,8 +588,8 @@ const ModalCanvas = () => {
         })
       }
     })
-    canvasSize = getCanvasSize(galleryImg.getOrientation())
-    console.log('canvasSize1: ', canvasSize);
+    // canvasSize = getCanvasSize(galleryImg.getOrientation())
+    // console.log('canvasSize1: ', canvasSize);
     // eslint-disable-next-line
   }, [])
 
@@ -619,9 +619,6 @@ const ModalCanvas = () => {
     
 
   }, [galleryImg, isZoomScaleGrid]);
-
-
-  console.log('getCanvasSize.height ', canvasSize.height);
 
   return (
     <div className="modal-content-grid-edit">
