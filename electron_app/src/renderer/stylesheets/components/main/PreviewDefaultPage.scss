@@ -14,9 +14,11 @@
     padding: 13px 13px 13px 26px;
     font-family: 'Times New Roman', Times, serif;
 }
-.preview-default-page-number{
+
+.preview-default-page-number {
     font-size: 8px;
 }
+
 .preview-default-page-img {
     display: flex;
     flex-direction: column;
@@ -33,6 +35,7 @@
     width: 170px;
     font-size: 8px;
 }
+
 .preview-default-page-photo-description span {
     font-weight: 800;
 }
@@ -41,5 +44,11 @@
     margin-top: 20px;
     position: absolute;
     bottom: 13px;
+    font-size: 8px;
+}
+
+.preview-default-page-note {
+    margin-top: 30px;
+    width: 255px;
     font-size: 8px;
 }
