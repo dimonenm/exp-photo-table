@@ -341,7 +341,7 @@ const ModalCanvas = () => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
-  function cutClickHandler(event) {
+  function cutClickHandler() {
     setContrastState(false)
     console.log('cutContrastState', contrastState);
     setIsZoomScaleGrid(false)
@@ -518,7 +518,7 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
-  function contrastClickHandler(event) {
+  function contrastClickHandler() {
     if (toolState.type === 'contrast') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {

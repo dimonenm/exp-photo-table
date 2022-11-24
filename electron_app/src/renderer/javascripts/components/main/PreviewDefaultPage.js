@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PreviewDefaultPage({ number, index, img, text, photoTableData, settings, setModalProperties }) {
+function PreviewDefaultPage({number, index, img, text, photoTableData, settings, setModalProperties }) {
     const imagesArr = []
     const dbClickFirstImgHandler = (event) => {
         event.preventDefault();

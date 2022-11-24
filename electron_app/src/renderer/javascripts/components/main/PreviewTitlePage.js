@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PreviewTitlePage({ index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
+function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
 
     console.log(orientation)
     console.log(isCuted)

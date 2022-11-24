@@ -4,22 +4,22 @@ import GallaryImage from '../../entities/GalleryImage';
 const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, galleryImages, setGalleryImages }) => {
     function dragover(event) {
         event.preventDefault();
-        console.log('dragover');
+        // console.log('dragover');
     }
 
     function dragenter(event) {
         event.preventDefault();
-        console.log('dragenter');
+        // console.log('dragenter');
     }
 
     function dragleave(event) {
         event.preventDefault();
-        console.log('dragleave');
+        // console.log('dragleave');
     }
 
     function dragdrop(event) {
         event.preventDefault();
-        console.log('dragdrop', event.target.dataset.type);
+        // console.log('dragdrop', event.target.dataset.type);
         const gallaryImage = new GallaryImage()
         gallaryImage.setName(currentGalleryImage.nameImg)
         gallaryImage.setUrl(currentGalleryImage.urlImg)
@@ -39,9 +39,6 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
             case '15X10':
                 gallaryImage.setOrientation('horizontal')
                 break;
-            case '10X15':
-                gallaryImage.setOrientation('10X15')
-                break;
             case '9X6':
                 gallaryImage.setOrientation('9X6')
                 break;
@@ -57,8 +54,6 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
         setGalleryImages(arr);
         setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
     }
-
-
 
 
 
@@ -103,7 +98,6 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
                 onDrop={dragdrop}>
                 <div className="orientation-menu-vertical-9x12-btn"
                     data-type="vertical">
-
                     9x12
                 </div>
             </div>

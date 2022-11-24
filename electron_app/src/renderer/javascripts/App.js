@@ -86,6 +86,7 @@ function App() {
     // console.log(galleryImages[0].getUrl());
     arrPreviewPages.push(
       <PreviewTitlePage
+        key={galleryImages[0].getIndex()}
         index={galleryImages[0].getIndex()}
         orientation={galleryImages[0].getOrientation()}
         isCuted={galleryImages[0].getImgCuted()}
@@ -101,6 +102,7 @@ function App() {
     for (let i = 1; i <= countOfPages; i++) {
       arrPreviewPages.push(
         <PreviewDefaultPage
+          key={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
           number={arrPreviewPages.length + 1}
           index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
           img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
