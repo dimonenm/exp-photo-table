@@ -611,8 +611,6 @@ const ModalCanvas = () => {
       }
       img.src = galleryImg.getUrl();
     } else {
-      // console.log('canvasSize2: ', canvasSize);
-      
       canvasSize = getCanvasSize(galleryImg.getOrientation())
       renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
