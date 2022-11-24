@@ -33,14 +33,11 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
             case 'panorama':
                 gallaryImage.setOrientation('panorama')
                 break;
-            case 'horizontal':
-                gallaryImage.setOrientation('horizontal')
-                break;
             case 'vertical':
                 gallaryImage.setOrientation('vertical')
                 break;
             case '15X10':
-                gallaryImage.setOrientation('15X10')
+                gallaryImage.setOrientation('horizontal')
                 break;
             case '10X15':
                 gallaryImage.setOrientation('10X15')
@@ -84,7 +81,7 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
     if (type === '15x10') {
         return (
             <div className="orientation-menu-btn"
-                data-type="15X10"
+                data-type="horizontal"
                 onDragOver={dragover}
                 onDragEnter={dragenter}
                 onDragLeave={dragleave}
@@ -92,37 +89,6 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
                 <div className="orientation-menu-horizontal-15x10-btn"
                     data-type="15X10">
                     15x10
-                </div>
-            </div>
-        )
-    }
-    if (type === '10x15') {
-        return (
-            <div className="orientation-menu-btn"
-                data-type="10X15"
-                onDragOver={dragover}
-                onDragEnter={dragenter}
-                onDragLeave={dragleave}
-                onDrop={dragdrop}>
-                <div className="orientation-menu-vertical-10x15-btn"
-                    data-type="10X15">
-
-                    10x15
-                </div>
-            </div>
-        )
-    }
-    if (type === '12x9') {
-        return (
-            <div className="orientation-menu-btn"
-                data-type="horizontal"
-                onDragOver={dragover}
-                onDragEnter={dragenter}
-                onDragLeave={dragleave}
-                onDrop={dragdrop}>
-                <div className="orientation-menu-horizontal-12x9-btn"
-                    data-type="horizontal">
-                    12x9
                 </div>
             </div>
         )

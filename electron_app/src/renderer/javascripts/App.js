@@ -87,6 +87,8 @@ function App() {
     arrPreviewPages.push(
       <PreviewTitlePage
         index={galleryImages[0].getIndex()}
+        orientation={galleryImages[0].getOrientation()}
+        isCuted={galleryImages[0].getImgCuted()}
         img={galleryImages[0].getUrl()}
         text={galleryImages[0].getImgDesc()}
         photoTableData={photoTableData}
@@ -217,7 +219,7 @@ function App() {
             setGalleryImages={setGalleryImages}
             downloadedImages={downloadedImages}
             setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
+          {/* <OrientationBtn
             type='10x15'
             currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
@@ -232,7 +234,7 @@ function App() {
             galleryImages={galleryImages}
             setGalleryImages={setGalleryImages}
             downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+            setDownloadedImages={setDownloadedImages}></OrientationBtn> */}
           <OrientationBtn
             type='9x12'
             currentGalleryImage={currentGalleryImage}

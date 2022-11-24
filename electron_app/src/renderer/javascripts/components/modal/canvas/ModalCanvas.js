@@ -14,7 +14,7 @@ const ModalCanvas = () => {
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({
-    type: 'handFree',
+    type: 'hand',
     tool: null
   });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
@@ -536,7 +536,6 @@ const ModalCanvas = () => {
     };
   }
   function contrastChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setContrastState(true)
     console.log('contrastState', contrastState);
     setGalleryImg((prev) => {
@@ -544,7 +543,6 @@ const ModalCanvas = () => {
     })
   }
   function brightnessChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, brightness: event.target.value });
     })
@@ -751,17 +749,16 @@ const ModalCanvas = () => {
             
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-      // console.log('1', ctx.filter)
+      console.log('1', ctx.filter)
       console.log('modalCanvas', contrastState)
       console.log('filter', ctx.filter);
-      console.log('getContrast',galleryImg.getContrast());
-      // ctx.filter = `contrast(${galleryImg.getContrast()}%)
-      //               brightness(${galleryImg.getBrightness()}%)`
-      if (contrastState) {
-        ctx.filter = `contrast(${galleryImg.getContrast()}%)`
-        // setContrastState(false)
-        console.log('contrastState3', contrastState);
-      }
+      console.log('getContrast', galleryImg.getContrast());
+      ctx.filter = `contrast(${galleryImg.getContrast()}%)
+                    brightness(${galleryImg.getBrightness()}%)`
+      // if (contrastState) {
+      //   ctx.filter = `contrast(${galleryImg.getContrast()}%)`
+      //   setContrastState(false)
+      // }
       console.log('2', ctx.filter)
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {

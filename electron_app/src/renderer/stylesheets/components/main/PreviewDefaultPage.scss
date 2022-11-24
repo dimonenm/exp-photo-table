@@ -25,13 +25,16 @@
     width: 168px;
     margin-top: 5px;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .preview-default-page-photo-description {
-    display: flex;
     width: 170px;
-    justify-content: flex-start;
     font-size: 8px;
+}
+.preview-default-page-photo-description span {
+    font-weight: 800;
 }
 
 .preview-default-page-executor {

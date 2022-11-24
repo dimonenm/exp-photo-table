@@ -8,12 +8,12 @@
     .text {
       font-family: "Roboto";
       font-weight: bold;
-      font-size: 14px;
+      font-size: 12px;
     }
   </style>
   <rect width="40" height="40" fill="#343A40" rx="5" />
   <rect x="2" y="5" width="36" height="30" stroke="#F8F9FA" stroke-width="2" rx="5" />
   <text x="5" y="25" class="text" fill="#F8F9FA">
-    12x9
+    15x10
   </text>
 </svg>
