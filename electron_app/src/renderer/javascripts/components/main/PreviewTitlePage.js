@@ -4,7 +4,7 @@ function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableDat
 
     console.log(orientation)
     console.log(isCuted)
-    let height = '40%'
+    let height = '30%'
     console.log(backgroundImage);
 
     if (orientation === 'panorama' && isCuted) {
