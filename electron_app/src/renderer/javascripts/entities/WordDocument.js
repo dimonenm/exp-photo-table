@@ -866,6 +866,60 @@ export default class WordDocument {
     for (const page of photoPages) {
       this.pushSections(page)
     }
+
+    class PP {
+      type
+      desc
+      parity
+      img1
+      img2
+      img3
+      img4
+      note
+      constructor() {}
+      getType() { return this.type }
+      getDesc() { return this.desc }
+      getParity() { return this.parity }
+      getImg1() { return this.img1 }
+      getImg2() { return this.img2 }
+      getImg3() { return this.img3 }
+      getImg4() { return this.img4 }
+      getNote() { return this.supplement }
+
+      setType(value) { this.type = value }
+      setDesc(value) { this.desc = value }
+      setParity(value) { this.parity = value }
+      setImg1(value) { this.img1 = value }
+      setImg2(value) { this.img2 = value }
+      setImg3(value) { this.img3 = value }
+      setImg4(value) { this.img4 = value }
+      setNote(value) { this.supplement = value }
+    }
+
+    let title = 0
+    let photoPage = 1
+    let phPages = []
+
+    for (let i = 0; i > this.galleryImages.length; i++) {
+      if (title === 0) {
+        phPages.push(new PP('title', 'desc', 'odd', this.galleryImages[i].getOrientation(), '', '', '', 'supplement'))
+        title++
+      }
+      if (title !== 0) {
+        const pp = new PP()
+        pp.setType(`page`)
+        pp.setDesc('')
+        pp.setParity(photoPage % 2 === 0 ? 'even' : 'odd')
+        pp.setImg1(this.galleryImages[i].getOrientation())
+        if (this.galleryImages[i].getOrientation() === '6X9' && this.galleryImages[i + 1].getOrientation() === '6X9') {
+          pp.setImg2(this.galleryImages[i + 1].getOrientation())
+        }
+
+      }
+    }
+
+
+
   }
 
   saveDocument() {
