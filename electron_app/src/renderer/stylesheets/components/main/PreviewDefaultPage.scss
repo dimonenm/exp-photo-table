@@ -5,7 +5,7 @@
     flex-direction: column;
     flex-basis: 294px;
     align-items: center;
-    height: 415px;
+    height: 425px;
     margin: 10px 0 0 0;
     box-shadow: 0 1px 4px rgb(0 0 0 / 30%),
         -23px 0 20px -23px rgb(0 0 0 / 80%),
@@ -41,19 +41,56 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+.preview-default-page-img-9X6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 95px;
+    width: 135px;
+    margin-top: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.preview-default-page-img-6X9 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 135px;
+    width: 95px;
+    margin-top: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.preview-default-page-img-6X9-two{
+display: flex;
+justify-content: center;
+height: 135px;
+width: 205px;
+margin-top: 5px;
 
+
+}
 .preview-default-page-photo-description {
     width: 200px;
     font-size: 8px;
 }
-.preview-default-page-photo-description-vertical {
+.preview-default-page-photo-description-vertical,
+.preview-default-page-photo-description-6X9 {
     width: 130px;
+    font-size: 8px;
+}
+.preview-default-page-photo-description-9X6 {
+    width: 95px;
     font-size: 8px;
 }
 
 
 .preview-default-page-photo-description,
-.preview-default-page-photo-description-vertical span {
+.preview-default-page-photo-description-vertical, 
+.preview-default-page-photo-description-9X6,
+.preview-default-page-photo-description-6X9 span {
     font-weight: 800;
 }
 
