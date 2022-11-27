@@ -588,13 +588,10 @@ const ModalCanvas = () => {
         })
       }
     })
-    // canvasSize = getCanvasSize(galleryImg.getOrientation())
-    // console.log('canvasSize1: ', canvasSize);
     // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-
     if (galleryImg.getOrientation() === "panorama") {
       let canvasWidth = 0
       let canvasHeight = 0
@@ -613,9 +610,7 @@ const ModalCanvas = () => {
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
       renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
-    }
-    
-
+    }  
   }, [galleryImg, isZoomScaleGrid]);
 
   return (

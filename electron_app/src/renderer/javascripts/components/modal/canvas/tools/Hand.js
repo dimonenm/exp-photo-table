@@ -12,7 +12,6 @@ export default class Hand extends Tool {
     this.listen();
     
     this.img.onload = () => {
-      console.log('canvas height in Hand: ', canvas.height);
       this.pr = canvas.height * 100 / this.img.height;
       this.zoom = +this.galleryImg.getZoom() / 100;
       this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;

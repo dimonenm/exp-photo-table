@@ -867,6 +867,7 @@ export default class WordDocument {
       this.pushSections(page)
     }
 
+
     class PP {
       type
       desc
@@ -876,7 +877,7 @@ export default class WordDocument {
       img3
       img4
       note
-      constructor() {}
+      constructor() { }
       getType() { return this.type }
       getDesc() { return this.desc }
       getParity() { return this.parity }
@@ -897,29 +898,64 @@ export default class WordDocument {
     }
 
     let title = 0
+    let note = 0
     let photoPage = 1
     let phPages = []
 
-    for (let i = 0; i > this.galleryImages.length; i++) {
+    for (let i = 0; i < this.galleryImages.length; i++) {
+      console.log('i: ', i);
       if (title === 0) {
-        phPages.push(new PP('title', 'desc', 'odd', this.galleryImages[i].getOrientation(), '', '', '', 'supplement'))
+        console.log('title === 0: ');
+        const pp = new PP()
+        pp.setType(`title`)
+        pp.setDesc('desc')
+        pp.setParity('odd')
+        pp.setImg1(this.galleryImages[i].getOrientation())
+        
+        phPages.push(pp)
         title++
-      }
-      if (title !== 0) {
+      } else {
+        console.log('else: ');
         const pp = new PP()
         pp.setType(`page`)
         pp.setDesc('')
-        pp.setParity(photoPage % 2 === 0 ? 'even' : 'odd')
+        pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
         pp.setImg1(this.galleryImages[i].getOrientation())
-        if (this.galleryImages[i].getOrientation() === '6X9' && this.galleryImages[i + 1].getOrientation() === '6X9') {
-          pp.setImg2(this.galleryImages[i + 1].getOrientation())
+
+        if (this.galleryImages[i].getOrientation() === '6X9' && this.galleryImages[i + 1]?.getOrientation() === '6X9') {
+          pp.setImg2(this.galleryImages[i + 1]?.getOrientation())
+          i++
         }
 
+        pp.setImg3(this.galleryImages[i + 1]?.getOrientation())
+
+        if (this.galleryImages[i + 1]?.getOrientation() === '6X9' && this.galleryImages[i + 2]?.getOrientation() === '6X9') {
+          pp.setImg4(this.galleryImages[i + 2]?.getOrientation())
+          i++
+        }
+
+        if (!pp.getImg3()) {
+          pp.setNote('supplement')
+          note++
+        }
+
+        phPages.push(pp)
+        i++
+        photoPage++
       }
     }
 
+    if (note === 0) {
+      const pp = new PP()
+      pp.setType(`page`)
+      pp.setDesc('')
+      pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
+      pp.setNote('supplement')
+      phPages.push(pp)
+      note++
+    }
 
-
+    console.log('phPages: ', phPages);
   }
 
   saveDocument() {
