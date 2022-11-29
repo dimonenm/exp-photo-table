@@ -108,7 +108,7 @@ function PreviewDefaultPage({ number, index, orientation, img, text, photoTableD
                 </div>
                 {/* <div className="preview-default-page-note">{settings.note}</div> */}
             </>))
-        console.log('two behind')
+       
     }
 
 

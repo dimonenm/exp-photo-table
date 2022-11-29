@@ -805,7 +805,7 @@ const ModalCanvas = () => {
             galleryImg.getOrientation() === "panorama" ? 700 :
               galleryImg.getOrientation() === "9X6" ? 700 :
                 galleryImg.getOrientation() === "6X9" ? 474 : null}
-        height={galleryImg.getOrientation() === "horizontal" ? 525 :
+        height={galleryImg.getOrientation() === "horizontal" ? 466 :
           galleryImg.getOrientation() === "vertical" ? 632 :
             // galleryImg.getOrientation() === "panorama" ? 460 :
             galleryImg.getOrientation() === "panorama" ? 350 :
