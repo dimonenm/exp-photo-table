@@ -28,6 +28,9 @@ export default class WordDocument {
   getPhotoTableData() {
     return this.photoTableData;
   }
+  getSettings() {
+    return this.settings;
+  }
   // функции изменения полей
   setTitle(value) {
     this.title = value;
@@ -866,35 +869,308 @@ export default class WordDocument {
     for (const page of photoPages) {
       this.pushSections(page)
     }
+  }
 
+  addPages() {
+    class PhotoPage {
+      // свойства документа
+      FONT = "Times New Roman"
+      CENTER = AlignmentType.CENTER
+      JUSTIFIED = AlignmentType.JUSTIFIED
+      INDENT_PANORAMA = { firstLine: 0 };
+      INDENT_HORIZONTAL = { firstLine: 1133 }
+      INDENT_VERTICAL = { firstLine: 1984 }
+      INDENT_9x6 = { firstLine: 1984 }
+      INDENT_6x9_1 = { firstLine: 2833 }
+      INDENT_6x9_2 = { firstLine: 453.2 }
+      BORDERS = {
+        top: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+        bottom: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+        left: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+        right: {
+          style: BorderStyle.NONE,
+          size: 0,
+          color: "000000",
+        },
+      }
 
-    class PP {
+      zip_code = null
+      address = null
+      tel = null
+      official_status = null
+
+      properties = null
+      headers = null
+      children = []
+      footers = null
+
+      galleryImages
+      photoTableData
+
       type
-      desc
       parity
       img1
       img2
       img3
       img4
       note
-      constructor() { }
-      getType() { return this.type }
-      getDesc() { return this.desc }
-      getParity() { return this.parity }
-      getImg1() { return this.img1 }
-      getImg2() { return this.img2 }
-      getImg3() { return this.img3 }
-      getImg4() { return this.img4 }
-      getNote() { return this.supplement }
 
-      setType(value) { this.type = value }
-      setDesc(value) { this.desc = value }
-      setParity(value) { this.parity = value }
-      setImg1(value) { this.img1 = value }
-      setImg2(value) { this.img2 = value }
-      setImg3(value) { this.img3 = value }
-      setImg4(value) { this.img4 = value }
-      setNote(value) { this.supplement = value }
+      constructor(galleryImages, photoTableData, settings) {
+        this.zip_code = settings.zip_code;
+        this.address = settings.address;
+        this.tel = settings.tel;
+        this.official_status = settings.official_status;
+
+        this.galleryImages = galleryImages;
+        this.photoTableData = photoTableData;
+
+        this.footers = {
+          default: new Footer({
+            children: [
+              new Paragraph(
+                {
+                  alignment: this.CENTER,
+                  children: [
+                    new TextRun({
+                      text: `${settings.official_status} _______________ ${photoTableData.executor}`,
+                      font: this.FONT,
+                      size: 24,
+                    })
+                  ]
+                }
+              ),
+            ],
+          })
+        };
+      }
+
+      setType(value) {
+        if (value === 'title') {
+          this.children.push(ParagraphH2("МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ"))
+          this.children.push(ParagraphH2("ПО РЕСПУБЛИКЕ КРЫМ"))
+          this.children.push(ParagraphH2("ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР"))
+          this.children.push(ParagraphAddress(this.zip_code, this.address, this.tel))
+          this.children.push(ParagraphH1("ФОТОТАБЛИЦА"))
+          this.children.push(ParagraphEmptyString(1))
+          this.children.push(ParagraphDesc(this.photoTableData))
+        }
+        function ParagraphH1(text) {
+          return new Paragraph(
+            {
+              alignment: this.CENTER,
+              children: [
+                new TextRun({
+                  text: text,
+                  bold: true,
+                  font: this.FONT,
+                  size: 36,
+                  break: 2,
+                })
+              ]
+            }
+          )
+        }
+        function ParagraphEmptyString(value) {
+          return new Paragraph(
+            {
+              alignment: this.CENTER,
+              children: [
+                new TextRun({
+                  font: this.FONT,
+                  size: 24,
+                  break: value,
+                })
+              ]
+            }
+          )
+        }
+        function ParagraphH2(text) {
+          return new Paragraph(
+            {
+              alignment: this.CENTER,
+              children: [
+                new TextRun({
+                  text: text,
+                  bold: true,
+                  font: this.FONT,
+                  size: 28,
+                })
+              ]
+            }
+          )
+        }
+        function ParagraphAddress(zip_code, address, tel) {
+          return new Paragraph(
+            {
+              alignment: this.JUSTIFIED,
+              thematicBreak: true,
+              children: [
+                new TextRun({
+                  text: `${zip_code}, ${address}`,
+                  bold: false,
+                  font: this.FONT,
+                  size: 24,
+                  break: 2,
+                }),
+                new TextRun({
+                  text: `                                   тел. ${tel}`,
+                  bold: false,
+                  font: this.FONT,
+                  size: 24,
+                })
+              ]
+            }
+          )
+        }
+        function ParagraphDesc(photoTableData) {
+          return new Paragraph(
+            {
+              alignment: this.JUSTIFIED,
+              indent: { firstLine: 721 },
+              children: [
+                new TextRun({
+                  text: `к протоколу осмотра места происшествия от ${photoTableData.dateForDoc} по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}.`,
+                  font: this.FONT,
+                  size: 24,
+                })
+              ]
+            }
+          )
+        }
+      }
+      setParity(value) {
+        if (value === 'odd') {
+          this.properties = {
+            page: {
+              margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '4cm' }
+            }
+          }
+        }
+        if (value === 'even') {
+          this.properties = {
+            page: {
+              margin: { top: '1cm', right: '4cm', bottom: '1cm', left: '1cm' }
+            }
+          }
+        }
+      }
+      async setImg1(value) {
+
+
+        this.children.push(ParagraphImg(value))
+        this.children.push(ParagraphImgDesc(value))
+
+        async function ParagraphImg(img) {
+
+          const loadedImg = await loadImg(img)
+          
+          async function loadImg(gallaryImage) {
+            const documentSize = {
+                width: 0,
+                height: 0
+              }
+            let data = null;
+            const transformation = {
+                width: 0,
+                height: 0
+              };
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            const gallaryImageZoom = +gallaryImage.getZoom();
+            const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
+            const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
+            const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
+
+            switch (gallaryImage.getOrientation()) {
+              case 'panorama':
+                documentSize.width = 605
+                documentSize.height = 0
+                break;
+                case 'horizontal':
+                documentSize.width = 567
+                documentSize.height = 378
+                break;
+                case 'vertical':
+                documentSize.width = 340
+                documentSize.height = 452
+                break;
+                case '9X6':
+                documentSize.width = 340
+                documentSize.height = 227
+                break;
+                case '6X9':
+                documentSize.width = 227
+                documentSize.height = 340
+                break;
+              default:
+                break;
+            }
+
+            await new Promise((onSuccess) => {
+              img.addEventListener('load', function () {
+                ctx.canvas.width = this.width;
+                ctx.canvas.height = this.height;
+
+                if (gallaryImage.getOrientation() === 'panorama') {
+                  transformation.width = documentSize.width
+                  transformation.height = (documentSize.width / this.width) * this.height
+                } else {
+                  transformation.width = documentSize.width
+                  transformation.height = documentSize.height
+                }
+
+                const zoom = gallaryImageZoom / 100;
+                const imgW = this.width * zoom;
+                const imgH = this.height * zoom;
+
+                ctx.drawImage(img, 0, 0, imgW, imgH);
+
+                if (gallaryImageArrowsArray.length > 0) {
+                  for (const item of gallaryImageArrowsArray) {
+                    drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+                  }
+                }
+                onSuccess();
+              })
+              img.src = gallaryImage.getUrl();
+            });
+
+            await new Promise((onSuccess) => {
+              data = canvas.toDataURL('image/jpeg', 1);
+              onSuccess();
+            }); 
+
+            return { data: data, transformation: transformation }  
+          }
+        }
+        function ParagraphImgDesc(img) {
+          
+        }
+      }
+
+      // setDesc(value) { this.desc = value }
+      // setImg2(value) { this.img2 = value }
+      // setImg3(value) { this.img3 = value }
+      // setImg4(value) { this.img4 = value }
+      // setNote(value) { this.supplement = value }
+
+
+
+
     }
 
     let title = 0
@@ -903,20 +1179,16 @@ export default class WordDocument {
     let phPages = []
 
     for (let i = 0; i < this.galleryImages.length; i++) {
-      console.log('i: ', i);
       if (title === 0) {
-        console.log('title === 0: ');
-        const pp = new PP()
+        const pp = new PhotoPage(galleryImages, photoTableData, settings)
         pp.setType(`title`)
-        pp.setDesc('desc')
         pp.setParity('odd')
         pp.setImg1(this.galleryImages[i].getOrientation())
-        
+
         phPages.push(pp)
         title++
       } else {
-        console.log('else: ');
-        const pp = new PP()
+        const pp = new PhotoPage(galleryImages, photoTableData, settings)
         pp.setType(`page`)
         pp.setDesc('')
         pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
@@ -946,7 +1218,7 @@ export default class WordDocument {
     }
 
     if (note === 0) {
-      const pp = new PP()
+      const pp = new PhotoPage(galleryImages, photoTableData, settings)
       pp.setType(`page`)
       pp.setDesc('')
       pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')

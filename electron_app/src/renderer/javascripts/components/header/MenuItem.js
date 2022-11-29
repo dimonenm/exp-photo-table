@@ -62,6 +62,7 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
     await wordDocument.addTitlePage();
     await wordDocument.addPhotoPages();
+    await wordDocument.addPages();
 
     wordDocument.saveDocument();
   }
