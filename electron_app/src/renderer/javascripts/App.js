@@ -112,48 +112,15 @@ function App() {
           settings={settings}
           setModalProperties={setModalProperties}
         />)
-      console.log('half', galleryImages[i + counterOfIndexes]);
-      console.log('half2', galleryImages[i + 1 + counterOfIndexes]);
-      console.log('page');
       counterOfIndexes++
-
-      // console.log(galleryImages[]);
     }
 
 
 
     for (let i = 1; i < galleryImages.length; i += 2) {
-      // console.log(galleryImages[i]);
-      // console.log(galleryImages[i + 1]);
-      // console.log('page');
-      // console.log('i ' + i + ' galleryImages.length ' + galleryImages.length );
-      
     }
   };
-  // if (galleryImages.length > 1) {
-  //   arrPreviewPages.push(
-  //     <PreviewDefaultPage
-  //       number={arrPreviewPages.length + 1}
-  //       index={galleryImages[1].getIndex()}
-  //       img={galleryImages[1].getUrl()}
-  //       text={galleryImages[1].getImgDesc()}
-  //       photoTableData={photoTableData}
-  //       settings={settings}
-  //       setModalProperties={setModalProperties}
-  //     />)
-  // };
-  // if (galleryImages.length > 2) {
-  //   arrPreviewPages.push(
-  //     <PreviewDefaultPage
-  //       number={arrPreviewPages.length + 1}
-  //       index={galleryImages[2].getIndex()}
-  //       img={galleryImages[2].getUrl()}
-  //       text={galleryImages[2].getImgDesc()}
-  //       photoTableData={photoTableData}
-  //       settings={settings}
-  //       setModalProperties={setModalProperties}
-  //     />)
-  // };
+  
 
   return (
     <Container>
@@ -222,22 +189,6 @@ function App() {
             setGalleryImages={setGalleryImages}
             downloadedImages={downloadedImages}
             setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          {/* <OrientationBtn
-            type='10x15'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='12x9'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn> */}
           <OrientationBtn
             type='9x12'
             currentGalleryImage={currentGalleryImage}

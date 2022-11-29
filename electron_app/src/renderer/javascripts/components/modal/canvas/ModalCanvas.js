@@ -749,17 +749,9 @@ const ModalCanvas = () => {
 
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-      console.log('1', ctx.filter)
-      console.log('modalCanvas', contrastState)
-      console.log('filter', ctx.filter);
-      console.log('getContrast', galleryImg.getContrast());
       ctx.filter = `contrast(${galleryImg.getContrast()}%)
                     brightness(${galleryImg.getBrightness()}%)`
-      // if (contrastState) {
-      //   ctx.filter = `contrast(${galleryImg.getContrast()}%)`
-      //   setContrastState(false)
-      // }
-      console.log('2', ctx.filter)
+      
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
