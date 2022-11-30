@@ -3,7 +3,8 @@ import { modalDataContext } from '../../../App';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
-import drawArrowArray from '../../../services/forModalCanvas/fDrawArrowArray';
+import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
+import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 
 const ModalCanvas = () => {
@@ -13,10 +14,8 @@ const ModalCanvas = () => {
   const setGalleryImg = localModalProperties.setGalleryImg;
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
-  const [toolState, setToolState] = useState({
-    type: 'handFree',
-    tool: null
-  });
+  const [toolState, setToolState] = useState({ type: 'handFree', tool: null });
+  let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
 
@@ -119,7 +118,7 @@ const ModalCanvas = () => {
       });
     };
   }
-  function imgDescClickHandler(event) {
+  function imgDescClickHandler() {
     if (toolState.type === 'imgDesc') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -158,12 +157,14 @@ const ModalCanvas = () => {
       });
     };
   }
-  function orientationPanoramaClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, orientation: 'panorama', lastOffsetValueX: 0 });
+  async function orientationPanoramaClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'panorama', lastOffsetValueX: 0 })
+
+    await setGalleryImg(() => {
+      return newGallaryImage;
     })
-    setToolState((prev) => {
+
+    await setToolState((prev) => {
       return {
         ...prev,
         type: 'hand',
@@ -175,13 +176,13 @@ const ModalCanvas = () => {
     });
   }
   function orientationHorizontalClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
+    console.log('canvasRef.current in Horizontal: ', canvasRef.current.height);
+    setGalleryImg(() => {
+      return newGallaryImage;
+    })
+
     setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
-
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-
       return {
         ...prev,
         type: 'hand',
@@ -194,13 +195,13 @@ const ModalCanvas = () => {
     });
   }
   function orientationVerticalClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
+    console.log('canvasRef.current in Vertical: ', canvasRef.current.height);
+
+    setGalleryImg(() => {
+      return newGallaryImage;
+    })
     setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
-
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-
       return {
         ...prev,
         type: 'hand',
@@ -251,12 +252,10 @@ const ModalCanvas = () => {
     });
   }
   function zoomRangeChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, zoom: event.target.value } });
 
     const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
 
     setGalleryImg((prev) => {
-      // return Object.assign(new GallaryImage(), { ...prev, zoom: event.target.value });
       return newState;
     })
     setToolState((prev) => {
@@ -339,147 +338,11 @@ const ModalCanvas = () => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
-  function cutClickHandler(event) {
+  function cutClickHandler() {
     setIsZoomScaleGrid(false)
     setTimeout(() => {
-      canvasRef.current.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const newGallaryImage = Object.assign(new GallaryImage(), {
-          ...galleryImg,
-          url: url,
-          imgCuted: true,
-          lastOffsetValueX: 0,
-          lastOffsetValueY: 0,
-          zoom: '100'
-        })
-        setGalleryImg(() => {
-          return newGallaryImage;
-        })
-        setToolState((prev) => {
-          return {
-            ...prev,
-            type: 'handFree',
-            tool: new HandFree(canvasRef.current)
-          }
-        });
-      }, 'image/jpeg', 1)
+      cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState)
     }, 0)
-  }
-  function drawScaleGrid(ctx, orientation) {
-    ctx.strokeStyle = '#454545';
-
-    if (orientation === 'horizontal') {
-      const linesHorizontal = 12
-      const linesVertical = 9
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
-
-        ctx.stroke();
-
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
-
-        ctx.stroke();
-
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-    if (orientation === 'vertical') {
-      const linesHorizontal = 9
-      const linesVertical = 12
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
-
-        ctx.stroke();
-
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
-
-        ctx.stroke();
-
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-    if (orientation === '9X6') {
-      const linesHorizontal = 9
-      const linesVertical = 6
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
-
-        ctx.stroke();
-
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
-
-        ctx.stroke();
-
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-    if (orientation === '6X9') {
-      const linesHorizontal = 6
-      const linesVertical = 9
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
-
-        ctx.stroke();
-
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
-
-        ctx.stroke();
-
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
   }
   function zoomScaleGridClickHandler(event) {
     if (isZoomScaleGrid) {
@@ -659,7 +522,62 @@ const ModalCanvas = () => {
       );
     };
   }
-
+  function getCanvasSize(orientation) {
+    // if (orientation === "panorama") {
+    //   let canvasWidth = 0
+    //   let canvasHeight = 0
+    //   let imgWidth = 0
+    //   let imgHeight = 0
+    //   const img = new Image()
+    //   img.onload = function () {
+    //     imgWidth = this.width
+    //     imgHeight = this.height
+    //     canvasWidth = ((window.outerWidth - 350) / 100) * 80
+    //     canvasHeight = (canvasWidth * imgHeight) / imgWidth
+    //     return ({ width: canvasWidth, height: canvasHeight })
+    //   }
+    //   img.src = galleryImg.getUrl();
+    // }
+    if (orientation === "horizontal") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let height = ((window.outerHeight - 50) / 100) * 80
+      if (((height / 2) * 3) > (((window.outerWidth - 350) / 100) * 80)) {
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth / 3) * 2
+      } else {
+        canvasWidth = ((height / 2) * 3)
+        canvasHeight = height
+      }
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
+    if (orientation === "9X6") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let height = ((window.outerHeight - 50) / 100) * 80
+      if (((height / 3) * 4) > (((window.outerWidth - 350) / 100) * 80)) {
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth / 4) * 3
+      } else {
+        canvasWidth = ((height / 3) * 4)
+        canvasHeight = height
+      }
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
+    if (orientation === "vertical" || orientation === "6X9") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let width = ((window.outerWidth - 350) / 100) * 80
+      if (((width / 3) * 4) > (((window.outerHeight - 50) / 100) * 80)) {
+        canvasHeight = ((window.outerHeight - 50) / 100) * 80
+        canvasWidth = (canvasHeight / 4) * 3
+      } else {
+        canvasHeight = ((height / 3) * 4)
+        canvasWidth = width
+      }
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
+  }
 
   useEffect(() => {
     galleryImages.forEach((item) => {
@@ -674,28 +592,25 @@ const ModalCanvas = () => {
   }, [])
 
   useEffect(() => {
-    const ctx = canvasRef.current.getContext('2d');
-    const img = new Image();
-    img.onload = function () {
-
-      const pr = ctx.canvas.height * 100 / this.height;
-      const zoom = +galleryImg.getZoom() / 100;
-      const imgW = (this.width / 100 * pr) * zoom;
-      const imgH = (this.height / 100 * pr) * zoom;
-            
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-
-      if (galleryImg.getArrowsArray().length > 0) {
-        for (const item of galleryImg.getArrowsArray()) {
-          drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
-        }
+    if (galleryImg.getOrientation() === "panorama") {
+      let canvasWidth = 0
+      let canvasHeight = 0
+      let imgWidth = 0
+      let imgHeight = 0
+      const img = new Image()
+      img.onload = function () {
+        imgWidth = this.width
+        imgHeight = this.height
+        canvasWidth = ((window.outerWidth - 350) / 100) * 80
+        canvasHeight = (canvasWidth * imgHeight) / imgWidth
+        canvasSize = { width: canvasWidth, height: canvasHeight }
+        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
       }
-      if (isZoomScaleGrid) {
-        drawScaleGrid(ctx, galleryImg.getOrientation())
-      }
-    }
-    img.src = galleryImg.getUrl();
+      img.src = galleryImg.getUrl();
+    } else {
+      canvasSize = getCanvasSize(galleryImg.getOrientation())
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+    }  
   }, [galleryImg, isZoomScaleGrid]);
 
   return (
@@ -721,18 +636,8 @@ const ModalCanvas = () => {
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        width={galleryImg.getOrientation() === "horizontal" ? 700 :
-          galleryImg.getOrientation() === "vertical" ? 474 :
-            // galleryImg.getOrientation() === "panorama" ? 747 :
-            galleryImg.getOrientation() === "panorama" ? 700 :
-              galleryImg.getOrientation() === "9X6" ? 700 :
-                galleryImg.getOrientation() === "6X9" ? 474 : null}
-        height={galleryImg.getOrientation() === "horizontal" ? 525 :
-          galleryImg.getOrientation() === "vertical" ? 632 :
-            // galleryImg.getOrientation() === "panorama" ? 460 :
-            galleryImg.getOrientation() === "panorama" ? 350 :
-              galleryImg.getOrientation() === "9X6" ? 525 :
-                galleryImg.getOrientation() === "6X9" ? 632 : null}
+        width={canvasSize.width}
+        height={canvasSize.height}
       ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>

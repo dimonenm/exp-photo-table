@@ -1,15 +1,26 @@
 import drawArrowArray from '../services/forModalCanvas/fDrawArrowArray';
-export default class PanoramaImg {
 
+export default class PanoramaImg {
+  
   constructor() {
+    this.documentSize = {
+      width: 0,
+      height: 0
+    }
     this.data = null;
     this.transformation = {
-      width: 340,
-      height: 680
+      width: 0,
+      height: 0
     };
   }
 
   // функции доступа к полям
+  getDocumentWidth() {
+    return this.documentSize.width;
+  }
+  getDocumentHeight() {
+    return this.documentSize.height;
+  }
   getData() {
     return this.data;
   }
@@ -17,8 +28,20 @@ export default class PanoramaImg {
     return this.transformation;
   }
   // функции изменения полей
+  setDocumentSize(valueWidth, valueHeight) {
+    this.documentSize = {
+      width: valueWidth,
+      height: valueHeight
+    };
+  }
   setData(value) {
     this.data = value;
+  }
+  setTransformation(valueWidth, valueHeight) {
+    this.transformation = {
+      width: valueWidth,
+      height: valueHeight
+    };
   }
 
   // служебные функции
@@ -30,19 +53,47 @@ export default class PanoramaImg {
     const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
     const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
     const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
+
+    const getDocumentWidth = this.getDocumentWidth.bind(this);
+    const getDocumentHeight = this.getDocumentHeight.bind(this);
+    const setDocumentSize = this.setDocumentSize.bind(this);
     const setData = this.setData.bind(this);
+    const setTransformation = this.setTransformation.bind(this);
+
+    switch (gallaryImage.getOrientation()) {
+      case 'panorama':
+        setDocumentSize(605, 0)
+        break;
+      case 'horizontal':
+        setDocumentSize(567, 378)
+        break;
+      case 'vertical':
+        setDocumentSize(340, 452)
+        break;
+      case '9X6':
+        setDocumentSize(340, 227)
+        break;
+      case '6X9':
+        setDocumentSize(227, 340)
+        break;
+      default:
+        break;
+    }
 
     await new Promise((onSuccess, onError) => {
       img.addEventListener('load', function () {
-        ctx.canvas.height = 700;
-        ctx.canvas.width = 350;
+        ctx.canvas.width = this.width;
+        ctx.canvas.height = this.height;
+        
+        if (gallaryImage.getOrientation() === 'panorama') {
+          setTransformation(getDocumentWidth(), (getDocumentWidth() / this.width) * this.height)
+        } else {
+          setTransformation(getDocumentWidth(), getDocumentHeight())
+        }
 
         const zoom = gallaryImageZoom / 100;
         const imgW = this.width * zoom;
         const imgH = this.height * zoom;
-
-        ctx.translate(0, 700);
-        ctx.rotate(270 * Math.PI / 180)
         
         ctx.drawImage(img, 0, 0, imgW, imgH);
 
@@ -52,8 +103,7 @@ export default class PanoramaImg {
           }
         }
         onSuccess('done');
-      })      
-      
+      })
       img.src = gallaryImage.getUrl();      
     });
     

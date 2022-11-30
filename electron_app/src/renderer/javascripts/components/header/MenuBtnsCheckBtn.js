@@ -29,6 +29,7 @@ const MenuBtnsCheckBtn = () => {
     clickHandler = () => {
 
       const newGalleryImg = localModalProperties.galleryImg;
+      
       const newGalleryImages = localModalProperties.galleryImages.map((item) => {
         if (item.getIndex() === newGalleryImg.getIndex()) {
           return Object.assign(new GallaryImage(), newGalleryImg);
