@@ -957,6 +957,8 @@ export default class WordDocument {
       }
 
       setType(value) {
+        console.log('this 1: ', this);
+        
         if (value === 'title') {
           this.children.push(ParagraphH2("МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ"))
           this.children.push(ParagraphH2("ПО РЕСПУБЛИКЕ КРЫМ"))
@@ -997,6 +999,8 @@ export default class WordDocument {
           )
         }
         function ParagraphH2(text) {
+          console.log('this 2: ', this);
+
           return new Paragraph(
             {
               alignment: this.CENTER,
@@ -1068,24 +1072,37 @@ export default class WordDocument {
       }
       async setImg1(value) {
 
-
         this.children.push(ParagraphImg(value))
         this.children.push(ParagraphImgDesc(value))
 
         async function ParagraphImg(img) {
 
           const loadedImg = await loadImg(img)
-          
+
+          return new Paragraph(
+            {
+              alignment: this.CENTER,
+              children: [
+                new TextRun({
+                  font: this.FONT,
+                  size: 24,
+                  break: 1,
+                }),
+                new ImageRun(loadedImg)
+              ]
+            }
+          )
+
           async function loadImg(gallaryImage) {
             const documentSize = {
-                width: 0,
-                height: 0
-              }
+              width: 0,
+              height: 0
+            }
             let data = null;
             const transformation = {
-                width: 0,
-                height: 0
-              };
+              width: 0,
+              height: 0
+            };
 
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
@@ -1100,19 +1117,19 @@ export default class WordDocument {
                 documentSize.width = 605
                 documentSize.height = 0
                 break;
-                case 'horizontal':
+              case 'horizontal':
                 documentSize.width = 567
                 documentSize.height = 378
                 break;
-                case 'vertical':
+              case 'vertical':
                 documentSize.width = 340
                 documentSize.height = 452
                 break;
-                case '9X6':
+              case '9X6':
                 documentSize.width = 340
                 documentSize.height = 227
                 break;
-                case '6X9':
+              case '6X9':
                 documentSize.width = 227
                 documentSize.height = 340
                 break;
@@ -1152,13 +1169,52 @@ export default class WordDocument {
             await new Promise((onSuccess) => {
               data = canvas.toDataURL('image/jpeg', 1);
               onSuccess();
-            }); 
+            });
 
-            return { data: data, transformation: transformation }  
+            return { data: data, transformation: transformation }
           }
         }
         function ParagraphImgDesc(img) {
-          
+
+          return new Paragraph(
+            {
+              alignment: this.JUSTIFIED,
+              indent: this.INDENT_PANORAMA,
+              children: [
+                new TextRun({
+                  text: `Фото №${img.index}. `,
+                  font: "Times New Roman",
+                  size: 26,
+                  bold: true,
+                }),
+                new TextRun({
+                  text: img.imgDesc,
+                  font: "Times New Roman",
+                  size: 26,
+                }),
+                descAddedArrows(img)
+              ]
+            }
+          )
+
+          function descAddedArrows(gallaryImage) {
+            if (gallaryImage.arrowsArray.length > 0) {
+              let str = ''
+
+              for (const item of gallaryImage.arrowsArray) {
+                if (str) {
+                  str += `, ${item.number}. ${item.text}`;
+                }
+                if (!str) {
+                  str += `${item.number}. ${item.text}`;
+                }
+              }
+
+              return new TextRun({
+                text: ` (${str}).`
+              })
+            }
+          }
         }
       }
 
@@ -1180,13 +1236,17 @@ export default class WordDocument {
 
     for (let i = 0; i < this.galleryImages.length; i++) {
       if (title === 0) {
-        const pp = new PhotoPage(galleryImages, photoTableData, settings)
+        const pp = new PhotoPage(this.galleryImages, this.photoTableData, this.settings)
         pp.setType(`title`)
         pp.setParity('odd')
         pp.setImg1(this.galleryImages[i].getOrientation())
 
-        phPages.push(pp)
+        // phPages.push(pp)
         title++
+
+        const sections = this.getSections();
+        sections.push(pp);
+        this.setSections(sections);
       } else {
         const pp = new PhotoPage(galleryImages, photoTableData, settings)
         pp.setType(`page`)
