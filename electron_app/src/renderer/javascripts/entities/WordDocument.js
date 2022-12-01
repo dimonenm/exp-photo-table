@@ -871,7 +871,7 @@ export default class WordDocument {
     }
   }
 
-  addPages() {
+  async addPages() {
     class PhotoPage {
       // свойства документа
       FONT = "Times New Roman"
@@ -911,10 +911,10 @@ export default class WordDocument {
       tel = null
       official_status = null
 
-      properties = null
-      headers = null
+      properties = {}
+      headers = {}
       children = []
-      footers = null
+      footers = {}
 
       galleryImages
       photoTableData
@@ -957,8 +957,8 @@ export default class WordDocument {
       }
 
       setType(value) {
-        console.log('this 1: ', this);
-        
+        const localThis = this
+
         if (value === 'title') {
           this.children.push(ParagraphH2("МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ"))
           this.children.push(ParagraphH2("ПО РЕСПУБЛИКЕ КРЫМ"))
@@ -971,12 +971,12 @@ export default class WordDocument {
         function ParagraphH1(text) {
           return new Paragraph(
             {
-              alignment: this.CENTER,
+              alignment: localThis.CENTER,
               children: [
                 new TextRun({
                   text: text,
                   bold: true,
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 36,
                   break: 2,
                 })
@@ -987,10 +987,10 @@ export default class WordDocument {
         function ParagraphEmptyString(value) {
           return new Paragraph(
             {
-              alignment: this.CENTER,
+              alignment: localThis.CENTER,
               children: [
                 new TextRun({
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 24,
                   break: value,
                 })
@@ -999,16 +999,14 @@ export default class WordDocument {
           )
         }
         function ParagraphH2(text) {
-          console.log('this 2: ', this);
-
           return new Paragraph(
             {
-              alignment: this.CENTER,
+              alignment: localThis.CENTER,
               children: [
                 new TextRun({
                   text: text,
                   bold: true,
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 28,
                 })
               ]
@@ -1018,20 +1016,20 @@ export default class WordDocument {
         function ParagraphAddress(zip_code, address, tel) {
           return new Paragraph(
             {
-              alignment: this.JUSTIFIED,
+              alignment: localThis.JUSTIFIED,
               thematicBreak: true,
               children: [
                 new TextRun({
                   text: `${zip_code}, ${address}`,
                   bold: false,
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 24,
                   break: 2,
                 }),
                 new TextRun({
                   text: `                                   тел. ${tel}`,
                   bold: false,
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 24,
                 })
               ]
@@ -1041,12 +1039,12 @@ export default class WordDocument {
         function ParagraphDesc(photoTableData) {
           return new Paragraph(
             {
-              alignment: this.JUSTIFIED,
+              alignment: localThis.JUSTIFIED,
               indent: { firstLine: 721 },
               children: [
                 new TextRun({
                   text: `к протоколу осмотра места происшествия от ${photoTableData.dateForDoc} по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}.`,
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 24,
                 })
               ]
@@ -1071,20 +1069,22 @@ export default class WordDocument {
         }
       }
       async setImg1(value) {
+        const localThis = this
 
-        this.children.push(ParagraphImg(value))
+        this.children.push(await ParagraphImg(value))
         this.children.push(ParagraphImgDesc(value))
 
         async function ParagraphImg(img) {
 
           const loadedImg = await loadImg(img)
+          console.log('loadedImg: ', loadedImg);
 
           return new Paragraph(
             {
-              alignment: this.CENTER,
+              alignment: localThis.CENTER,
               children: [
                 new TextRun({
-                  font: this.FONT,
+                  font: localThis.FONT,
                   size: 24,
                   break: 1,
                 }),
@@ -1171,6 +1171,7 @@ export default class WordDocument {
               onSuccess();
             });
 
+            console.log({ data: data, transformation: transformation });
             return { data: data, transformation: transformation }
           }
         }
@@ -1178,8 +1179,8 @@ export default class WordDocument {
 
           return new Paragraph(
             {
-              alignment: this.JUSTIFIED,
-              indent: this.INDENT_PANORAMA,
+              alignment: localThis.JUSTIFIED,
+              indent: localThis.INDENT_PANORAMA,
               children: [
                 new TextRun({
                   text: `Фото №${img.index}. `,
@@ -1198,7 +1199,7 @@ export default class WordDocument {
           )
 
           function descAddedArrows(gallaryImage) {
-            if (gallaryImage.arrowsArray.length > 0) {
+            if (gallaryImage.arrowsArray?.length > 0) {
               let str = ''
 
               for (const item of gallaryImage.arrowsArray) {
@@ -1239,7 +1240,7 @@ export default class WordDocument {
         const pp = new PhotoPage(this.galleryImages, this.photoTableData, this.settings)
         pp.setType(`title`)
         pp.setParity('odd')
-        pp.setImg1(this.galleryImages[i].getOrientation())
+        await pp.setImg1(this.galleryImages[i])
 
         // phPages.push(pp)
         title++
@@ -1278,16 +1279,14 @@ export default class WordDocument {
     }
 
     if (note === 0) {
-      const pp = new PhotoPage(galleryImages, photoTableData, settings)
-      pp.setType(`page`)
-      pp.setDesc('')
-      pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
-      pp.setNote('supplement')
-      phPages.push(pp)
-      note++
+      // const pp = new PhotoPage(galleryImages, photoTableData, settings)
+      // pp.setType(`page`)
+      // pp.setDesc('')
+      // pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
+      // pp.setNote('supplement')
+      // phPages.push(pp)
+      // note++
     }
-
-    console.log('phPages: ', phPages);
   }
 
   saveDocument() {
