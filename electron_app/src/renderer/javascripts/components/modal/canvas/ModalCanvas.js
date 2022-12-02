@@ -177,7 +177,6 @@ const ModalCanvas = () => {
   }
   function orientationHorizontalClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
-    console.log('canvasRef.current in Horizontal: ', canvasRef.current.height);
     setGalleryImg(() => {
       return newGallaryImage;
     })
@@ -196,8 +195,6 @@ const ModalCanvas = () => {
   }
   function orientationVerticalClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
-    console.log('canvasRef.current in Vertical: ', canvasRef.current.height);
-
     setGalleryImg(() => {
       return newGallaryImage;
     })

@@ -1077,7 +1077,6 @@ export default class WordDocument {
         async function ParagraphImg(img) {
 
           const loadedImg = await loadImg(img)
-          console.log('loadedImg: ', loadedImg);
 
           return new Paragraph(
             {
@@ -1171,7 +1170,6 @@ export default class WordDocument {
               onSuccess();
             });
 
-            console.log({ data: data, transformation: transformation });
             return { data: data, transformation: transformation }
           }
         }
@@ -1218,7 +1216,279 @@ export default class WordDocument {
           }
         }
       }
+      async setImg2(value1, value2) {
+        const localThis = this
 
+        children.push(
+          new Table(
+            {
+              width: {
+                size: 100,
+                type: WidthType.PERCENTAGE,
+              },
+              rows: [
+                new TableRow({
+                  children: [
+                    new TableCell({
+                      width: { size: 50, type: WidthType.PERCENTAGE },
+                      borders: localThis.BORDERS,
+                      children: [
+                        new Paragraph(
+                          {
+                            alignment: localThis.CENTER,
+                            children: [
+                              new TextRun({
+                                font: localThis.FONT,
+                                size: 24,
+                                break: 1,
+                              }),
+                              new ImageRun({ data: this.getSecondHalfImages()[0].getData(), transformation: this.getSecondHalfImages()[0].getTransformation() }),
+                            ]
+                          }
+                        )
+                      ],
+                    }),
+                    new TableCell({
+                      width: { size: 50, type: WidthType.PERCENTAGE },
+                      borders: this.BORDERS,
+                      children: [
+                        new Paragraph(
+                          {
+                            alignment: this.CENTER,
+                            children: [
+                              new TextRun({
+                                font: this.FONT,
+                                size: 24,
+                                break: 1,
+                              }),
+                              new ImageRun({ data: this.getSecondHalfImages()[1].getData(), transformation: this.getSecondHalfImages()[1].getTransformation() }),
+                            ]
+                          }
+                        )
+                      ]
+                    }),
+                  ]
+                }),
+                new TableRow({
+                  children: [
+                    new TableCell({
+                      margins: {
+                        top: 100,
+                        bottom: 100,
+                        left: 100,
+                        right: 100,
+                      },
+                      width: { size: 50, type: WidthType.PERCENTAGE },
+                      borders: this.BORDERS,
+                      children: [
+                        new Paragraph(
+                          {
+                            alignment: this.JUSTIFIED,
+                            indent: this.getIndent(this.getSecondHalfImages()[0].getOrientation(), true),
+                            children: [
+                              new TextRun({
+                                text: `Фото №${this.getSecondHalfImages()[0].getIndex()}. `,
+                                font: "Times New Roman",
+                                size: 26,
+                                bold: true,
+                              }),
+                              new TextRun({
+                                text: this.getSecondHalfImages()[0].getDescription(),
+                                font: "Times New Roman",
+                                size: 26,
+                              }),
+                              this.descAddedArrows(this.getSecondHalfImages()[0])
+                            ]
+                          }
+                        )
+                      ]
+                    }),
+                    new TableCell({
+                      margins: {
+                        top: 100,
+                        bottom: 100,
+                        left: 100,
+                        right: 100,
+                      },
+                      width: { size: 50, type: WidthType.PERCENTAGE },
+                      borders: this.BORDERS,
+                      children: [
+                        new Paragraph(
+                          {
+                            alignment: this.JUSTIFIED,
+                            indent: this.getIndent(this.getSecondHalfImages()[1].getOrientation(), true),
+                            children: [
+                              new TextRun({
+                                text: `Фото №${this.getSecondHalfImages()[1].getIndex()}. `,
+                                font: "Times New Roman",
+                                size: 26,
+                                bold: true,
+                              }),
+                              new TextRun({
+                                text: this.getSecondHalfImages()[1].getDescription(),
+                                font: "Times New Roman",
+                                size: 26,
+                              }),
+                              this.descAddedArrows(this.getSecondHalfImages()[1]),
+                            ]
+                          }
+                        )
+                      ]
+                    }),
+                  ]
+                })
+              ]
+            }
+          )
+        )
+
+
+        this.children.push(await ParagraphImg(value))
+        this.children.push(ParagraphImgDesc(value))
+
+        function TableWithImgs(img1, img2){}
+        async function ParagraphImg(img) {
+
+          const loadedImg = await loadImg(img)
+
+          return new Paragraph(
+            {
+              alignment: localThis.CENTER,
+              children: [
+                new TextRun({
+                  font: localThis.FONT,
+                  size: 24,
+                  break: 1,
+                }),
+                new ImageRun(loadedImg)
+              ]
+            }
+          )
+
+          async function loadImg(gallaryImage) {
+            const documentSize = {
+              width: 0,
+              height: 0
+            }
+            let data = null;
+            const transformation = {
+              width: 0,
+              height: 0
+            };
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            const gallaryImageZoom = +gallaryImage.getZoom();
+            const gallaryImageArrowsArray = gallaryImage.getArrowsArray();
+            const gallaryImageArrowsColor = gallaryImage.getArrowsColor();
+            const gallaryImageArrowsWidth = gallaryImage.getArrowsWidth();
+
+            switch (gallaryImage.getOrientation()) {
+              case 'panorama':
+                documentSize.width = 605
+                documentSize.height = 0
+                break;
+              case 'horizontal':
+                documentSize.width = 567
+                documentSize.height = 378
+                break;
+              case 'vertical':
+                documentSize.width = 340
+                documentSize.height = 452
+                break;
+              case '9X6':
+                documentSize.width = 340
+                documentSize.height = 227
+                break;
+              case '6X9':
+                documentSize.width = 227
+                documentSize.height = 340
+                break;
+              default:
+                break;
+            }
+
+            await new Promise((onSuccess) => {
+              img.addEventListener('load', function () {
+                ctx.canvas.width = this.width;
+                ctx.canvas.height = this.height;
+
+                if (gallaryImage.getOrientation() === 'panorama') {
+                  transformation.width = documentSize.width
+                  transformation.height = (documentSize.width / this.width) * this.height
+                } else {
+                  transformation.width = documentSize.width
+                  transformation.height = documentSize.height
+                }
+
+                const zoom = gallaryImageZoom / 100;
+                const imgW = this.width * zoom;
+                const imgH = this.height * zoom;
+
+                ctx.drawImage(img, 0, 0, imgW, imgH);
+
+                if (gallaryImageArrowsArray.length > 0) {
+                  for (const item of gallaryImageArrowsArray) {
+                    drawArrowArray(ctx, item.getNumber(), gallaryImageArrowsColor, gallaryImageArrowsWidth, item.x1, item.y1, item.x2, item.y2);
+                  }
+                }
+                onSuccess();
+              })
+              img.src = gallaryImage.getUrl();
+            });
+
+            await new Promise((onSuccess) => {
+              data = canvas.toDataURL('image/jpeg', 1);
+              onSuccess();
+            });
+
+            return { data: data, transformation: transformation }
+          }
+        }
+        function ParagraphImgDesc(img) {
+
+          return new Paragraph(
+            {
+              alignment: localThis.JUSTIFIED,
+              indent: localThis.INDENT_PANORAMA,
+              children: [
+                new TextRun({
+                  text: `Фото №${img.index}. `,
+                  font: "Times New Roman",
+                  size: 26,
+                  bold: true,
+                }),
+                new TextRun({
+                  text: img.imgDesc,
+                  font: "Times New Roman",
+                  size: 26,
+                }),
+                descAddedArrows(img)
+              ]
+            }
+          )
+
+          function descAddedArrows(gallaryImage) {
+            if (gallaryImage.arrowsArray?.length > 0) {
+              let str = ''
+
+              for (const item of gallaryImage.arrowsArray) {
+                if (str) {
+                  str += `, ${item.number}. ${item.text}`;
+                }
+                if (!str) {
+                  str += `${item.number}. ${item.text}`;
+                }
+              }
+
+              return new TextRun({
+                text: ` (${str}).`
+              })
+            }
+          }
+        }
+      }
       // setDesc(value) { this.desc = value }
       // setImg2(value) { this.img2 = value }
       // setImg3(value) { this.img3 = value }
@@ -1241,38 +1511,41 @@ export default class WordDocument {
         pp.setType(`title`)
         pp.setParity('odd')
         await pp.setImg1(this.galleryImages[i])
-
-        // phPages.push(pp)
         title++
 
         const sections = this.getSections();
         sections.push(pp);
         this.setSections(sections);
       } else {
-        const pp = new PhotoPage(galleryImages, photoTableData, settings)
+        const pp = new PhotoPage(this.galleryImages, this.photoTableData, this.settings)
         pp.setType(`page`)
-        pp.setDesc('')
         pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
-        pp.setImg1(this.galleryImages[i].getOrientation())
+
+        if (this.galleryImages[i].getOrientation() !== '6X9') {
+          await pp.setImg1(this.galleryImages[i])
+        }
 
         if (this.galleryImages[i].getOrientation() === '6X9' && this.galleryImages[i + 1]?.getOrientation() === '6X9') {
-          pp.setImg2(this.galleryImages[i + 1]?.getOrientation())
+          pp.setImg2(this.galleryImages[i], this.galleryImages[i + 1])
           i++
         }
 
-        pp.setImg3(this.galleryImages[i + 1]?.getOrientation())
+        if (this.galleryImages[i + 1] !== undefined) {
+          pp.setImg3(this.galleryImages[i + 1])
+        } else {
+
+        }
 
         if (this.galleryImages[i + 1]?.getOrientation() === '6X9' && this.galleryImages[i + 2]?.getOrientation() === '6X9') {
-          pp.setImg4(this.galleryImages[i + 2]?.getOrientation())
+          pp.setImg4(this.galleryImages[i + 2])
           i++
         }
 
-        if (!pp.getImg3()) {
-          pp.setNote('supplement')
-          note++
-        }
+        // if (!pp.getImg3()) {
+        //   pp.setNote('supplement')
+        //   note++
+        // }
 
-        phPages.push(pp)
         i++
         photoPage++
       }
