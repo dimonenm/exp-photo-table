@@ -1219,8 +1219,14 @@ export default class WordDocument {
       async setImg2(value1, value2) {
         const localThis = this
 
-        children.push(
-          new Table(
+        this.children.push(await TableWithImgs(value1, value2))
+
+        async function TableWithImgs(img1, img2) {
+
+          const paragraphImg1 = await ParagraphImg(img1)
+          const paragraphImg2 = await ParagraphImg(img2)
+
+          return new Table(
             {
               width: {
                 size: 100,
@@ -1233,38 +1239,14 @@ export default class WordDocument {
                       width: { size: 50, type: WidthType.PERCENTAGE },
                       borders: localThis.BORDERS,
                       children: [
-                        new Paragraph(
-                          {
-                            alignment: localThis.CENTER,
-                            children: [
-                              new TextRun({
-                                font: localThis.FONT,
-                                size: 24,
-                                break: 1,
-                              }),
-                              new ImageRun({ data: this.getSecondHalfImages()[0].getData(), transformation: this.getSecondHalfImages()[0].getTransformation() }),
-                            ]
-                          }
-                        )
+                        paragraphImg1
                       ],
                     }),
                     new TableCell({
                       width: { size: 50, type: WidthType.PERCENTAGE },
-                      borders: this.BORDERS,
+                      borders: localThis.BORDERS,
                       children: [
-                        new Paragraph(
-                          {
-                            alignment: this.CENTER,
-                            children: [
-                              new TextRun({
-                                font: this.FONT,
-                                size: 24,
-                                break: 1,
-                              }),
-                              new ImageRun({ data: this.getSecondHalfImages()[1].getData(), transformation: this.getSecondHalfImages()[1].getTransformation() }),
-                            ]
-                          }
-                        )
+                        paragraphImg2
                       ]
                     }),
                   ]
@@ -1279,28 +1261,9 @@ export default class WordDocument {
                         right: 100,
                       },
                       width: { size: 50, type: WidthType.PERCENTAGE },
-                      borders: this.BORDERS,
+                      borders: localThis.BORDERS,
                       children: [
-                        new Paragraph(
-                          {
-                            alignment: this.JUSTIFIED,
-                            indent: this.getIndent(this.getSecondHalfImages()[0].getOrientation(), true),
-                            children: [
-                              new TextRun({
-                                text: `Фото №${this.getSecondHalfImages()[0].getIndex()}. `,
-                                font: "Times New Roman",
-                                size: 26,
-                                bold: true,
-                              }),
-                              new TextRun({
-                                text: this.getSecondHalfImages()[0].getDescription(),
-                                font: "Times New Roman",
-                                size: 26,
-                              }),
-                              this.descAddedArrows(this.getSecondHalfImages()[0])
-                            ]
-                          }
-                        )
+                        ParagraphImgDesc(img1)
                       ]
                     }),
                     new TableCell({
@@ -1311,28 +1274,9 @@ export default class WordDocument {
                         right: 100,
                       },
                       width: { size: 50, type: WidthType.PERCENTAGE },
-                      borders: this.BORDERS,
+                      borders: localThis.BORDERS,
                       children: [
-                        new Paragraph(
-                          {
-                            alignment: this.JUSTIFIED,
-                            indent: this.getIndent(this.getSecondHalfImages()[1].getOrientation(), true),
-                            children: [
-                              new TextRun({
-                                text: `Фото №${this.getSecondHalfImages()[1].getIndex()}. `,
-                                font: "Times New Roman",
-                                size: 26,
-                                bold: true,
-                              }),
-                              new TextRun({
-                                text: this.getSecondHalfImages()[1].getDescription(),
-                                font: "Times New Roman",
-                                size: 26,
-                              }),
-                              this.descAddedArrows(this.getSecondHalfImages()[1]),
-                            ]
-                          }
-                        )
+                        ParagraphImgDesc(img2)
                       ]
                     }),
                   ]
@@ -1340,13 +1284,7 @@ export default class WordDocument {
               ]
             }
           )
-        )
-
-
-        this.children.push(await ParagraphImg(value))
-        this.children.push(ParagraphImgDesc(value))
-
-        function TableWithImgs(img1, img2){}
+        }
         async function ParagraphImg(img) {
 
           const loadedImg = await loadImg(img)
@@ -1360,7 +1298,7 @@ export default class WordDocument {
                   size: 24,
                   break: 1,
                 }),
-                new ImageRun(loadedImg)
+                new ImageRun(loadedImg),
               ]
             }
           )
@@ -1451,17 +1389,17 @@ export default class WordDocument {
           return new Paragraph(
             {
               alignment: localThis.JUSTIFIED,
-              indent: localThis.INDENT_PANORAMA,
+              indent: localThis.INDENT_6x9_2,
               children: [
                 new TextRun({
                   text: `Фото №${img.index}. `,
-                  font: "Times New Roman",
+                  font: localThis.FONT,
                   size: 26,
                   bold: true,
                 }),
                 new TextRun({
                   text: img.imgDesc,
-                  font: "Times New Roman",
+                  font: localThis.FONT,
                   size: 26,
                 }),
                 descAddedArrows(img)
@@ -1512,7 +1450,7 @@ export default class WordDocument {
         pp.setParity('odd')
         await pp.setImg1(this.galleryImages[i])
         title++
-
+        
         const sections = this.getSections();
         sections.push(pp);
         this.setSections(sections);
@@ -1526,7 +1464,7 @@ export default class WordDocument {
         }
 
         if (this.galleryImages[i].getOrientation() === '6X9' && this.galleryImages[i + 1]?.getOrientation() === '6X9') {
-          pp.setImg2(this.galleryImages[i], this.galleryImages[i + 1])
+          await pp.setImg2(this.galleryImages[i], this.galleryImages[i + 1])
           i++
         }
 
@@ -1545,6 +1483,10 @@ export default class WordDocument {
         //   pp.setNote('supplement')
         //   note++
         // }
+
+        const sections = this.getSections();
+        sections.push(pp);
+        this.setSections(sections);
 
         i++
         photoPage++
