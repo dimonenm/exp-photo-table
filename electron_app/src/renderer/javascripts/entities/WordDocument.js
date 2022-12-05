@@ -910,6 +910,7 @@ export default class WordDocument {
       address = null
       tel = null
       official_status = null
+      note = null
 
       properties = {}
       headers = {}
@@ -921,17 +922,13 @@ export default class WordDocument {
 
       type
       parity
-      img1
-      img2
-      img3
-      img4
-      note
 
       constructor(galleryImages, photoTableData, settings) {
         this.zip_code = settings.zip_code;
         this.address = settings.address;
         this.tel = settings.tel;
         this.official_status = settings.official_status;
+        this.note = settings.note;
 
         this.galleryImages = galleryImages;
         this.photoTableData = photoTableData;
@@ -1427,11 +1424,31 @@ export default class WordDocument {
           }
         }
       }
-      // setDesc(value) { this.desc = value }
-      // setImg2(value) { this.img2 = value }
-      // setImg3(value) { this.img3 = value }
-      // setImg4(value) { this.img4 = value }
-      // setNote(value) { this.supplement = value }
+      setNote(value) {
+        const localThis = this
+
+        this.children.push(ParagraphNote(value))
+
+        function ParagraphNote(note) {
+          return new Paragraph(
+            {
+              alignment: localThis.JUSTIFIED,
+              children: [
+                new TextRun({
+                  font: localThis.FONT,
+                  size: 24,
+                  break: 1,
+                }),
+                new TextRun({
+                  text: `${localThis.note}`,
+                  bold: false,
+                  font: localThis.FONT,
+                  size: 24,
+                })
+              ]
+            })
+        }
+      }
 
 
 
@@ -1450,7 +1467,7 @@ export default class WordDocument {
         pp.setParity('odd')
         await pp.setImg1(this.galleryImages[i])
         title++
-        
+
         const sections = this.getSections();
         sections.push(pp);
         this.setSections(sections);
@@ -1469,20 +1486,18 @@ export default class WordDocument {
         }
 
         if (this.galleryImages[i + 1] !== undefined) {
-          pp.setImg3(this.galleryImages[i + 1])
+          if (this.galleryImages[i + 1] !== '6X9') {
+            pp.setImg1(this.galleryImages[i + 1])
+          }
+
+          if (this.galleryImages[i + 1]?.getOrientation() === '6X9' && this.galleryImages[i + 2]?.getOrientation() === '6X9') {
+            pp.setImg2(this.galleryImages[i + 1], this.galleryImages[i + 2])
+            i++
+          }
         } else {
-
+          pp.setNote(this.note)
+          note++
         }
-
-        if (this.galleryImages[i + 1]?.getOrientation() === '6X9' && this.galleryImages[i + 2]?.getOrientation() === '6X9') {
-          pp.setImg4(this.galleryImages[i + 2])
-          i++
-        }
-
-        // if (!pp.getImg3()) {
-        //   pp.setNote('supplement')
-        //   note++
-        // }
 
         const sections = this.getSections();
         sections.push(pp);
@@ -1494,13 +1509,16 @@ export default class WordDocument {
     }
 
     if (note === 0) {
-      // const pp = new PhotoPage(galleryImages, photoTableData, settings)
-      // pp.setType(`page`)
-      // pp.setDesc('')
-      // pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
-      // pp.setNote('supplement')
-      // phPages.push(pp)
-      // note++
+      const pp = new PhotoPage(this.galleryImages, this.photoTableData, this.settings)
+      pp.setType(`page`)
+      pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
+      pp.setNote(this.note)
+
+      const sections = this.getSections();
+      sections.push(pp);
+      this.setSections(sections);
+
+      note++
     }
   }
 
