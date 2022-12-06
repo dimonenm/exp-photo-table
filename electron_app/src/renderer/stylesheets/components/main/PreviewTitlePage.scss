@@ -5,7 +5,7 @@
     flex-direction: column;
     flex-basis: 294px;
     align-items: center;
-    height: 415px;
+    height: 425px;
     margin: 10px 0 0 0;
     box-shadow: 0 1px 4px rgb(0 0 0 / 30%),
         -23px 0 20px -23px rgb(0 0 0 / 80%),
@@ -57,13 +57,13 @@
     justify-content: center;
     width: 100%;
     margin-top: 5px;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
 }
 
 .preview-title-page-photo-description{
-    width: 230px;
+    width: 255px;
     font-size: 8px;
 }
 .preview-title-page-photo-description span{

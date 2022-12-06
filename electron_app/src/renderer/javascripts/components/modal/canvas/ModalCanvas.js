@@ -341,7 +341,7 @@ const ModalCanvas = () => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })
   }
-  function cutClickHandler(event) {
+  function cutClickHandler() {
     setContrastState(false)
     console.log('cutContrastState', contrastState);
     setIsZoomScaleGrid(false)
@@ -518,7 +518,7 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
-  function contrastClickHandler(event) {
+  function contrastClickHandler() {
     if (toolState.type === 'contrast') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -749,17 +749,9 @@ const ModalCanvas = () => {
             
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-      console.log('1', ctx.filter)
-      console.log('modalCanvas', contrastState)
-      console.log('filter', ctx.filter);
-      console.log('getContrast', galleryImg.getContrast());
       ctx.filter = `contrast(${galleryImg.getContrast()}%)
                     brightness(${galleryImg.getBrightness()}%)`
-      // if (contrastState) {
-      //   ctx.filter = `contrast(${galleryImg.getContrast()}%)`
-      //   setContrastState(false)
-      // }
-      console.log('2', ctx.filter)
+      
       if (galleryImg.getArrowsArray().length > 0) {
         for (const item of galleryImg.getArrowsArray()) {
           drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
@@ -805,7 +797,7 @@ const ModalCanvas = () => {
             galleryImg.getOrientation() === "panorama" ? 700 :
               galleryImg.getOrientation() === "9X6" ? 700 :
                 galleryImg.getOrientation() === "6X9" ? 474 : null}
-        height={galleryImg.getOrientation() === "horizontal" ? 525 :
+        height={galleryImg.getOrientation() === "horizontal" ? 466 :
           galleryImg.getOrientation() === "vertical" ? 632 :
             // galleryImg.getOrientation() === "panorama" ? 460 :
             galleryImg.getOrientation() === "panorama" ? 350 :

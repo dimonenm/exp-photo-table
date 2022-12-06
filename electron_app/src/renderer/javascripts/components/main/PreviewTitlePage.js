@@ -1,10 +1,10 @@
 import React from 'react';
 
-function PreviewTitlePage({ index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
+function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
 
     console.log(orientation)
     console.log(isCuted)
-    let height = '40%'
+    let height = '30%'
     console.log(backgroundImage);
 
     if (orientation === 'panorama' && isCuted) {
