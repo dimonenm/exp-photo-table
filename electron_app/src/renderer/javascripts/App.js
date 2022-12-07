@@ -68,6 +68,7 @@ function App() {
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
+  let arrPreviewPages = []
 
   if (downloadedImages) {
     //Функция формирует массив с загруженными изображениями.
@@ -165,10 +166,6 @@ function App() {
           {arrDownloadedImages}
         </Gallery>
         <OrientationMenu>
-          {/* <OrientationMenuDataBtn
-            photoTableData={photoTableData}
-            setModalProperties={setModalProperties}
-          /> */}
           Ориентация:
           <OrientationBtn
             type='panorama'
