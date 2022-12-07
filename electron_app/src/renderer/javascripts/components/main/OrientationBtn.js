@@ -26,9 +26,7 @@ const OrientationBtn = ({ type, currentGalleryImage, setCurrentGalleryImage, gal
         const arr = [...galleryImages];
         gallaryImage.setIndex(arr.length + 1);
 
-        if (event.target.dataset.type === 'panorama') {
-            gallaryImage.setOrientation('panorama')
-        }
+        
         switch (event.target.dataset.type) {
             case 'panorama':
                 gallaryImage.setOrientation('panorama')
