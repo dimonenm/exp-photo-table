@@ -138,6 +138,11 @@ function App() {
           >
             Загрузить фотографии
           </MenuItem>
+          <MenuItem
+            type={'forsetPhotoTableData'}
+            photoTableData={photoTableData}
+            setModalProperties={setModalProperties}
+          >Данные фототаблицы</MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
           <MenuItem
@@ -157,11 +162,54 @@ function App() {
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
-        <Workplace>
-          <WorkplaceItemDataBtn
+        <OrientationMenu>
+          {/* <OrientationMenuDataBtn
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
-          />
+          /> */}
+          Ориентация:
+          <OrientationBtn
+            type='panorama'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='15x10'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x12'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x6'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='6x9'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+        </OrientationMenu>
+        <Workplace>
           {
             arrGalleryImages.length ?
               null :
@@ -175,7 +223,7 @@ function App() {
                 setDownloadedImages={setDownloadedImages}
               />
           }
-          {arrGalleryImages}
+          {arrPreviewPages}
         </Workplace>
       </Main>
     </Container>
