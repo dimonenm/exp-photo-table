@@ -148,6 +148,11 @@ function App() {
           >
             Загрузить фотографии
           </MenuItem>
+          <MenuItem
+            type={'forsetPhotoTableData'}
+            photoTableData={photoTableData}
+            setModalProperties={setModalProperties}
+          >Данные фототаблицы</MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
           <MenuItem
@@ -168,10 +173,10 @@ function App() {
           {arrDownloadedImages}
         </Gallery>
         <OrientationMenu>
-          <OrientationMenuDataBtn
+          {/* <OrientationMenuDataBtn
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
-          />
+          /> */}
           Ориентация:
           <OrientationBtn
             type='panorama'

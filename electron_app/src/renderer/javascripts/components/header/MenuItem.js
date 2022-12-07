@@ -76,6 +76,19 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
       }
     });
   }
+  function forsetPhotoTableData(event) {
+    event.preventDefault();
+    setModalProperties(prev => {
+      return (
+        {
+          ...prev,
+          isOpen: true,
+          type: "setPhotoTableData"
+        }
+      );
+    }
+    )
+  }
 
   if (notActive) {
     return (
@@ -98,6 +111,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   if (type === 'forSettings') {
     return (
       <div className="menu-item" onClick={forSetSettingsModal}><a href="/" >{children}</a></div>
+    );
+  }
+  if (type === 'forsetPhotoTableData') {
+    return (
+      <div className="menu-item" onClick={forsetPhotoTableData}><a href="/" >{children}</a></div>
     );
   }
   if (type === 'forDelImgFromPhotoTable') {
