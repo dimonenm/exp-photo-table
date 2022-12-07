@@ -11,6 +11,8 @@ import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
+import OrientationMenu from './components/main/OrientationMenu';
+import OrientationBtn from './components/main/OrientationBtn';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
