@@ -102,7 +102,7 @@ function App() {
     for (let i = 1; i <= countOfPages; i++) {
       arrPreviewPages.push(
         <PreviewDefaultPage
-          key={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+          key={galleryImages[i].getIndex()}
           number={arrPreviewPages.length + 1}
           index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
           orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
