@@ -77,6 +77,41 @@ function App() {
     arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
   };
 
+  if (galleryImages.length > 0) {
+    //Функция формирует массив с выбранными изображениями для фототаблицы.
+    // console.log(galleryImages[0].getUrl());
+    arrPreviewPages.push(
+      <PreviewTitlePage
+        key={galleryImages[0].getIndex()}
+        index={galleryImages[0].getIndex()}
+        orientation={galleryImages[0].getOrientation()}
+        isCuted={galleryImages[0].getImgCuted()}
+        img={galleryImages[0].getUrl()}
+        text={galleryImages[0].getImgDesc()}
+        photoTableData={photoTableData}
+        settings={settings}
+        setModalProperties={setModalProperties}
+      />)
+
+    const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
+    let counterOfIndexes = 0
+    for (let i = 1; i <= countOfPages; i++) {
+      arrPreviewPages.push(
+        <PreviewDefaultPage
+          key={galleryImages[i].getIndex()}
+          number={arrPreviewPages.length + 1}
+          index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+          orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
+          img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
+          text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
+          photoTableData={photoTableData}
+          settings={settings}
+          setModalProperties={setModalProperties}
+        />)
+      counterOfIndexes++
+    }
+  };
+
   return (
     <Container>
       <modalDataContext.Provider
