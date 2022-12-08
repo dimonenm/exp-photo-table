@@ -13,6 +13,8 @@ import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
 import OrientationMenu from './components/main/OrientationMenu';
 import OrientationBtn from './components/main/OrientationBtn';
+import PreviewTitlePage from './components/main/PreviewTitlePage';
+import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
