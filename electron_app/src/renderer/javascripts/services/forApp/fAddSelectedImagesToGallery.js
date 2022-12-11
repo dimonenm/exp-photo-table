@@ -14,9 +14,7 @@ function addSelectedImagesToArrForGallery(
 
     galleryImages.forEach((item, index) => {
         arrGalleryImages.unshift(
-            <Fragment
-                key={item.getIndex()}
-            >
+            <Fragment key={item.getIndex()} >
                 <WorkplaceItemPlacingMiddlePart
                     index={item.getIndex()}
                     galleryImages={galleryImages}

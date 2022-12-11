@@ -370,7 +370,6 @@ const ModalCanvas = () => {
       });
     }
 
-
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }

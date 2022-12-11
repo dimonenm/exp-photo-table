@@ -15,6 +15,7 @@ import OrientationMenu from './components/main/OrientationMenu';
 import OrientationBtn from './components/main/OrientationBtn';
 import PreviewTitlePage from './components/main/PreviewTitlePage';
 import PreviewDefaultPage from './components/main/PreviewDefaultPage';
+import PreviewPage from './components/main/PreviewPage';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
@@ -84,7 +85,52 @@ function App() {
 
   if (galleryImages.length > 0) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    // console.log(galleryImages[0].getUrl());
+    function addPreviewPages(galleryImages, photoTableData, settings) {
+      class PreviewPageItem {
+        type
+
+        galleryImages
+        photoTableData
+        settings
+
+        constructor(galleryImages, photoTableData, settings) { 
+          this.galleryImages = galleryImages
+          this.photoTableData = photoTableData
+          this.settings = settings
+        }
+
+        setType(value) {
+          this.type = value
+        }
+        assemblePage(index) {
+          return (
+            <PreviewPage
+              key={index}
+              index={index}
+              type={this.type}
+              galleryImages={galleryImages}
+              photoTableData={photoTableData}
+              settings={settings}
+            />
+          )
+        }
+      }
+
+      for (let i = 0; i < galleryImages.length; i++) {
+
+        if (i === 0) {
+          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+          previewPageItem.setType('title')
+
+          arrPreviewPages.push(previewPageItem.assemblePage(i))
+        }
+
+      }
+    }
+
+    addPreviewPages(galleryImages, photoTableData, settings)
+
+
     arrPreviewPages.push(
       <PreviewTitlePage
         key={galleryImages[0].getIndex()}
@@ -98,23 +144,23 @@ function App() {
         setModalProperties={setModalProperties}
       />)
 
-    const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
-    let counterOfIndexes = 0
-    for (let i = 1; i <= countOfPages; i++) {
-      arrPreviewPages.push(
-        <PreviewDefaultPage
-          key={galleryImages[i].getIndex()}
-          number={arrPreviewPages.length + 1}
-          index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
-          orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
-          img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
-          text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
-          photoTableData={photoTableData}
-          settings={settings}
-          setModalProperties={setModalProperties}
-        />)
-      counterOfIndexes++
-    }
+    // const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
+    // let counterOfIndexes = 0
+    // for (let i = 1; i <= countOfPages; i++) {
+    //   arrPreviewPages.push(
+    //     <PreviewDefaultPage
+    //       key={galleryImages[i].getIndex()}
+    //       number={arrPreviewPages.length + 1}
+    //       index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+    //       orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
+    //       img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
+    //       text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
+    //       photoTableData={photoTableData}
+    //       settings={settings}
+    //       setModalProperties={setModalProperties}
+    //     />)
+    //   counterOfIndexes++
+    // }
   };
 
   return (
