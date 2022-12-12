@@ -4,6 +4,7 @@ function PreviewDefaultPage({ number, index, galleryImages, orientation, img, te
     console.log(orientation)
 
     const imagesArr = []
+    
     const dbClickFirstImgHandler = (event) => {
         event.preventDefault();
         setModalProperties(prev => {
