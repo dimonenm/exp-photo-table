@@ -92,8 +92,9 @@ function App() {
         galleryImages
         photoTableData
         settings
+        setModalProperties
 
-        constructor(galleryImages, photoTableData, settings) { 
+        constructor(galleryImages, photoTableData, settings, ) { 
           this.galleryImages = galleryImages
           this.photoTableData = photoTableData
           this.settings = settings
@@ -144,23 +145,24 @@ function App() {
         setModalProperties={setModalProperties}
       />)
 
-    // const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
-    // let counterOfIndexes = 0
-    // for (let i = 1; i <= countOfPages; i++) {
-    //   arrPreviewPages.push(
-    //     <PreviewDefaultPage
-    //       key={galleryImages[i].getIndex()}
-    //       number={arrPreviewPages.length + 1}
-    //       index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
-    //       orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
-    //       img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
-    //       text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
-    //       photoTableData={photoTableData}
-    //       settings={settings}
-    //       setModalProperties={setModalProperties}
-    //     />)
-    //   counterOfIndexes++
-    // }
+    const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
+    let counterOfIndexes = 0
+    for (let i = 1; i <= countOfPages; i++) {
+      arrPreviewPages.push(
+        <PreviewDefaultPage
+          key={galleryImages[i].getIndex()}
+          number={arrPreviewPages.length + 1}
+          index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+          galleryImages={galleryImages}
+          orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
+          img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
+          text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
+          photoTableData={photoTableData}
+          settings={settings}
+          setModalProperties={setModalProperties}
+        />)
+      counterOfIndexes++
+    }
   };
 
   return (
