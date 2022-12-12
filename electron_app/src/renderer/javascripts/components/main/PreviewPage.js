@@ -1,13 +1,6 @@
 import React from 'react';
 
-function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
-
-  console.log('galleryImages[index].getUrl()', galleryImages[index].getUrl());
-  const backgroundImage = {
-    backgroundImage: `url(${galleryImages[index].getUrl()})`,
-    height: '100%'
-  }
-  console.log('backgroundImage: ', backgroundImage);
+function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, photoTableData, settings, setModalProperties }) {
 
   const dbClickHandler = (event) => {
     event.preventDefault();
@@ -17,7 +10,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
           ...prev,
           isOpen: true,
           type: "editPhoto",
-          indexImgInGallery: index
+          indexImgInGallery: img1.getIndex()
         }
       );
     }
@@ -25,6 +18,23 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
   }
 
   if (type === 'title') {
+    return (
+      <div className='preview-title-page'>
+        <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
+        <div className='preview-title-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
+        <div className='preview-title-page-separator'></div>
+        <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
+        <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
+        <div className='preview-title-page-img' onDoubleClick={dbClickHandler}>
+          <img src={img1.getUrl()} width={"100%"} height={"100%"}></img>
+        </div>
+        <div className='preview-title-page-photo-description'>
+          <span>{`Фото № ${img1.getIndex()}. `}</span>{img1.getImgDesc()}</div>
+        <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
+      </div>
+    )
+  }
+  if (type === 'page') {
     return (
       <div className='preview-title-page'>
         <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
@@ -42,19 +52,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
     )
   }
 
-  return (
-    <div className='preview-title-page'>
-      {/* <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
-      <div className='preview-title-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
-      <div className='preview-title-page-separator'></div>
-      <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
-      <div className='preview-title-page-description'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
-      <div className='preview-title-page-img' onDoubleClick={dbClickHandler} style={backgroundImage}></div>
-      <div className='preview-title-page-photo-description'>
-        <span>{`Фото № ${index}. `}</span>{text}</div>
-      <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div> */}
-    </div>
-  );
+  return null
 }
 
 export default PreviewPage;

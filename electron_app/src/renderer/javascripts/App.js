@@ -88,6 +88,11 @@ function App() {
     function addPreviewPages(galleryImages, photoTableData, settings) {
       class PreviewPageItem {
         type
+        parity
+        img1
+        img2
+        img3
+        img4
 
         galleryImages
         photoTableData
@@ -102,15 +107,24 @@ function App() {
         setType(value) {
           this.type = value
         }
+        setParity(value) {
+          
+        }
+        setImg1(value) {
+          this.img1 = value
+        }
         assemblePage(index) {
           return (
             <PreviewPage
               key={index}
-              index={index}
               type={this.type}
+              parity={this.parity}
+              img1={this.img1}
+              img2={this.img2}
               galleryImages={this.galleryImages}
               photoTableData={this.photoTableData}
               settings={this.settings}
+              setModalProperties={setModalProperties}
             />
           )
         }
@@ -121,6 +135,13 @@ function App() {
         if (i === 0) {
           const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
           previewPageItem.setType('title')
+          previewPageItem.setParity('odd')
+          previewPageItem.setImg1(galleryImages[i])
+
+          arrPreviewPages.push(previewPageItem.assemblePage(i))
+        } else {
+          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+          previewPageItem.setType('page')
 
           arrPreviewPages.push(previewPageItem.assemblePage(i))
         }
