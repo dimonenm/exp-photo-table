@@ -9,7 +9,8 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
 
   console.log('backgroundImage: ', backgroundImage);
   let imgStyle = {
-    width: ''
+    width: '',
+    height: ''
   }
     if (galleryImages[index].getOrientation() === 'panorama') {
     imgStyle.width = '255px'
