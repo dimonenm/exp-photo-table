@@ -11,6 +11,11 @@ import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
 import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
+import OrientationMenu from './components/main/OrientationMenu';
+import OrientationBtn from './components/main/OrientationBtn';
+import PreviewTitlePage from './components/main/PreviewTitlePage';
+import PreviewDefaultPage from './components/main/PreviewDefaultPage';
+import PreviewPage from './components/main/PreviewPage';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
@@ -66,6 +71,7 @@ function App() {
 
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
+  let arrPreviewPages = []
 
   if (downloadedImages) {
     //Функция формирует массив с загруженными изображениями.
@@ -75,6 +81,86 @@ function App() {
   if (galleryImages) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
     arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
+  };
+
+  if (galleryImages.length > 0) {
+    //Функция формирует массив с выбранными изображениями для фототаблицы.
+    function addPreviewPages(galleryImages, photoTableData, settings) {
+      class PreviewPageItem {
+        type
+
+        galleryImages
+        photoTableData
+        settings
+
+        constructor(galleryImages, photoTableData, settings) { 
+          this.galleryImages = galleryImages
+          this.photoTableData = photoTableData
+          this.settings = settings
+        }
+
+        setType(value) {
+          this.type = value
+        }
+        assemblePage(index) {
+          return (
+            <PreviewPage
+              key={index}
+              index={index}
+              type={this.type}
+              galleryImages={this.galleryImages}
+              photoTableData={this.photoTableData}
+              settings={this.settings}
+            />
+          )
+        }
+      }
+
+      for (let i = 0; i < galleryImages.length; i++) {
+
+        if (i === 0) {
+          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+          previewPageItem.setType('title')
+
+          arrPreviewPages.push(previewPageItem.assemblePage(i))
+        }
+
+      }
+    }
+
+    addPreviewPages(galleryImages, photoTableData, settings)
+
+
+    arrPreviewPages.push(
+      <PreviewTitlePage
+        key={galleryImages[0].getIndex()}
+        index={galleryImages[0].getIndex()}
+        orientation={galleryImages[0].getOrientation()}
+        isCuted={galleryImages[0].getImgCuted()}
+        img={galleryImages[0].getUrl()}
+        text={galleryImages[0].getImgDesc()}
+        photoTableData={photoTableData}
+        settings={settings}
+        setModalProperties={setModalProperties}
+      />)
+
+    // const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
+    // let counterOfIndexes = 0
+    // for (let i = 1; i <= countOfPages; i++) {
+    //   arrPreviewPages.push(
+    //     <PreviewDefaultPage
+    //       key={galleryImages[i].getIndex()}
+    //       number={arrPreviewPages.length + 1}
+    //       index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+    //       orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
+    //       img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
+    //       text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
+    //       photoTableData={photoTableData}
+    //       settings={settings}
+    //       setModalProperties={setModalProperties}
+    //     />)
+    //   counterOfIndexes++
+    // }
   };
 
   return (
@@ -95,7 +181,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.1.2</Logo>
+        <Logo>ЭКЦ РК Фототаблица 0.1.3</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
@@ -103,6 +189,11 @@ function App() {
           >
             Загрузить фотографии
           </MenuItem>
+          <MenuItem
+            type={'forsetPhotoTableData'}
+            photoTableData={photoTableData}
+            setModalProperties={setModalProperties}
+          >Данные фототаблицы</MenuItem>
           <MenuItem notActive={true}>Печать</MenuItem>
           <MenuItem notActive={true}>Конвертировать в PDF</MenuItem>
           <MenuItem
@@ -122,11 +213,50 @@ function App() {
         <Gallery>
           {arrDownloadedImages}
         </Gallery>
+        <OrientationMenu>
+          Ориентация:
+          <OrientationBtn
+            type='panorama'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='15x10'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x12'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='9x6'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          <OrientationBtn
+            type='6x9'
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            downloadedImages={downloadedImages}
+            setDownloadedImages={setDownloadedImages}></OrientationBtn>
+        </OrientationMenu>
         <Workplace>
-          <WorkplaceItemDataBtn
-            photoTableData={photoTableData}
-            setModalProperties={setModalProperties}
-          />
           {
             arrGalleryImages.length ?
               null :
@@ -140,7 +270,7 @@ function App() {
                 setDownloadedImages={setDownloadedImages}
               />
           }
-          {arrGalleryImages}
+          {arrPreviewPages}
         </Workplace>
       </Main>
     </Container>
