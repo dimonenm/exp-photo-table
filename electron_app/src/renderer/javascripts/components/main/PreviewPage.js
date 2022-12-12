@@ -5,7 +5,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
   console.log('galleryImages[index].getUrl()', galleryImages[index].getUrl());
   const backgroundImage = {
     backgroundImage: `url(${galleryImages[index].getUrl()})`,
-    height: '30%'
+    height: '100%'
   }
   console.log('backgroundImage: ', backgroundImage);
 
@@ -32,7 +32,9 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
         <div className='preview-title-page-separator'></div>
         <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
         <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
-        <div className='preview-title-page-img' onDoubleClick={dbClickHandler} style={backgroundImage}></div>
+        <div className='preview-title-page-img' onDoubleClick={dbClickHandler} style={backgroundImage}>
+          
+        </div>
         <div className='preview-title-page-photo-description'>
           <span>{`Фото № ${galleryImages[index].getIndex()}. `}</span>{galleryImages[index].getImgDesc()}</div>
         <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>

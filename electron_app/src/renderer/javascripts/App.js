@@ -108,9 +108,9 @@ function App() {
               key={index}
               index={index}
               type={this.type}
-              galleryImages={galleryImages}
-              photoTableData={photoTableData}
-              settings={settings}
+              galleryImages={this.galleryImages}
+              photoTableData={this.photoTableData}
+              settings={this.settings}
             />
           )
         }
