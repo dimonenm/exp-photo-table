@@ -1,0 +1,23 @@
+.image-viewer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    width: 255px;
+    font-family: 'Times New Roman',
+    Times,
+    serif;
+}
+
+
+.image-viewer-photo-description {
+    width: 255px;
+    font-size: 8px;
+}
+
+
+.image-viewer-photo-description span {
+    font-weight: 800;
+}
