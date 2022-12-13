@@ -85,85 +85,18 @@ function App() {
 
   if (galleryImages.length > 0) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    function addPreviewPages(galleryImages, photoTableData, settings) {
-      class PreviewPageItem {
-        type
-        parity
-        img1
-        img2
-        img3
-        img4
-
-        galleryImages
-        photoTableData
-        settings
-
-        constructor(galleryImages, photoTableData, settings) { 
-          this.galleryImages = galleryImages
-          this.photoTableData = photoTableData
-          this.settings = settings
-        }
-
-        setType(value) {
-          this.type = value
-        }
-        setParity(value) {
-          
-        }
-        setImg1(value) {
-          this.img1 = value
-        }
-        assemblePage(index) {
-          return (
-            <PreviewPage
-              key={index}
-              type={this.type}
-              parity={this.parity}
-              img1={this.img1}
-              img2={this.img2}
-              galleryImages={this.galleryImages}
-              photoTableData={this.photoTableData}
-              settings={this.settings}
-              setModalProperties={setModalProperties}
-            />
-          )
-        }
-      }
-
-      for (let i = 0; i < galleryImages.length; i++) {
-
-        if (i === 0) {
-          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
-          previewPageItem.setType('title')
-          previewPageItem.setParity('odd')
-          previewPageItem.setImg1(galleryImages[i])
-
-          arrPreviewPages.push(previewPageItem.assemblePage(i))
-        } else {
-          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
-          previewPageItem.setType('page')
-
-          arrPreviewPages.push(previewPageItem.assemblePage(i))
-        }
-
-      }
-    }
-
-    addPreviewPages(galleryImages, photoTableData, settings)
-
-
-    arrPreviewPages.push(
-      <PreviewTitlePage
-        key={galleryImages[0].getIndex()}
-        index={galleryImages[0].getIndex()}
-        orientation={galleryImages[0].getOrientation()}
-        isCuted={galleryImages[0].getImgCuted()}
-        img={galleryImages[0].getUrl()}
-        text={galleryImages[0].getImgDesc()}
-        photoTableData={photoTableData}
-        settings={settings}
-        setModalProperties={setModalProperties}
-      />)
+    // arrPreviewPages.push(
+    //   <PreviewTitlePage
+    //     key={galleryImages[0].getIndex()}
+    //     index={galleryImages[0].getIndex()}
+    //     orientation={galleryImages[0].getOrientation()}
+    //     isCuted={galleryImages[0].getImgCuted()}
+    //     img={galleryImages[0].getUrl()}
+    //     text={galleryImages[0].getImgDesc()}
+    //     photoTableData={photoTableData}
+    //     settings={settings}
+    //     setModalProperties={setModalProperties}
+    //   />)
 
     // const countOfPages = Math.ceil((galleryImages.length - 1) / 2)
     // let counterOfIndexes = 0
@@ -183,6 +116,85 @@ function App() {
     //   counterOfIndexes++
     // }
   };
+
+  function addPreviewPages(galleryImages, photoTableData, settings) {
+    class PreviewPageItem {
+      type
+      parity
+      img1
+      img2
+      img3
+      img4
+
+      galleryImages
+      photoTableData
+      settings
+
+      constructor(galleryImages, photoTableData, settings) {
+        this.galleryImages = galleryImages
+        this.photoTableData = photoTableData
+        this.settings = settings
+      }
+
+      setType(value) {
+        this.type = value
+      }
+      setParity(value) {
+
+      }
+      setImg1(value) {
+        this.img1 = value
+      }
+      assemblePage(index = 0) {
+        return (
+          <PreviewPage
+            key={index}
+            type={this.type}
+            parity={this.parity}
+            img1={this.img1}
+            img2={this.img2}
+            img3={this.img3}
+            img4={this.img4}
+            galleryImages={this.galleryImages}
+            setGalleryImages={setGalleryImages}
+            photoTableData={this.photoTableData}
+            settings={this.settings}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+        )
+      }
+    }
+
+    if (galleryImages.length === 0) {
+      const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+      previewPageItem.setType('title')
+      previewPageItem.setParity('odd')
+
+      arrPreviewPages.push(previewPageItem.assemblePage())
+    }
+
+    for (let i = 0; i < galleryImages.length; i++) {
+
+      if (i === 0) {
+        const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+        previewPageItem.setType('title')
+        previewPageItem.setParity('odd')
+        previewPageItem.setImg1(galleryImages[i])
+
+        arrPreviewPages.push(previewPageItem.assemblePage(i))
+      } else {
+        const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+        previewPageItem.setType('page')
+
+        arrPreviewPages.push(previewPageItem.assemblePage(i))
+      }
+
+    }
+  }
+
+  addPreviewPages(galleryImages, photoTableData, settings)
 
   return (
     <Container>
@@ -279,17 +291,17 @@ function App() {
         </OrientationMenu>
         <Workplace>
           {
-            arrGalleryImages.length ?
-              null :
-              <WorkplaceItemNew
-                name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-                currentGalleryImage={currentGalleryImage}
-                setCurrentGalleryImage={setCurrentGalleryImage}
-                galleryImages={galleryImages}
-                setGalleryImages={setGalleryImages}
-                downloadedImages={downloadedImages}
-                setDownloadedImages={setDownloadedImages}
-              />
+            // arrGalleryImages.length ?
+            //   null :
+            //   <WorkplaceItemNew
+            //     name={`Иллюстрация ${arrGalleryImages.length + 1}`}
+            //     currentGalleryImage={currentGalleryImage}
+            //     setCurrentGalleryImage={setCurrentGalleryImage}
+            //     galleryImages={galleryImages}
+            //     setGalleryImages={setGalleryImages}
+            //     downloadedImages={downloadedImages}
+            //     setDownloadedImages={setDownloadedImages}
+            //   />
           }
           {arrPreviewPages}
         </Workplace>
