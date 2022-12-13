@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ImageViewer from './ImageViewer';
 function PreviewTitlePage({galleryImages, index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
 
     let imgStyle = {
@@ -17,7 +17,7 @@ function PreviewTitlePage({galleryImages, index, orientation, isCuted, img, text
         imgStyle.width = '130px'
         imgStyle.height = '175px'
     }
-    
+
     const dbClickHandler = (event) => {
         event.preventDefault();
         setModalProperties(prev => {
@@ -40,11 +40,18 @@ function PreviewTitlePage({galleryImages, index, orientation, isCuted, img, text
             <div className='preview-title-page-separator'></div>
             <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
             <div className='preview-title-page-description'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
-            <div className='preview-title-page-img'>
+            {/* <div className='preview-title-page-img'>
                 <img className='preview-title-page-img' onDoubleClick={dbClickHandler} src={galleryImages[0].getUrl()} style={imgStyle}></img>
         </div>
             <div className='preview-title-page-photo-description'>
-                <span>{`Фото № ${index}. `}</span>{text}</div>
+                <span>{`Фото № ${index}. `}</span>{text}</div> */}
+            <ImageViewer
+                galleryImages={galleryImages}
+                index={index}
+                img={img}
+                text={text}
+                src={galleryImages[0].getUrl()}
+            />
             <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div>
         </div>
     );
