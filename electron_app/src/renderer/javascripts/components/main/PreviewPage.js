@@ -25,11 +25,14 @@ function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, phot
         <div className='preview-title-page-separator'></div>
         <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
         <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
+        
         <div className='preview-title-page-img' onDoubleClick={dbClickHandler}>
           <img src={img1.getUrl()}></img>
         </div>
         <div className='preview-title-page-photo-description'>
           <span>{`Фото № ${img1.getIndex()}. `}</span>{img1.getImgDesc()}</div>
+
+
         <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
       </div>
     )
