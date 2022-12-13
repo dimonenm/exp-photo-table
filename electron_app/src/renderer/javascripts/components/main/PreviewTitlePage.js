@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageViewer from './ImageViewer';
-function PreviewTitlePage({galleryImages, index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
+function PreviewTitlePage({galleryImages, index, settings, setModalProperties }) {
 
     let imgStyle = {
         width: '100%',
@@ -44,13 +44,12 @@ function PreviewTitlePage({galleryImages, index, orientation, isCuted, img, text
                 <img className='preview-title-page-img' onDoubleClick={dbClickHandler} src={galleryImages[0].getUrl()} style={imgStyle}></img>
         </div>
             <div className='preview-title-page-photo-description'>
-                <span>{`Фото № ${index}. `}</span>{text}</div> */}
+                <span>{`Фото № ${galleryImages[0].getIndex()}. `}</span>{galleryImages[0].getImgDesc()}</div> */}
             <ImageViewer
                 galleryImages={galleryImages}
-                index={index}
-                img={img}
-                text={text}
-                src={galleryImages[0].getUrl()}
+                img={galleryImages[0].getUrl()}
+                index={galleryImages[0].getIndex()}
+                text={galleryImages[0].getImgDesc()}
             />
             <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div>
         </div>
