@@ -9,7 +9,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
 
   console.log('backgroundImage: ', backgroundImage);
   let imgStyle = {
-    width: '100%',
+    width: '',
     height: ''
   }
     if (galleryImages[index].getOrientation() === 'panorama') {
@@ -18,10 +18,6 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
     if (galleryImages[index].getOrientation() === 'horizontal') {
       imgStyle.width = '225px'
       imgStyle.height = '150px'
-    }
-    if (galleryImages[index].getOrientation() === 'vertical') {
-      imgStyle.width = '130px'
-      imgStyle.height = '175px'
     }
  
   console.log(imgStyle.width);
@@ -50,7 +46,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
         <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
         <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
         <div className='preview-title-page-img'>
-          <img className='preview-title-page-img' onDoubleClick={dbClickHandler} src={`${galleryImages[index].getUrl()}`} style={imgStyle}></img>
+          <img className='preview-title-page-img-panorama' onDoubleClick={dbClickHandler} src={`${galleryImages[index].getUrl()}`} style={imgStyle}></img>
         </div>
         <div className='preview-title-page-photo-description'>
           <span>{`Фото № ${galleryImages[index].getIndex()}. `}</span>{galleryImages[index].getImgDesc()}</div>

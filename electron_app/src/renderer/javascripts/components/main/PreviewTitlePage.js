@@ -1,15 +1,21 @@
 import React from 'react';
 
-function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
+function PreviewTitlePage({galleryImages, index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
 
-    let height = '30%'
-
-    if (orientation === 'panorama' && isCuted) {
-        height = '30%'
+    let imgStyle = {
+        width: '100%',
+        height: ''
     }
-    const backgroundImage = {
-        backgroundImage: `url(${img})`,
-        height
+    if (galleryImages[0].getOrientation() === 'panorama') {
+        imgStyle.width = '255px'
+    }
+    if (galleryImages[0].getOrientation() === 'horizontal') {
+        imgStyle.width = '225px'
+        // imgStyle.height = '150px'
+    }
+    if (galleryImages[0].getOrientation() === 'vertical') {
+        imgStyle.width = '130px'
+        imgStyle.height = '175px'
     }
     
     const dbClickHandler = (event) => {
@@ -34,7 +40,9 @@ function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableDat
             <div className='preview-title-page-separator'></div>
             <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
             <div className='preview-title-page-description'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
-            <div className='preview-title-page-img' onDoubleClick={dbClickHandler} style={backgroundImage}></div>
+            <div className='preview-title-page-img'>
+                <img className='preview-title-page-img' onDoubleClick={dbClickHandler} src={galleryImages[0].getUrl()} style={imgStyle}></img>
+        </div>
             <div className='preview-title-page-photo-description'>
                 <span>{`Фото № ${index}. `}</span>{text}</div>
             <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div>

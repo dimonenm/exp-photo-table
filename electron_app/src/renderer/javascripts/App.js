@@ -135,6 +135,7 @@ function App() {
     arrPreviewPages.push(
       <PreviewTitlePage
         key={galleryImages[0].getIndex()}
+        galleryImages={galleryImages}
         index={galleryImages[0].getIndex()}
         orientation={galleryImages[0].getOrientation()}
         isCuted={galleryImages[0].getImgCuted()}
