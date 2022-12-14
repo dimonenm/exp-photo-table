@@ -9,15 +9,15 @@ function PreviewTitlePage({ galleryImages, index, settings, setModalProperties }
     const marginForSpan = {
         marginLeft: '0'
 }
-    if (galleryImages[0].getOrientation() === 'panorama' && galleryImages[0].getImgCuted() === true) {
+    if (galleryImages[0].getOrientation() === 'panorama' && galleryImages[0].getImgCuted()) {
         imgStyle.width = '255px'
     }
-    if (galleryImages[0].getOrientation() === 'horizontal' && galleryImages[0].getImgCuted() === true) {
+    if (galleryImages[0].getOrientation() === 'horizontal' && galleryImages[0].getImgCuted()) {
         imgStyle.width = '225px'
         marginForSpan.marginLeft = '15px'
         // imgStyle.height = '150px'
     }
-    if (galleryImages[0].getOrientation() === 'vertical' && galleryImages[0].getImgCuted() === true) {
+    if (galleryImages[0].getOrientation() === 'vertical' && galleryImages[0].getImgCuted()) {
         imgStyle.width = '130px'
         marginForSpan.marginLeft = '62px'
         // imgStyle.height = '175px'
