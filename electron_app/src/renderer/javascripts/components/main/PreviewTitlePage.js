@@ -2,21 +2,26 @@ import React from 'react';
 import ImageViewer from './ImageViewer';
 function PreviewTitlePage({ galleryImages, index, settings, setModalProperties }) {
 
-    // let imgStyle = {
-    //     width: '255',
-    //     height: ''
-    // }
-    // if (galleryImages[0].getOrientation() === 'panorama') {
-    //     imgStyle.width = '255px'
-    // }
-    // if (galleryImages[0].getOrientation() === 'horizontal') {
-    //     imgStyle.width = '225px'
-    //     // imgStyle.height = '150px'
-    // }
-    // if (galleryImages[0].getOrientation() === 'vertical') {
-    //     imgStyle.width = '130px'
-    //     imgStyle.height = '175px'
-    // }
+    const imgStyle = {
+        width: '255',
+        height: ''
+    }
+    const marginForSpan = {
+        marginLeft: '0'
+}
+    if (galleryImages[0].getOrientation() === 'panorama' && galleryImages[0].getImgCuted() === true) {
+        imgStyle.width = '255px'
+    }
+    if (galleryImages[0].getOrientation() === 'horizontal' && galleryImages[0].getImgCuted() === true) {
+        imgStyle.width = '225px'
+        marginForSpan.marginLeft = '15px'
+        // imgStyle.height = '150px'
+    }
+    if (galleryImages[0].getOrientation() === 'vertical' && galleryImages[0].getImgCuted() === true) {
+        imgStyle.width = '130px'
+        marginForSpan.marginLeft = '62px'
+        // imgStyle.height = '175px'
+    }
 
 
 
@@ -34,6 +39,8 @@ function PreviewTitlePage({ galleryImages, index, settings, setModalProperties }
                 index={galleryImages[0].getIndex()}
                 text={galleryImages[0].getImgDesc()}
                 setModalProperties={setModalProperties}
+                imgStyle={imgStyle}
+                marginForSpan={marginForSpan}
             />
             {/* <div className='preview-title-page-img'>
                 <img className='preview-title-page-img' onDoubleClick={dbClickHandler} src={galleryImages[0].getUrl()} style={imgStyle}></img>
