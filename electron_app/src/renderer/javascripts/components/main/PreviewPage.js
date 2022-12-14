@@ -3,24 +3,7 @@ import React from 'react';
 function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
 
   console.log('galleryImages[index].getUrl()', galleryImages[index].getUrl());
-  const backgroundImage = {
-    backgroundImage: `url(${galleryImages[index].getUrl()})`
-  }
-
-  console.log('backgroundImage: ', backgroundImage);
-  let imgStyle = {
-    width: '',
-    height: ''
-  }
-    if (galleryImages[index].getOrientation() === 'panorama') {
-    imgStyle.width = '255px'
-    }
-    if (galleryImages[index].getOrientation() === 'horizontal') {
-      imgStyle.width = '225px'
-      imgStyle.height = '150px'
-    }
- 
-  console.log(imgStyle.width);
+  
   
   const dbClickHandler = (event) => {
     event.preventDefault();
