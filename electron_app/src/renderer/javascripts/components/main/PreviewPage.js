@@ -29,7 +29,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
         <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
         <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
         <div className='preview-title-page-img'>
-          <img className='preview-title-page-img-panorama' onDoubleClick={dbClickHandler} src={`${galleryImages[index].getUrl()}`} style={imgStyle}></img>
+          <img className='preview-title-page-img-panorama' onDoubleClick={dbClickHandler} src={`${galleryImages[index].getUrl()}`} ></img>
         </div>
         <div className='preview-title-page-photo-description'>
           <span>{`Фото № ${galleryImages[index].getIndex()}. `}</span>{galleryImages[index].getImgDesc()}</div>
