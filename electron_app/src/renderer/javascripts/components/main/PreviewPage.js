@@ -1,5 +1,7 @@
 import React from 'react';
 import GallaryImage from '../../entities/GalleryImage';
+import ImageViewer from './ImageViewer';
+
 
 function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, }) {
 
@@ -47,7 +49,6 @@ function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setG
   }
 
   if (type === 'title' && galleryImages.length === 0) {
-    console.log("type === 'title' && galleryImages.length === 0");
     return (
       <div className='preview-page'>
         <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
@@ -74,12 +75,7 @@ function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setG
         <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
         <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
         
-        <div className='preview-title-page-img' onDoubleClick={dbClickHandler}>
-          <img src={img1.getUrl()}></img>
-        </div>
-        <div className='preview-title-page-photo-description'>
-          <span>{`Фото № ${img1.getIndex()}. `}</span>{img1.getImgDesc()}</div>
-
+        <ImageViewer img={img1} setModalProperties={setModalProperties} />
 
         <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
       </div>
