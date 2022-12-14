@@ -4,21 +4,7 @@ import React from "react";
 function ImageViewer({ galleryImages, img, index, text, setModalProperties }) {
     console.log('view', galleryImages[0].getUrl());
 
-    let imgStyle = {
-        width: '100%',
-        height: ''
-    }
-    if (galleryImages[0].getOrientation() === 'panorama') {
-        imgStyle.width = '255px'
-    }
-    if (galleryImages[0].getOrientation() === 'horizontal') {
-        imgStyle.width = '225px'
-        // imgStyle.height = '150px'
-    }
-    if (galleryImages[0].getOrientation() === 'vertical') {
-        imgStyle.width = '130px'
-        imgStyle.height = '175px'
-    }
+   
 
 
 

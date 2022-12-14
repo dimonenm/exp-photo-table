@@ -2,21 +2,21 @@ import React from 'react';
 import ImageViewer from './ImageViewer';
 function PreviewTitlePage({ galleryImages, index, settings, setModalProperties }) {
 
-    let imgStyle = {
-        width: '255',
-        height: ''
-    }
-    if (galleryImages[0].getOrientation() === 'panorama') {
-        imgStyle.width = '255px'
-    }
-    if (galleryImages[0].getOrientation() === 'horizontal') {
-        imgStyle.width = '225px'
-        // imgStyle.height = '150px'
-    }
-    if (galleryImages[0].getOrientation() === 'vertical') {
-        imgStyle.width = '130px'
-        imgStyle.height = '175px'
-    }
+    // let imgStyle = {
+    //     width: '255',
+    //     height: ''
+    // }
+    // if (galleryImages[0].getOrientation() === 'panorama') {
+    //     imgStyle.width = '255px'
+    // }
+    // if (galleryImages[0].getOrientation() === 'horizontal') {
+    //     imgStyle.width = '225px'
+    //     // imgStyle.height = '150px'
+    // }
+    // if (galleryImages[0].getOrientation() === 'vertical') {
+    //     imgStyle.width = '130px'
+    //     imgStyle.height = '175px'
+    // }
 
 
 
