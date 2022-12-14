@@ -1,6 +1,6 @@
 {
   "name": "photo-table",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "ElectronApp application build with Electron",
   "author": {
     "name": "Arzyakov D",
@@ -23,7 +23,6 @@
     "babel-loader": "^8.2.5",
     "bozon": "1.2.9",
     "css-loader": "^6.7.1",
-    "electron-react-devtools": "^0.5.3",
     "jest": "27.5.1",
     "react-svg-loader": "^3.0.3",
     "sass": "^1.52.1",

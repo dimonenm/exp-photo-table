@@ -23,57 +23,54 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 150px;
-    width: 225px;
     margin-top: 5px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
 }
-.preview-default-page-img-vertical {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 175px;
-    width: 130px;
-    margin-top: 5px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-.preview-default-page-img-9X6 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 95px;
-    width: 135px;
-    margin-top: 5px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
+
+.preview-default-page-img-horizontal,
+.preview-default-page-img-vertical,
+.preview-default-page-img-9X6,
 .preview-default-page-img-6X9 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 135px;
-    width: 95px;
-    margin-top: 5px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
-.preview-default-page-img-6X9-two{
-display: flex;
-justify-content: center;
-height: 135px;
-width: 205px;
-margin-top: 5px;
 
-
-}
-.preview-default-page-photo-description {
+.preview-default-page-img-horizontal {
+    height: 150px;
     width: 225px;
+}
+
+.preview-default-page-img-vertical {
+    height: 175px;
+    width: 130px;
+}
+
+.preview-default-page-img-9X6 {
+    height: 95px;
+    width: 135px;
+}
+
+.preview-default-page-img-6X9 {
+    height: 135px;
+    width: 95px;
+}
+
+.preview-default-page-img-6X9-two {
+    display: flex;
+    justify-content: center;
+    height: 135px;
+    width: 205px;
+}
+
+.preview-default-page-photo-description-horizontal {
+    width: 225px;
+    font-size: 8px;
+}
+.preview-default-page-photo-description-panorama {
+    width: 255px;
     font-size: 8px;
 }
 .preview-default-page-photo-description-vertical,
@@ -81,14 +78,14 @@ margin-top: 5px;
     width: 130px;
     font-size: 8px;
 }
+
 .preview-default-page-photo-description-9X6 {
-    width: 95px;
+    width: 135px;
     font-size: 8px;
 }
 
-
-.preview-default-page-photo-description,
-.preview-default-page-photo-description-vertical, 
+.preview-default-page-photo-description-horizontal,
+.preview-default-page-photo-description-vertical,
 .preview-default-page-photo-description-9X6,
 .preview-default-page-photo-description-6X9 span {
     font-weight: 800;

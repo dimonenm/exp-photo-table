@@ -12,15 +12,15 @@ import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
 import OrientationMenu from './components/main/OrientationMenu';
-import OrientationMenuDataBtn from './components/main/OrientationMenuDataBtn';
+import OrientationBtn from './components/main/OrientationBtn';
+import PreviewTitlePage from './components/main/PreviewTitlePage';
+import PreviewDefaultPage from './components/main/PreviewDefaultPage';
+import PreviewPage from './components/main/PreviewPage';
 
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
 import GalleryImage from './entities/GalleryImage';
-import OrientationBtn from './components/main/OrientationBtn';
-import PreviewTitlePage from './components/main/PreviewTitlePage';
-import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 
 export const modalDataContext = createContext();
 
@@ -72,6 +72,7 @@ function App() {
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
   let arrPreviewPages = []
+
   if (downloadedImages) {
     //Функция формирует массив с загруженными изображениями.
     arrDownloadedImages = addDownloadedImagesToArrForGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
@@ -81,12 +82,60 @@ function App() {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
     arrGalleryImages = addSelectedImagesToArrForGallery(galleryImages, setGalleryImages, currentGalleryImage, setCurrentGalleryImage, arrGalleryImages, setModalProperties);
   };
+
   if (galleryImages.length > 0) {
     //Функция формирует массив с выбранными изображениями для фототаблицы.
-    // console.log(galleryImages[0].getUrl());
+    function addPreviewPages(galleryImages, photoTableData, settings) {
+      class PreviewPageItem {
+        type
+
+        galleryImages
+        photoTableData
+        settings
+        setModalProperties
+
+        constructor(galleryImages, photoTableData, settings, ) { 
+          this.galleryImages = galleryImages
+          this.photoTableData = photoTableData
+          this.settings = settings
+        }
+
+        setType(value) {
+          this.type = value
+        }
+        assemblePage(index) {
+          return (
+            <PreviewPage
+              key={index}
+              index={index}
+              type={this.type}
+              galleryImages={this.galleryImages}
+              photoTableData={this.photoTableData}
+              settings={this.settings}
+            />
+          )
+        }
+      }
+
+      for (let i = 0; i < galleryImages.length; i++) {
+
+        if (i === 0) {
+          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+          previewPageItem.setType('title')
+
+          arrPreviewPages.push(previewPageItem.assemblePage(i))
+        }
+
+      }
+    }
+
+    addPreviewPages(galleryImages, photoTableData, settings)
+
+
     arrPreviewPages.push(
       <PreviewTitlePage
         key={galleryImages[0].getIndex()}
+        galleryImages={galleryImages}
         index={galleryImages[0].getIndex()}
         orientation={galleryImages[0].getOrientation()}
         isCuted={galleryImages[0].getImgCuted()}
@@ -105,6 +154,7 @@ function App() {
           key={galleryImages[i].getIndex()}
           number={arrPreviewPages.length + 1}
           index={[galleryImages[i + counterOfIndexes].getIndex(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getIndex()]}
+          galleryImages={galleryImages}
           orientation={[galleryImages[i + counterOfIndexes].getOrientation(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getOrientation()]}
           img={[galleryImages[i + counterOfIndexes].getUrl(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getUrl()]}
           text={[galleryImages[i + counterOfIndexes].getImgDesc(), galleryImages[i + 1 + counterOfIndexes] && galleryImages[i + 1 + counterOfIndexes].getImgDesc()]}
@@ -114,13 +164,7 @@ function App() {
         />)
       counterOfIndexes++
     }
-
-
-
-    for (let i = 1; i < galleryImages.length; i += 2) {
-    }
   };
-  
 
   return (
     <Container>
@@ -140,7 +184,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.1.2</Logo>
+        <Logo>ЭКЦ РК Фототаблица 0.1.3</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
@@ -173,10 +217,6 @@ function App() {
           {arrDownloadedImages}
         </Gallery>
         <OrientationMenu>
-          {/* <OrientationMenuDataBtn
-            photoTableData={photoTableData}
-            setModalProperties={setModalProperties}
-          /> */}
           Ориентация:
           <OrientationBtn
             type='panorama'
@@ -224,7 +264,7 @@ function App() {
             arrGalleryImages.length ?
               null :
               <WorkplaceItemNew
-                name={`Лист ${arrGalleryImages.length + 1}`}
+                name={`Иллюстрация ${arrGalleryImages.length + 1}`}
                 currentGalleryImage={currentGalleryImage}
                 setCurrentGalleryImage={setCurrentGalleryImage}
                 galleryImages={galleryImages}

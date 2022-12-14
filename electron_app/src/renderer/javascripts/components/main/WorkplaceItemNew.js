@@ -32,7 +32,15 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, setCurrentGalleryImage, g
     }
 
     return (
-        <div className='workplace-item-new-title'>Фотографии в фототаблице отсутствуют</div>
+        <div className="workplace-item-new"
+            onDragOver={dragover}
+            onDragEnter={dragenter}
+            onDragLeave={dragleave}
+            onDrop={dragdrop}
+        >
+            <div className="workplace-item-name" >{name}</div>
+            <div className="workplace-item-plus" ></div>
+        </div>
     );
 }
 

@@ -13,8 +13,6 @@ export default class GallaryImage {
     this.arrowsColor = '#ffffff';
     this.arrowsWidth = '2';
     this.arrowsArray = [];
-    this.contrast = '100'
-    this.brightness = '100'
   }
 
   // функции доступа к полям
@@ -57,12 +55,6 @@ export default class GallaryImage {
   getArrowsArray() {
     return this.arrowsArray;
   }
-  getContrast() {
-    return this.contrast;
-  }
-  getBrightness() {
-    return this.brightness;
-  }
 
   // функции изменения полей
   setIndex(value) {
@@ -100,11 +92,5 @@ export default class GallaryImage {
   }
   setArrowsArray(value) {
     this.arrowsArray = value;
-  }
-  setContrast(value) {
-    this.contrast = value;
-  }
-  setBrightness(value) {
-    this.brightness = value;
   }
 }

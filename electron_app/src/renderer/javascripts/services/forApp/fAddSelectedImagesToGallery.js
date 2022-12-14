@@ -14,9 +14,7 @@ function addSelectedImagesToArrForGallery(
 
     galleryImages.forEach((item, index) => {
         arrGalleryImages.unshift(
-            <Fragment
-                key={item.getIndex()}
-            >
+            <Fragment key={item.getIndex()} >
                 <WorkplaceItemPlacingMiddlePart
                     index={item.getIndex()}
                     galleryImages={galleryImages}
@@ -26,7 +24,7 @@ function addSelectedImagesToArrForGallery(
                 />
                 <WorkplaceItem
                     index={item.getIndex()}
-                    name={`Лист № ${item.getIndex()}`}
+                    name={`Иллюстрация ${item.getIndex()}`}
                     img={item.getUrl()}
                     text={item.getImgDesc()}
                     setModalProperties={setModalProperties}
