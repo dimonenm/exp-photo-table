@@ -65,8 +65,7 @@ function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setG
         <div className='preview-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
       </div>
     )
-  }
-  if (type === 'title') {
+  } else if (type === 'title') {
     return (
       <div className='preview-title-page'>
         <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>

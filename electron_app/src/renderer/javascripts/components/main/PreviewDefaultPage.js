@@ -1,7 +1,6 @@
 import React from 'react';
 
 function PreviewDefaultPage({ number, index, orientation, img, text, photoTableData, settings, setModalProperties }) {
-    console.log(orientation)
 
     const imagesArr = []
     const dbClickFirstImgHandler = (event) => {
