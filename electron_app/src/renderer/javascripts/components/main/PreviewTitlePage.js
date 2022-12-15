@@ -32,21 +32,13 @@ function PreviewTitlePage({ galleryImages, index, settings, setModalProperties }
             <div className='preview-title-page-separator'></div>
             <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
             <div className='preview-title-page-description'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
-        
+            
             <ImageViewer
-                galleryImages={galleryImages}
-                img={galleryImages[0].getUrl()}
-                index={galleryImages[0].getIndex()}
-                text={galleryImages[0].getImgDesc()}
+                img={galleryImages[0]}
                 setModalProperties={setModalProperties}
                 imgStyle={imgStyle}
                 marginForSpan={marginForSpan}
             />
-            {/* <div className='preview-title-page-img'>
-                <img className='preview-title-page-img' onDoubleClick={dbClickHandler} src={galleryImages[0].getUrl()} style={imgStyle}></img>
-        </div>
-            <div className='preview-title-page-photo-description'>
-                <span>{`Фото № ${galleryImages[0].getIndex()}. `}</span>{galleryImages[0].getImgDesc()}</div> */}
             <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div>
         </div>
     );

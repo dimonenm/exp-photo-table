@@ -1,15 +1,10 @@
 import React from "react";
 
 
-function ImageViewer({ galleryImages, img, index, text, setModalProperties, imgStyle, marginForSpan }) {
-    console.log('view', galleryImages[0].getUrl());
-
+function ImageViewer({ img, setModalProperties, imgStyle, marginForSpan }) {
    
 
-
-
-
-
+   
     const dbClickHandler = (event) => {
         event.preventDefault();
         setModalProperties(prev => {
@@ -18,7 +13,7 @@ function ImageViewer({ galleryImages, img, index, text, setModalProperties, imgS
                     ...prev,
                     isOpen: true,
                     type: "editPhoto",
-                    indexImgInGallery: index
+                    indexImgInGallery: img.getIndex()
                 }
             );
         }
@@ -29,10 +24,10 @@ function ImageViewer({ galleryImages, img, index, text, setModalProperties, imgS
     return (
         <>
             <div className='image-viewer'>
-                <img className='image-viewer-photo' onDoubleClick={dbClickHandler} src={img} style={imgStyle} ></img>
+                <img className='image-viewer-photo' onDoubleClick={dbClickHandler} src={img.getUrl()} style={imgStyle} ></img>
             </div>
             <div className='image-viewer-photo-description'>
-                <span style={marginForSpan}>{`Фото № ${index}. `} </span>{text}</div>
+                <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `} </span>{img.getImgDesc()}</div>
         </>
     );
 }
