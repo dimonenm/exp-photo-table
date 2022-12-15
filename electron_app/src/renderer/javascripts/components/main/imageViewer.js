@@ -1,9 +1,28 @@
 import React from "react";
 
 
-function ImageViewer({ img, setModalProperties, imgStyle, marginForSpan }) {
+function ImageViewer({ img, setModalProperties }) {
    
-
+    const imgStyle = {
+        width: '255',
+        height: ''
+    }
+    const marginForSpan = {
+        marginLeft: '0'
+    }
+    if (img.getOrientation() === 'panorama' && img.getImgCuted()) {
+        imgStyle.width = '255px'
+    }
+    if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
+        imgStyle.width = '225px'
+        marginForSpan.marginLeft = '15px'
+        // imgStyle.height = '150px'
+    }
+    if (img.getOrientation() === 'vertical' && img.getImgCuted()) {
+        imgStyle.width = '130px'
+        marginForSpan.marginLeft = '62px'
+        // imgStyle.height = '175px'
+    }
    
     const dbClickHandler = (event) => {
         event.preventDefault();
