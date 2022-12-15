@@ -2,28 +2,28 @@ import React from "react";
 
 
 function ImageViewer({ img, setModalProperties }) {
-   
+
     const imgStyle = {
-        width: '255',
-        height: ''
+        width: '255px'
     }
     const marginForSpan = {
-        marginLeft: '0'
+        marginLeft: '62px'
     }
-    if (img.getOrientation() === 'panorama' && img.getImgCuted()) {
+    if (img.getOrientation() === 'panorama') {
         imgStyle.width = '255px'
+        marginForSpan.marginLeft = '0'
     }
     if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
         imgStyle.width = '225px'
         marginForSpan.marginLeft = '15px'
         // imgStyle.height = '150px'
     }
-    if (img.getOrientation() === 'vertical' && img.getImgCuted()) {
+    if (img.getOrientation() === 'vertical') {
         imgStyle.width = '130px'
         marginForSpan.marginLeft = '62px'
         // imgStyle.height = '175px'
     }
-   
+
     const dbClickHandler = (event) => {
         event.preventDefault();
         setModalProperties(prev => {
@@ -38,8 +38,7 @@ function ImageViewer({ img, setModalProperties }) {
         }
         )
     }
-
-
+   
     return (
         <>
             <div className='image-viewer'>
