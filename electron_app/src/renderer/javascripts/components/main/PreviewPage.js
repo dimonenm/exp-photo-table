@@ -79,21 +79,17 @@ function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setG
         <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
       </div>
     )
-  }
-  if (type === 'page') {
+  } else if (type === 'page') {
     return (
-      <div className='preview-title-page'>
-        <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
-        <div className='preview-title-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
-        <div className='preview-title-page-separator'></div>
-        <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
-        <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
-        <div className='preview-title-page-img' onDoubleClick={dbClickHandler} style={backgroundImage}>
-          
-        </div>
-        <div className='preview-title-page-photo-description'>
-          <span>{`Фото № ${galleryImages[index].getIndex()}. `}</span>{galleryImages[index].getImgDesc()}</div>
-        <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
+      <div className='preview-page'>
+        <div className="preview-page-number">{2}</div>
+        <div className='preview-page-plus'
+          onDragOver={dragover}
+          onDragEnter={dragenter}
+          onDragLeave={dragleave}
+          onDrop={dragdrop}
+        ></div>
+        <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
       </div>
     )
   }

@@ -178,15 +178,22 @@ function App() {
     for (let i = 0; i < galleryImages.length; i++) {
 
       if (i === 0) {
-        const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
-        previewPageItem.setType('title')
-        previewPageItem.setParity('odd')
-        previewPageItem.setImg1(galleryImages[i])
+        const previewPageItemTitle = new PreviewPageItem(galleryImages, photoTableData, settings)
+        previewPageItemTitle.setType('title')
+        previewPageItemTitle.setParity('odd')
+        previewPageItemTitle.setImg1(galleryImages[i])
 
-        arrPreviewPages.push(previewPageItem.assemblePage(i))
+        arrPreviewPages.push(previewPageItemTitle.assemblePage(galleryImages[i].getIndex()))
+
+        const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
+        previewPageItemNew.setType('page')
+        previewPageItemNew.setParity('even')
+
+        arrPreviewPages.push(previewPageItemNew.assemblePage(galleryImages[i].getIndex() + 1))
       } else {
         const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
         previewPageItem.setType('page')
+        previewPageItem.setParity('odd')
 
         arrPreviewPages.push(previewPageItem.assemblePage(i))
       }
