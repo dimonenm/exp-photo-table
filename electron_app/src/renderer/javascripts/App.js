@@ -121,6 +121,7 @@ function App() {
     class PreviewPageItem {
       type
       parity
+      pageNumber
       img1
       img2
       img3
@@ -140,17 +141,24 @@ function App() {
         this.type = value
       }
       setParity(value) {
-
+        this.parity = value
+      }
+      setPageNumber(value) {
+        this.pageNumber = value
       }
       setImg1(value) {
         this.img1 = value
       }
-      assemblePage(index = 0) {
+      setImg3(value) {
+        this.img3 = value
+      }
+      assemblePage() {
         return (
           <PreviewPage
-            key={index}
+            key={this.pageNumber}
             type={this.type}
             parity={this.parity}
+            pageNumber={this.pageNumber}
             img1={this.img1}
             img2={this.img2}
             img3={this.img3}
@@ -171,34 +179,68 @@ function App() {
       const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
       previewPageItem.setType('title')
       previewPageItem.setParity('odd')
+      previewPageItem.setPageNumber(1)
 
       arrPreviewPages.push(previewPageItem.assemblePage())
-    }
+    } else {
 
-    for (let i = 0; i < galleryImages.length; i++) {
+      let pageNumber = 1
 
-      if (i === 0) {
-        const previewPageItemTitle = new PreviewPageItem(galleryImages, photoTableData, settings)
-        previewPageItemTitle.setType('title')
-        previewPageItemTitle.setParity('odd')
-        previewPageItemTitle.setImg1(galleryImages[i])
+      for (let i = 0; i < galleryImages.length; i++) {
 
-        arrPreviewPages.push(previewPageItemTitle.assemblePage(galleryImages[i].getIndex()))
+        if (i === 0) {
+          const previewPageItemTitle = new PreviewPageItem(galleryImages, photoTableData, settings)
+          previewPageItemTitle.setType('title')
+          previewPageItemTitle.setParity('odd')
+          previewPageItemTitle.setPageNumber(pageNumber)
+          previewPageItemTitle.setImg1(galleryImages[i])
 
-        const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
-        previewPageItemNew.setType('page')
-        previewPageItemNew.setParity('even')
+          arrPreviewPages.push(previewPageItemTitle.assemblePage())
+          pageNumber++
 
-        arrPreviewPages.push(previewPageItemNew.assemblePage(galleryImages[i].getIndex() + 1))
-      } else {
-        const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
-        previewPageItem.setType('page')
-        previewPageItem.setParity('odd')
+          if (!galleryImages[i + 1]) {
+            const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
+            previewPageItemNew.setType('page')
+            previewPageItemNew.setParity('even')
+            previewPageItemNew.setPageNumber(pageNumber)
 
-        arrPreviewPages.push(previewPageItem.assemblePage(i))
+            arrPreviewPages.push(previewPageItemNew.assemblePage())
+            pageNumber++
+          }
+
+        } else {
+          const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
+          previewPageItem.setType('page')
+          previewPageItem.setParity('odd')
+          previewPageItem.setPageNumber(pageNumber)
+          previewPageItem.setImg1(galleryImages[i])
+
+          if (galleryImages[i + 1]) {
+            previewPageItem.setImg3(galleryImages[i + 1])
+            i++
+
+            arrPreviewPages.push(previewPageItem.assemblePage())
+            pageNumber++
+            if (!galleryImages[i + 1]) {
+              const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
+              previewPageItemNew.setType('page')
+              previewPageItemNew.setParity('even')
+              previewPageItemNew.setPageNumber(pageNumber)
+
+              arrPreviewPages.push(previewPageItemNew.assemblePage())
+              pageNumber++
+            }
+          } else {
+            arrPreviewPages.push(previewPageItem.assemblePage())
+            pageNumber++
+          }
+
+        }
+
       }
-
     }
+
+
   }
 
   addPreviewPages(galleryImages, photoTableData, settings)

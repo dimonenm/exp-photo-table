@@ -3,7 +3,7 @@ import GallaryImage from '../../entities/GalleryImage';
 import ImageViewer from './ImageViewer';
 
 
-function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, }) {
+function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, }) {
 
   function dragover(event) {
     event.preventDefault();
@@ -80,18 +80,45 @@ function PreviewPage({ type, parity, img1, img2, img3, img4, galleryImages, setG
       </div>
     )
   } else if (type === 'page') {
-    return (
-      <div className='preview-page'>
-        <div className="preview-page-number">{2}</div>
-        <div className='preview-page-plus'
-          onDragOver={dragover}
-          onDragEnter={dragenter}
-          onDragLeave={dragleave}
-          onDrop={dragdrop}
-        ></div>
-        <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
-      </div>
-    )
+    if (img1 === undefined) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <div className='preview-page-plus'
+            onDragOver={dragover}
+            onDragEnter={dragenter}
+            onDragLeave={dragleave}
+            onDrop={dragdrop}
+          ></div>
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
+    }
+    if (img1 && img3 === undefined) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <ImageViewer img={img1} setModalProperties={setModalProperties} />
+          <div className='preview-page-plus'
+            onDragOver={dragover}
+            onDragEnter={dragenter}
+            onDragLeave={dragleave}
+            onDrop={dragdrop}
+          ></div>
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
+    }
+    if (img1 && img3) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <ImageViewer img={img1} setModalProperties={setModalProperties} />
+          <ImageViewer img={img3} setModalProperties={setModalProperties} />
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
+    }
   }
 
   return null
