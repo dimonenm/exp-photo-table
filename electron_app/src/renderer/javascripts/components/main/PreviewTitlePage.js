@@ -2,10 +2,7 @@ import React from 'react';
 
 function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableData, settings, setModalProperties }) {
 
-    console.log(orientation)
-    console.log(isCuted)
     let height = '30%'
-    console.log(backgroundImage);
 
     if (orientation === 'panorama' && isCuted) {
         height = '30%'
@@ -14,8 +11,7 @@ function PreviewTitlePage({index, orientation, isCuted, img, text, photoTableDat
         backgroundImage: `url(${img})`,
         height
     }
-    console.log(backgroundImage);
-    console.log(height);
+    
     const dbClickHandler = (event) => {
         event.preventDefault();
         setModalProperties(prev => {

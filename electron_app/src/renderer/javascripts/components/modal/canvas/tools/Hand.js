@@ -5,13 +5,12 @@ export default class Hand extends Tool {
   constructor(canvas, galleryImg, setGalleryImg, isZoomScaleGrid) {
     super(canvas);
     this.img = new Image();
-    this.img.src = galleryImg.getUrl();
     this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
     this.arrowsArr = [...galleryImg.getArrowsArray()];
     this.isZoomScaleGrid = isZoomScaleGrid;
     this.listen();
-
+    
     this.img.onload = () => {
       this.pr = canvas.height * 100 / this.img.height;
       this.zoom = +this.galleryImg.getZoom() / 100;
@@ -24,6 +23,8 @@ export default class Hand extends Tool {
       this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
       this.lastOffsetValueY = this.galleryImg.getLastOffsetValueY();
     }
+    
+    this.img.src = galleryImg.getUrl();
   }
 
   listen() {
@@ -80,7 +81,6 @@ export default class Hand extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
-      console.log('hand');
       if (this.isZoomScaleGrid) {
         this.drawScaleGrid(this.ctx, this.galleryImg.getOrientation())
       }
@@ -89,8 +89,8 @@ export default class Hand extends Tool {
 
   drawScaleGrid(ctx, orientation) {
     if (orientation === 'horizontal') {
-      const linesHorizontal = 12
-      const linesVertical = 9
+      const linesHorizontal = 15
+      const linesVertical = 10
       const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
       const gridPitchVertical = ctx.canvas.height / linesVertical
       let counterHorizontal = gridPitchHorizontal
