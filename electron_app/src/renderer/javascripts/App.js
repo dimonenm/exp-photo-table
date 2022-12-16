@@ -149,8 +149,14 @@ function App() {
       setImg1(value) {
         this.img1 = value
       }
+      setImg2(value) {
+        this.img2 = value
+      }
       setImg3(value) {
         this.img3 = value
+      }
+      setImg4(value) {
+        this.img4 = value
       }
       assemblePage() {
         return (
