@@ -14,15 +14,15 @@ function PreviewTitlePage({ galleryImages, index, settings, setModalProperties }
             <div className='preview-title-page-separator'></div>
             <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
             <div className='preview-title-page-description'>к протоколу осмотра места происшествия от 10.03.2022  по факту кражи имущества по адресу: г. Симферополь, ул. Балаклавская 68" </div>
-            <ImageViewerFor6X9
+            {/* <ImageViewerFor6X9
                 img={galleryImages[0]}
                 setModalProperties={setModalProperties}
             
-            />
-            {/* <ImageViewer
+            /> */}
+            <ImageViewer
                 img={galleryImages[0]}
                 setModalProperties={setModalProperties}
-            /> */}
+            />
             <div className='preview-title-page-executor'>{`специалист___________${settings.executors[0]}`}</div>
         </div>
     );

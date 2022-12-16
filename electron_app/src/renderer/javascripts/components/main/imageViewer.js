@@ -16,12 +16,18 @@ function ImageViewer({ img, setModalProperties }) {
     if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
         imgStyle.width = '225px'
         marginForSpan.marginLeft = '15px'
-        // imgStyle.height = '150px'
     }
     if (img.getOrientation() === 'vertical') {
         imgStyle.width = '130px'
         marginForSpan.marginLeft = '62px'
-        // imgStyle.height = '175px'
+    }
+    if (img.getOrientation() === '6X9') {
+        imgStyle.width = '95px'
+        marginForSpan.marginLeft = '80px'
+    }
+    if (img.getOrientation() === '9X6') {
+        imgStyle.width = '135px'
+        marginForSpan.marginLeft = '60px'
     }
 
     const dbClickHandler = (event) => {
@@ -38,7 +44,7 @@ function ImageViewer({ img, setModalProperties }) {
         }
         )
     }
-   
+
     return (
         <>
             <div className='image-viewer'>
