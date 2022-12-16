@@ -3,24 +3,7 @@ import React from 'react';
 function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
 
   console.log('galleryImages[index].getUrl()', galleryImages[index].getUrl());
-  const backgroundImage = {
-    backgroundImage: `url(${galleryImages[index].getUrl()})`
-  }
-
-  console.log('backgroundImage: ', backgroundImage);
-  let imgStyle = {
-    width: '',
-    height: ''
-  }
-    if (galleryImages[index].getOrientation() === 'panorama') {
-    imgStyle.width = '255px'
-    }
-    if (galleryImages[index].getOrientation() === 'horizontal') {
-      imgStyle.width = '225px'
-      imgStyle.height = '150px'
-    }
- 
-  console.log(imgStyle.width);
+  
   
   const dbClickHandler = (event) => {
     event.preventDefault();
@@ -46,7 +29,7 @@ function PreviewPage({ index, type, galleryImages, photoTableData, settings }) {
         <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
         <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
         <div className='preview-title-page-img'>
-          <img className='preview-title-page-img-panorama' onDoubleClick={dbClickHandler} src={`${galleryImages[index].getUrl()}`} style={imgStyle}></img>
+          <img className='preview-title-page-img-panorama' onDoubleClick={dbClickHandler} src={`${galleryImages[index].getUrl()}`} ></img>
         </div>
         <div className='preview-title-page-photo-description'>
           <span>{`Фото № ${galleryImages[index].getIndex()}. `}</span>{galleryImages[index].getImgDesc()}</div>
