@@ -49,6 +49,7 @@ function App() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState(new GalleryImage());
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
+    index: null,
     nameImg: null,
     urlImg: null,
     textImg: null,
@@ -298,7 +299,12 @@ function App() {
         </Menu>
       </Header>
       <Main>
-        <Gallery>
+        <Gallery
+          galleryImages={galleryImages}
+          setGalleryImages={setGalleryImages}
+          currentGalleryImage={currentGalleryImage}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+        >
           {arrDownloadedImages}
         </Gallery>
         <OrientationMenu>
