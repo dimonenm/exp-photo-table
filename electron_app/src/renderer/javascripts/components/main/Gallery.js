@@ -15,20 +15,15 @@ const Gallery = ({ children, galleryImages, setGalleryImages, currentGalleryImag
     }
     function dragdrop(event) {
         event.preventDefault();
-        // event.target.classList.remove('workplace-item-new-hovered');
-
-        // const gallaryImage = new GallaryImage()
-        // gallaryImage.setName(currentGalleryImage.nameImg)
-        // gallaryImage.setUrl(currentGalleryImage.urlImg)
-        // const arr = [...galleryImages];
-        // gallaryImage.setIndex(arr.length + 1);
-        // arr.push(gallaryImage);
-
-        // setGalleryImages(arr);
-
-        console.log('currentGalleryImage', currentGalleryImage);
-        console.log('galleryImages', galleryImages);
-        setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
+        
+        const arr = [...galleryImages].filter(item => {
+            if (item.getIndex() !== currentGalleryImage.index) return true
+            return false
+        });
+        
+        setGalleryImages(arr);
+        
+        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
     }
     return (<div
         className="gallery"

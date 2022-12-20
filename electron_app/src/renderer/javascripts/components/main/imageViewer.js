@@ -39,27 +39,11 @@ function ImageViewer({ img, setModalProperties, setCurrentGalleryImage }) {
   }
 
   const dragStartHandler = (event) => {
-    console.log('dragStartHandler: ', dragStartHandler);
-    // setTimeout(() => event.target.classList.add('gallery-item-hide'), 0);
-    setCurrentGalleryImage({ nameImg: img.getName(), urlImg: img.getUrl(), textImg: null });
+    setCurrentGalleryImage({ index: img.getIndex(), nameImg: img.getName(), urlImg: img.getUrl(), textImg: null });
   }
 
   const dragEndHandler = (event) => {
-    console.log('dragEndHandler: ', dragEndHandler);
-    // if (galleryImages.length === 0) {
-    //   event.target.classList.remove('gallery-item-hide');
-    // }
-
-    // let isFindedInGalleryImages = galleryImages.find(item => {
-    //   if (name === item.getName()) return true;
-    //   return false;
-    // })
-
-    // if (!isFindedInGalleryImages) {
-    //   event.target.classList.remove('gallery-item-hide');
-    // }
-
-    setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
+    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
   }
 
   return (
