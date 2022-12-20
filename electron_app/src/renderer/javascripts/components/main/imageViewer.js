@@ -1,7 +1,8 @@
 import React from "react";
+import GallaryImage from '../../entities/GalleryImage';
 
-function ImageViewer({ img, setModalProperties, setCurrentGalleryImage }) {
-
+function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties, currentGalleryImage, setCurrentGalleryImage }) {
+  
   const imgStyle = {
     width: '255px'
   }
@@ -46,6 +47,40 @@ function ImageViewer({ img, setModalProperties, setCurrentGalleryImage }) {
     setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
   }
 
+  function dragover(event) {
+    event.preventDefault();
+  }
+
+  function dragenter(event) {
+    event.preventDefault();
+  }
+
+  function dragleave(event) {
+    event.preventDefault();
+  }
+  function dragdrop(event) {
+    event.preventDefault();
+
+    const gallaryImage = new GallaryImage()
+    gallaryImage.setName(currentGalleryImage.nameImg)
+    gallaryImage.setUrl(currentGalleryImage.urlImg)
+    const arr = [...galleryImages];
+    const index = arr.findIndex(item => {
+      if (item.getIndex() === img.getIndex()) return true
+      return false
+    })
+    
+    arr.splice(index, 0, gallaryImage)
+    
+    arr.forEach((item, index) => {
+      item.setIndex(index + 1)
+    })
+
+    setGalleryImages(arr);
+
+    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+  }
+
   return (
     <>
       <div className='image-viewer'>
@@ -56,6 +91,12 @@ function ImageViewer({ img, setModalProperties, setCurrentGalleryImage }) {
           onDoubleClick={dbClickHandler}
           onDragStart={dragStartHandler}
           onDragEnd={dragEndHandler}
+
+          onDragOver={dragover}
+          onDragEnter={dragenter}
+          onDragLeave={dragleave}
+          onDrop={dragdrop}
+
           draggable="true"
         ></img>
       </div>

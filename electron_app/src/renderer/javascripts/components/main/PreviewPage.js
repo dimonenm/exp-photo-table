@@ -76,7 +76,10 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
         
         <ImageViewer
           img={img1}
+          galleryImages={galleryImages}
+          setGalleryImages={setGalleryImages}
           setModalProperties={setModalProperties}
+          currentGalleryImage={currentGalleryImage}
           setCurrentGalleryImage={setCurrentGalleryImage}
         />
 
@@ -104,7 +107,10 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewer
             img={img1}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
             setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
           />
           <div className='preview-page-plus'
@@ -123,12 +129,18 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewer
             img={img1}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
             setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
           />
           <ImageViewer
             img={img3}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
             setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
           />
           <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
