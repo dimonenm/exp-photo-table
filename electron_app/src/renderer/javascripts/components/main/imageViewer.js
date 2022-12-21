@@ -24,6 +24,10 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     // imgStyle.height = '175px'
   }
 
+  const clickHandler = (event) => {
+    event.preventDefault();
+    console.log(img);
+  }
   const dbClickHandler = (event) => {
     event.preventDefault();
     setModalProperties(prev => {
@@ -88,6 +92,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
           className='image-viewer-photo'
           src={img.getUrl()}
           style={imgStyle}
+          onClick={clickHandler}
           onDoubleClick={dbClickHandler}
           onDragStart={dragStartHandler}
           onDragEnd={dragEndHandler}
