@@ -14,12 +14,12 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     marginForSpan.marginLeft = '0'
   }
   if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
-    imgStyle.width = '225px'
+    // imgStyle.width = '225px'
     marginForSpan.marginLeft = '15px'
     // imgStyle.height = '150px'
   }
   if (img.getOrientation() === 'vertical') {
-    imgStyle.width = '130px'
+    // imgStyle.width = '130px'
     marginForSpan.marginLeft = '62px'
     // imgStyle.height = '175px'
   }

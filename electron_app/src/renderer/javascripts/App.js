@@ -307,49 +307,51 @@ function App() {
         >
           {arrDownloadedImages}
         </Gallery>
-        <OrientationMenu>
-          Ориентация:
-          <OrientationBtn
-            type='panorama'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='15x10'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='9x12'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='9x6'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='6x9'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-        </OrientationMenu>
+        {
+          // <OrientationMenu>
+          // Ориентация:
+          // <OrientationBtn
+          //   type='panorama'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='15x10'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='9x12'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='9x6'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='6x9'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // </OrientationMenu>
+        }
         <Workplace>
           {
             // arrGalleryImages.length ?
