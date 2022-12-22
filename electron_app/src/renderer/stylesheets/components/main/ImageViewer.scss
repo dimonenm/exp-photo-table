@@ -1,27 +1,42 @@
+.image-viewer-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    width: 255px;
+    max-height: 180px;
+    font-family: 'Times New Roman',
+        Times,
+        serif;
+    overflow: hidden;
+
+
+
+}
+
 .image-viewer {
     display: flex;
-    justify-content: center;
     align-items: center;
-    
-    box-sizing: border-box;
-    
-    width: 255px;
+    justify-content: center;
     max-height: 175px;
 
-    margin-top: 5px;
-    
-    font-family: 'Times New Roman', Times, serif;
 }
+
 .image-viewer-photo {
-    width: 100%;
-    height: 100%;
     object-fit: contain;
+    height: 100%;
 }
+
 .image-viewer-photo-description {
     width: 100%;
-    
     font-size: 8px;
+    max-height: 100%;
 }
+
+
 .image-viewer-photo-description span {
     font-weight: 800;
+
 }
