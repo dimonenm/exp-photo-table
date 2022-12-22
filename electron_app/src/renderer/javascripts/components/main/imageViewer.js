@@ -93,6 +93,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
 
   return (
     <>
+      <div className='image-viewer-wrapper'>
       <div className='image-viewer'>
         <img
           className='image-viewer-photo'
@@ -114,6 +115,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
       <div className='image-viewer-photo-description'>
         <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `}</span>
         {img.getImgDesc()}
+        </div>
       </div>
     </>
   );
