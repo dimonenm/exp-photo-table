@@ -59,10 +59,9 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
-    console.log('localModalProperties: ', localModalProperties);
     const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
-    await wordDocument.addTitlePage();
-    await wordDocument.addPhotoPages();
+    
+    await wordDocument.addPages();
 
     wordDocument.saveDocument();
   }
@@ -76,6 +75,19 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
         type: 'setSettings'
       }
     });
+  }
+  function forsetPhotoTableData(event) {
+    event.preventDefault();
+    setModalProperties(prev => {
+      return (
+        {
+          ...prev,
+          isOpen: true,
+          type: "setPhotoTableData"
+        }
+      );
+    }
+    )
   }
 
   if (notActive) {
@@ -99,6 +111,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   if (type === 'forSettings') {
     return (
       <div className="menu-item" onClick={forSetSettingsModal}><a href="/" >{children}</a></div>
+    );
+  }
+  if (type === 'forsetPhotoTableData') {
+    return (
+      <div className="menu-item" onClick={forsetPhotoTableData}><a href="/" >{children}</a></div>
     );
   }
   if (type === 'forDelImgFromPhotoTable') {

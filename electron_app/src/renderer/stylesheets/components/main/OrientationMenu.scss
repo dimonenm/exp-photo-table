@@ -1,0 +1,137 @@
+.orientation-menu {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 140px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+    font-family: "Roboto";
+    font-size: 18px;
+    margin-left: 10px;
+
+    border: 1px solid rgba(147, 145, 145, 0.539);
+    border-radius: 5px;
+
+    box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+
+    overflow: auto;
+    height: 97%;
+}
+
+.orientation-menu-data-btn {
+    display: flex;
+    flex-basis: 110px;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    margin: 10px 0 20px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #64676ac7;
+    background: #D9D9D9;
+    cursor: pointer;
+}
+
+
+.orientation-menu-data-btn:active {
+    box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.orientation-menu-btn {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    line-height: 1;
+    margin: 10px;
+    border-radius: 6px;
+    background: #adadad;
+    width: 100px;
+    height: 55px;
+
+}
+
+.orientation-menu-panorama-btn,
+.orientation-menu-horizontal-15x10-btn,
+.orientation-menu-vertical-10x15-btn,
+.orientation-menu-horizontal-12x9-btn,
+.orientation-menu-vertical-9x12-btn,
+.orientation-menu-horizontal-9x6-btn,
+.orientation-menu-vertical-6x9-btn {
+    display: flex;
+    background-color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+}
+
+.orientation-menu-panorama-btn {
+    width: 80px;
+    height: 30px;
+
+}
+
+.orientation-menu-panorama-btn:hover {
+    width: 100px;
+    height: 55px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 2px 2px 10px #57595cc7;
+}
+
+.orientation-menu-horizontal-15x10-btn {
+    width: 50px;
+    height: 40px;
+}
+
+.orientation-menu-horizontal-15x10-btn:hover {
+    width: 100px;
+    height: 55px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 2px 2px 10px #64676ac7;
+}
+
+.orientation-menu-vertical-10x15-btn {
+    width: 40px;
+    height: 50px;
+}
+.orientation-menu-vertical-10x15-btn:hover {
+    width: 100px;
+    height: 55px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 2px 2px 10px #64676ac7;
+}
+
+.orientation-menu-horizontal-12x9-btn {
+    width: 45px;
+    height: 35px;
+}
+.orientation-menu-horizontal-12x9-btn:hover {
+    width: 100px;
+    height: 55px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 2px 2px 10px #64676ac7;
+}
+
+.orientation-menu-vertical-9x12-btn {
+    width: 35px;
+    height: 40px;
+}
+
+.orientation-menu-horizontal-9x6-btn {
+    width: 40px;
+    height: 30px;
+}
+
+.orientation-menu-vertical-6x9-btn {
+    width: 30px;
+    height: 40px;
+}
