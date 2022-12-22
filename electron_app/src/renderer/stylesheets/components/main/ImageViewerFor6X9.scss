@@ -1,0 +1,30 @@
+.image-viewer-for6X9 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    width: 255px;
+    max-height: 135px;
+    font-family: 'Times New Roman',
+        Times,
+        serif;
+}
+
+.image-viewer-photo-for6X9 {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.image-viewer-photo-for6X9-description {
+    width: 100%;
+    font-size: 8px;
+}
+
+
+.image-viewer-photo-for6X9-description span {
+    font-weight: 800;
+    
+}

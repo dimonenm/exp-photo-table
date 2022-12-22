@@ -4,24 +4,30 @@ import React from "react";
 function ImageViewer({ img, setModalProperties }) {
 
     const imgStyle = {
-        width: '255px'
+        width: '',
+        height: ''
     }
     const marginForSpan = {
         marginLeft: '62px'
     }
     if (img.getOrientation() === 'panorama') {
-        imgStyle.width = '255px'
         marginForSpan.marginLeft = '0'
     }
     if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
-        imgStyle.width = '225px'
-        marginForSpan.marginLeft = '15px'
-        // imgStyle.height = '150px'
+        imgStyle.height = '143px'
+        marginForSpan.marginLeft = '20px'
     }
     if (img.getOrientation() === 'vertical') {
-        imgStyle.width = '130px'
-        marginForSpan.marginLeft = '62px'
-        // imgStyle.height = '175px'
+        imgStyle.height = '170px'
+        marginForSpan.marginLeft = '63px'
+    }
+    if (img.getOrientation() === '6X9') {
+        imgStyle.height = '130px'
+        marginForSpan.marginLeft = '78px'
+    }
+    if (img.getOrientation() === '9X6') {
+        imgStyle.height = '85px'
+        marginForSpan.marginLeft = '70px'
     }
 
     const dbClickHandler = (event) => {
@@ -38,14 +44,17 @@ function ImageViewer({ img, setModalProperties }) {
         }
         )
     }
-   
+
     return (
         <>
-            <div className='image-viewer'>
-                <img className='image-viewer-photo' onDoubleClick={dbClickHandler} src={img.getUrl()} style={imgStyle} ></img>
+            <div className='image-viewer-wrapper'>
+                <div className='image-viewer' style={imgStyle}>
+                    <img className='image-viewer-photo' onDoubleClick={dbClickHandler} src={img.getUrl()} ></img>
+                </div>
+                <div className='image-viewer-photo-description'>
+                    <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `} </span>{img.getImgDesc()}</div>
             </div>
-            <div className='image-viewer-photo-description'>
-                <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `} </span>{img.getImgDesc()}</div>
+
         </>
     );
 }
