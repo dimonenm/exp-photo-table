@@ -11,6 +11,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     marginLeft: '62px'
   }
   if (img.getOrientation() === 'panorama') {
+    imgStyle.width = '100%'
     marginForSpan.marginLeft = '0'
   }
   if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
@@ -22,7 +23,8 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     marginForSpan.marginLeft = '63px'
   }
   if (img.getOrientation() === '6X9') {
-    imgStyle.height = '130px'
+    imgStyle.height = '113px'
+    // imgStyle.height = '130px'
     marginForSpan.marginLeft = '78px'
   }
   if (img.getOrientation() === '9X6') {
