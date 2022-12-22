@@ -34,11 +34,13 @@ function ImageViewerFor6X9({ img, setModalProperties }) {
 
     return (
         <>
-            <div className='image-viewer-for6X9'>
-                <img className='image-viewer-photo-for6X9' onDoubleClick={dbClickHandler} src={img.getUrl()} style={imgStyle} ></img>
+            <div className='image-viewer-wrapper-for6X9'>
+                <div className='image-viewer-for6X9'>
+                    <img className='image-viewer-for6X9-photo' onDoubleClick={dbClickHandler} src={img.getUrl()} style={imgStyle} ></img>
+                </div>
+                <div className='.image-viewer-photo-description-for6X9'>
+                    <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `} </span>{img.getImgDesc()}</div>
             </div>
-            <div className='image-viewer-photo-for6X9-description'>
-                <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `} </span>{img.getImgDesc()}</div>
         </>
     );
 }
