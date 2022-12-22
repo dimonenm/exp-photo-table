@@ -2,7 +2,7 @@ import React from "react";
 import GallaryImage from '../../entities/GalleryImage';
 
 function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties, currentGalleryImage, setCurrentGalleryImage }) {
-  
+
   const imgStyle = {
     width: '',
     height: ''
@@ -79,9 +79,9 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
       if (item.getIndex() === img.getIndex()) return true
       return false
     })
-    
+
     arr.splice(index, 0, gallaryImage)
-    
+
     arr.forEach((item, index) => {
       item.setIndex(index + 1)
     })
@@ -93,27 +93,29 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
 
   return (
     <>
-      <div className='image-viewer'>
-        <img
-          className='image-viewer-photo'
-          src={img.getUrl()}
-          style={imgStyle}
-          onClick={clickHandler}
-          onDoubleClick={dbClickHandler}
-          onDragStart={dragStartHandler}
-          onDragEnd={dragEndHandler}
+      <div className='image-viewer-wrapper'>
+        <div className='image-viewer' style={imgStyle}>
+          <img
+            className='image-viewer-photo'
+            src={img.getUrl()}
+            
+            onClick={clickHandler}
+            onDoubleClick={dbClickHandler}
+            onDragStart={dragStartHandler}
+            onDragEnd={dragEndHandler}
 
-          onDragOver={dragover}
-          onDragEnter={dragenter}
-          onDragLeave={dragleave}
-          onDrop={dragdrop}
+            onDragOver={dragover}
+            onDragEnter={dragenter}
+            onDragLeave={dragleave}
+            onDrop={dragdrop}
 
-          draggable="true"
-        ></img>
-      </div>
-      <div className='image-viewer-photo-description'>
-        <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `}</span>
-        {img.getImgDesc()}
+            draggable="true"
+          ></img>
+        </div>
+        <div className='image-viewer-photo-description'>
+          <span style={marginForSpan}>{`Фото № ${img.getIndex()}. `}</span>
+          {img.getImgDesc()}
+        </div>
       </div>
     </>
   );
