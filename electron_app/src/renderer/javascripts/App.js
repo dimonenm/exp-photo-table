@@ -49,6 +49,7 @@ function App() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState(new GalleryImage());
   const [currentGalleryImage, setCurrentGalleryImage] = useState({
+    index: null,
     nameImg: null,
     urlImg: null,
     textImg: null,
@@ -298,52 +299,59 @@ function App() {
         </Menu>
       </Header>
       <Main>
-        <Gallery>
+        <Gallery
+          galleryImages={galleryImages}
+          setGalleryImages={setGalleryImages}
+          currentGalleryImage={currentGalleryImage}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+        >
           {arrDownloadedImages}
         </Gallery>
-        <OrientationMenu>
-          Ориентация:
-          <OrientationBtn
-            type='panorama'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='15x10'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='9x12'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='9x6'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          <OrientationBtn
-            type='6x9'
-            currentGalleryImage={currentGalleryImage}
-            setCurrentGalleryImage={setCurrentGalleryImage}
-            galleryImages={galleryImages}
-            setGalleryImages={setGalleryImages}
-            downloadedImages={downloadedImages}
-            setDownloadedImages={setDownloadedImages}></OrientationBtn>
-        </OrientationMenu>
+        {
+          // <OrientationMenu>
+          // Ориентация:
+          // <OrientationBtn
+          //   type='panorama'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='15x10'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='9x12'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='9x6'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // <OrientationBtn
+          //   type='6x9'
+          //   currentGalleryImage={currentGalleryImage}
+          //   setCurrentGalleryImage={setCurrentGalleryImage}
+          //   galleryImages={galleryImages}
+          //   setGalleryImages={setGalleryImages}
+          //   downloadedImages={downloadedImages}
+          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
+          // </OrientationMenu>
+        }
         <Workplace>
           {
             // arrGalleryImages.length ?

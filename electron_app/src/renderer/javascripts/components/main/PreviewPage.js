@@ -67,16 +67,23 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     )
   } else if (type === 'title') {
     return (
-      <div className='preview-title-page'>
-        <div className='preview-title-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
-        <div className='preview-title-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
-        <div className='preview-title-page-separator'></div>
-        <div className='preview-title-page-title'>ФОТОТАБЛИЦА</div>
-        <div className='preview-title-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
+      <div className='preview-page'>
+        <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
+        <div className='preview-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
+        <div className='preview-page-separator'></div>
+        <div className='preview-page-title'>ФОТОТАБЛИЦА</div>
+        <div className='preview-page-description'>{`к протоколу осмотра места происшествия от ${photoTableData.dateOMP}  по факту ${photoTableData.factOMP} по адресу: ${photoTableData.adressOMP}`}</div>
         
-        <ImageViewer img={img1} setModalProperties={setModalProperties} />
+        <ImageViewer
+          img={img1}
+          galleryImages={galleryImages}
+          setGalleryImages={setGalleryImages}
+          setModalProperties={setModalProperties}
+          currentGalleryImage={currentGalleryImage}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+        />
 
-        <div className='preview-title-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
+        <div className='preview-page-executor'>{`специалист___________${photoTableData.executor}`}</div>
       </div>
     )
   } else if (type === 'page') {
@@ -98,7 +105,14 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       return (
         <div className='preview-page'>
           <div className="preview-page-number">{pageNumber}</div>
-          <ImageViewer img={img1} setModalProperties={setModalProperties} />
+          <ImageViewer
+            img={img1}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
           <div className='preview-page-plus'
             onDragOver={dragover}
             onDragEnter={dragenter}
@@ -113,8 +127,22 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       return (
         <div className='preview-page'>
           <div className="preview-page-number">{pageNumber}</div>
-          <ImageViewer img={img1} setModalProperties={setModalProperties} />
-          <ImageViewer img={img3} setModalProperties={setModalProperties} />
+          <ImageViewer
+            img={img1}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <ImageViewer
+            img={img3}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
           <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
         </div>
       )
