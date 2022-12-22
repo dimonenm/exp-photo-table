@@ -4,24 +4,30 @@ import GallaryImage from '../../entities/GalleryImage';
 function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties, currentGalleryImage, setCurrentGalleryImage }) {
   
   const imgStyle = {
-    width: '255px'
+    width: '',
+    height: ''
   }
   const marginForSpan = {
     marginLeft: '62px'
   }
   if (img.getOrientation() === 'panorama') {
-    imgStyle.width = '255px'
     marginForSpan.marginLeft = '0'
   }
   if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
-    // imgStyle.width = '225px'
-    marginForSpan.marginLeft = '15px'
-    // imgStyle.height = '150px'
+    imgStyle.height = '143px'
+    marginForSpan.marginLeft = '20px'
   }
   if (img.getOrientation() === 'vertical') {
-    // imgStyle.width = '130px'
-    marginForSpan.marginLeft = '62px'
-    // imgStyle.height = '175px'
+    imgStyle.height = '170px'
+    marginForSpan.marginLeft = '63px'
+  }
+  if (img.getOrientation() === '6X9') {
+    imgStyle.height = '130px'
+    marginForSpan.marginLeft = '78px'
+  }
+  if (img.getOrientation() === '9X6') {
+    imgStyle.height = '85px'
+    marginForSpan.marginLeft = '70px'
   }
 
   const clickHandler = (event) => {
