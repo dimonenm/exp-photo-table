@@ -32,10 +32,6 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     marginForSpan.marginLeft = '70px'
   }
 
-  const clickHandler = (event) => {
-    event.preventDefault();
-    console.log(img);
-  }
   const dbClickHandler = (event) => {
     event.preventDefault();
     setModalProperties(prev => {
@@ -101,7 +97,6 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
             className='image-viewer-photo'
             src={img.getUrl()}
             
-            onClick={clickHandler}
             onDoubleClick={dbClickHandler}
             onDragStart={dragStartHandler}
             onDragEnd={dragEndHandler}
