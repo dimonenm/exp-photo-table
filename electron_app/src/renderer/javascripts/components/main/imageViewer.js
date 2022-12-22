@@ -22,8 +22,8 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     marginForSpan.marginLeft = '63px'
   }
   if (img.getOrientation() === '6X9') {
-    imgStyle.height = '130px'
-    marginForSpan.marginLeft = '78px'
+    imgStyle.height = '114px'
+    marginForSpan.marginLeft = '84px'
   }
   if (img.getOrientation() === '9X6') {
     imgStyle.height = '85px'
@@ -97,13 +97,12 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
       <div className='image-viewer'>
         <img
           className='image-viewer-photo'
-          src={img.getUrl()}
           style={imgStyle}
+          src={img.getUrl()}
           onClick={clickHandler}
           onDoubleClick={dbClickHandler}
           onDragStart={dragStartHandler}
           onDragEnd={dragEndHandler}
-
           onDragOver={dragover}
           onDragEnter={dragenter}
           onDragLeave={dragleave}
