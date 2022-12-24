@@ -241,13 +241,9 @@ function App() {
             arrPreviewPages.push(previewPageItem.assemblePage())
             pageNumber++
           }
-
         }
-
       }
     }
-
-
   }
 
   addPreviewPages(galleryImages, photoTableData, settings)
