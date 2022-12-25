@@ -46,23 +46,18 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     }
     )
   }
-
   const dragStartHandler = (event) => {
     setCurrentGalleryImage({ index: img.getIndex(), nameImg: img.getName(), urlImg: img.getUrl(), textImg: null });
   }
-
   const dragEndHandler = (event) => {
     setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
   }
-
   function dragover(event) {
     event.preventDefault();
   }
-
   function dragenter(event) {
     event.preventDefault();
   }
-
   function dragleave(event) {
     event.preventDefault();
   }
@@ -79,6 +74,14 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     })
 
     arr.splice(index, 0, gallaryImage)
+
+
+    // const uniqueArr = []
+    // arr.forEach((item) => {
+    //   if (!uniqueArr.find(elem => elem.getName() === item.getName())) uniqueArr.push(item)
+    // })
+    // console.log('arr: ', arr);
+    // console.log('uniqueArr: ', uniqueArr);
 
     arr.forEach((item, index) => {
       item.setIndex(index + 1)

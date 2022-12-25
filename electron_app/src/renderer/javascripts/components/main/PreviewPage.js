@@ -1,6 +1,7 @@
 import React from 'react';
 import GallaryImage from '../../entities/GalleryImage';
 import ImageViewer from './ImageViewer';
+import ImageViewerFor6X9 from './ImageViewerFor6X9';
 
 
 function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, }) {
@@ -101,7 +102,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
         </div>
       )
     }
-    if (img1 && img3 === undefined) {
+    if (img1 && img2 === undefined && img3 === undefined) {
       return (
         <div className='preview-page'>
           <div className="preview-page-number">{pageNumber}</div>
@@ -122,8 +123,31 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
           <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
         </div>
       )
+    }    
+    if (img1 && img2 && img3 === undefined) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <ImageViewerFor6X9
+            img1={img1}
+            img2={img2}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <div className='preview-page-plus'
+            onDragOver={dragover}
+            onDragEnter={dragenter}
+            onDragLeave={dragleave}
+            onDrop={dragdrop}
+          ></div>
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
     }
-    if (img1 && img3) {
+    if (img1 && img2 === undefined && img3) {
       return (
         <div className='preview-page'>
           <div className="preview-page-number">{pageNumber}</div>
@@ -137,6 +161,82 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
           />
           <ImageViewer
             img={img3}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
+    }
+    if (img1 && img2 && img3 && img4 === undefined) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <ImageViewerFor6X9
+            img1={img1}
+            img2={img2}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <ImageViewer
+            img={img3}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
+    }
+    if (img1 && img2 === undefined && img3 && img4 ) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <ImageViewer
+            img={img1}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <ImageViewerFor6X9
+            img1={img3}
+            img2={img4}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <div className="preview-page-executor">{`специалист___________${photoTableData.executor}`}</div>
+        </div>
+      )
+    }
+    if (img1 && img2 && img3 && img4 ) {
+      return (
+        <div className='preview-page'>
+          <div className="preview-page-number">{pageNumber}</div>
+          <ImageViewerFor6X9
+            img1={img1}
+            img2={img2}
+            galleryImages={galleryImages}
+            setGalleryImages={setGalleryImages}
+            setModalProperties={setModalProperties}
+            currentGalleryImage={currentGalleryImage}
+            setCurrentGalleryImage={setCurrentGalleryImage}
+          />
+          <ImageViewerFor6X9
+            img1={img3}
+            img2={img4}
             galleryImages={galleryImages}
             setGalleryImages={setGalleryImages}
             setModalProperties={setModalProperties}

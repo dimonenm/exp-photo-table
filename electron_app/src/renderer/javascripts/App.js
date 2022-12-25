@@ -181,7 +181,7 @@ function App() {
         )
       }
     }
-
+    // если фотографий нет
     if (galleryImages.length === 0) {
       const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
       previewPageItem.setType('title')
@@ -190,12 +190,14 @@ function App() {
 
       arrPreviewPages.push(previewPageItem.assemblePage())
     } else {
+      // если фотографии есть
 
       let pageNumber = 1
 
       for (let i = 0; i < galleryImages.length; i++) {
-
-        if (i === 0) {
+        
+        if (i === 0) { 
+          // если первая фотография
           const previewPageItemTitle = new PreviewPageItem(galleryImages, photoTableData, settings)
           previewPageItemTitle.setType('title')
           previewPageItemTitle.setParity('odd')
@@ -205,6 +207,7 @@ function App() {
           arrPreviewPages.push(previewPageItemTitle.assemblePage())
           pageNumber++
 
+          // если первая фотография есть а следующей нет
           if (!galleryImages[i + 1]) {
             const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
             previewPageItemNew.setType('page')
@@ -216,6 +219,7 @@ function App() {
           }
 
         } else {
+          // если есть вторая и следующие фотографии
           const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
           previewPageItem.setType('page')
           previewPageItem.setParity('odd')
@@ -223,11 +227,28 @@ function App() {
           previewPageItem.setImg1(galleryImages[i])
 
           if (galleryImages[i + 1]) {
+            // если есть следующая фотография
+
+            if (galleryImages[i].getOrientation() === '6X9' && galleryImages[i + 1].getOrientation() === '6X9') {
+              previewPageItem.setImg2(galleryImages[i + 1])
+              // прибовляем 1 к итератору
+              i++
+            }
+
+
             previewPageItem.setImg3(galleryImages[i + 1])
+            // прибовляем 1 к итератору
             i++
+
+            if (galleryImages[i].getOrientation() === '6X9' && galleryImages[i + 1].getOrientation() === '6X9') {
+              previewPageItem.setImg4(galleryImages[i + 1])
+              // прибовляем 1 к итератору
+              i++
+            }
 
             arrPreviewPages.push(previewPageItem.assemblePage())
             pageNumber++
+            // если следующей фотографии нет
             if (!galleryImages[i + 1]) {
               const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
               previewPageItemNew.setType('page')
@@ -238,6 +259,7 @@ function App() {
               pageNumber++
             }
           } else {
+            // если следующей фотографии нет
             arrPreviewPages.push(previewPageItem.assemblePage())
             pageNumber++
           }
