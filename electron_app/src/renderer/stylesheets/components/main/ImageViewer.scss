@@ -6,32 +6,28 @@
     justify-content: center;
     margin-top: 5px;
     width: 255px;
-    max-height: 180px;
-    font-family: 'Times New Roman', Times, serif;
+    max-height: 200px;
+    font-family: 'Times New Roman',
+        Times,
+        serif;
     overflow: hidden;
 }
-
 .image-viewer {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: 175px;
-
+    max-height: 170px;
 }
-
 .image-viewer-photo {
     object-fit: contain;
     height: 100%;
+    width: 100%;
 }
-
 .image-viewer-photo-description {
     width: 100%;
     font-size: 8px;
     max-height: 100%;
 }
-
-
 .image-viewer-photo-description span {
     font-weight: 800;
-
 }

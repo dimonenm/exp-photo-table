@@ -67,11 +67,18 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     const gallaryImage = new GallaryImage()
     gallaryImage.setName(currentGalleryImage.nameImg)
     gallaryImage.setUrl(currentGalleryImage.urlImg)
+
     const arr = [...galleryImages];
+    
     const index = arr.findIndex(item => {
       if (item.getIndex() === img.getIndex()) return true
       return false
     })
+
+    arr = [...galleryImages].filter(item => {
+      if (item.getIndex() !== currentGalleryImage.index) return true
+      return false
+    });
 
     arr.splice(index, 0, gallaryImage)
 
