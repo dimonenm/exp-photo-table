@@ -52,7 +52,6 @@ function App() {
     index: null,
     nameImg: null,
     urlImg: null,
-    textImg: null,
     orientation: null
   });
   const [modalProperties, setModalProperties] = useState({
@@ -229,7 +228,7 @@ function App() {
           if (galleryImages[i + 1]) {
             // если есть следующая фотография
 
-            if (galleryImages[i].getOrientation() === '6X9' && galleryImages[i + 1].getOrientation() === '6X9') {
+            if (galleryImages[i]?.getOrientation() === '6X9' && galleryImages[i + 1]?.getOrientation() === '6X9') {
               previewPageItem.setImg2(galleryImages[i + 1])
               // прибовляем 1 к итератору
               i++
@@ -240,7 +239,7 @@ function App() {
             // прибовляем 1 к итератору
             i++
 
-            if (galleryImages[i].getOrientation() === '6X9' && galleryImages[i + 1].getOrientation() === '6X9') {
+            if (galleryImages[i]?.getOrientation() === '6X9' && galleryImages[i + 1]?.getOrientation() === '6X9') {
               previewPageItem.setImg4(galleryImages[i + 1])
               // прибовляем 1 к итератору
               i++

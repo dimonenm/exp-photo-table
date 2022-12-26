@@ -69,7 +69,6 @@ function App() {
     });
   }, []);
 
-
   let arrDownloadedImages = [];
   let arrGalleryImages = [];
 

@@ -28,7 +28,7 @@ const WorkplaceItemNew = ({ name, currentGalleryImage, setCurrentGalleryImage, g
         arr.push(gallaryImage);        
 
         setGalleryImages(arr);
-        setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
+        setCurrentGalleryImage({ nameImg: null, urlImg: null });
     }
 
     return (

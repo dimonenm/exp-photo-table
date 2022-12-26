@@ -20,7 +20,7 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
 
   const dragStartHandler = (event) => {
     setTimeout(() => event.target.classList.add('gallery-item-hide'), 0);
-    setCurrentGalleryImage({ nameImg: name, urlImg: url, textImg: null });
+    setCurrentGalleryImage({ nameImg: name, urlImg: url });
   }
 
   const dragEndHandler = (event) => {
@@ -37,7 +37,7 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
       event.target.classList.remove('gallery-item-hide');
     }
 
-    setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
+    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
   }
   
   if (hiden) {

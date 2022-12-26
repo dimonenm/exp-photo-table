@@ -47,10 +47,14 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     )
   }
   const dragStartHandler = (event) => {
-    setCurrentGalleryImage({ index: img.getIndex(), nameImg: img.getName(), urlImg: img.getUrl(), textImg: null });
+    console.log('dragStartHandler: ');
+    console.log('img.getIndex(): ', img.getIndex());
+    console.log('img.getName(): ', img.getName());
+    console.log('img.getUrl(): ', img.getUrl());
+    setCurrentGalleryImage(prev => { return {...prev, index: img.getIndex(), nameImg: img.getName(), urlImg: img.getUrl() } });
   }
   const dragEndHandler = (event) => {
-    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
   }
   function dragover(event) {
     event.preventDefault();
@@ -68,27 +72,19 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     gallaryImage.setName(currentGalleryImage.nameImg)
     gallaryImage.setUrl(currentGalleryImage.urlImg)
 
-    const arr = [...galleryImages];
+    let arr = [...galleryImages];
     
     const index = arr.findIndex(item => {
       if (item.getIndex() === img.getIndex()) return true
       return false
     })
 
-    arr = [...galleryImages].filter(item => {
+    arr = arr.filter(item => {
       if (item.getIndex() !== currentGalleryImage.index) return true
       return false
     });
 
     arr.splice(index, 0, gallaryImage)
-
-
-    // const uniqueArr = []
-    // arr.forEach((item) => {
-    //   if (!uniqueArr.find(elem => elem.getName() === item.getName())) uniqueArr.push(item)
-    // })
-    // console.log('arr: ', arr);
-    // console.log('uniqueArr: ', uniqueArr);
 
     arr.forEach((item, index) => {
       item.setIndex(index + 1)
@@ -96,7 +92,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
 
     setGalleryImages(arr);
 
-    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+    setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
   }
 
   return (
@@ -108,6 +104,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
             src={img.getUrl()}
             
             onDoubleClick={dbClickHandler}
+
             onDragStart={dragStartHandler}
             onDragEnd={dragEndHandler}
 

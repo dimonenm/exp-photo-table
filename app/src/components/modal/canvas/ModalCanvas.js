@@ -145,7 +145,6 @@ const ModalCanvas = () => {
     };
   }
   function orientationVerticalClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'vertical', lastOffsetValueX: 0 } })
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, orientation: 'vertical', lastOffsetValueX: 0 });
     })
@@ -161,7 +160,6 @@ const ModalCanvas = () => {
     });
   }
   function orientationHorizontalClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 } });
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, orientation: 'horizontal', lastOffsetValueX: 0 });
     })
@@ -177,7 +175,6 @@ const ModalCanvas = () => {
     });
   }
   function orientationPanoramaClickHandler() {
-    // setCanvasState((prev) => { return { ...prev, orientation: 'panorama', lastOffsetValueX: 0 } });
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, orientation: 'panorama', lastOffsetValueX: 0 });
     })
@@ -193,12 +190,10 @@ const ModalCanvas = () => {
     });
   }
   function zoomRangeChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, zoom: event.target.value } });
 
     const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
 
     setGalleryImg((prev) => {
-      // return Object.assign(new GallaryImage(), { ...prev, zoom: event.target.value });
       return newState;
     })
     setToolState((prev) => {
@@ -213,7 +208,6 @@ const ModalCanvas = () => {
     });
   }
   function arrowColorChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsColor: event.target.value });
     })
@@ -229,12 +223,10 @@ const ModalCanvas = () => {
     });
   }
   function arrowWidthChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
     const newState = Object.assign(new GallaryImage(), { ...galleryImg, arrowsWidth: event.target.value });
 
     setGalleryImg((prev) => {
-      // return Object.assign(new GallaryImage(), { ...prev, arrowsWidth: event.target.value });
       return newState;
     })
     setToolState((prev) => {
@@ -277,12 +269,6 @@ const ModalCanvas = () => {
       return item;
     })
 
-    // setCanvasState((prev => {
-    //   return {
-    //     ...prev,
-    //     arrowsArray: numberingArray
-    //   };
-    // }))
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsArray: numberingArray });
     })

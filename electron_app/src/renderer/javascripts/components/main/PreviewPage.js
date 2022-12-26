@@ -11,7 +11,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
   }
 
   function dragenter(event) {
-    console.log('dragenter');
     event.target.classList.add('preview-page-plus-hovered');
   }
 
@@ -31,7 +30,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     arr.push(gallaryImage);
 
     setGalleryImages(arr);
-    setCurrentGalleryImage({ nameImg: null, urlImg: null, textImg: null });
+    setCurrentGalleryImage({ nameImg: null, urlImg: null });
   }
 
   const dbClickHandler = (event) => {

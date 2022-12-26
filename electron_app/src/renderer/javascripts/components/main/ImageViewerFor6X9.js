@@ -34,14 +34,22 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
     }
 
     const dragStartFirstImgHandler = (event) => {
-        setCurrentGalleryImage({ index: img1.getIndex(), nameImg: img1.getName(), urlImg: img1.getUrl(), textImg: null });
+        console.log('dragStartFirstImgHandler: ');
+        console.log('img1.getIndex(): ', img1.getIndex());
+        console.log('img1.getName(): ', img1.getName());
+        console.log('img1.getUrl(): ', img1.getUrl());
+        setCurrentGalleryImage(prev => { return { ...prev, index: img1.getIndex(), nameImg: img1.getName(), urlImg: img1.getUrl() } });
     }
     const dragStartSecondImgHandler = (event) => {
-        setCurrentGalleryImage({ index: img2.getIndex(), nameImg: img2.getName(), urlImg: img2.getUrl(), textImg: null });
+        console.log('dragStartSecondImgHandler: ', currentGalleryImage);
+        console.log('img2.getIndex(): ', img2.getIndex());
+        console.log('img2.getName(): ', img2.getName());
+        console.log('img2.getUrl(): ', img2.getUrl());
+        setCurrentGalleryImage(prev => { return { ...prev, index: img2.getIndex(), nameImg: img2.getName(), urlImg: img2.getUrl() } });
     }
 
     const dragEndHandler = (event) => {
-        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
     }
 
     function dragover(event) {
@@ -67,6 +75,11 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
             return false
         })
 
+        arr = arr.filter(item => {
+            if (item.getIndex() !== currentGalleryImage.index) return true
+            return false
+        });
+
         arr.splice(index, 0, gallaryImage)
 
         arr.forEach((item, index) => {
@@ -75,7 +88,7 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
 
         setGalleryImages(arr);
 
-        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
     }
     function dragdropSecondImg(event) {
         event.preventDefault();
@@ -89,6 +102,11 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
             return false
         })
 
+        arr = arr.filter(item => {
+            if (item.getIndex() !== currentGalleryImage.index) return true
+            return false
+        });
+        
         arr.splice(index, 0, gallaryImage)
 
         arr.forEach((item, index) => {
@@ -97,7 +115,7 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
 
         setGalleryImages(arr);
 
-        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
     }
 
     return (

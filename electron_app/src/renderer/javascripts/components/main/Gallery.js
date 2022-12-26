@@ -5,11 +5,9 @@ const Gallery = ({ children, galleryImages, setGalleryImages, currentGalleryImag
     function dragover(event) {
         event.preventDefault();
     }
-
     function dragenter(event) {
         event.preventDefault();
     }
-
     function dragleave(event) {
         event.preventDefault();
     }
@@ -27,7 +25,7 @@ const Gallery = ({ children, galleryImages, setGalleryImages, currentGalleryImag
 
         setGalleryImages(arr);
 
-        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null, textImg: null });
+        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
     }
     return (<div
         className="gallery"
