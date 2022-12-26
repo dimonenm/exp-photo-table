@@ -3,7 +3,6 @@ import GallaryImage from '../../entities/GalleryImage';
 import ImageViewer from './ImageViewer';
 import ImageViewerFor6X9 from './ImageViewerFor6X9';
 
-
 function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, }) {
 
   function dragover(event) {

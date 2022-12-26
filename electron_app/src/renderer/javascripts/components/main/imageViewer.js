@@ -67,6 +67,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
   }
   function dragdrop(event) {
     event.preventDefault();
+    console.log('currentGalleryImage: ', currentGalleryImage);
 
     const gallaryImage = new GallaryImage()
     gallaryImage.setName(currentGalleryImage.nameImg)
@@ -90,6 +91,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
       item.setIndex(index + 1)
     })
 
+    console.log('dragdrop arr: ', arr);
     setGalleryImages(arr);
 
     setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });

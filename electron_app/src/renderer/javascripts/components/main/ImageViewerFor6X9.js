@@ -69,7 +69,7 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
         const gallaryImage = new GallaryImage()
         gallaryImage.setName(currentGalleryImage.nameImg)
         gallaryImage.setUrl(currentGalleryImage.urlImg)
-        const arr = [...galleryImages];
+        let arr = [...galleryImages];
         const index = arr.findIndex(item => {
             if (item.getIndex() === img1.getIndex()) return true
             return false
@@ -85,18 +85,18 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
         arr.forEach((item, index) => {
             item.setIndex(index + 1)
         })
-
+        
         setGalleryImages(arr);
 
         setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
     }
     function dragdropSecondImg(event) {
         event.preventDefault();
-
+        
         const gallaryImage = new GallaryImage()
         gallaryImage.setName(currentGalleryImage.nameImg)
         gallaryImage.setUrl(currentGalleryImage.urlImg)
-        const arr = [...galleryImages];
+        let arr = [...galleryImages];
         const index = arr.findIndex(item => {
             if (item.getIndex() === img2.getIndex()) return true
             return false
@@ -112,7 +112,7 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
         arr.forEach((item, index) => {
             item.setIndex(index + 1)
         })
-
+        
         setGalleryImages(arr);
 
         setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
