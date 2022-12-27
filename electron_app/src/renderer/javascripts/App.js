@@ -136,7 +136,9 @@ function App() {
         this.photoTableData = photoTableData
         this.settings = settings
       }
-
+      getImg3() {
+        return this.img3
+      }
       setType(value) {
         this.type = value
       }
@@ -216,12 +218,11 @@ function App() {
             arrPreviewPages.push(previewPageItemNew.assemblePage())
             pageNumber++
           }
-
         } else {
           // если есть вторая и следующие фотографии
           const previewPageItem = new PreviewPageItem(galleryImages, photoTableData, settings)
           previewPageItem.setType('page')
-          previewPageItem.setParity('odd')
+          previewPageItem.setParity(pageNumber % 2 === 0 ? 'even' : 'odd')
           previewPageItem.setPageNumber(pageNumber)
           previewPageItem.setImg1(galleryImages[i])
 
@@ -233,7 +234,6 @@ function App() {
               // прибовляем 1 к итератору
               i++
             }
-
 
             previewPageItem.setImg3(galleryImages[i + 1])
             // прибовляем 1 к итератору
@@ -248,10 +248,10 @@ function App() {
             arrPreviewPages.push(previewPageItem.assemblePage())
             pageNumber++
             // если следующей фотографии нет
-            if (!galleryImages[i + 1]) {
+            if (!galleryImages[i + 1] && previewPageItem.getImg3()) {
               const previewPageItemNew = new PreviewPageItem(galleryImages, photoTableData, settings)
               previewPageItemNew.setType('page')
-              previewPageItemNew.setParity('even')
+              previewPageItemNew.setParity(pageNumber % 2 === 0 ? 'even' : 'odd')
               previewPageItemNew.setPageNumber(pageNumber)
 
               arrPreviewPages.push(previewPageItemNew.assemblePage())

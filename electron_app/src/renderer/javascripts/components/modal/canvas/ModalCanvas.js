@@ -513,6 +513,7 @@ const ModalCanvas = () => {
             placeholder='Введите описание изображения...'
             value={galleryImg.getImgDesc()}
             onChange={imgDescChangeHandler}
+            maxLength={galleryImg.getOrientation() === 'vertical' ? 46 : 150}
           ></textarea>
         </div>
       );

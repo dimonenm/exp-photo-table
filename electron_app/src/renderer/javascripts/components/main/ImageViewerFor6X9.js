@@ -34,17 +34,9 @@ function ImageViewerFor6X9({ img1, img2, galleryImages, setGalleryImages, setMod
     }
 
     const dragStartFirstImgHandler = (event) => {
-        console.log('dragStartFirstImgHandler: ');
-        console.log('img1.getIndex(): ', img1.getIndex());
-        console.log('img1.getName(): ', img1.getName());
-        console.log('img1.getUrl(): ', img1.getUrl());
         setCurrentGalleryImage(prev => { return { ...prev, index: img1.getIndex(), nameImg: img1.getName(), urlImg: img1.getUrl() } });
     }
     const dragStartSecondImgHandler = (event) => {
-        console.log('dragStartSecondImgHandler: ', currentGalleryImage);
-        console.log('img2.getIndex(): ', img2.getIndex());
-        console.log('img2.getName(): ', img2.getName());
-        console.log('img2.getUrl(): ', img2.getUrl());
         setCurrentGalleryImage(prev => { return { ...prev, index: img2.getIndex(), nameImg: img2.getName(), urlImg: img2.getUrl() } });
     }
 

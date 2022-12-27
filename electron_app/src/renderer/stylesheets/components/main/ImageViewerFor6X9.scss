@@ -1,6 +1,6 @@
 .image-viewer-wrapper-6X9 {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     
     width: 255px;
@@ -18,7 +18,8 @@
     align-items: center;
     flex-direction: column;
 
-    max-height: 135px;
+    width: 120px;
+    max-height: 150px;
 }
 .image-viewer-photo-6X9 {
     object-fit: contain;
@@ -27,8 +28,11 @@
 }
 .image-viewer-photo-6X9-description {
     width: 100%;
+    height: 27px;
     font-size: 8px;
+    overflow: hidden;
 }
 .image-viewer-photo-6X9-description span {
     font-weight: 800;
+    margin-left: 20px;
 }

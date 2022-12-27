@@ -17,6 +17,8 @@
     align-items: center;
     justify-content: center;
     max-height: 170px;
+
+    position: relative;
 }
 .image-viewer-photo {
     object-fit: contain;
@@ -25,9 +27,18 @@
 }
 .image-viewer-photo-description {
     width: 100%;
+    max-height: 27px;
     font-size: 8px;
-    max-height: 100%;
+    overflow: hidden;
 }
 .image-viewer-photo-description span {
     font-weight: 800;
+}
+.image-viewer-scissors{
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-image: url('../../../images/btnScissorsImageViewer.svg');
 }

@@ -25,12 +25,14 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
   if (img.getOrientation() === '6X9') {
     imgStyle.height = '113px'
     // imgStyle.height = '130px'
-    marginForSpan.marginLeft = '78px'
+    marginForSpan.marginLeft = '85px'
   }
   if (img.getOrientation() === '9X6') {
     imgStyle.height = '85px'
     marginForSpan.marginLeft = '70px'
   }
+
+  const isCuted = img.getImgCuted()
 
   const dbClickHandler = (event) => {
     event.preventDefault();
@@ -47,10 +49,6 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     )
   }
   const dragStartHandler = (event) => {
-    console.log('dragStartHandler: ');
-    console.log('img.getIndex(): ', img.getIndex());
-    console.log('img.getName(): ', img.getName());
-    console.log('img.getUrl(): ', img.getUrl());
     setCurrentGalleryImage(prev => { return {...prev, index: img.getIndex(), nameImg: img.getName(), urlImg: img.getUrl() } });
   }
   const dragEndHandler = (event) => {
@@ -67,7 +65,6 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
   }
   function dragdrop(event) {
     event.preventDefault();
-    console.log('currentGalleryImage: ', currentGalleryImage);
 
     const gallaryImage = new GallaryImage()
     gallaryImage.setName(currentGalleryImage.nameImg)
@@ -91,7 +88,6 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
       item.setIndex(index + 1)
     })
 
-    console.log('dragdrop arr: ', arr);
     setGalleryImages(arr);
 
     setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
@@ -101,6 +97,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
     <>
       <div className='image-viewer-wrapper'>
         <div className='image-viewer' style={imgStyle}>
+          {!isCuted ? <div className='image-viewer-scissors'></div> : null}
           <img
             className='image-viewer-photo'
             src={img.getUrl()}

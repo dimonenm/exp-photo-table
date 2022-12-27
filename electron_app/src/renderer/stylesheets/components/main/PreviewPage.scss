@@ -6,17 +6,17 @@
 
   position: relative;
   box-sizing: border-box;
-  
+
   height: 425px;
-  
+
   margin: 10px 0 0 0;
-  padding: 13px 13px 13px 26px;
-  
+
   font-family: "Times New Roman", Times, serif;
-  
+
   box-shadow: 0 1px 4px rgb(0 0 0 / 30%), -23px 0 20px -23px rgb(0 0 0 / 80%), 23px 0 20px -23px rgb(0 0 0 / 80%),
     0 0 40px rgb(0 0 0 / 10%) inset;
 }
+
 .preview-page-header {
   display: flex;
   flex-direction: column;
@@ -94,4 +94,11 @@
 }
 .preview-page-number {
   font-size: 8px;
+}
+.preview-page-note {
+  margin-top: 12px;
+  
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10px;
+  text-align: justify;
 }
