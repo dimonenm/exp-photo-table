@@ -59,11 +59,14 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
-    const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
+    const conf = confirm('Вы уверены, что все фотографии обрезаны. Продолжить?')
+    if (conf) {
+      const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
+      await wordDocument.addPages();
+      wordDocument.saveDocument();
+    }
     
-    await wordDocument.addPages();
 
-    wordDocument.saveDocument();
   }
   function forSetSettingsModal(event) {
     event.preventDefault();
