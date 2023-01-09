@@ -19,7 +19,7 @@ const ModalContainer = () => {
 
   if (localModalProperties.modalProperties.type === "preview") {
     return (
-      <div className="modal-container-preview" onDoubleClick={dbClickHandler}>
+      <div className="modal-container-preview fadeIn" onDoubleClick={dbClickHandler}>
         <ModalHeader />
         <ModalContent />
       </div>
@@ -27,7 +27,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
     return (
-      <div className="modal-container" >
+      <div className="modal-container fadeIn" >
         <ModalHeader name={'Данные фототаблицы'} />
         <ModalContent />
       </div>
@@ -35,7 +35,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
-      <div className={'modal-container fadeIn'}>
+      <div className={'modal-container slideDownIn'}>
         <ModalHeader name={'Редактирование иллюстрации'} />
         <ModalContent />
       </div>
@@ -43,7 +43,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
-      <div className="modal-container" >
+      <div className="modal-container fadeIn" >
         <ModalHeader name={'Настройки'} />
         <ModalContent />
       </div>
