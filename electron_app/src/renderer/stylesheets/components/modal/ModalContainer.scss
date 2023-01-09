@@ -29,6 +29,10 @@
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
 }
+.modal-container-hidden{
+    width: 0;
+    transition: all 0.5s ease;
+}
 .fadeIn {
     animation-name: fadeIn;
     -webkit-animation-name: fadeIn;
@@ -119,24 +123,11 @@
 @keyframes slideDownIn {
     0% {
         transform: translateY(-100%);
-        opacity: .5;
     }
 
     50% {
         transform: translateY(8%);
         
-    }
-
-    65% {
-        transform: translateY(-4%);
-    }
-
-    80% {
-        transform: translateY(4%);
-    }
-
-    95% {
-        transform: translateY(-2%);
     }
 
     100% {
@@ -151,18 +142,6 @@
 
     50% {
         -webkit-transform: translateY(8%);
-    }
-
-    65% {
-        -webkit-transform: translateY(-4%);
-    }
-
-    80% {
-        -webkit-transform: translateY(4%);
-    }
-
-    95% {
-        -webkit-transform: translateY(-2%);
     }
 
     100% {
