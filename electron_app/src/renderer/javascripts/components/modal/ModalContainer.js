@@ -35,7 +35,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
-      <div className={'modal-container'}>
+      <div className={'modal-container fadeIn'}>
         <ModalHeader name={'Редактирование иллюстрации'} />
         <ModalContent />
       </div>
