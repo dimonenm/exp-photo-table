@@ -59,12 +59,6 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
-    // const conf = confirm('Вы уверены, что все фотографии обрезаны. Продолжить?')
-    // if (conf) {
-    //   const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
-    //   await wordDocument.addPages();
-    //   wordDocument.saveDocument();
-    // }
     const isNotAllImgsCutted = galleryImages.find((item) => {
       if (item.getImgCuted() === false) {
         return true
