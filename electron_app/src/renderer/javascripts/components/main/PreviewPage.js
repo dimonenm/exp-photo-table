@@ -90,7 +90,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
         </div>
       )
     }
-    if (img1 && img2 === undefined && img3 === undefined) {
+    if (img1 && img2 === undefined && img3 === undefined && img4 === undefined) {
       console.log('img1 && img2 === undefined && img3 === undefined');
       return (
         <div className='preview-page' style={padding}>
@@ -114,7 +114,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
         </div>
       )
     }
-    if (img1 && img2 && img3 === undefined) {
+    if (img1 && img2 && img3 === undefined && img4 === undefined) {
       console.log('img1 && img2 && img3 === undefined');
       return (
         <div className='preview-page' style={padding}>
