@@ -6,12 +6,12 @@
     }
     .text {
       font-family: "Roboto";
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 600;
+      font-size: 10px;
     }
   </style>
   <rect x="2" y="10" width="36" height="20" stroke="#343A40" stroke-width="2" rx="5" />
-  <text x="5" y="25" class="text" fill="#343A40">
-    16x9
+  <text x="3" y="23" class="text" fill="#343A40">
+   Пан-ма
   </text>
 </svg>

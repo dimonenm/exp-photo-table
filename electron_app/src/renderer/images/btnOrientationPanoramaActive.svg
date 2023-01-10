@@ -7,13 +7,13 @@
 
     .text {
       font-family: "Roboto";
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 600;
+      font-size: 10px;
     }
   </style>
   <rect width="40" height="40" fill="#343A40" rx="5" />
   <rect x="2" y="10" width="36" height="20" stroke="#F8F9FA" stroke-width="2" rx="5" />
-  <text x="5" y="25" class="text" fill="#F8F9FA">
-    16x9
+  <text x="3" y="23" class="text" fill="#F8F9FA">
+    Пан-ма
   </text>
 </svg>
