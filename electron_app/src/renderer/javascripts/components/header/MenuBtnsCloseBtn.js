@@ -61,8 +61,11 @@ const MenuBtnsCloseBtn = () => {
           textImg: null,
           indexImgInGallery: null
         }
+
       });
+
     }
+
   }
 
   if (localModalProperties.modalProperties.isOpen &&

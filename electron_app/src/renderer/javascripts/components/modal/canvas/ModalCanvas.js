@@ -14,7 +14,7 @@ const ModalCanvas = () => {
   const setGalleryImg = localModalProperties.setGalleryImg;
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
-  const [toolState, setToolState] = useState({ type: 'handFree', tool: null });
+  const [toolState, setToolState] = useState({ type: 'hand', tool: null });
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
