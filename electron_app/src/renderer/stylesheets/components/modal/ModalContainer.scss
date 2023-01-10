@@ -7,10 +7,10 @@
     width: 80%;
     max-width: max-content;
     min-width: fit-content;
-    
+
     z-index: 30;
     margin: auto;
-   
+
     background-color: rgba(241, 241, 241, 0.4);
     backdrop-filter: blur(12px);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.4);
@@ -21,7 +21,7 @@
 .fadeIn {
     animation-name: fadeIn;
     -webkit-animation-name: fadeIn;
-    animation-duration: .5s;
+    animation-duration: 0.5s;
     -webkit-animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
     -webkit-animation-timing-function: ease-in-out;
@@ -30,7 +30,7 @@
 @keyframes fadeIn {
     0% {
         transform: scale(0);
-        opacity: 0.0;
+        opacity: 0;
     }
 
     100% {
@@ -42,13 +42,13 @@
 @-webkit-keyframes fadeIn {
     0% {
         -webkit-transform: scale(0);
-       
-        opacity: 0.0;
+
+        opacity: 0;
     }
 
     100% {
         -webkit-transform: scale(1);
-        
+
         opacity: 1;
     }
 }
@@ -69,7 +69,6 @@
 
     50% {
         transform: translateY(8%);
-
     }
 
     100% {
@@ -90,4 +89,3 @@
         -webkit-transform: translateY(0%);
     }
 }
-
