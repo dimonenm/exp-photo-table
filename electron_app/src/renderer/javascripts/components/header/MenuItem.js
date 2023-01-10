@@ -59,11 +59,26 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   }
   async function convertToMicrosoftWord(event) {
     event.preventDefault();
-    const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
-    
-    await wordDocument.addPages();
+    const isNotAllImgsCutted = galleryImages.find((item) => {
+      if (item.getImgCuted() === false) {
+        return true
+      }
+      return false
+    })
 
-    wordDocument.saveDocument();
+    if (isNotAllImgsCutted) {
+      const conf = confirm('У вас остались не обрезанные фотографии. Вы уверенны что хотите сформировать документ?')
+      if (conf) {
+        const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
+        await wordDocument.addPages();
+        wordDocument.saveDocument();
+      }
+    } else {
+      const wordDocument = new WordDocument(galleryImages, photoTableData, settings);
+      await wordDocument.addPages();
+      wordDocument.saveDocument();
+    }
+
   }
   function forSetSettingsModal(event) {
     event.preventDefault();
