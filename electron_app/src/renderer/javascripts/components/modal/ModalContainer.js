@@ -27,7 +27,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "setPhotoTableData") {
     return (
-      <div className="modal-container fadeIn" >
+      <div className="modal-container slideDownIn" >
         <ModalHeader name={'Данные фототаблицы'} />
         <ModalContent />
       </div>
@@ -35,7 +35,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
-      <div className={'modal-container slideDownIn'}>
+      <div className={'modal-container fadeIn'}>
         <ModalHeader name={'Редактирование иллюстрации'} />
         <ModalContent />
       </div>
@@ -43,7 +43,7 @@ const ModalContainer = () => {
   }
   if (localModalProperties.modalProperties.type === "setSettings") {
     return (
-      <div className="modal-container fadeIn" >
+      <div className="modal-container slideDownIn" >
         <ModalHeader name={'Настройки'} />
         <ModalContent />
       </div>
