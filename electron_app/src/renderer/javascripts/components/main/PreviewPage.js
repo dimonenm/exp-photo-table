@@ -3,10 +3,13 @@ import GallaryImage from '../../entities/GalleryImage';
 import ImageViewer from './ImageViewer';
 import ImageViewerFor6X9 from './ImageViewerFor6X9';
 
-function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, }) {
+function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, previewPageScale }) {
+  console.log('превью', previewPageScale);
+  // const padding = parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px' }
+  const pageStyle = {
+    ...previewPageScale, padding: `${parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px'}` 
+  }
 
-  const padding = parity === 'odd' ? { padding: '13px 13px 13px 26px' } : { padding: '13px 26px 13px 13px' }
-  
   function dragover(event) {
     event.preventDefault();
   }
@@ -36,7 +39,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
 
   if (type === 'title' && galleryImages.length === 0) {
     return (
-      <div className='preview-page' style={padding}>
+      <div className='preview-page' style={pageStyle} >
         <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
         <div className='preview-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
         <div className='preview-page-separator'></div>

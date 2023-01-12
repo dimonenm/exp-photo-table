@@ -19,6 +19,22 @@
     overflow: auto;
     height: 97%;
 }
+.woprkplace-width-changer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+    height: 40px;
+}
+.woprkplace-width-changer1,
+.woprkplace-width-changer2,
+.woprkplace-width-changer3{
+width: 40px;
+height: 20px;
+border: 1px solid #000;
+}
+
+
 
 .workplace::-webkit-scrollbar {
     width: 3px;
@@ -42,11 +58,8 @@
 
     margin: 10px 0 0 0;
 
-
     border-radius: 7px;
-    box-shadow: 0 1px 4px rgb(0 0 0 / 30%),
-        -23px 0 20px -23px rgb(0 0 0 / 80%),
-        23px 0 20px -23px rgb(0 0 0 / 80%),
+    box-shadow: 0 1px 4px rgb(0 0 0 / 30%), -23px 0 20px -23px rgb(0 0 0 / 80%), 23px 0 20px -23px rgb(0 0 0 / 80%),
         0 0 40px rgb(0 0 0 / 10%) inset;
 }
 
@@ -63,17 +76,15 @@
     border: 1px dashed #000;
     border-radius: 7px;
 }
-.workplace-item-new-title{
+.workplace-item-new-title {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     font-size: 12px;
     text-align: center;
-
 }
 .workplace-item-new-hovered {
     background-color: #c4c4c4;
-
 }
 
 .workplace-item-middle-part {

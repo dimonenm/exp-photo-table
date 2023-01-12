@@ -1,0 +1,26 @@
+.scale-changer{
+    display: flex;
+    flex-basis: 20px;
+    align-items:center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+    font-family: 'Roboto';
+    font-size: small;
+}
+
+.scale-changer-wrapper{
+display: flex;
+flex-wrap: wrap;
+align-items:center;
+justify-content: space-between;
+height: 126px;
+}
+.scale-changer-50,
+.scale-changer-75,
+.scale-changer-100{
+width: 20px;
+height: 40px;
+border: 1px solid #000;
+
+}

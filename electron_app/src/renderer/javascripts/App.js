@@ -16,7 +16,7 @@ import OrientationBtn from './components/main/OrientationBtn';
 import PreviewTitlePage from './components/main/PreviewTitlePage';
 import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 import PreviewPage from './components/main/PreviewPage';
-
+import ScaleChanger from './components/main/ScaleChanger';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -63,6 +63,12 @@ function App() {
     indexImgInGallery: null,
     cut: false
   });
+  const [workPlaceStyle, setWorkPlaceStyle] = useState({
+    flexBasis: '340px'
+  })
+  const [previewPageScale, setPreviewPageScale] = useState({
+    transform: 'scale(1) translate(0px)'
+  })
 
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);
@@ -161,6 +167,7 @@ function App() {
         this.img4 = value
       }
       assemblePage() {
+        console.log('app',previewPageScale);
         return (
           <PreviewPage
             key={this.pageNumber}
@@ -178,6 +185,8 @@ function App() {
             setModalProperties={setModalProperties}
             currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
+            previewPageScale={previewPageScale}
+            setPreviewPageScale={setPreviewPageScale}  
           />
         )
       }
@@ -266,7 +275,7 @@ function App() {
       }
     }
   }
-
+ 
   addPreviewPages(galleryImages, photoTableData, settings)
 
   return (
@@ -324,65 +333,14 @@ function App() {
         >
           {arrDownloadedImages}
         </Gallery>
-        {
-          // <OrientationMenu>
-          // Ориентация:
-          // <OrientationBtn
-          //   type='panorama'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='15x10'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='9x12'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='9x6'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='6x9'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // </OrientationMenu>
-        }
-        <Workplace>
-          {
-            // arrGalleryImages.length ?
-            //   null :
-            //   <WorkplaceItemNew
-            //     name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-            //     currentGalleryImage={currentGalleryImage}
-            //     setCurrentGalleryImage={setCurrentGalleryImage}
-            //     galleryImages={galleryImages}
-            //     setGalleryImages={setGalleryImages}
-            //     downloadedImages={downloadedImages}
-            //     setDownloadedImages={setDownloadedImages}
-            //   />
-          }
+        <ScaleChanger
+          workPlaceStyle={workPlaceStyle}
+          setWorkPlaceStyle={setWorkPlaceStyle}
+          setPreviewPageScale={setPreviewPageScale}
+        />
+        <Workplace
+          workPlaceStyle={workPlaceStyle}
+          setWorkPlaceStyle={setWorkPlaceStyle}>
           {arrPreviewPages}
         </Workplace>
       </Main>
