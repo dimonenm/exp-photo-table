@@ -3,16 +3,17 @@ import { useState } from "react";
 
 function ScaleChanger({ workPlaceStyle, setWorkPlaceStyle, previewPageScale, setPreviewPageScale }) {
     console.log(setPreviewPageScale);
-  
-    const changeScaleClickHandler100 = (event)=> {
+
+    const changeScaleClickHandler100 = (event) => {
         setWorkPlaceStyle({
             flexBasis: '490px'
         })
         setPreviewPageScale({
-            transform: 'scale(1.5) translate(0px, 72px)'
+            transform: 'scale(1.5) translate(0px, -72px)',
+            margin: '225px 0 0 0'
         })
     }
-    
+
 
     return (
         <div className="scale-changer">

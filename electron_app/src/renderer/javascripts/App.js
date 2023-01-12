@@ -67,7 +67,8 @@ function App() {
     flexBasis: '340px'
   })
   const [previewPageScale, setPreviewPageScale] = useState({
-    transform: 'scale(1) translate(0px)'
+    transform: 'scale(1) translate(0px)',
+    margin: '10px 0 0 0' 
   })
 
   globalThis.DataBaseAPI.onLoaded((_, data) => {

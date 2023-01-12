@@ -7,7 +7,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
   console.log('превью', previewPageScale);
   // const padding = parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px' }
   const pageStyle = {
-    ...previewPageScale, padding: `${parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px'}` 
+    ...previewPageScale, padding: `${parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px'}`
   }
 
   function dragover(event) {
@@ -56,7 +56,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     )
   } else if (type === 'title') {
     return (
-      <div className='preview-page' style={padding}>
+      <div className='preview-page' style={pageStyle}>
         <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
         <div className='preview-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
         <div className='preview-page-separator'></div>
@@ -80,7 +80,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 === undefined) {
       console.log('img1 === undefined');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <div className="preview-page-note">{`${settings.note}`}</div>
           <div className='preview-page-plus'
@@ -96,7 +96,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 && img2 === undefined && img3 === undefined && img4 === undefined) {
       console.log('img1 && img2 === undefined && img3 === undefined');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewer
             img={img1}
@@ -145,7 +145,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 && img2 === undefined && img3 && img4 === undefined) {
       console.log('img1 && img2 === undefined && img3');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewer
             img={img1}
@@ -170,7 +170,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 && img2 && img3 && img4 === undefined) {
       console.log('img1 && img2 && img3 && img4 === undefined');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewerFor6X9
             img1={img1}
@@ -196,7 +196,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 && img2 === undefined && img3 && img4) {
       console.log('img1 && img2 === undefined && img3 && img4');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewer
             img={img1}
@@ -222,7 +222,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 && img2 && img3 && img4) {
       console.log('img1 && img2 && img3 && img4');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewerFor6X9
             img1={img1}
