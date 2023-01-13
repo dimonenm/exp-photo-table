@@ -68,7 +68,7 @@ function App() {
   })
   const [previewPageScale, setPreviewPageScale] = useState({
     transform: 'scale(1) translate(0px)',
-    margin: '10px 0 0 0' 
+    margin: '10px 0 0 0'
   })
 
   globalThis.DataBaseAPI.onLoaded((_, data) => {
@@ -168,7 +168,7 @@ function App() {
         this.img4 = value
       }
       assemblePage() {
-        console.log('app',previewPageScale);
+        console.log('app', previewPageScale);
         return (
           <PreviewPage
             key={this.pageNumber}
@@ -187,7 +187,6 @@ function App() {
             currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
             previewPageScale={previewPageScale}
-            setPreviewPageScale={setPreviewPageScale}  
           />
         )
       }
@@ -206,8 +205,8 @@ function App() {
       let pageNumber = 1
 
       for (let i = 0; i < galleryImages.length; i++) {
-        
-        if (i === 0) { 
+
+        if (i === 0) {
           // если первая фотография
           const previewPageItemTitle = new PreviewPageItem(galleryImages, photoTableData, settings)
           previewPageItemTitle.setType('title')
@@ -276,7 +275,7 @@ function App() {
       }
     }
   }
- 
+
   addPreviewPages(galleryImages, photoTableData, settings)
 
   return (
@@ -340,8 +339,7 @@ function App() {
           setPreviewPageScale={setPreviewPageScale}
         />
         <Workplace
-          workPlaceStyle={workPlaceStyle}
-          setWorkPlaceStyle={setWorkPlaceStyle}>
+          workPlaceStyle={workPlaceStyle}>
           {arrPreviewPages}
         </Workplace>
       </Main>

@@ -120,7 +120,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
     if (img1 && img2 && img3 === undefined && img4 === undefined) {
       console.log('img1 && img2 && img3 === undefined');
       return (
-        <div className='preview-page' style={padding}>
+        <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
           <ImageViewerFor6X9
             img1={img1}

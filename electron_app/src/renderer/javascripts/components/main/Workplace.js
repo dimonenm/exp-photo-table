@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const Workplace = ({ children, workPlaceStyle, setWorkPlaceStyle }) => {
+const Workplace = ({ children, workPlaceStyle }) => {
   
    
     return (
