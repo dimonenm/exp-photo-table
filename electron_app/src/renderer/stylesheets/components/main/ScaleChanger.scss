@@ -1,26 +1,30 @@
-.scale-changer{
+.scale-changer {
     display: flex;
     flex-basis: 20px;
-    align-items:center;
+    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     height: 100%;
-    font-family: 'Roboto';
-    font-size: small;
+    font-family: "Roboto";
+    font-size: 9px;
 }
 
-.scale-changer-wrapper{
-display: flex;
-flex-wrap: wrap;
-align-items:center;
-justify-content: space-between;
-height: 126px;
+.scale-changer-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    height: 130px;
 }
 .scale-changer-50,
 .scale-changer-75,
-.scale-changer-100{
-width: 20px;
-height: 40px;
-border: 1px solid #000;
-
+.scale-changer-100 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 40px;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 5px;
+    text-align: center;
 }

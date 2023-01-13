@@ -15,7 +15,7 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
     }
     const changeScaleClickHandler75 = (event) => {
         setWorkPlaceStyle({
-            flexBasis: '420px'
+            flexBasis: '430px'
         })
         setPreviewPageScale({
             transform: 'scale(1.3) translate(0px, -50px)',
