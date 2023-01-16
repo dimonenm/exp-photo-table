@@ -7,7 +7,7 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
         type: '',
         isActive: false
     })
-    const winWidth = window.outerWidth
+    const winWidth = window.innerWidth
     console.log(winWidth);
 
     const changeScaleClickHandler100 = (event) => {
