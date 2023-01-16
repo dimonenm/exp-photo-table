@@ -6,10 +6,15 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
     const [scaleBtn, setScaleBtn] = useState({
         type: '',
         isActive: false
-})
+    })
+    const winWidth = window.outerWidth
+    console.log(winWidth);
+
     const changeScaleClickHandler100 = (event) => {
+    
+    
         setWorkPlaceStyle({
-            flexBasis: '490px'
+            flexBasis: '510px'
         })
         setPreviewPageScale({
             transform: 'scale(1.5) translate(0px, -72px)',
@@ -22,7 +27,7 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
     }
     const changeScaleClickHandler75 = (event) => {
         setWorkPlaceStyle({
-            flexBasis: '430px'
+            flexBasis: '442px'
         })
         setPreviewPageScale({
             transform: 'scale(1.3) translate(0px, -50px)',
