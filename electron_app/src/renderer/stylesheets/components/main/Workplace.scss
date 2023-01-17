@@ -6,15 +6,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-
     font-family: "Roboto";
-
-
     border: 1px solid rgba(147, 145, 145, 0.539);
     border-radius: 5px;
-
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
-
     overflow: auto;
     height: 97%;
 }
@@ -27,13 +22,11 @@
 }
 .woprkplace-width-changer1,
 .woprkplace-width-changer2,
-.woprkplace-width-changer3{
-width: 40px;
-height: 20px;
-border: 1px solid #000;
+.woprkplace-width-changer3 {
+    width: 40px;
+    height: 20px;
+    border: 1px solid #000;
 }
-
-
 
 .workplace::-webkit-scrollbar {
     width: 3px;
@@ -157,9 +150,7 @@ border: 1px solid #000;
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-
     width: 100%;
-
     background-image: url("../../../images/plus-circle-dotted.svg");
     background-repeat: no-repeat;
     background-position: center center;

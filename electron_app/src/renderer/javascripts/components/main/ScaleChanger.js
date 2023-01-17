@@ -52,13 +52,20 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
         })
     }
 
-
+    const showInfo = (event)=>{
+        console.log(event.target.childNodes[1].classList);
+        event.target.childNodes[1].classList.add("info-active")
+    }
+    const hideInfo = (event)=>{
+        event.target.childNodes[1].classList.remove("info-active")
+        console.log(event.target.childNodes[1].classList);
+    }
     return (
         <div className="scale-changer">
             <div className="scale-changer-wrapper">
-                <div className={scaleBtn.type === '50' && scaleBtn.isActive ? "scale-changer-50-active" : "scale-changer-50" } onClick={changeScaleClickHandler50}>50</div>
-                <div className={scaleBtn.type === '75' && scaleBtn.isActive ? "scale-changer-75-active" : "scale-changer-75"} onClick={changeScaleClickHandler75}>75</div>
-                <div className={scaleBtn.type === '100' && scaleBtn.isActive ? "scale-changer-100-active" : "scale-changer-100"} onClick={changeScaleClickHandler100}>100</div>
+                <div className={scaleBtn.type === '100' && scaleBtn.isActive ? "scale-changer-100-active" : "scale-changer-100"} onClick={changeScaleClickHandler100} onMouseEnter={showInfo } onMouseLeave={hideInfo}>100% <div className="info">Данные кнопки изменяют масштаб страниц</div></div>
+                <div className={scaleBtn.type === '75' && scaleBtn.isActive ? "scale-changer-75-active" : "scale-changer-75"} onClick={changeScaleClickHandler75} onMouseEnter={showInfo} onMouseLeave={hideInfo}>75% <div className="info">Данные кнопки изменяют масштаб страниц</div></div>
+                <div className={scaleBtn.type === '50' && scaleBtn.isActive ? "scale-changer-50-active" : "scale-changer-50"} onClick={changeScaleClickHandler50} onMouseEnter={showInfo} onMouseLeave={hideInfo}>50% <div className="info">Данные кнопки изменяют масштаб страниц</div></div>
             </div>
         </div>
     )
