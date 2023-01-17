@@ -25,7 +25,6 @@ import GalleryImage from './entities/GalleryImage';
 export const modalDataContext = createContext();
 
 function App() {
-
   const [downloadedImages, setDownloadedImages] = useState();
   const [photoTableData, setphotoTableData] = useState({
     numbOMP: null,
@@ -70,7 +69,8 @@ function App() {
     transform: 'scale(1) translate(0px)',
     margin: '10px 0 0 0'
   })
-
+  
+ 
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);
     setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });
