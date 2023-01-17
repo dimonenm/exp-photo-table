@@ -63,7 +63,7 @@ function App() {
     cut: false
   });
   const [workPlaceStyle, setWorkPlaceStyle] = useState({
-    flexBasis: '340px'
+    zoom: '1'
   })
   const [previewPageScale, setPreviewPageScale] = useState({
     transform: 'scale(1) translate(0px)',
