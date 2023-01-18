@@ -12,12 +12,12 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
 
 
         setWorkPlaceStyle({
-            zoom: '1.5'
+            flexBasis: '510px'
         })
-        // setPreviewPageScale({
-        //     transform: 'scale(1.5) translate(0px, -72px)',
-        //     margin: '225px 0 0 0'
-        // })
+        setPreviewPageScale({
+            transform: 'scale(1.5) translate(0px, -72px)',
+            margin: '225px 0 0 0'
+        })
         setScaleBtn({
             type: '100',
             isActive: true
@@ -25,12 +25,12 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
     }
     const changeScaleClickHandler75 = (event) => {
         setWorkPlaceStyle({
-            zoom: '1.3'
+            flexBasis: '442px'
         })
-        // setPreviewPageScale({
-        //     transform: 'scale(1.3) translate(0px, -50px)',
-        //     margin: '140px 0 0 0'
-        // })
+        setPreviewPageScale({
+            transform: 'scale(1.3) translate(0px, -50px)',
+            margin: '140px 0 0 0'
+        })
         setScaleBtn({
             type: '75',
             isActive: true
@@ -38,12 +38,12 @@ function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
     }
     const changeScaleClickHandler50 = (event) => {
         setWorkPlaceStyle({
-            zoom: '1'
+            flexBasis: '340px'
         })
-        // setPreviewPageScale({
-        //     transform: 'scale(1) translate(0px, 0px)',
-        //     margin: '10px 0 0 0'
-        // })
+        setPreviewPageScale({
+            transform: 'scale(1) translate(0px, 0px)',
+            margin: '10px 0 0 0'
+        })
         setScaleBtn({
             type: '50',
             isActive: true
