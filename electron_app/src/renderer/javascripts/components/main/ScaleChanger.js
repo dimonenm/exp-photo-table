@@ -4,8 +4,8 @@ import { useState } from "react";
 function ScaleChanger({ setWorkPlaceStyle, setPreviewPageScale }) {
 
     const [scaleBtn, setScaleBtn] = useState({
-        type: '',
-        isActive: false
+        type: '50',
+        isActive: true
     })
 
     const changeScaleClickHandler100 = (event) => {
