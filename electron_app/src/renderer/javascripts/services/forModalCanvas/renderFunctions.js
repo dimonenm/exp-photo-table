@@ -183,6 +183,8 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
     const imgH = (this.height / 100 * pr) * zoom;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.filter = `
+        contrast(${galleryImg.getContrast()}%)`
     ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
 
     if (galleryImg.getArrowsArray().length > 0) {

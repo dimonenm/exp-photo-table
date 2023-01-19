@@ -168,7 +168,7 @@ function App() {
         this.img4 = value
       }
       assemblePage() {
-        console.log('app', previewPageScale);
+        // console.log('app', previewPageScale);
         return (
           <PreviewPage
             key={this.pageNumber}
