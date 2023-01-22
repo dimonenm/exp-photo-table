@@ -69,8 +69,8 @@ function App() {
     transform: 'scale(1) translate(0px)',
     margin: '10px 0 0 0'
   })
-  
- 
+  // window.addEventListener("resize", () => { console.log('height: ', window.innerHeight, 'width: ', window.innerWidth) });
+
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);
     setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });
