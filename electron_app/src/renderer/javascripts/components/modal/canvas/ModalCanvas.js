@@ -283,6 +283,27 @@ const ModalCanvas = () => {
       }
     });
   }
+  function contrastRangeChangeHandler(event) {
+
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+   
+    setToolState((prev) => {
+      return {
+        ...prev,
+        type: 'hand',
+        tool: new Hand(
+          canvasRef.current,
+          newState,
+          setGalleryImg,
+          isZoomScaleGrid)
+      }
+    });
+  }
+  console.log('contrast', galleryImg.getContrast());
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -406,6 +427,20 @@ const ModalCanvas = () => {
               onClick={orientation6X9ClickHandler}
             ></div>
           </div>
+          <div className='modal-content-grid-properties-right-title'>Настройки изображения:</div>
+          <div className='modal-content-grid-properties-right-contrast'>
+            <div className='modal-content-grid-properties-right-contrast-range'>
+              <div className='modal-content-grid-properties-right-contrast-scale'>Контраст: {galleryImg.getContrast()}%</div>
+              <input
+                type="range"
+                step="1"
+                min="0"
+                max="200"
+                value={galleryImg.getContrast()}
+                onChange={contrastRangeChangeHandler}
+              ></input>
+            </div>
+          </div>
           <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
           <div className='modal-content-grid-properties-right-scale_grid'>
             <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
@@ -445,6 +480,7 @@ const ModalCanvas = () => {
             ></div>
             <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Вырезано" : "Не вырезано"}</div>
           </div>
+        
         </>
       );
     };
@@ -630,6 +666,7 @@ const ModalCanvas = () => {
             ? 'modal-content-grid-tools-left-imgDesc-active'
             : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
       </div>
+      
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
