@@ -233,6 +233,21 @@ export default class WordDocument {
           }
         }
       }
+      setHeaders() {
+        this.headers = {
+          default: new Header({
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    children: ["Page Number ", PageNumber.CURRENT],
+                  }),
+                ],
+              }),
+            ],
+          })
+        };
+      }
       async setImg1(value) {
         const localThis = this
 
@@ -654,6 +669,7 @@ export default class WordDocument {
         const pp = new PhotoPage(this.galleryImages, this.photoTableData, this.settings)
         pp.setType(`page`)
         pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
+        pp.setHeaders()
 
         if (this.galleryImages[i].getOrientation() !== '6X9') {
           await pp.setImg1(this.galleryImages[i])
