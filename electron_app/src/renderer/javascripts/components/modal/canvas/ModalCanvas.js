@@ -520,21 +520,6 @@ const ModalCanvas = () => {
     };
   }
   function getCanvasSize(orientation) {
-    // if (orientation === "panorama") {
-    //   let canvasWidth = 0
-    //   let canvasHeight = 0
-    //   let imgWidth = 0
-    //   let imgHeight = 0
-    //   const img = new Image()
-    //   img.onload = function () {
-    //     imgWidth = this.width
-    //     imgHeight = this.height
-    //     canvasWidth = ((window.outerWidth - 350) / 100) * 80
-    //     canvasHeight = (canvasWidth * imgHeight) / imgWidth
-    //     return ({ width: canvasWidth, height: canvasHeight })
-    //   }
-    //   img.src = galleryImg.getUrl();
-    // }
     if (orientation === "horizontal") {
       let canvasWidth = 0
       let canvasHeight = 0
