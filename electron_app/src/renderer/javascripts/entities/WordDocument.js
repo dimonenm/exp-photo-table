@@ -238,9 +238,12 @@ export default class WordDocument {
           default: new Header({
             children: [
               new Paragraph({
+                alignment: this.CENTER,
                 children: [
                   new TextRun({
-                    children: ["Page Number ", PageNumber.CURRENT],
+                    children: [PageNumber.CURRENT],
+                    font: this.FONT,
+                    size: 24,
                   }),
                 ],
               }),
