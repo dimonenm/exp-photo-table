@@ -395,6 +395,12 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
   function renderProperties(toolType) {
+    console.log('реф', canvasRef.current);
+    // console.log(canvasRef.current.getContext('2d'));
+    // const ctx = canvasRef.current.getContext('2d')
+    // console.log('ctx', ctx);
+    // ctx.filter = `
+    //     contrast(50%)`
     if (toolType === 'hand') {
       return (
         <>
