@@ -6,7 +6,7 @@ import HandFree from './tools/HandFree';
 import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
-
+import ModalCanvasTools from './ModalCanvasTools';
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
 
@@ -433,8 +433,7 @@ const ModalCanvas = () => {
               onClick={orientation6X9ClickHandler}
             ></div>
           </div>
-          <div className='modal-content-grid-properties-right-title'>Настройки освещенности:</div>
-          <div className='modal-content-grid-properties-right-contrast'>
+          {/* <div className='modal-content-grid-properties-right-contrast'>
               <div className='modal-content-grid-properties-right-contrast-scale'>Контраст: {galleryImg.getContrast()}%</div>
             <div className='modal-content-grid-properties-right-contrast-range'>
               <input
@@ -446,8 +445,8 @@ const ModalCanvas = () => {
                 onChange={contrastRangeChangeHandler}
               ></input>
             </div>
-          </div>
-          <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
+          </div> */}
+          {/* <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div> */}
           <div className='modal-content-grid-properties-right-scale_grid'>
             <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
               onClick={event => zoomScaleGridClickHandler(event)}
@@ -487,6 +486,7 @@ const ModalCanvas = () => {
             ></div>
             <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Вырезано" : "Не вырезано"}</div>
           </div>
+            <ModalCanvasTools />
 
         </>
       );
