@@ -394,6 +394,7 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
+
   function renderProperties(toolType) {
     console.log('реф', canvasRef.current);
     // console.log(canvasRef.current.getContext('2d'));
@@ -453,7 +454,7 @@ const ModalCanvas = () => {
             ></div>
             <div className="modal-content-grid-properties-right-imgProcessing-btn"></div>
           </div>
-          <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
+          {/* <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
           <div className='modal-content-grid-properties-right-zoom'>
             <div className='modal-content-grid-properties-right-zoom-range'>
               <input
@@ -466,8 +467,8 @@ const ModalCanvas = () => {
               ></input>
             </div>
             <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: {galleryImg.getZoom()}%</div>
-          </div>
-          <div className='modal-content-grid-properties-right-title'>Вырезание:</div>
+          </div> */}
+          {/* <div className='modal-content-grid-properties-right-title'>Вырезание:</div>
           <div className='modal-content-grid-properties-right-cut'>
             <div className='modal-content-grid-properties-right-cut-btn'
               onClick={cutClickHandler}
@@ -485,9 +486,29 @@ const ModalCanvas = () => {
               }}
             ></div>
             <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Вырезано" : "Не вырезано"}</div>
-          </div>
-            <ModalCanvasTools />
+          </div> */}
+          {/* <div className='modal-content-grid-properties-right-cut'> */}
 
+          {/* </div> */}
+          <ModalCanvasTools
+            zoomRangeChangeHandler={zoomRangeChangeHandler}
+            galleryImg={galleryImg} />
+          <div className='button28'
+            onClick={cutClickHandler}
+          // onMouseDown={(event) => {
+          //   event.target.classList = '';
+          //   event.target.classList.add('button28-active');
+          // }}
+          // onMouseUp={(event) => {
+          //   event.target.classList = '';
+          //   event.target.classList.add('button28');
+          // }}
+          // onMouseLeave={(event) => {
+          //   event.target.classList = '';
+          //   event.target.classList.add('button28');
+          // }}
+          >Применить</div>
+          <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Готово" : null}</div>
         </>
       );
     };
