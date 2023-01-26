@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(auto-fill, 20px);
-    background-color: rgba(175, 175, 248, 0.842);
+
     font-family: "Roboto";
     padding: 5px;
 }
@@ -48,7 +48,7 @@
 /* Специальные стили для WebKit/Blink */
 .modal-canvas-tools-contrast-range input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    
+
     height: 12px;
     width: 12px;
     border-radius: 5px;
@@ -60,7 +60,7 @@
 
 .modal-canvas-tools-contrast-range input[type="range"]:focus-visible::-webkit-slider-thumb {
     -webkit-appearance: none;
-    
+
     height: 12px;
     width: 12px;
     background: #343a40;

@@ -78,11 +78,6 @@
   background-image: url("../../../../images/btnDescriptionActive.svg");
 }
 
-
-
-
-
-
 .modal-content-grid-tools-left-imgProcessing-active {
   background-image: url("../../../../images/btnContrast.svg");
   transform: rotate(-180deg);
@@ -217,7 +212,6 @@
 .modal-content-grid-properties-right-imgProcessing-btn {
   background-image: url("../../../../images/btnContrast.svg");
 }
-
 
 .modal-content-grid-properties-right-zoom {
   display: grid;
@@ -364,6 +358,34 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+}
+.button28 {
+  width: 60px;
+  height: 20px;
+  font-family: "Roboto", Times, serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-align: center;
+  color: rgb(209, 209, 217);
+  text-decoration: none;
+  text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0.5em 1em;
+  margin-left: 5px;
+  outline: none;
+  border-radius: 3px;
+  background: linear-gradient(rgb(110, 112, 120), rgb(81, 81, 86)) rgb(110, 112, 120);
+  box-shadow: 0 1px rgba(255, 255, 255, 0.2) inset, 0 3px 5px rgba(0, 1, 6, 0.5), 0 0 1px 1px rgba(0, 1, 6, 0.2);
+  transition: 0.2s ease-in-out;
+}
+.button28:hover:not(:active) {
+  background: linear-gradient(rgb(126, 126, 134), rgb(70, 71, 76)) rgb(126, 126, 134);
+}
+.button28:active {
+  top: 1px;
+  background: linear-gradient(rgb(76, 77, 82), rgb(56, 57, 62)) rgb(76, 77, 82);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5) inset, 0 2px 3px rgba(0, 0, 0, 0.5) inset, 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 .modal-content-grid-properties-right-cut-condition {
