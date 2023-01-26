@@ -1,24 +1,22 @@
 import React from "react";
 
-const ModalCanvasTools = ({ zoomRangeChangeHandler, galleryImg }) => {
-    function contrastRangeChangeHandler(event) {
+const ModalCanvasTools = ({ contrastRangeChangeHandler, zoomRangeChangeHandler, contrastValue, galleryImg }) => {
 
-        console.log(event.target.value);
-    }
-  
+
 
 
     return (
         <>
             <div className="modal-canvas-tools">
                 <div className='modal-canvas-tools-title'>Инструменты:</div>
-                <div className='modal-canvas-tools-contrast-scale'>Контраст: %</div>
+                <div className='modal-canvas-tools-contrast-scale'>Контраст: {contrastValue} %</div>
                 <div className='modal-canvas-tools-contrast-range'>
                     <input
                         type="range"
                         step="1"
                         min="0"
                         max="200"
+                        value={contrastValue}
                         onChange={contrastRangeChangeHandler}
                     ></input>
                 </div>

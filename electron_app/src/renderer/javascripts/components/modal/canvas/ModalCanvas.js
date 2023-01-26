@@ -15,6 +15,7 @@ const ModalCanvas = () => {
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
+  const [contrastValue, setContrastValue] = useState('100')
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
@@ -284,26 +285,31 @@ const ModalCanvas = () => {
     });
   }
   function contrastRangeChangeHandler(event) {
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
 
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+    // // setGalleryImg((prev) => {
+    // //   return newState;
+    // // })
 
-    setGalleryImg((prev) => {
-      return newState;
-    })
+    // setToolState((prev) => {
+    //   return {
+    //     ...prev,
+    //     type: 'hand',
+    //     tool: new Hand(
+    //       canvasRef.current,
+    //       newState,
+    //       isZoomScaleGrid)
+    //   }
+    // });
+    const ctx = canvasRef.current.getContext('2d')
 
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newState,
-          setGalleryImg,
-          isZoomScaleGrid)
-      }
-    });
+    setContrastValue(event.target.value)
+
+    ctx.filter = `contrast(${event.target.value}%)`
+
+
   }
-  console.log('contrast', galleryImg.getContrast());
+  // console.log('contrast', galleryImg.getContrast());
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -396,7 +402,7 @@ const ModalCanvas = () => {
   }
 
   function renderProperties(toolType) {
-    console.log('реф', canvasRef.current);
+    // console.log('реф', canvasRef.current);
     // console.log(canvasRef.current.getContext('2d'));
     // const ctx = canvasRef.current.getContext('2d')
     // console.log('ctx', ctx);
@@ -491,8 +497,11 @@ const ModalCanvas = () => {
 
           {/* </div> */}
           <ModalCanvasTools
+            contrastRangeChangeHandler={contrastRangeChangeHandler}
             zoomRangeChangeHandler={zoomRangeChangeHandler}
-            galleryImg={galleryImg} />
+            contrastValue={contrastValue}
+            galleryImg={galleryImg}
+          />
           <div className='button28'
             onClick={cutClickHandler}
           // onMouseDown={(event) => {
@@ -670,7 +679,7 @@ const ModalCanvas = () => {
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid, contrastValue)
     }
   }, [galleryImg, isZoomScaleGrid]);
 
