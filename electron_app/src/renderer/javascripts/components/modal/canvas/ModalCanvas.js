@@ -6,7 +6,7 @@ import HandFree from './tools/HandFree';
 import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
-
+import ModalCanvasTools from './ModalCanvasTools';
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
 
@@ -290,7 +290,7 @@ const ModalCanvas = () => {
     setGalleryImg((prev) => {
       return newState;
     })
-   
+
     setToolState((prev) => {
       return {
         ...prev,
@@ -395,6 +395,12 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
   function renderProperties(toolType) {
+    console.log('реф', canvasRef.current);
+    // console.log(canvasRef.current.getContext('2d'));
+    // const ctx = canvasRef.current.getContext('2d')
+    // console.log('ctx', ctx);
+    // ctx.filter = `
+    //     contrast(50%)`
     if (toolType === 'hand') {
       return (
         <>
@@ -427,10 +433,9 @@ const ModalCanvas = () => {
               onClick={orientation6X9ClickHandler}
             ></div>
           </div>
-          <div className='modal-content-grid-properties-right-title'>Настройки изображения:</div>
-          <div className='modal-content-grid-properties-right-contrast'>
-            <div className='modal-content-grid-properties-right-contrast-range'>
+          {/* <div className='modal-content-grid-properties-right-contrast'>
               <div className='modal-content-grid-properties-right-contrast-scale'>Контраст: {galleryImg.getContrast()}%</div>
+            <div className='modal-content-grid-properties-right-contrast-range'>
               <input
                 type="range"
                 step="1"
@@ -440,12 +445,13 @@ const ModalCanvas = () => {
                 onChange={contrastRangeChangeHandler}
               ></input>
             </div>
-          </div>
-          <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
+          </div> */}
+          {/* <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div> */}
           <div className='modal-content-grid-properties-right-scale_grid'>
             <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
               onClick={event => zoomScaleGridClickHandler(event)}
             ></div>
+            <div className="modal-content-grid-properties-right-imgProcessing-btn"></div>
           </div>
           <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
           <div className='modal-content-grid-properties-right-zoom'>
@@ -480,7 +486,8 @@ const ModalCanvas = () => {
             ></div>
             <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Вырезано" : "Не вырезано"}</div>
           </div>
-        
+            <ModalCanvasTools />
+
         </>
       );
     };
@@ -643,7 +650,7 @@ const ModalCanvas = () => {
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
       renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
-    }  
+    }
   }, [galleryImg, isZoomScaleGrid]);
 
   return (
@@ -666,7 +673,7 @@ const ModalCanvas = () => {
             ? 'modal-content-grid-tools-left-imgDesc-active'
             : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
       </div>
-      
+
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
