@@ -516,8 +516,8 @@ const ModalCanvas = () => {
           //   event.target.classList = '';
           //   event.target.classList.add('button28');
           // }}
-          >Применить</div>
-          <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Готово" : null}</div>
+          >{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
+          {/* <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Готово" : null}</div> */}
         </>
       );
     };
