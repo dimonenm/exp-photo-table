@@ -19,7 +19,7 @@ const ModalCanvas = () => {
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
-
+ 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
@@ -285,31 +285,27 @@ const ModalCanvas = () => {
     });
   }
   function contrastRangeChangeHandler(event) {
-    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
 
-    // // setGalleryImg((prev) => {
-    // //   return newState;
-    // // })
-
-    // setToolState((prev) => {
-    //   return {
-    //     ...prev,
-    //     type: 'hand',
-    //     tool: new Hand(
-    //       canvasRef.current,
-    //       newState,
-    //       isZoomScaleGrid)
-    //   }
-    // });
-    const ctx = canvasRef.current.getContext('2d')
-
-    setContrastValue(event.target.value)
-
-    ctx.filter = `contrast(${event.target.value}%)`
-
-
+    setGalleryImg((prev) => {
+      return newState;
+    })
   }
-  // console.log('contrast', galleryImg.getContrast());
+  function brightnessRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+  function saturateRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+  
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -402,12 +398,7 @@ const ModalCanvas = () => {
   }
 
   function renderProperties(toolType) {
-    // console.log('реф', canvasRef.current);
-    // console.log(canvasRef.current.getContext('2d'));
-    // const ctx = canvasRef.current.getContext('2d')
-    // console.log('ctx', ctx);
-    // ctx.filter = `
-    //     contrast(50%)`
+ 
     if (toolType === 'hand') {
       return (
         <>
@@ -440,64 +431,16 @@ const ModalCanvas = () => {
               onClick={orientation6X9ClickHandler}
             ></div>
           </div>
-          {/* <div className='modal-content-grid-properties-right-contrast'>
-              <div className='modal-content-grid-properties-right-contrast-scale'>Контраст: {galleryImg.getContrast()}%</div>
-            <div className='modal-content-grid-properties-right-contrast-range'>
-              <input
-                type="range"
-                step="1"
-                min="0"
-                max="200"
-                value={galleryImg.getContrast()}
-                onChange={contrastRangeChangeHandler}
-              ></input>
-            </div>
-          </div> */}
-          {/* <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div> */}
           <div className='modal-content-grid-properties-right-scale_grid'>
             <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
               onClick={event => zoomScaleGridClickHandler(event)}
             ></div>
-            <div className="modal-content-grid-properties-right-imgProcessing-btn"></div>
+            <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
           </div>
-          {/* <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
-          <div className='modal-content-grid-properties-right-zoom'>
-            <div className='modal-content-grid-properties-right-zoom-range'>
-              <input
-                type="range"
-                step="10"
-                min="100"
-                max="400"
-                value={galleryImg.getZoom()}
-                onChange={zoomRangeChangeHandler}
-              ></input>
-            </div>
-            <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: {galleryImg.getZoom()}%</div>
-          </div> */}
-          {/* <div className='modal-content-grid-properties-right-title'>Вырезание:</div>
-          <div className='modal-content-grid-properties-right-cut'>
-            <div className='modal-content-grid-properties-right-cut-btn'
-              onClick={cutClickHandler}
-              onMouseDown={(event) => {
-                event.target.classList = '';
-                event.target.classList.add('modal-content-grid-properties-right-cut-btn-active');
-              }}
-              onMouseUp={(event) => {
-                event.target.classList = '';
-                event.target.classList.add('modal-content-grid-properties-right-cut-btn');
-              }}
-              onMouseLeave={(event) => {
-                event.target.classList = '';
-                event.target.classList.add('modal-content-grid-properties-right-cut-btn');
-              }}
-            ></div>
-            <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Вырезано" : "Не вырезано"}</div>
-          </div> */}
-          {/* <div className='modal-content-grid-properties-right-cut'> */}
-
-          {/* </div> */}
           <ModalCanvasTools
             contrastRangeChangeHandler={contrastRangeChangeHandler}
+            brightnessRangeChangeHandler={brightnessRangeChangeHandler}
+            saturateRangeChangeHandler={saturateRangeChangeHandler}
             zoomRangeChangeHandler={zoomRangeChangeHandler}
             contrastValue={contrastValue}
             galleryImg={galleryImg}
@@ -517,7 +460,6 @@ const ModalCanvas = () => {
           //   event.target.classList.add('button28');
           // }}
           >{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
-          {/* <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Готово" : null}</div> */}
         </>
       );
     };
@@ -658,7 +600,6 @@ const ModalCanvas = () => {
         })
       }
     })
-    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -679,7 +620,7 @@ const ModalCanvas = () => {
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid, contrastValue)
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);
 
