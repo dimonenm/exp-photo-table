@@ -19,7 +19,7 @@ const ModalCanvas = () => {
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
- 
+
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
@@ -305,7 +305,7 @@ const ModalCanvas = () => {
       return newState;
     })
   }
-  
+
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -398,7 +398,7 @@ const ModalCanvas = () => {
   }
 
   function renderProperties(toolType) {
- 
+
     if (toolType === 'hand') {
       return (
         <>
@@ -445,21 +445,8 @@ const ModalCanvas = () => {
             contrastValue={contrastValue}
             galleryImg={galleryImg}
           />
-          <div className='button28'
-            onClick={cutClickHandler}
-          // onMouseDown={(event) => {
-          //   event.target.classList = '';
-          //   event.target.classList.add('button28-active');
-          // }}
-          // onMouseUp={(event) => {
-          //   event.target.classList = '';
-          //   event.target.classList.add('button28');
-          // }}
-          // onMouseLeave={(event) => {
-          //   event.target.classList = '';
-          //   event.target.classList.add('button28');
-          // }}
-          >{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
+          <div className='modal-content-grid-properties-right-cut-btn'
+            onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
         </>
       );
     };
