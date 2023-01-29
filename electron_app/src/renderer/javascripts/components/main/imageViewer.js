@@ -16,7 +16,7 @@ function ImageViewer({ img, galleryImages, setGalleryImages, setModalProperties,
   }
   if (img.getOrientation() === 'horizontal' && img.getImgCuted()) {
     imgStyle.height = '143px'
-    marginForSpan.marginLeft = '20px'
+    marginForSpan.marginLeft = '32px'
   }
   if (img.getOrientation() === 'vertical') {
     imgStyle.height = '170px'

@@ -46,7 +46,7 @@ export default class WordDocument {
       CENTER = AlignmentType.CENTER
       JUSTIFIED = AlignmentType.JUSTIFIED
       INDENT_PANORAMA = { firstLine: 0 };
-      INDENT_HORIZONTAL = { firstLine: 1133 }
+      INDENT_HORIZONTAL = { firstLine: 750 }
       INDENT_VERTICAL = { firstLine: 1984 }
       INDENT_9x6 = { firstLine: 1984 }
       INDENT_6x9_1 = { firstLine: 2833 }
@@ -300,7 +300,7 @@ export default class WordDocument {
                 documentSize.height = 0
                 break;
               case 'horizontal':
-                documentSize.width = 567
+                documentSize.width = 504
                 documentSize.height = 378
                 break;
               case 'vertical':
@@ -723,7 +723,6 @@ export default class WordDocument {
       note++
     }
   }
-
   saveDocument() {
     this.setTitle(`${this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.photoTableData.kusp} - ${this.photoTableData.executor}`);
 
