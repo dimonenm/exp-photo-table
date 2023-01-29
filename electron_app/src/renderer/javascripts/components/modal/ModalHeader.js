@@ -57,6 +57,16 @@ const ModalHeader = ({ name }) => {
       </div>
     );
   }
+  if (localModalProperties.modalProperties.type === "about") {
+    return (
+      <div className="modal-header">
+        <Logo>{localModalProperties.modalProperties.nameImg}</Logo>
+        <MenuBtns>
+          <MenuBtnsCloseBtn />
+        </MenuBtns>
+      </div>
+    );
+  }
 }
 
 export default ModalHeader;

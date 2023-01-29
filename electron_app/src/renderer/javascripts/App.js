@@ -262,7 +262,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.2.1</Logo>
+        <Logo>Фототаблица 0.2.1</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
@@ -287,7 +287,12 @@ function App() {
             type={'forSettings'}
             modalProperties={modalProperties}
             setModalProperties={setModalProperties}
-          >Настройки</MenuItem>
+            >Настройки</MenuItem>
+          <MenuItem
+            type={'forAbout'}
+            modalProperties={modalProperties}
+            setModalProperties={setModalProperties}
+          >О программе</MenuItem>
         </Menu>
       </Header>
       <Main>
