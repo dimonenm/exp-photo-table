@@ -13,7 +13,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         step="1"
                         min="0"
                         max="200"
-                        defaultValue="100"
+                        value={galleryImg.getContrast()}
                         onChange={contrastRangeChangeHandler}
                     ></input>
                 </div>
@@ -24,7 +24,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         step="1"
                         min="0"
                         max="200"
-                        defaultValue="100"
+                        value={galleryImg.getBrightness()}
                         onChange={brightnessRangeChangeHandler}
                     ></input>
                 </div>
@@ -35,7 +35,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         step="1"
                         min="0"
                         max="200"
-                        defaultValue="100"
+                        value={galleryImg.getSaturate()}
                         onChange={saturateRangeChangeHandler}
                     ></input>
                 </div>
