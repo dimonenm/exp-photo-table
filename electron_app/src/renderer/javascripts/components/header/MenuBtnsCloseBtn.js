@@ -48,7 +48,6 @@ const MenuBtnsCloseBtn = () => {
       });
     }
   }
-
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "setSettings") {
     clickHandler = () => {
@@ -67,7 +66,6 @@ const MenuBtnsCloseBtn = () => {
     }
 
   }
-
   if (localModalProperties.modalProperties.isOpen &&
     localModalProperties.modalProperties.type === "editPhoto") {
     clickHandler = () => {
@@ -84,6 +82,21 @@ const MenuBtnsCloseBtn = () => {
       localModalProperties.setGalleryImg(new GallaryImage());
     }
   }  
+  if (localModalProperties.modalProperties.isOpen &&
+    localModalProperties.modalProperties.type === "about") {
+    clickHandler = () => {
+      localModalProperties.setModalProperties(() => {
+        return {
+          isOpen: false,
+          type: null,
+          nameImg: null,
+          urlImg: null,
+          textImg: null,
+          indexImgInGallery: null
+        }
+      });
+    }
+  }
   return (<div className="close-btn" onClick={clickHandler}></div>)
 }
 

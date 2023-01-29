@@ -264,6 +264,13 @@ const ModalContent = () => {
       <ModalCanvas />
     );
   }
+  if (localModalProperties.modalProperties.type === "about") {
+    return (
+      <div className="modal-content-grid">
+        about
+      </div>
+    );
+  }
 }
 
 export default ModalContent;
