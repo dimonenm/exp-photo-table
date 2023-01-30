@@ -60,7 +60,7 @@ const ModalHeader = ({ name }) => {
   if (localModalProperties.modalProperties.type === "about") {
     return (
       <div className="modal-header">
-        <Logo>{localModalProperties.modalProperties.nameImg}</Logo>
+        <Logo>{name}</Logo>
         <MenuBtns>
           <MenuBtnsCloseBtn />
         </MenuBtns>
