@@ -6,7 +6,7 @@ import HandFree from './tools/HandFree';
 import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
-
+import ModalCanvasTools from './ModalCanvasTools';
 const ModalCanvas = () => {
   const localModalProperties = useContext(modalDataContext);
 
@@ -15,6 +15,7 @@ const ModalCanvas = () => {
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
+  const [contrastValue, setContrastValue] = useState('100')
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
@@ -283,6 +284,28 @@ const ModalCanvas = () => {
       }
     });
   }
+  function contrastRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+  function brightnessRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+  function saturateRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -373,7 +396,9 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
+
   function renderProperties(toolType) {
+
     if (toolType === 'hand') {
       return (
         <>
@@ -406,45 +431,22 @@ const ModalCanvas = () => {
               onClick={orientation6X9ClickHandler}
             ></div>
           </div>
-          <div className='modal-content-grid-properties-right-title'>Масштабная сетка:</div>
           <div className='modal-content-grid-properties-right-scale_grid'>
             <div className={'modal-content-grid-properties-right-orientation-scale_grid-btn'}
               onClick={event => zoomScaleGridClickHandler(event)}
             ></div>
+            <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
           </div>
-          <div className='modal-content-grid-properties-right-title'>Масштаб:</div>
-          <div className='modal-content-grid-properties-right-zoom'>
-            <div className='modal-content-grid-properties-right-zoom-range'>
-              <input
-                type="range"
-                step="10"
-                min="100"
-                max="400"
-                value={galleryImg.getZoom()}
-                onChange={zoomRangeChangeHandler}
-              ></input>
-            </div>
-            <div className='modal-content-grid-properties-right-zoom-scale'>Увеличение: {galleryImg.getZoom()}%</div>
-          </div>
-          <div className='modal-content-grid-properties-right-title'>Вырезание:</div>
-          <div className='modal-content-grid-properties-right-cut'>
-            <div className='modal-content-grid-properties-right-cut-btn'
-              onClick={cutClickHandler}
-              onMouseDown={(event) => {
-                event.target.classList = '';
-                event.target.classList.add('modal-content-grid-properties-right-cut-btn-active');
-              }}
-              onMouseUp={(event) => {
-                event.target.classList = '';
-                event.target.classList.add('modal-content-grid-properties-right-cut-btn');
-              }}
-              onMouseLeave={(event) => {
-                event.target.classList = '';
-                event.target.classList.add('modal-content-grid-properties-right-cut-btn');
-              }}
-            ></div>
-            <div className='modal-content-grid-properties-right-cut-condition'>{galleryImg.getImgCuted() ? "Вырезано" : "Не вырезано"}</div>
-          </div>
+          <ModalCanvasTools
+            contrastRangeChangeHandler={contrastRangeChangeHandler}
+            brightnessRangeChangeHandler={brightnessRangeChangeHandler}
+            saturateRangeChangeHandler={saturateRangeChangeHandler}
+            zoomRangeChangeHandler={zoomRangeChangeHandler}
+            contrastValue={contrastValue}
+            galleryImg={galleryImg}
+          />
+          <div className='modal-content-grid-properties-right-cut-btn'
+            onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
         </>
       );
     };
@@ -585,7 +587,6 @@ const ModalCanvas = () => {
         })
       }
     })
-    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -607,7 +608,7 @@ const ModalCanvas = () => {
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
       renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
-    }  
+    }
   }, [galleryImg, isZoomScaleGrid]);
 
   return (
@@ -630,6 +631,7 @@ const ModalCanvas = () => {
             ? 'modal-content-grid-tools-left-imgDesc-active'
             : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
       </div>
+
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'

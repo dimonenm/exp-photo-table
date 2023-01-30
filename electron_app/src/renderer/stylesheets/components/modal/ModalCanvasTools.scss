@@ -1,0 +1,96 @@
+.modal-canvas-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, 20px);
+
+    font-family: "Roboto";
+    padding: 5px;
+}
+.modal-canvas-tools-title {
+    display: grid;
+    grid-column: 1/3;
+    justify-content: center;
+    text-align: center;
+}
+
+.modal-canvas-tools-contrast-range {
+    height: 20px;
+}
+
+/*Сбрасывание стилей Range*/
+.modal-canvas-tools-contrast-range input[type="range"] {
+    -webkit-appearance: none;
+    /* Скрываем слайдер, чтобы иметь возможность создать пользовательский слайдер. */
+    width: 150px;
+    /* Для Firefox нужна отдельная ширина. */
+    margin: 0;
+}
+
+.modal-canvas-tools-contrast-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+.modal-canvas-tools-contrast-range input[type="range"]:focus {
+    outline: none;
+    /* Удаляем синюю рамку. Для доступности на различных платформах вам нужно применить кое-какой трюк со стилями. */
+}
+
+.modal-canvas-tools-contrast-range input[type="range"]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    background: transparent;
+    /* Скрываем слайдер, чтобы иметь возможность добавить собственные стили */
+    border-color: transparent;
+    color: transparent;
+}
+
+/*Стили для ползунка*/
+/* Специальные стили для WebKit/Blink */
+.modal-canvas-tools-contrast-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+
+    height: 12px;
+    width: 12px;
+    border-radius: 5px;
+    background: #343a40;
+    cursor: pointer;
+
+    margin-top: -3px;
+}
+
+.modal-canvas-tools-contrast-range input[type="range"]:focus-visible::-webkit-slider-thumb {
+    -webkit-appearance: none;
+
+    height: 12px;
+    width: 12px;
+    background: #343a40;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: -3px;
+}
+
+/*Стили для шкалы*/
+.modal-canvas-tools-contrast-range input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #6c757d;
+    border-radius: 2px;
+}
+
+.modal-canvas-tools-contrast-range input[type="range"]:focus::-webkit-slider-runnable-track {
+    background: #6c757d;
+}
+
+.modal-canvas-tools-contrast-scale {
+    display: grid;
+    align-items: center;
+
+    font-family: "Roboto", Times, serif;
+    font-size: 12px;
+    text-align: left;
+
+    overflow: hidden;
+
+    height: 20px;
+}

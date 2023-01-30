@@ -16,7 +16,7 @@ import OrientationBtn from './components/main/OrientationBtn';
 import PreviewTitlePage from './components/main/PreviewTitlePage';
 import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 import PreviewPage from './components/main/PreviewPage';
-
+import ScaleChanger from './components/main/ScaleChanger';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
@@ -25,7 +25,6 @@ import GalleryImage from './entities/GalleryImage';
 export const modalDataContext = createContext();
 
 function App() {
-
   const [downloadedImages, setDownloadedImages] = useState();
   const [photoTableData, setphotoTableData] = useState({
     numbOMP: null,
@@ -63,6 +62,14 @@ function App() {
     indexImgInGallery: null,
     cut: false
   });
+  const [workPlaceStyle, setWorkPlaceStyle] = useState({
+    zoom: '1'
+  })
+  const [previewPageScale, setPreviewPageScale] = useState({
+    transform: 'scale(1) translate(0px)',
+    margin: '10px 0 0 0'
+  })
+  // window.addEventListener("resize", () => { console.log('height: ', window.innerHeight, 'width: ', window.innerWidth) });
 
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);
@@ -161,6 +168,7 @@ function App() {
         this.img4 = value
       }
       assemblePage() {
+        // console.log('app', previewPageScale);
         return (
           <PreviewPage
             key={this.pageNumber}
@@ -178,6 +186,7 @@ function App() {
             setModalProperties={setModalProperties}
             currentGalleryImage={currentGalleryImage}
             setCurrentGalleryImage={setCurrentGalleryImage}
+            previewPageScale={previewPageScale}
           />
         )
       }
@@ -196,8 +205,8 @@ function App() {
       let pageNumber = 1
 
       for (let i = 0; i < galleryImages.length; i++) {
-        
-        if (i === 0) { 
+
+        if (i === 0) {
           // если первая фотография
           const previewPageItemTitle = new PreviewPageItem(galleryImages, photoTableData, settings)
           previewPageItemTitle.setType('title')
@@ -287,7 +296,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>ЭКЦ РК Фототаблица 0.2.1</Logo>
+        <Logo>Фототаблица 0.2.1</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
@@ -324,65 +333,13 @@ function App() {
         >
           {arrDownloadedImages}
         </Gallery>
-        {
-          // <OrientationMenu>
-          // Ориентация:
-          // <OrientationBtn
-          //   type='panorama'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='15x10'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='9x12'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='9x6'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // <OrientationBtn
-          //   type='6x9'
-          //   currentGalleryImage={currentGalleryImage}
-          //   setCurrentGalleryImage={setCurrentGalleryImage}
-          //   galleryImages={galleryImages}
-          //   setGalleryImages={setGalleryImages}
-          //   downloadedImages={downloadedImages}
-          //   setDownloadedImages={setDownloadedImages}></OrientationBtn>
-          // </OrientationMenu>
-        }
-        <Workplace>
-          {
-            // arrGalleryImages.length ?
-            //   null :
-            //   <WorkplaceItemNew
-            //     name={`Иллюстрация ${arrGalleryImages.length + 1}`}
-            //     currentGalleryImage={currentGalleryImage}
-            //     setCurrentGalleryImage={setCurrentGalleryImage}
-            //     galleryImages={galleryImages}
-            //     setGalleryImages={setGalleryImages}
-            //     downloadedImages={downloadedImages}
-            //     setDownloadedImages={setDownloadedImages}
-            //   />
-          }
+        <ScaleChanger
+          workPlaceStyle={workPlaceStyle}
+          setWorkPlaceStyle={setWorkPlaceStyle}
+          setPreviewPageScale={setPreviewPageScale}
+        />
+        <Workplace
+          workPlaceStyle={workPlaceStyle}>
           {arrPreviewPages}
         </Workplace>
       </Main>
