@@ -183,8 +183,19 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
     const imgH = (this.height / 100 * pr) * zoom;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
+    if (galleryImg.getImgCuted() === true) {
+      galleryImg.setContrast('100')
+      galleryImg.setBrightness('100')
+      galleryImg.setSaturate('100')
+    }
+    if (galleryImg.getContrast() != '100' || galleryImg.getBrightness() != '100' || galleryImg.getSaturate() != '100') {
 
+      ctx.filter =
+        `contrast(${galleryImg.getContrast()}%)
+        brightness(${galleryImg.getBrightness()}%)
+        saturate(${galleryImg.getSaturate()}%) `
+    }
+    ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
     if (galleryImg.getArrowsArray().length > 0) {
       for (const item of galleryImg.getArrowsArray()) {
         drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
