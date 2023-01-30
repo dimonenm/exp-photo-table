@@ -305,7 +305,6 @@ const ModalCanvas = () => {
       return newState;
     })
   }
-
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -396,7 +395,6 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
-
   function renderProperties(toolType) {
 
     if (toolType === 'hand') {
