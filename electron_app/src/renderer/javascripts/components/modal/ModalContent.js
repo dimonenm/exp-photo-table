@@ -266,8 +266,27 @@ const ModalContent = () => {
   }
   if (localModalProperties.modalProperties.type === "about") {
     return (
-      <div className="modal-content-grid">
-        about
+      <div className="modal-content-grid-about">
+        <div className='modal-content-grid-about-title'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ ПО РЕСПУБЛИКЕ КРЫМ</div>
+        <div className='modal-content-grid-about-title'>ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
+        <div className='modal-content-grid-about-subTitle'>295048, г. Симферополь, ул. Балаклавская, д.68     тел. (3652)733-725</div>
+        <div className='modal-content-grid-about-separator'></div>
+        <div className='modal-content-grid-about-role'>Руководитель проекта</div>
+        <div className='modal-content-grid-about-post'>Заместитель начальника ЭКЦ МВД по Республике Крым</div>
+        <div className='modal-content-grid-about-name'><span>полковник полиции</span><span>Орленко Юрий Павлович</span></div>
+        <div className='modal-content-grid-about-separator'></div>
+        <div className='modal-content-grid-about-role'>Разработчик</div>
+        <div className='modal-content-grid-about-contactsTitle'>Контакты</div>
+        <div className='modal-content-grid-about-post'>Старший эксперт отдела криминалистических экспертиз ЭКЦ по Республике Крым</div>
+        <div className='modal-content-grid-about-contacts'>
+          <span>тел.: +7(978)713-27-28</span>
+          <span>email: arzuakov@yahoo.com</span>
+        </div>
+        <div className='modal-content-grid-about-name'><span>майор полиции</span><span>Арзяков Дмитрий Николаевич</span></div>
+        <div className='modal-content-grid-about-separator'></div>
+        <div className='modal-content-grid-about-role'>Разработчик</div>
+        <div className='modal-content-grid-about-post'>Старший эксперт отдела криминалистических экспертиз ЭКЦ по Республике Крым</div>
+        <div className='modal-content-grid-about-name'><span>капитан полиции</span><span>Халилов Руслан Нариманович</span></div>
       </div>
     );
   }

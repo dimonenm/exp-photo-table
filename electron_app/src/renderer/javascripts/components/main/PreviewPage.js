@@ -4,8 +4,7 @@ import ImageViewer from './ImageViewer';
 import ImageViewerFor6X9 from './ImageViewerFor6X9';
 
 function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, galleryImages, setGalleryImages, photoTableData, settings, setModalProperties, currentGalleryImage, setCurrentGalleryImage, previewPageScale }) {
-  console.log('превью', previewPageScale);
-  // const padding = parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px' }
+
   const pageStyle = {
     ...previewPageScale, padding: `${parity === 'odd' ? '13px 13px 13px 26px' : '13px 26px 13px 13px'}`
   }
@@ -76,9 +75,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       </div>
     )
   } else if (type === 'page') {
-    console.log('pageNumber', pageNumber);
     if (img1 === undefined) {
-      console.log('img1 === undefined');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
@@ -94,7 +91,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       )
     }
     if (img1 && img2 === undefined && img3 === undefined && img4 === undefined) {
-      console.log('img1 && img2 === undefined && img3 === undefined');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
@@ -118,7 +114,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       )
     }
     if (img1 && img2 && img3 === undefined && img4 === undefined) {
-      console.log('img1 && img2 && img3 === undefined');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
@@ -143,7 +138,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       )
     }
     if (img1 && img2 === undefined && img3 && img4 === undefined) {
-      console.log('img1 && img2 === undefined && img3');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
@@ -168,7 +162,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       )
     }
     if (img1 && img2 && img3 && img4 === undefined) {
-      console.log('img1 && img2 && img3 && img4 === undefined');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
@@ -194,7 +187,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       )
     }
     if (img1 && img2 === undefined && img3 && img4) {
-      console.log('img1 && img2 === undefined && img3 && img4');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
@@ -220,7 +212,6 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
       )
     }
     if (img1 && img2 && img3 && img4) {
-      console.log('img1 && img2 && img3 && img4');
       return (
         <div className='preview-page' style={pageStyle}>
           <div className="preview-page-number">{pageNumber}</div>
