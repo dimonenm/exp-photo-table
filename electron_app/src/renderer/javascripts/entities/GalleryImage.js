@@ -16,6 +16,7 @@ export default class GallaryImage {
     this.contrast = '100';
     this.brightness = '100';
     this.saturate = '100';
+    this.rotationDegrees = '0';
   }
 
   // функции доступа к полям
@@ -67,6 +68,9 @@ export default class GallaryImage {
   getSaturate() {
     return this.saturate;
   }
+  getRotationDegrees() {
+    return this.rotationDegrees;
+  }
   // функции изменения полей
   setIndex(value) {
     this.index = value;
@@ -112,5 +116,8 @@ export default class GallaryImage {
   }
   setSaturate(value) {
     this.saturate = value
+  }
+  setRotationDegrees(value) {
+    this.rotationDegrees = value
   }
 }

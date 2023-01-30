@@ -305,6 +305,13 @@ const ModalCanvas = () => {
       return newState;
     })
   }
+  function rotationDegreesRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, rotationDegrees: event.target.value });
+
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -436,12 +443,12 @@ const ModalCanvas = () => {
             <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
           </div>
           <ModalCanvasTools
+            galleryImg={galleryImg}
             contrastRangeChangeHandler={contrastRangeChangeHandler}
             brightnessRangeChangeHandler={brightnessRangeChangeHandler}
             saturateRangeChangeHandler={saturateRangeChangeHandler}
             zoomRangeChangeHandler={zoomRangeChangeHandler}
-            contrastValue={contrastValue}
-            galleryImg={galleryImg}
+            rotationDegreesRangeChangeHandler={rotationDegreesRangeChangeHandler}
           />
           <div className='modal-content-grid-properties-right-cut-btn'
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>

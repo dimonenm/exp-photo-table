@@ -1,6 +1,6 @@
 import React from "react";
 
-const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler, galleryImg }) => {
+const ModalCanvasTools = ({ galleryImg, contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler, rotationDegreesRangeChangeHandler }) => {
 
     return (
         <>
@@ -48,6 +48,17 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         max="400"
                         value={galleryImg.getZoom()}
                         onChange={zoomRangeChangeHandler}
+                    ></input>
+                </div>
+                <div className='modal-canvas-tools-contrast-scale'>Вращение: {0} %</div>
+                <div className='modal-canvas-tools-contrast-range'>
+                    <input
+                        type="range"
+                        step="1"
+                        min="-180"
+                        max="180"
+                        value={galleryImg.getRotationDegrees()}
+                        onChange={rotationDegreesRangeChangeHandler}
                     ></input>
                 </div>
             </div>
