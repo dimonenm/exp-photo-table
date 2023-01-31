@@ -90,6 +90,13 @@
   grid-column: 2 / 3;
   background: #ccc;
 }
+.modal-content-grid-canvas-scaleGrid {
+  display: grid;
+  grid-column: 2 / 3;
+  background: red;
+
+  position: absolute;
+}
 
 .modal-content-grid-canvas-grab {
   cursor: grab;

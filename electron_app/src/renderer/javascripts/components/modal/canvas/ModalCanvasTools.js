@@ -50,7 +50,7 @@ const ModalCanvasTools = ({ galleryImg, contrastRangeChangeHandler, brightnessRa
                         onChange={zoomRangeChangeHandler}
                     ></input>
                 </div>
-                <div className='modal-canvas-tools-contrast-scale'>Вращение: {0} %</div>
+                <div className='modal-canvas-tools-contrast-scale'>Вращение: {galleryImg.getRotationDegrees()} %</div>
                 <div className='modal-canvas-tools-contrast-range'>
                     <input
                         type="range"

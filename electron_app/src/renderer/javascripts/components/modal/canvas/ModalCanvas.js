@@ -628,6 +628,12 @@ const ModalCanvas = () => {
         width={canvasSize.width}
         height={canvasSize.height}
       ></canvas>
+      <canvas
+        // ref={canvasRef}
+        className='modal-content-grid-canvas-scaleGrid'
+        width={canvasSize.width}
+        height={canvasSize.height}
+      ></canvas>
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
         {renderProperties(toolState.type)}

@@ -57,7 +57,7 @@ export function drawScaleGrid(ctx, orientation) {
   ctx.strokeStyle = '#454545';
 
   if (orientation === 'horizontal') {
-    const linesHorizontal = 15
+    const linesHorizontal = 13.33
     const linesVertical = 10
     const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
     const gridPitchVertical = ctx.canvas.height / linesVertical
@@ -187,6 +187,7 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
       galleryImg.setContrast('100')
       galleryImg.setBrightness('100')
       galleryImg.setSaturate('100')
+      galleryImg.setRotationDegrees('0')
     }
     if (galleryImg.getContrast() != '100' || galleryImg.getBrightness() != '100' || galleryImg.getSaturate() != '100') {
 
@@ -194,6 +195,11 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
         `contrast(${galleryImg.getContrast()}%)
         brightness(${galleryImg.getBrightness()}%)
         saturate(${galleryImg.getSaturate()}%) `
+    }
+    if (galleryImg.getRotationDegrees() != '0') {
+      ctx.translate(imgW / 2, imgH / 2);
+      ctx.rotate(galleryImg.getRotationDegrees() * Math.PI / 180)
+      ctx.translate(-(imgW / 2), -(imgH / 2));
     }
     ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
     if (galleryImg.getArrowsArray().length > 0) {
