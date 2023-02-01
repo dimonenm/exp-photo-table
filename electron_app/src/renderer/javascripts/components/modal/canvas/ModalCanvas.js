@@ -524,7 +524,7 @@ const ModalCanvas = () => {
       let canvasWidth = 0
       let canvasHeight = 0
       let height = ((window.outerHeight - 50) / 100) * 80
-      if (((height / 2) * 3) > (((window.outerWidth - 350) / 100) * 80)) {
+      if (((height / 3) * 4) > (((window.outerWidth - 350) / 100) * 80)) {
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
         canvasHeight = (canvasWidth / 4) * 3
       } else {
