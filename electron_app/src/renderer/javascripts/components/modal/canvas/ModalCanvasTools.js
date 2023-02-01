@@ -54,7 +54,7 @@ const ModalCanvasTools = ({ galleryImg, contrastRangeChangeHandler, brightnessRa
                 <div className='modal-canvas-tools-contrast-range'>
                     <input
                         type="range"
-                        step="1"
+                        step="5"
                         min="-180"
                         max="180"
                         value={galleryImg.getRotationDegrees()}
