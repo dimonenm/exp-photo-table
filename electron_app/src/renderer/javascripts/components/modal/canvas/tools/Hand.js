@@ -2,13 +2,14 @@ import Tool from "./Tool";
 import GallaryImage from "../../../../entities/GalleryImage";
 
 export default class Hand extends Tool {
-  constructor(canvas, galleryImg, setGalleryImg, isZoomScaleGrid) {
+  constructor(canvas, galleryImg, setGalleryImg, isZoomScaleGrid, scaleGridCanvasRef) {
     super(canvas);
     this.img = new Image();
     this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
     this.arrowsArr = [...galleryImg.getArrowsArray()];
     this.isZoomScaleGrid = isZoomScaleGrid;
+    this.scaleGridCanvas = scaleGridCanvasRef.current;
     this.listen();
     
     this.img.onload = () => {
@@ -33,6 +34,12 @@ export default class Hand extends Tool {
     this.canvas.onmouseup = this.mouseUpHandler.bind(this);
     this.canvas.onmouseleave = this.mouseLeaveHandler.bind(this);
     this.canvas.onmouseenter = this.mouseEnterHandler.bind(this);
+
+    this.scaleGridCanvas.onmousemove = this.mouseMoveHandler.bind(this);
+    this.scaleGridCanvas.onmousedown = this.mouseDownHandler.bind(this);
+    this.scaleGridCanvas.onmouseup = this.mouseUpHandler.bind(this);
+    this.scaleGridCanvas.onmouseleave = this.mouseLeaveHandler.bind(this);
+    this.scaleGridCanvas.onmouseenter = this.mouseEnterHandler.bind(this);
   }
   mouseLeaveHandler(event) {
     this.mouseDown = false;
@@ -81,124 +88,125 @@ export default class Hand extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
-      if (this.isZoomScaleGrid) {
-        this.drawScaleGrid(this.ctx, this.galleryImg.getOrientation())
-      }
+      // if (this.isZoomScaleGrid) {
+      //   console.log('this.galleryImg.getRotationDegrees()', this.galleryImg.getRotationDegrees());
+      //   this.drawScaleGrid(this.ctx, this.galleryImg.getOrientation())
+      // }
     }
   }
 
-  drawScaleGrid(ctx, orientation) {
-    if (orientation === 'horizontal') {
-      const linesHorizontal = 15
-      const linesVertical = 10
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
+  // drawScaleGrid(ctx, orientation) {
+  //   if (orientation === 'horizontal') {
+  //     const linesHorizontal = 15
+  //     const linesVertical = 10
+  //     const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+  //     const gridPitchVertical = ctx.canvas.height / linesVertical
+  //     let counterHorizontal = gridPitchHorizontal
+  //     let counterVertical = gridPitchVertical
+  //     for (let i = 0; i < (linesHorizontal - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+  //       ctx.moveTo(counterHorizontal, 0);
+  //       ctx.lineTo(counterHorizontal, ctx.canvas.height);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
+  //       counterHorizontal = counterHorizontal + gridPitchHorizontal
+  //     }
+  //     for (let i = 0; i < (linesVertical - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
+  //       ctx.moveTo(0, counterVertical);
+  //       ctx.lineTo(ctx.canvas.width, counterVertical);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-    if (orientation === 'vertical') {
-      const linesHorizontal = 9
-      const linesVertical = 12
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
+  //       counterVertical = counterVertical + gridPitchVertical
+  //     }
+  //   }
+  //   if (orientation === 'vertical') {
+  //     const linesHorizontal = 9
+  //     const linesVertical = 12
+  //     const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+  //     const gridPitchVertical = ctx.canvas.height / linesVertical
+  //     let counterHorizontal = gridPitchHorizontal
+  //     let counterVertical = gridPitchVertical
+  //     for (let i = 0; i < (linesHorizontal - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+  //       ctx.moveTo(counterHorizontal, 0);
+  //       ctx.lineTo(counterHorizontal, ctx.canvas.height);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
+  //       counterHorizontal = counterHorizontal + gridPitchHorizontal
+  //     }
+  //     for (let i = 0; i < (linesVertical - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
+  //       ctx.moveTo(0, counterVertical);
+  //       ctx.lineTo(ctx.canvas.width, counterVertical);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-    if (orientation === '9X6') {
-      const linesHorizontal = 9
-      const linesVertical = 6
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
+  //       counterVertical = counterVertical + gridPitchVertical
+  //     }
+  //   }
+  //   if (orientation === '9X6') {
+  //     const linesHorizontal = 9
+  //     const linesVertical = 6
+  //     const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+  //     const gridPitchVertical = ctx.canvas.height / linesVertical
+  //     let counterHorizontal = gridPitchHorizontal
+  //     let counterVertical = gridPitchVertical
+  //     for (let i = 0; i < (linesHorizontal - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+  //       ctx.moveTo(counterHorizontal, 0);
+  //       ctx.lineTo(counterHorizontal, ctx.canvas.height);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
+  //       counterHorizontal = counterHorizontal + gridPitchHorizontal
+  //     }
+  //     for (let i = 0; i < (linesVertical - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
+  //       ctx.moveTo(0, counterVertical);
+  //       ctx.lineTo(ctx.canvas.width, counterVertical);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-    if (orientation === '6X9') {
-      const linesHorizontal = 6
-      const linesVertical = 9
-      const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
-      const gridPitchVertical = ctx.canvas.height / linesVertical
-      let counterHorizontal = gridPitchHorizontal
-      let counterVertical = gridPitchVertical
-      for (let i = 0; i < (linesHorizontal - 1); i++) {
-        ctx.beginPath();
+  //       counterVertical = counterVertical + gridPitchVertical
+  //     }
+  //   }
+  //   if (orientation === '6X9') {
+  //     const linesHorizontal = 6
+  //     const linesVertical = 9
+  //     const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
+  //     const gridPitchVertical = ctx.canvas.height / linesVertical
+  //     let counterHorizontal = gridPitchHorizontal
+  //     let counterVertical = gridPitchVertical
+  //     for (let i = 0; i < (linesHorizontal - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(counterHorizontal, 0);
-        ctx.lineTo(counterHorizontal, ctx.canvas.height);
+  //       ctx.moveTo(counterHorizontal, 0);
+  //       ctx.lineTo(counterHorizontal, ctx.canvas.height);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterHorizontal = counterHorizontal + gridPitchHorizontal
-      }
-      for (let i = 0; i < (linesVertical - 1); i++) {
-        ctx.beginPath();
+  //       counterHorizontal = counterHorizontal + gridPitchHorizontal
+  //     }
+  //     for (let i = 0; i < (linesVertical - 1); i++) {
+  //       ctx.beginPath();
 
-        ctx.moveTo(0, counterVertical);
-        ctx.lineTo(ctx.canvas.width, counterVertical);
+  //       ctx.moveTo(0, counterVertical);
+  //       ctx.lineTo(ctx.canvas.width, counterVertical);
 
-        ctx.stroke();
+  //       ctx.stroke();
 
-        counterVertical = counterVertical + gridPitchVertical
-      }
-    }
-  }
+  //       counterVertical = counterVertical + gridPitchVertical
+  //     }
+  //   }
+  // }
 }

@@ -4,6 +4,7 @@ import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
 import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
+import { renderScaleGridInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
@@ -15,7 +16,6 @@ const ModalCanvas = () => {
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
-  const [contrastValue, setContrastValue] = useState('100')
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
@@ -33,7 +33,8 @@ const ModalCanvas = () => {
             canvasRef.current,
             galleryImg,
             setGalleryImg,
-            isZoomScaleGrid)
+            isZoomScaleGrid,
+            scaleGridCanvasRef)
         }
       });
     };
@@ -191,7 +192,8 @@ const ModalCanvas = () => {
           canvasRef.current,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid)
+          isZoomScaleGrid,
+          scaleGridCanvasRef)
       }
     });
   }
@@ -208,7 +210,8 @@ const ModalCanvas = () => {
           canvasRef.current,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid)
+          isZoomScaleGrid,
+          scaleGridCanvasRef)
       }
     });
   }
@@ -227,7 +230,8 @@ const ModalCanvas = () => {
           canvasRef.current,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid)
+          isZoomScaleGrid,
+          scaleGridCanvasRef)
       }
     });
   }
@@ -246,7 +250,8 @@ const ModalCanvas = () => {
           canvasRef.current,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid)
+          isZoomScaleGrid,
+          scaleGridCanvasRef)
       }
     });
   }
@@ -265,7 +270,8 @@ const ModalCanvas = () => {
           canvasRef.current,
           newState,
           setGalleryImg,
-          isZoomScaleGrid)
+          isZoomScaleGrid,
+          scaleGridCanvasRef)
       }
     });
   }
@@ -382,7 +388,8 @@ const ModalCanvas = () => {
             canvasRef.current,
             galleryImg,
             setGalleryImg,
-            false)
+            false,
+            scaleGridCanvasRef)
         }
       });
     } else {
@@ -395,7 +402,8 @@ const ModalCanvas = () => {
             canvasRef.current,
             galleryImg,
             setGalleryImg,
-            true)
+            true,
+            scaleGridCanvasRef)
         }
       });
     }
@@ -585,12 +593,10 @@ const ModalCanvas = () => {
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      console.log('canvasSize useEffect: ', canvasSize);
       renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+      renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);
-  
-  console.log('canvasSize Main: ', canvasSize);
 
   return (
     <div className="modal-content-grid-edit">
@@ -616,17 +622,13 @@ const ModalCanvas = () => {
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        // width={canvasSize.width}
-        // height={canvasSize.height}
       ></canvas>
-      {isZoomScaleGrid ? 
       <canvas
-        // ref={canvasRef}
+        ref={scaleGridCanvasRef}
         className='modal-content-grid-canvas-scaleGrid'
         width={canvasSize.width}
         height={canvasSize.height}
       ></canvas>
-      : null}
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
         {renderProperties(toolState.type)}

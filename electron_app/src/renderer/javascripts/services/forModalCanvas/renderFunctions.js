@@ -170,7 +170,7 @@ export function drawScaleGrid(ctx, orientation) {
   }
 }
 
-export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomScaleGrid) {
+export function renderImgInCanvas(canvasRef, width, height, galleryImg) {
   const ctx = canvasRef.current.getContext('2d');
   ctx.canvas.width = width
   ctx.canvas.height = height
@@ -207,9 +207,19 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
         drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
       }
     }
-    if (isZoomScaleGrid) {
-      drawScaleGrid(ctx, galleryImg.getOrientation())
-    }
   }
   img.src = galleryImg.getUrl();
+}
+
+export function renderScaleGridInCanvas(scaleGridCanvasRef, width, height, galleryImg, isZoomScaleGrid) {
+  if (isZoomScaleGrid) {
+    const ctx = scaleGridCanvasRef.current.getContext('2d');
+    ctx.canvas.width = width
+    ctx.canvas.height = height
+    drawScaleGrid(ctx, galleryImg.getOrientation())
+  } else {
+    const ctx = scaleGridCanvasRef.current.getContext('2d');
+    ctx.canvas.width = 0
+    ctx.canvas.height = 0
+  }
 }

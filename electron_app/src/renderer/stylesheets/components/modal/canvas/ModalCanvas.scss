@@ -91,11 +91,8 @@
   background: #ccc;
 }
 .modal-content-grid-canvas-scaleGrid {
-  display: grid;
-  grid-column: 2 / 3;
-  background: red;
-
   position: absolute;
+  left: -50px;
 }
 
 .modal-content-grid-canvas-grab {
