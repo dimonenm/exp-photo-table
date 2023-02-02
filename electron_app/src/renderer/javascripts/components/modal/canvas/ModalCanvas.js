@@ -19,6 +19,7 @@ const ModalCanvas = () => {
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
+  const scaleGridCanvasRef = useRef();
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -527,20 +528,7 @@ const ModalCanvas = () => {
     };
   }
   function getCanvasSize(orientation) {
-    if (orientation === "horizontal") {
-      let canvasWidth = 0
-      let canvasHeight = 0
-      let height = ((window.outerHeight - 50) / 100) * 80
-      if (((height / 2) * 3) > (((window.outerWidth - 350) / 100) * 80)) {
-        canvasWidth = ((window.outerWidth - 350) / 100) * 80
-        canvasHeight = (canvasWidth / 4) * 3
-      } else {
-        canvasWidth = ((height / 3) * 4)
-        canvasHeight = height
-      }
-      return ({ width: canvasWidth, height: canvasHeight })
-    }
-    if (orientation === "9X6") {
+    if (orientation === "horizontal" || orientation === "9X6") {
       let canvasWidth = 0
       let canvasHeight = 0
       let height = ((window.outerHeight - 50) / 100) * 80
@@ -597,9 +585,12 @@ const ModalCanvas = () => {
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
+      console.log('canvasSize useEffect: ', canvasSize);
       renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);
+  
+  console.log('canvasSize Main: ', canvasSize);
 
   return (
     <div className="modal-content-grid-edit">
@@ -625,15 +616,17 @@ const ModalCanvas = () => {
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        width={canvasSize.width}
-        height={canvasSize.height}
+        // width={canvasSize.width}
+        // height={canvasSize.height}
       ></canvas>
+      {isZoomScaleGrid ? 
       <canvas
         // ref={canvasRef}
         className='modal-content-grid-canvas-scaleGrid'
         width={canvasSize.width}
         height={canvasSize.height}
       ></canvas>
+      : null}
       <div className='modal-content-grid-properties-right'>
         <div className='modal-content-grid-properties-right-title'>Свойства</div>
         {renderProperties(toolState.type)}
