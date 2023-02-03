@@ -128,9 +128,10 @@
 
 .modal-content-grid-properties-right-orientation {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40px, 40px));
+  grid-template-columns: 60px 60px 60px 40px 40px;
   grid-gap: 5px 5px;
-
+  align-items: center;
+  justify-items: center;
   padding: 5px;
 }
 
@@ -156,12 +157,33 @@
 .modal-content-grid-properties-right-orientation-scale_grid-btn-active,
 .modal-content-grid-tools-right-imgProcessing-btn,
 .modal-content-grid-tools-right-imgProcessing-btn-active {
-  height: 40px;
-  width: 40px;
-
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+}
+.modal-content-grid-properties-right-orientation-vertical,
+.modal-content-grid-properties-right-orientation-vertical-active,
+.modal-content-grid-properties-right-orientation-horizontal,
+.modal-content-grid-properties-right-orientation-horizontal-active,
+.modal-content-grid-properties-right-orientation-panorama,
+.modal-content-grid-properties-right-orientation-panorama-active {
+  height: 60px;
+  width: 60px;
+}
+
+.modal-content-grid-properties-right-orientation-9X6,
+.modal-content-grid-properties-right-orientation-9X6-active,
+.modal-content-grid-properties-right-orientation-6X9,
+.modal-content-grid-properties-right-orientation-6X9-active {
+  height: 40px;
+  width: 40px;
+}
+.modal-content-grid-properties-right-orientation-scale_grid-btn,
+.modal-content-grid-properties-right-orientation-scale_grid-btn-active,
+.modal-content-grid-tools-right-imgProcessing-btn,
+.modal-content-grid-tools-right-imgProcessing-btn-active {
+  height: 40px;
+  width: 40px;
 }
 
 .modal-content-grid-properties-right-orientation-vertical {
@@ -339,7 +361,6 @@
 
   padding: 5px;
 }
-
 
 .modal-content-grid-properties-right-cut-btn {
   width: 60px;
