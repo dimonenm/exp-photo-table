@@ -104,6 +104,20 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
     }
     )
   }
+  function forAbout(event) {
+    event.preventDefault();
+
+    setModalProperties(prev => {
+      return (
+        {
+          ...prev,
+          isOpen: true,
+          type: "about"
+        }
+      );
+    }
+    )
+  }
 
   if (notActive) {
     return (
@@ -141,6 +155,11 @@ const MenuItem = ({ children, type, notActive, setDownloadedImages, galleryImage
   if (type === 'forEditPhoto') {
     return (
       <div className="menu-item" onClick={forEditPhoto}><a href="/" >{children}</a></div>
+    );
+  }
+  if (type === 'forAbout') {
+    return (
+      <div className="menu-item" onClick={forAbout}><a href="/" >{children}</a></div>
     );
   }
   return (

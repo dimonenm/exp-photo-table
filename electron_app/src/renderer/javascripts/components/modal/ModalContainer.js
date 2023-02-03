@@ -49,6 +49,14 @@ const ModalContainer = () => {
       </div>
     );
   }
+  if (localModalProperties.modalProperties.type === "about") {
+    return (
+      <div className="modal-container slideDownIn" >
+        <ModalHeader name={'О программе'} />
+        <ModalContent />
+      </div>
+    );
+  }
 }
 
 

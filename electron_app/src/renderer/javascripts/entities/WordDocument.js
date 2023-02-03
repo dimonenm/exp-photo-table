@@ -46,7 +46,7 @@ export default class WordDocument {
       CENTER = AlignmentType.CENTER
       JUSTIFIED = AlignmentType.JUSTIFIED
       INDENT_PANORAMA = { firstLine: 0 };
-      INDENT_HORIZONTAL = { firstLine: 1133 }
+      INDENT_HORIZONTAL = { firstLine: 750 }
       INDENT_VERTICAL = { firstLine: 1984 }
       INDENT_9x6 = { firstLine: 1984 }
       INDENT_6x9_1 = { firstLine: 2833 }
@@ -233,6 +233,24 @@ export default class WordDocument {
           }
         }
       }
+      setHeaders() {
+        this.headers = {
+          default: new Header({
+            children: [
+              new Paragraph({
+                alignment: this.CENTER,
+                children: [
+                  new TextRun({
+                    children: [PageNumber.CURRENT],
+                    font: this.FONT,
+                    size: 24,
+                  }),
+                ],
+              }),
+            ],
+          })
+        };
+      }
       async setImg1(value) {
         const localThis = this
 
@@ -282,7 +300,7 @@ export default class WordDocument {
                 documentSize.height = 0
                 break;
               case 'horizontal':
-                documentSize.width = 567
+                documentSize.width = 504
                 documentSize.height = 378
                 break;
               case 'vertical':
@@ -654,6 +672,7 @@ export default class WordDocument {
         const pp = new PhotoPage(this.galleryImages, this.photoTableData, this.settings)
         pp.setType(`page`)
         pp.setParity(photoPage % 2 === 0 ? 'odd' : 'even')
+        pp.setHeaders()
 
         if (this.galleryImages[i].getOrientation() !== '6X9') {
           await pp.setImg1(this.galleryImages[i])
@@ -704,7 +723,6 @@ export default class WordDocument {
       note++
     }
   }
-
   saveDocument() {
     this.setTitle(`${this.photoTableData.numbOMP} - ${this.photoTableData.unit} - КУСП №${this.photoTableData.kusp} - ${this.photoTableData.executor}`);
 
