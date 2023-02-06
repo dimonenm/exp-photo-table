@@ -9,7 +9,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
             return newState;
         })
     }
-    function mouseWheelHandler(event) {
+    function mouseWheelHandlerForContrast(event) {
         // console.log(event.deltaY > 0);
         if (event.deltaY > 0) {
             const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
@@ -24,12 +24,47 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
             const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
             let contrastValue = newGalleryImg.getContrast()
             newGalleryImg.setContrast(`${+contrastValue - 5}`)
-            console.log(galleryImg.getContrast());
             setGalleryImg((prev) => {
                 return newGalleryImg;
             })
         }
 
+    }
+    function mouseWheelHandlerForBrightness(event) {
+        if (event.deltaY > 0) {
+            const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+            let brightnessValue = newGalleryImg.getBrightness()
+            newGalleryImg.setBrightness(`${+brightnessValue + 5}`)
+            setGalleryImg((prev) => {
+                return newGalleryImg;
+            })
+        }
+        else {
+            const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+            let brightnessValue = newGalleryImg.getBrightness()
+            newGalleryImg.setBrightness(`${+brightnessValue - 5}`)
+            setGalleryImg((prev) => {
+                return newGalleryImg;
+            })
+        }
+    }
+    function mouseWheelHandlerForSaturate(event) {
+        if (event.deltaY > 0) {
+            const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+            let saturateValue = newGalleryImg.getSaturate()
+            newGalleryImg.setSaturate(`${+saturateValue + 5}`)
+            setGalleryImg((prev) => {
+                return newGalleryImg;
+            })
+        }
+        else {
+            const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+            let saturateValue = newGalleryImg.getSaturate()
+            newGalleryImg.setSaturate(`${+saturateValue - 5}`)
+            setGalleryImg((prev) => {
+                return newGalleryImg;
+            })
+        }
     }
 
     return (
@@ -45,7 +80,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         max="200"
                         value={galleryImg.getContrast()}
                         onChange={contrastRangeChangeHandler}
-                        onWheel={mouseWheelHandler}
+                        onWheel={mouseWheelHandlerForContrast}
                     ></input>
                 </div>
                 <div className='modal-canvas-tools-contrast-scale'>Яркость: {galleryImg.getBrightness()} %</div>
@@ -57,6 +92,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         max="200"
                         value={galleryImg.getBrightness()}
                         onChange={brightnessRangeChangeHandler}
+                        onWheel={mouseWheelHandlerForBrightness}
                     ></input>
                 </div>
                 <div className='modal-canvas-tools-contrast-scale'>Насыщенность: {galleryImg.getSaturate()} %</div>
@@ -68,6 +104,7 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                         max="200"
                         value={galleryImg.getSaturate()}
                         onChange={saturateRangeChangeHandler}
+                        onWheel={mouseWheelHandlerForSaturate}
                     ></input>
                 </div>
                 <div className='modal-canvas-tools-contrast-scale'>Увеличение: {galleryImg.getZoom()} %</div>
