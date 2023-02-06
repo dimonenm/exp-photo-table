@@ -6,8 +6,7 @@
       font-size: 12px;
     }
   </style>
-  <rect width="40" height="40" fill="#343A40" rx="5" />
-  <rect x="2" y="2" width="36" height="36" stroke="#F8F9FA" stroke-width="2" rx="5" />
+  <rect x="2" y="2" width="36" height="36" stroke="#343A40" stroke-width="2" rx="5" />
   <polygon points="
 7,8 
 25,8 
@@ -17,7 +16,7 @@
 25,12 
 11,12 
 11,35 
-7,35" fill="#F8F9FA" />
-  <text x="13" y="30" class="text" fill="#F8F9FA">9O</text>
-  <circle cx="29" cy="20" r="2" stroke="#F8F9FA" />
+7,35" fill="#343A40" />
+  <text x="13" y="30" class="text" fill="#343A40">9O</text>
+  <circle cx="29" cy="20" r="2" stroke="#343A40" />
 </svg>

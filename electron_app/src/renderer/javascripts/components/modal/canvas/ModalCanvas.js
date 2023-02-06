@@ -319,6 +319,16 @@ const ModalCanvas = () => {
       return newState;
     })
   }
+  function rotationLeftChangeHandler(event) {
+
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active')
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, rotationDegrees: event.target.value });
+
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // })
+  }
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -450,6 +460,12 @@ const ModalCanvas = () => {
               onClick={event => zoomScaleGridClickHandler(event)}
             ></div>
             <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
+            <div className="modal-content-grid-properties-right-modalCanvasTools-rotateLeft"
+              onClick={rotationLeftChangeHandler}
+            ></div>
+            <div className="modal-content-grid-properties-right-modalCanvasTools-rotateRight"
+              onClick={event => zoomScaleGridClickHandler(event)}
+            ></div>
           </div>
           <ModalCanvasTools
             galleryImg={galleryImg}
