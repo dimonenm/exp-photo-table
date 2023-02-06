@@ -1,6 +1,36 @@
 import React from "react";
+import GallaryImage from "../../../entities/GalleryImage";
+const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler, galleryImg, setGalleryImg }) => {
 
-const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler, galleryImg }) => {
+    function contrastRangeChangeHandler(event) {
+        const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+
+        setGalleryImg((prev) => {
+            return newState;
+        })
+    }
+    function mouseWheelHandler(event) {
+        // console.log(event.deltaY > 0);
+        if (event.deltaY > 0) {
+            const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+            let contrastValue = newGalleryImg.getContrast()
+            newGalleryImg.setContrast(`${+contrastValue + 5}`)
+            console.log(galleryImg.getContrast());
+            setGalleryImg((prev) => {
+                return newGalleryImg;
+            })
+        }
+        else {
+            const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+            let contrastValue = newGalleryImg.getContrast()
+            newGalleryImg.setContrast(`${+contrastValue - 5}`)
+            console.log(galleryImg.getContrast());
+            setGalleryImg((prev) => {
+                return newGalleryImg;
+            })
+        }
+
+    }
 
     return (
         <>
@@ -10,11 +40,12 @@ const ModalCanvasTools = ({ contrastRangeChangeHandler, brightnessRangeChangeHan
                 <div className='modal-canvas-tools-contrast-range'>
                     <input
                         type="range"
-                        step="1"
+                        step="5"
                         min="0"
                         max="200"
                         value={galleryImg.getContrast()}
                         onChange={contrastRangeChangeHandler}
+                        onWheel={mouseWheelHandler}
                     ></input>
                 </div>
                 <div className='modal-canvas-tools-contrast-scale'>Яркость: {galleryImg.getBrightness()} %</div>
