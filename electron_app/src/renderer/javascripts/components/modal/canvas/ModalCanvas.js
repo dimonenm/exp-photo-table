@@ -173,8 +173,10 @@ const ModalCanvas = () => {
         type: 'hand',
         tool: new Hand(
           canvasRef.current,
-          galleryImg,
-          setGalleryImg)
+          newGallaryImage,
+          setGalleryImg,
+          isZoomScaleGrid,
+          scaleGridCanvasRef)
       }
     });
   }
@@ -313,21 +315,41 @@ const ModalCanvas = () => {
     })
   }
   function rotationDegreesRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, rotationDegrees: event.target.value });
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+
+    newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees())) }`)
 
     setGalleryImg((prev) => {
       return newState;
     })
   }
-  function rotationLeftChangeHandler(event) {
-
+  function rotationLeftDownHandler(event) {
     event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft')
     event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active')
-    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, rotationDegrees: event.target.value });
-
-    // setGalleryImg((prev) => {
-    //   return newState;
-    // })
+  }
+  function rotationLeftUpHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active')
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+    newState.setRotationDegrees(`${+newState.getRotationDegrees() - 90}`)
+    if (+newState.getRotationDegrees() < -180) newState.setRotationDegrees('-180')
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+  function rotationRightDownHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight-active')
+  }
+  function rotationRightUpHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight-active')
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+    newState.setRotationDegrees(`${+newState.getRotationDegrees() + 90}`)
+    if (+newState.getRotationDegrees() > 180) newState.setRotationDegrees('180')
+    setGalleryImg((prev) => {
+      return newState;
+    })
   }
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
@@ -461,10 +483,12 @@ const ModalCanvas = () => {
             ></div>
             <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
             <div className="modal-content-grid-properties-right-modalCanvasTools-rotateLeft"
-              onClick={rotationLeftChangeHandler}
+              onMouseDown={rotationLeftDownHandler}
+              onMouseUp={rotationLeftUpHandler}
             ></div>
             <div className="modal-content-grid-properties-right-modalCanvasTools-rotateRight"
-              onClick={event => zoomScaleGridClickHandler(event)}
+              onMouseDown={rotationRightDownHandler}
+              onMouseUp={rotationRightUpHandler}
             ></div>
           </div>
           <ModalCanvasTools
@@ -604,12 +628,12 @@ const ModalCanvas = () => {
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
         canvasHeight = (canvasWidth * imgHeight) / imgWidth
         canvasSize = { width: canvasWidth, height: canvasHeight }
-        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
       }
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);

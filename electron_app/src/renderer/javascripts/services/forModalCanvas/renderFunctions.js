@@ -175,6 +175,7 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg) {
   ctx.canvas.width = width
   ctx.canvas.height = height
   const img = new Image();
+  
   img.onload = function () {
 
     const pr = ctx.canvas.height * 100 / this.height;
@@ -197,9 +198,9 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg) {
         saturate(${galleryImg.getSaturate()}%) `
     }
     if (galleryImg.getRotationDegrees() != '0') {
-      ctx.translate(imgW / 2, imgH / 2);
+      ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
       ctx.rotate(galleryImg.getRotationDegrees() * Math.PI / 180)
-      ctx.translate(-(imgW / 2), -(imgH / 2));
+      ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
     }
     ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
     if (galleryImg.getArrowsArray().length > 0) {
