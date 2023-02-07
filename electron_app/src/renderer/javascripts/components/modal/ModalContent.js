@@ -285,7 +285,12 @@ const ModalContent = () => {
         <div className='modal-content-grid-about-name'><span>майор полиции</span><span>Арзяков Дмитрий Николаевич</span></div>
         <div className='modal-content-grid-about-separator'></div>
         <div className='modal-content-grid-about-role'>Разработчик</div>
+        <div className='modal-content-grid-about-contactsTitle'>Контакты</div>
         <div className='modal-content-grid-about-post'>Старший эксперт отдела криминалистических экспертиз ЭКЦ по Республике Крым</div>
+        <div className='modal-content-grid-about-contacts'>
+          <span>тел.: +7(978)845-51-69</span>
+          <span>email: russs.khalilov@gmail.com</span>
+        </div>
         <div className='modal-content-grid-about-name'><span>капитан полиции</span><span>Халилов Руслан Нариманович</span></div>
       </div>
     );

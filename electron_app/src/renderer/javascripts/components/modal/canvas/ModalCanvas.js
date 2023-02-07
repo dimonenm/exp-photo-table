@@ -15,7 +15,6 @@ const ModalCanvas = () => {
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
-  const [contrastValue, setContrastValue] = useState('100')
   let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
@@ -399,7 +398,6 @@ const ModalCanvas = () => {
             <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
           </div>
           <ModalCanvasTools
-            contrastValue={contrastValue}
             galleryImg={galleryImg}
             setGalleryImg={setGalleryImg}
           />
