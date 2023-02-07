@@ -249,25 +249,7 @@ const ModalCanvas = () => {
       }
     });
   }
-  function zoomRangeChangeHandler(event) {
 
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newState,
-          setGalleryImg,
-          isZoomScaleGrid)
-      }
-    });
-  }
   function arrowColorChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setGalleryImg((prev) => {
@@ -284,27 +266,8 @@ const ModalCanvas = () => {
       }
     });
   }
-  // function contrastRangeChangeHandler(event) {
-  //   const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
 
-  //   setGalleryImg((prev) => {
-  //     return newState;
-  //   })
-  // }
-  function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
+  
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -436,14 +399,9 @@ const ModalCanvas = () => {
             <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
           </div>
           <ModalCanvasTools
-            // contrastRangeChangeHandler={contrastRangeChangeHandler}
-            brightnessRangeChangeHandler={brightnessRangeChangeHandler}
-            saturateRangeChangeHandler={saturateRangeChangeHandler}
-            zoomRangeChangeHandler={zoomRangeChangeHandler}
             contrastValue={contrastValue}
             galleryImg={galleryImg}
             setGalleryImg={setGalleryImg}
-            setContrastValue={setContrastValue}
           />
           <div className='modal-content-grid-properties-right-cut-btn'
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
