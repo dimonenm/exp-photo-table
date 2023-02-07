@@ -249,25 +249,7 @@ const ModalCanvas = () => {
       }
     });
   }
-  function zoomRangeChangeHandler(event) {
 
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newState,
-          setGalleryImg,
-          isZoomScaleGrid)
-      }
-    });
-  }
   function arrowColorChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setGalleryImg((prev) => {
@@ -284,28 +266,8 @@ const ModalCanvas = () => {
       }
     });
   }
-  function contrastRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
 
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-
+  
   function arrowWidthChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
 
@@ -396,7 +358,6 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
-
   function renderProperties(toolType) {
 
     if (toolType === 'hand') {
@@ -438,12 +399,9 @@ const ModalCanvas = () => {
             <div className="modal-content-grid-properties-right-modalCanvasTools-btn"></div>
           </div>
           <ModalCanvasTools
-            contrastRangeChangeHandler={contrastRangeChangeHandler}
-            brightnessRangeChangeHandler={brightnessRangeChangeHandler}
-            saturateRangeChangeHandler={saturateRangeChangeHandler}
-            zoomRangeChangeHandler={zoomRangeChangeHandler}
             contrastValue={contrastValue}
             galleryImg={galleryImg}
+            setGalleryImg={setGalleryImg}
           />
           <div className='modal-content-grid-properties-right-cut-btn'
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
@@ -522,30 +480,15 @@ const ModalCanvas = () => {
     };
   }
   function getCanvasSize(orientation) {
-    // if (orientation === "panorama") {
-    //   let canvasWidth = 0
-    //   let canvasHeight = 0
-    //   let imgWidth = 0
-    //   let imgHeight = 0
-    //   const img = new Image()
-    //   img.onload = function () {
-    //     imgWidth = this.width
-    //     imgHeight = this.height
-    //     canvasWidth = ((window.outerWidth - 350) / 100) * 80
-    //     canvasHeight = (canvasWidth * imgHeight) / imgWidth
-    //     return ({ width: canvasWidth, height: canvasHeight })
-    //   }
-    //   img.src = galleryImg.getUrl();
-    // }
     if (orientation === "horizontal") {
       let canvasWidth = 0
       let canvasHeight = 0
       let height = ((window.outerHeight - 50) / 100) * 80
-      if (((height / 2) * 3) > (((window.outerWidth - 350) / 100) * 80)) {
+      if (((height / 3) * 4) > (((window.outerWidth - 350) / 100) * 80)) {
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
-        canvasHeight = (canvasWidth / 3) * 2
+        canvasHeight = (canvasWidth / 4) * 3
       } else {
-        canvasWidth = ((height / 2) * 3)
+        canvasWidth = ((height / 3) * 4)
         canvasHeight = height
       }
       return ({ width: canvasWidth, height: canvasHeight })
