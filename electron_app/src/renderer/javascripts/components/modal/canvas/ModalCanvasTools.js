@@ -81,8 +81,6 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastRangeChangeHandle
                     ></input>
                 </div>
             </div>
-
-
         </>
     )
 }
