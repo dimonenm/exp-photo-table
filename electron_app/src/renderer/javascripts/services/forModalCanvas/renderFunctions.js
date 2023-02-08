@@ -57,7 +57,7 @@ export function drawScaleGrid(ctx, orientation) {
   ctx.strokeStyle = '#454545';
 
   if (orientation === 'horizontal') {
-    const linesHorizontal = 15
+    const linesHorizontal = 13.34
     const linesVertical = 10
     const gridPitchHorizontal = ctx.canvas.width / linesHorizontal
     const gridPitchVertical = ctx.canvas.height / linesVertical
