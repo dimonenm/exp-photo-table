@@ -314,15 +314,6 @@ const ModalCanvas = () => {
       return newState;
     })
   }
-  function rotationDegreesRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
-
-    newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees())) }`)
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
   function rotationLeftDownHandler(event) {
     event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft')
     event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active')
@@ -497,7 +488,7 @@ const ModalCanvas = () => {
             brightnessRangeChangeHandler={brightnessRangeChangeHandler}
             saturateRangeChangeHandler={saturateRangeChangeHandler}
             zoomRangeChangeHandler={zoomRangeChangeHandler}
-            rotationDegreesRangeChangeHandler={rotationDegreesRangeChangeHandler}
+            setGalleryImg={setGalleryImg}
           />
           <div className='modal-content-grid-properties-right-cut-btn'
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>

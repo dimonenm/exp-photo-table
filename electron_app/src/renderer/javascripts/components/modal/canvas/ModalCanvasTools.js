@@ -1,6 +1,24 @@
 import React from "react";
+import GallaryImage from '../../../entities/GalleryImage';
 
-const ModalCanvasTools = ({ galleryImg, contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler, rotationDegreesRangeChangeHandler }) => {
+const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler }) => {
+
+    function rotationDegreesRangeChangeHandler(event) {
+        const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+        newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
+        setGalleryImg(() => newState)
+    }
+    function mouseWheelRotationHandler(event) {
+        const newState = Object.assign(new GallaryImage(), { ...galleryImg })
+        if (event.deltaY > 0) {
+            newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + 5}`)
+            if (Number(newState.getRotationDegrees()) > 180) newState.setRotationDegrees('180') 
+        } else {
+            newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) - 5}`)
+            if (Number(newState.getRotationDegrees()) < -180) newState.setRotationDegrees('-180') 
+        }
+        setGalleryImg(() => newState)
+    }
 
     return (
         <>
@@ -59,6 +77,7 @@ const ModalCanvasTools = ({ galleryImg, contrastRangeChangeHandler, brightnessRa
                         max="180"
                         value={galleryImg.getRotationDegrees()}
                         onChange={rotationDegreesRangeChangeHandler}
+                        onWheel={mouseWheelRotationHandler}
                     ></input>
                 </div>
             </div>
