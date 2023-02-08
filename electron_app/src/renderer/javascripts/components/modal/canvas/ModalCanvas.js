@@ -362,6 +362,34 @@ const ModalCanvas = () => {
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn-active');
   }
+  function rotationLeftDownHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active')
+  }
+  function rotationLeftUpHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active')
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+    newState.setRotationDegrees(`${+newState.getRotationDegrees() - 90}`)
+    if (+newState.getRotationDegrees() < -180) newState.setRotationDegrees('-180')
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
+  function rotationRightDownHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight-active')
+  }
+  function rotationRightUpHandler(event) {
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight')
+    event.target.classList.toggle('modal-content-grid-properties-right-modalCanvasTools-rotateRight-active')
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+    newState.setRotationDegrees(`${+newState.getRotationDegrees() + 90}`)
+    if (+newState.getRotationDegrees() > 180) newState.setRotationDegrees('180')
+    setGalleryImg((prev) => {
+      return newState;
+    })
+  }
   function renderProperties(toolType) {
 
     if (toolType === 'hand') {
