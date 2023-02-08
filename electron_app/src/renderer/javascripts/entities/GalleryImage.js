@@ -99,6 +99,10 @@ export default class GallaryImage {
   setLastOffsetValueY(value) {
     this.lastOffsetValueY = value;
   }
+  setZoom(value) {
+    this.zoom = value;
+  }
+
   setArrowsColor(value) {
     this.arrowsColor = value;
   }
