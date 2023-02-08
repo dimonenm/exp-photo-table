@@ -1,7 +1,7 @@
 import React from "react";
 import GallaryImage from '../../../entities/GalleryImage';
 
-const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastRangeChangeHandler, brightnessRangeChangeHandler, saturateRangeChangeHandler, zoomRangeChangeHandler }) => {
+const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
 
   function rotationDegreesRangeChangeHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg });

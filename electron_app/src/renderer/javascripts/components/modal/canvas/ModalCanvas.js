@@ -257,7 +257,6 @@ const ModalCanvas = () => {
       }
     });
   }
-
   function arrowColorChangeHandler(event) {
     // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setGalleryImg((prev) => {
@@ -274,34 +273,10 @@ const ModalCanvas = () => {
       }
     });
   }
-  function contrastRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
   function arrowWidthChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, arrowsWidth: event.target.value } });
-
     const newState = Object.assign(new GallaryImage(), { ...galleryImg, arrowsWidth: event.target.value });
 
     setGalleryImg((prev) => {
-      // return Object.assign(new GallaryImage(), { ...prev, arrowsWidth: event.target.value });
       return newState;
     })
     setToolState((prev) => {
@@ -598,7 +573,6 @@ const ModalCanvas = () => {
             ? 'modal-content-grid-tools-left-imgDesc-active'
             : 'modal-content-grid-tools-left-imgDesc'} onClick={imgDescClickHandler}></div>
       </div>
-
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
