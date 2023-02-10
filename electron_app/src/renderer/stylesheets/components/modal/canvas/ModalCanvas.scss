@@ -116,7 +116,7 @@
   margin: 5px;
 
   position: relative;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .modal-content-grid-properties-right-title {
@@ -235,7 +235,6 @@
 .modal-content-grid-properties-right-orientation-scale_grid-btn-active {
   background-image: url("../../../../images/btnScaleGridActive.svg");
 }
-
 
 .modal-content-grid-properties-right-modalCanvasTools-btn {
   background-image: url("../../../../images/btnToolsActive.svg");
