@@ -7,14 +7,8 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Main from './containers/Main';
 import Workplace from './components/main/Workplace';
-import WorkplaceItemDataBtn from './components/main/WorkplaceItemDataBtn';
-import WorkplaceItemNew from './components/main/WorkplaceItemNew';
 import Gallery from './components/main/Gallery';
 import Modal from './containers/Modal';
-import OrientationMenu from './components/main/OrientationMenu';
-import OrientationBtn from './components/main/OrientationBtn';
-import PreviewTitlePage from './components/main/PreviewTitlePage';
-import PreviewDefaultPage from './components/main/PreviewDefaultPage';
 import PreviewPage from './components/main/PreviewPage';
 import ScaleChanger from './components/main/ScaleChanger';
 //импорт функций
