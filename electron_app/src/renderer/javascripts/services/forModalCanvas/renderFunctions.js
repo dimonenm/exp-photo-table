@@ -170,11 +170,12 @@ export function drawScaleGrid(ctx, orientation) {
   }
 }
 
-export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomScaleGrid) {
+export function renderImgInCanvas(canvasRef, width, height, galleryImg) {
   const ctx = canvasRef.current.getContext('2d');
   ctx.canvas.width = width
   ctx.canvas.height = height
   const img = new Image();
+  
   img.onload = function () {
 
     const pr = ctx.canvas.height * 100 / this.height;
@@ -187,13 +188,19 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
       galleryImg.setContrast('100')
       galleryImg.setBrightness('100')
       galleryImg.setSaturate('100')
+      galleryImg.setRotationDegrees('0')
     }
     if (galleryImg.getContrast() != '100' || galleryImg.getBrightness() != '100' || galleryImg.getSaturate() != '100') {
 
       ctx.filter =
         `contrast(${galleryImg.getContrast()}%)
         brightness(${galleryImg.getBrightness()}%)
-        saturate(${galleryImg.getSaturate()}%) `
+        saturate(${galleryImg.getSaturate()}%)`
+    }
+    if (galleryImg.getRotationDegrees() != '0') {
+      ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+      ctx.rotate(galleryImg.getRotationDegrees() * Math.PI / 180)
+      ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
     }
     ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
     if (galleryImg.getArrowsArray().length > 0) {
@@ -201,9 +208,19 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, isZoomSc
         drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
       }
     }
-    if (isZoomScaleGrid) {
-      drawScaleGrid(ctx, galleryImg.getOrientation())
-    }
   }
   img.src = galleryImg.getUrl();
+}
+
+export function renderScaleGridInCanvas(scaleGridCanvasRef, width, height, galleryImg, isZoomScaleGrid) {
+  if (isZoomScaleGrid) {
+    const ctx = scaleGridCanvasRef.current.getContext('2d');
+    ctx.canvas.width = width
+    ctx.canvas.height = height
+    drawScaleGrid(ctx, galleryImg.getOrientation())
+  } else {
+    const ctx = scaleGridCanvasRef.current.getContext('2d');
+    ctx.canvas.width = 0
+    ctx.canvas.height = 0
+  }
 }

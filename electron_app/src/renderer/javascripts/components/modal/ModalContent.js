@@ -167,7 +167,7 @@ const ModalContent = () => {
           <div className="modal-content-data-cell">
             <div className="modal-content-title">№ по журналу ОМП</div>
             <input
-              type="number"
+              type="text"
               className="numbOMP"
               onChange={changeNumbOMPHandler}
               value={localModalProperties.photoTableData.numbOMP ?

@@ -90,6 +90,10 @@
   grid-column: 2 / 3;
   background: #ccc;
 }
+.modal-content-grid-canvas-scaleGrid {
+  position: absolute;
+  left: 50px;
+}
 
 .modal-content-grid-canvas-grab {
   cursor: grab;
@@ -231,8 +235,22 @@
 .modal-content-grid-properties-right-orientation-scale_grid-btn-active {
   background-image: url("../../../../images/btnScaleGridActive.svg");
 }
+
+
 .modal-content-grid-properties-right-modalCanvasTools-btn {
-  background-image: url("../../../../images/btnContrast.svg");
+  background-image: url("../../../../images/btnToolsActive.svg");
+}
+.modal-content-grid-properties-right-modalCanvasTools-rotateLeft {
+  background-image: url("../../../../images/btnToolsRotateLeft.svg");
+}
+.modal-content-grid-properties-right-modalCanvasTools-rotateRight {
+  background-image: url("../../../../images/btnToolsRotateRight.svg");
+}
+.modal-content-grid-properties-right-modalCanvasTools-rotateLeft-active {
+  background-image: url("../../../../images/btnToolsRotateLeftActive.svg");
+}
+.modal-content-grid-properties-right-modalCanvasTools-rotateRight-active {
+  background-image: url("../../../../images/btnToolsRotateRightActive.svg");
 }
 
 .modal-content-grid-properties-right-zoom {
