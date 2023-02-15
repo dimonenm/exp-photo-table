@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useContext, useRef } from 'react';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
-import regexpCheckingComplianceInitialsSurname from '../../services/forModalContent/fRegexpCheckingComplianceInitialsSurname';
 import ModalCanvas from './canvas/ModalCanvas';
 import ModalContentPreview from './ModalContentPreview';
 import { modalDataContext } from '../../App';
@@ -9,8 +8,7 @@ const ModalContent = () => {
 
   const localModalProperties = useContext(modalDataContext);
 
-  const [newEmployee, setNewEmployee] = useState('');
-
+  const inputRef = useRef()
   if (localModalProperties.modalProperties.type === "preview") {
     return (<ModalContentPreview />);
   }
@@ -20,26 +18,25 @@ const ModalContent = () => {
     const changeZipCodeHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, zip_code: event.target.value }) }) }
     const changeTelHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, tel: event.target.value }) }) }
     const changeAddressHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, address: event.target.value }) }) }
-    const changeNewEmployeeHandler = (event) => { setNewEmployee(event.target.value) }
     const clickNewEmployeeHandler = () => {
-      // if (newEmployee !== '' && regexpCheckingComplianceInitialsSurname(newEmployee)) { вариант с проверкой имени по шаблону
-      if (newEmployee !== '') {
+  
+      if (inputRef.current.value !== '') {
 
-        if (localModalProperties.settings.executors.find(item => item === newEmployee)) {
+        if (localModalProperties.settings.executors.find(item => item === inputRef.current.value)) {
           console.log('Сотрудник уже добавлен');
           return;
         }
-
+        const newEmployeeName = inputRef.current.value
         localModalProperties.setSettings((prev) => {
           const arrNewExecutors = localModalProperties.settings.executors;
-          arrNewExecutors.push(newEmployee);
+          arrNewExecutors.push(newEmployeeName);
           return ({ ...prev, executors: arrNewExecutors })
         })
-
-        setNewEmployee('');
+        
       } else {
         console.log('Сотрудник не добавлен');
       }
+      inputRef.current.value = ''
     }
 
     return (
@@ -53,7 +50,7 @@ const ModalContent = () => {
         <div className="modal-content-grid-settings-container modal-content-grid-settings-employee">
           <div className="modal-content-grid-settings-title">ФИО нового сотрудника</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text" onChange={changeNewEmployeeHandler} value={newEmployee}></input>
+            <input type="text"  ref={inputRef}></input>
             <div className="plus-btn" onClick={clickNewEmployeeHandler}></div>
           </div>
         </div>

@@ -4,36 +4,20 @@ import GallaryImage from '../../entities/GalleryImage';
 
 const MenuBtnsCloseBtn = () => {
   const localModalProperties = useContext(modalDataContext);
-  let clickHandler;
 
-  if (localModalProperties.modalProperties.isOpen &&
-    localModalProperties.modalProperties.type === "preview") {
-    clickHandler = () => {
-      localModalProperties.setModalProperties(() => {
-        return {
-          isOpen: false,
-          type: null,
-          nameImg: null,
-          urlImg: null,
-          textImg: null,
-          indexImgInGallery: null
-        }
-      });
+  function clickHandler() {
+    function modalReset() {
+      return {
+        isOpen: false,
+        type: null,
+        nameImg: null,
+        urlImg: null,
+        textImg: null,
+        indexImgInGallery: null
+      }
     }
-  }
-  if (localModalProperties.modalProperties.isOpen &&
-    localModalProperties.modalProperties.type === "setPhotoTableData") {
-    clickHandler = () => {
-      localModalProperties.setModalProperties(() => {
-        return {
-          isOpen: false,
-          type: null,
-          nameImg: null,
-          urlImg: null,
-          textImg: null,
-          indexImgInGallery: null
-        }
-      });
+    if (localModalProperties.modalProperties.type === "setPhotoTableData") {
+      localModalProperties.setModalProperties(modalReset());
       localModalProperties.setphotoTableData(() => {
         return {
           numbOMP: null,
@@ -47,56 +31,17 @@ const MenuBtnsCloseBtn = () => {
         }
       });
     }
-  }
-  if (localModalProperties.modalProperties.isOpen &&
-    localModalProperties.modalProperties.type === "setSettings") {
-    clickHandler = () => {
-      localModalProperties.setModalProperties(() => {
-        return {
-          isOpen: false,
-          type: null,
-          nameImg: null,
-          urlImg: null,
-          textImg: null,
-          indexImgInGallery: null
-        }
+    else if (localModalProperties.modalProperties.type === "editPhoto") {
+      localModalProperties.setModalProperties(modalReset());
 
-      });
-
-    }
-
-  }
-  if (localModalProperties.modalProperties.isOpen &&
-    localModalProperties.modalProperties.type === "editPhoto") {
-    clickHandler = () => {
-      localModalProperties.setModalProperties(() => {
-        return {
-          isOpen: false,
-          type: null,
-          nameImg: null,
-          urlImg: null,
-          textImg: null,
-          indexImgInGallery: null
-        }
-      });
       localModalProperties.setGalleryImg(new GallaryImage());
     }
-  }  
-  if (localModalProperties.modalProperties.isOpen &&
-    localModalProperties.modalProperties.type === "about") {
-    clickHandler = () => {
-      localModalProperties.setModalProperties(() => {
-        return {
-          isOpen: false,
-          type: null,
-          nameImg: null,
-          urlImg: null,
-          textImg: null,
-          indexImgInGallery: null
-        }
-      });
+    else {
+      localModalProperties.setModalProperties(modalReset());
     }
   }
+
+
   return (<div className="close-btn" onClick={clickHandler}></div>)
 }
 
