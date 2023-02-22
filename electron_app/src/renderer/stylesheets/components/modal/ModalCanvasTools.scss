@@ -1,7 +1,7 @@
 .modal-canvas-tools {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(auto-fill, 20px);
+    grid-template-rows: repeat(auto-fill, 25px);
 
     font-family: "Roboto";
     padding: 5px;
@@ -49,9 +49,9 @@
 .modal-canvas-tools-contrast-range input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
 
-    height: 12px;
-    width: 12px;
-    border-radius: 5px;
+    height: 14px;
+    width: 14px;
+    border-radius: 3px;
     background: #343a40;
     cursor: pointer;
 
@@ -61,18 +61,19 @@
 .modal-canvas-tools-contrast-range input[type="range"]:focus-visible::-webkit-slider-thumb {
     -webkit-appearance: none;
 
-    height: 12px;
-    width: 12px;
+    height: 14px;
+    width: 14px;
+    border-radius: 3px;
     background: #343a40;
     cursor: pointer;
-    border-radius: 5px;
+    
     margin-top: -3px;
 }
 
 /*Стили для шкалы*/
 .modal-canvas-tools-contrast-range input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
-    height: 6px;
+    height: 8px;
     cursor: pointer;
     background: #6c757d;
     border-radius: 2px;
