@@ -9,6 +9,9 @@ import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctio
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
 const ModalCanvas = () => {
+  const [imgDescState, setImgDescState] = useState(null)
+
+
   const localModalProperties = useContext(modalDataContext);
 
   const galleryImg = localModalProperties.galleryImg;
@@ -303,9 +306,14 @@ const ModalCanvas = () => {
     })
   }
   function imgDescChangeHandler(event) {
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, imgDesc: event.target.value });
+
+
+    setImgDescState(() => {
+      return event.target.value ;
     })
+    // setGalleryImg((prev) => {
+    //   return Object.assign(new GallaryImage(), { ...prev, imgDesc: event.target.value });
+    // })
   }
   function arrowTextDescDeleteClickHandler(event) {
     const filrerArray = [...galleryImg.arrowsArray].filter((item) => {
@@ -510,7 +518,7 @@ const ModalCanvas = () => {
         <div className='modal-content-grid-properties-right-text-area'>
           <textarea
             placeholder='Введите описание изображения...'
-            value={galleryImg.getImgDesc()}
+            value={imgDescState ? imgDescState : galleryImg.getImgDesc()}
             onChange={imgDescChangeHandler}
             maxLength={galleryImg.getOrientation() === 'vertical' ? 46 : 150}
           ></textarea>
