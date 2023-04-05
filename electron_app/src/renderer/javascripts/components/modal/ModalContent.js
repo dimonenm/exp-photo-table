@@ -4,7 +4,7 @@ import ModalCanvas from './canvas/ModalCanvas';
 import ModalContentPreview from './ModalContentPreview';
 import { modalDataContext } from '../../App';
 
-const ModalContent = () => {
+const ModalContent = ({ imgDescState, setImgDescState }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -258,7 +258,9 @@ const ModalContent = () => {
   }
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
-      <ModalCanvas />
+      <ModalCanvas
+        setImgDescState={setImgDescState}
+        imgDescState={imgDescState}/>
     );
   }
   if (localModalProperties.modalProperties.type === "about") {

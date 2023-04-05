@@ -8,8 +8,8 @@ import { renderScaleGridInCanvas } from '../../../services/forModalCanvas/render
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
-const ModalCanvas = () => {
-  const [imgDescState, setImgDescState] = useState(null)
+const ModalCanvas = ({ imgDescState, setImgDescState }) => {
+ 
 
 
   const localModalProperties = useContext(modalDataContext);
@@ -308,9 +308,8 @@ const ModalCanvas = () => {
   function imgDescChangeHandler(event) {
 
 
-    setImgDescState(() => {
-      return event.target.value ;
-    })
+    setImgDescState(event.target.value) 
+    
     // setGalleryImg((prev) => {
     //   return Object.assign(new GallaryImage(), { ...prev, imgDesc: event.target.value });
     // })
@@ -518,7 +517,7 @@ const ModalCanvas = () => {
         <div className='modal-content-grid-properties-right-text-area'>
           <textarea
             placeholder='Введите описание изображения...'
-            value={imgDescState ? imgDescState : galleryImg.getImgDesc()}
+            defaultValue={galleryImg.getImgDesc() ? galleryImg.getImgDesc() : imgDescState}
             onChange={imgDescChangeHandler}
             maxLength={galleryImg.getOrientation() === 'vertical' ? 46 : 150}
           ></textarea>
