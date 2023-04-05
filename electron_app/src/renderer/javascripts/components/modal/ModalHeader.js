@@ -7,7 +7,7 @@ import MenuBtnsCheckBtn from '../header/MenuBtnsCheckBtn';
 import MenuBtnsCloseBtn from '../header/MenuBtnsCloseBtn';
 import { modalDataContext } from '../../App';
 
-const ModalHeader = ({ name, imgDescState }) => {
+const ModalHeader = ({ name, imgDescState, arrowDescState }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -40,7 +40,9 @@ const ModalHeader = ({ name, imgDescState }) => {
           <MenuItem type={'forDelImgFromPhotoTable'}>Удалить из таблицы иллюстраций</MenuItem>
         </Menu>
         <MenuBtns>
-          <MenuBtnsCheckBtn imgDescState={imgDescState} />
+          <MenuBtnsCheckBtn
+            imgDescState={imgDescState}
+            arrowDescState={arrowDescState} />
           <MenuBtnsCloseBtn />
         </MenuBtns>
       </div>

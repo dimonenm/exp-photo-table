@@ -1,10 +1,10 @@
-import React, {useContext, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import ModalContentEmployeeItem from './ModalContentEmployeeItem';
 import ModalCanvas from './canvas/ModalCanvas';
 import ModalContentPreview from './ModalContentPreview';
 import { modalDataContext } from '../../App';
 
-const ModalContent = ({ imgDescState, setImgDescState }) => {
+const ModalContent = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -12,14 +12,14 @@ const ModalContent = ({ imgDescState, setImgDescState }) => {
   if (localModalProperties.modalProperties.type === "preview") {
     return (<ModalContentPreview />);
   }
-  if (localModalProperties.modalProperties.type === "setSettings") {    
+  if (localModalProperties.modalProperties.type === "setSettings") {
     const changeNoteHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, note: event.target.value }) }) }
     const changeUnitHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, unit: event.target.value }) }) }
     const changeZipCodeHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, zip_code: event.target.value }) }) }
     const changeTelHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, tel: event.target.value }) }) }
     const changeAddressHandler = (event) => { localModalProperties.setSettings((prev) => { return ({ ...prev, address: event.target.value }) }) }
     const clickNewEmployeeHandler = () => {
-  
+
       if (inputRef.current.value !== '') {
 
         if (localModalProperties.settings.executors.find(item => item === inputRef.current.value)) {
@@ -32,7 +32,7 @@ const ModalContent = ({ imgDescState, setImgDescState }) => {
           arrNewExecutors.push(newEmployeeName);
           return ({ ...prev, executors: arrNewExecutors })
         })
-        
+
       } else {
         console.log('Сотрудник не добавлен');
       }
@@ -50,7 +50,7 @@ const ModalContent = ({ imgDescState, setImgDescState }) => {
         <div className="modal-content-grid-settings-container modal-content-grid-settings-employee">
           <div className="modal-content-grid-settings-title">ФИО нового сотрудника</div>
           <div className="modal-content-grid-settings-input">
-            <input type="text"  ref={inputRef}></input>
+            <input type="text" ref={inputRef}></input>
             <div className="plus-btn" onClick={clickNewEmployeeHandler}></div>
           </div>
         </div>
@@ -259,8 +259,10 @@ const ModalContent = ({ imgDescState, setImgDescState }) => {
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <ModalCanvas
+        imgDescState={imgDescState}
         setImgDescState={setImgDescState}
-        imgDescState={imgDescState}/>
+        arrowDescState={arrowDescState}
+        setArrowDescState={setArrowDescState} />
     );
   }
   if (localModalProperties.modalProperties.type === "about") {

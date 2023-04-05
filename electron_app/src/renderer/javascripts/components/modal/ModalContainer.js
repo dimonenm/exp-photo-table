@@ -5,6 +5,7 @@ import { modalDataContext } from '../../App';
 
 const ModalContainer = () => {
   const [imgDescState, setImgDescState] = useState(null)  
+  const [arrowDescState, setArrowDescState] = useState(null)  
     
 
   const localModalProperties = useContext(modalDataContext);
@@ -42,10 +43,14 @@ const ModalContainer = () => {
     return (
       <div className={'modal-container fadeIn'}>
         <ModalHeader name={'Редактирование иллюстрации'}
-          imgDescState={imgDescState} />
+          imgDescState={imgDescState}
+          arrowDescState={arrowDescState}
+        />
         <ModalContent
           setImgDescState={setImgDescState}
-          imgDescState={imgDescState}/>
+          imgDescState={imgDescState}
+          arrowDescState={arrowDescState}
+          setArrowDescState={setArrowDescState} />
       </div>
     )
   }

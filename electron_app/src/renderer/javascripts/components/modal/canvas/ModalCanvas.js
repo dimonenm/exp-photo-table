@@ -8,7 +8,7 @@ import { renderScaleGridInCanvas } from '../../../services/forModalCanvas/render
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
-const ModalCanvas = ({ imgDescState, setImgDescState }) => {
+const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
  
 
 
