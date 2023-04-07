@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ModalHeader from './ModalHeader';
 import ModalContent from './ModalContent';
 import { modalDataContext } from '../../App';
 
 const ModalContainer = () => {
+  const [imgDescState, setImgDescState] = useState(null)  
+  const [arrowDescState, setArrowDescState] = useState(null)  
+    
+
   const localModalProperties = useContext(modalDataContext);
+
+
 
   function dbClickHandler() {
     localModalProperties.setModalProperties(() => {
@@ -36,8 +42,15 @@ const ModalContainer = () => {
   if (localModalProperties.modalProperties.type === "editPhoto") {
     return (
       <div className={'modal-container fadeIn'}>
-        <ModalHeader name={'Редактирование иллюстрации'} />
-        <ModalContent />
+        <ModalHeader name={'Редактирование иллюстрации'}
+          imgDescState={imgDescState}
+          arrowDescState={arrowDescState}
+        />
+        <ModalContent
+          setImgDescState={setImgDescState}
+          imgDescState={imgDescState}
+          arrowDescState={arrowDescState}
+          setArrowDescState={setArrowDescState} />
       </div>
     )
   }
