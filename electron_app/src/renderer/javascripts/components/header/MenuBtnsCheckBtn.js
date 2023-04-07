@@ -3,8 +3,7 @@ import { modalDataContext } from '../../App';
 import saveSettings from '../../services/forModalHeader/fSaveSettings';
 import GallaryImage from '../../entities/GalleryImage';
 
-const MenuBtnsCheckBtn = ({ imgDescState }) => {
-  console.log(imgDescState);
+const MenuBtnsCheckBtn = ({ imgDescState, arrowDescState }) => {
   const localModalProperties = useContext(modalDataContext);
 
   let clickHandler;
@@ -30,7 +29,6 @@ const MenuBtnsCheckBtn = ({ imgDescState }) => {
 
       const newGalleryImg = localModalProperties.galleryImg;
       newGalleryImg.setImgDesc(imgDescState)
-      console.log('newGalleryImg', newGalleryImg);
       const newGalleryImages = localModalProperties.galleryImages.map((item) => {
         if (item.getIndex() === newGalleryImg.getIndex()) {
           return Object.assign(new GallaryImage(), newGalleryImg);

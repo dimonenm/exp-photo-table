@@ -9,7 +9,7 @@ import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctio
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
 const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
- 
+
 
 
   const localModalProperties = useContext(modalDataContext);
@@ -301,15 +301,17 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
         item.setText(event.target.value);
       };
     }
-    setGalleryImg((prev) => {
-      return Object.assign(new GallaryImage(), { ...prev, arrowsArray: arr });
-    })
+
+    // setArrowDescState(arr);
+    // setGalleryImg((prev) => {
+    //   return Object.assign(new GallaryImage(), { ...prev, arrowsArray: arr });
+    // })
   }
   function imgDescChangeHandler(event) {
 
 
-    setImgDescState(event.target.value) 
-    
+    setImgDescState(event.target.value)
+
     // setGalleryImg((prev) => {
     //   return Object.assign(new GallaryImage(), { ...prev, imgDesc: event.target.value });
     // })
@@ -495,7 +497,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
                 type="text"
                 id={item.getNumber()}
                 placeholder='Введите описание...'
-                value={item.getText()}
+                defaultValue={item.getText()}
                 onChange={arrowTextDescChangeHandler}
               ></input>
               <div
