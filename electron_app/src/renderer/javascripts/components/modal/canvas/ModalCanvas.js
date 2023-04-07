@@ -295,8 +295,13 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     });
   }
   function arrowTextDescChangeHandler(event) {
-    const arrTemp = galleryImg.getArrowsArray();
-    const arr = arrTemp.map((item) => { return Object.assign(new Arrow_entity(), item) });
+    let arr
+    if (arrowDescState.length === 0) {
+      const arrTemp = galleryImg.getArrowsArray();
+      arr = arrTemp.map((item) => { return Object.assign(new Arrow_entity(), item) });
+    } else {
+      arr = arrowDescState.map((item) => { return Object.assign(new Arrow_entity(), item) });
+    }
 
     for (const item of arr) {
       if (item.getNumber() === event.target.id) {
@@ -489,6 +494,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     };
 
     if (toolType === 'arrowTextDesc') {
+      console.log(arrowDescState);
       if (galleryImg.getArrowsArray().length > 0) {
         const tempRendArray = [];
         for (const item of galleryImg.getArrowsArray()) {
