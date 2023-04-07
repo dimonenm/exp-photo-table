@@ -8,6 +8,7 @@ import { renderScaleGridInCanvas } from '../../../services/forModalCanvas/render
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
+import Arrow_entity from '../../../entities/Arrow_entity';
 const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
 
 
@@ -294,7 +295,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     });
   }
   function arrowTextDescChangeHandler(event) {
-    const arr = [...galleryImg.getArrowsArray()];
+    const arrTemp = galleryImg.getArrowsArray();
+    const arr = arrTemp.map((item) => { return Object.assign(new Arrow_entity(), item) });
 
     for (const item of arr) {
       if (item.getNumber() === event.target.id) {
@@ -302,7 +304,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
       };
     }
 
-    // setArrowDescState(arr);
+    setArrowDescState(arr);
     // setGalleryImg((prev) => {
     //   return Object.assign(new GallaryImage(), { ...prev, arrowsArray: arr });
     // })
@@ -497,7 +499,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
                 type="text"
                 id={item.getNumber()}
                 placeholder='Введите описание...'
-                defaultValue={item.getText()}
+                value={arrowDescState[item.getNumber() - 1] ? arrowDescState[item.getNumber() - 1].getText() : item.getText()}
                 onChange={arrowTextDescChangeHandler}
               ></input>
               <div

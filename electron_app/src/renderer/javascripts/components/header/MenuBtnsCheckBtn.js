@@ -29,6 +29,7 @@ const MenuBtnsCheckBtn = ({ imgDescState, arrowDescState }) => {
 
       const newGalleryImg = localModalProperties.galleryImg;
       newGalleryImg.setImgDesc(imgDescState)
+      newGalleryImg.setArrowsArray(arrowDescState)
       const newGalleryImages = localModalProperties.galleryImages.map((item) => {
         if (item.getIndex() === newGalleryImg.getIndex()) {
           return Object.assign(new GallaryImage(), newGalleryImg);
