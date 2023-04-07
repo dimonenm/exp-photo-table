@@ -527,7 +527,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
         <div className='modal-content-grid-properties-right-text-area'>
           <textarea
             placeholder='Введите описание изображения...'
-            defaultValue={galleryImg.getImgDesc() ? galleryImg.getImgDesc() : imgDescState}
+            value={imgDescState ? imgDescState : galleryImg.getImgDesc()}
+            // value={galleryImg.getImgDesc() ? galleryImg.getImgDesc() : imgDescState}
             onChange={imgDescChangeHandler}
             maxLength={galleryImg.getOrientation() === 'vertical' ? 46 : 150}
           ></textarea>
