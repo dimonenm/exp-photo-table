@@ -196,6 +196,7 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg) {
         `contrast(${galleryImg.getContrast()}%)
         brightness(${galleryImg.getBrightness()}%)
         saturate(${galleryImg.getSaturate()}%)`
+      console.log('gallery', galleryImg.getContrast());
     }
     if (galleryImg.getRotationDegrees() != '0') {
       ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);

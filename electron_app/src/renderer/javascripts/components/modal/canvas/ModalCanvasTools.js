@@ -1,7 +1,7 @@
 import React from "react";
 import GallaryImage from '../../../entities/GalleryImage';
 
-const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
+const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastValue, setContrastValue }) => {
 
   function rotationDegreesRangeChangeHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg });
@@ -20,11 +20,11 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
     setGalleryImg(() => newState)
   }
   function contrastRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+    setContrastValue(event.target.value)
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // })
   }
   function brightnessRangeChangeHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
@@ -146,7 +146,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
             step="5"
             min="0"
             max="200"
-            value={galleryImg.getContrast()}
+            value={contrastValue ? contrastValue : galleryImg.getContrast()}
             onChange={contrastRangeChangeHandler}
             onWheel={mouseWheelHandlerForContrast}
           ></input>
