@@ -49,17 +49,17 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanva
     setGalleryImg((prev) => {
       return newState;
     })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newState,
-          setGalleryImg,
-          isZoomScaleGrid)
-      }
-    });
+    // setToolState((prev) => {
+    //   return {
+    //     ...prev,
+    //     type: 'hand',
+    //     tool: new Hand(
+    //       canvasRef.current,
+    //       newState,
+    //       setGalleryImg,
+    //       isZoomScaleGrid)
+    //   }
+    // });
   }
   function mouseWheelHandlerForContrast(event) {
     if (event.deltaY > 0) {

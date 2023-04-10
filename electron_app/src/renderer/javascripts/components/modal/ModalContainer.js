@@ -4,7 +4,7 @@ import ModalContent from './ModalContent';
 import { modalDataContext } from '../../App';
 
 const ModalContainer = () => {
-  const [imgDescState, setImgDescState] = useState(null)
+  const [imgDescState, setImgDescState] = useState('')
   const [arrowDescState, setArrowDescState] = useState([])
 
 

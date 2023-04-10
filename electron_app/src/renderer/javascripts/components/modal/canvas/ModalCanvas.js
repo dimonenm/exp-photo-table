@@ -29,9 +29,6 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
   const scaleGridCanvasRef = useRef();
-  // let canvasStyle = {
-  //   filter: `contrast(${contrastValue}%)`
-  // }
   let canvasStyle = {
     filter: `contrast(${canvasToolState.contrast}%)
     brightness(${canvasToolState.brightness}%)
