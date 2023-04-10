@@ -1,7 +1,7 @@
 import React from "react";
 import GallaryImage from '../../../entities/GalleryImage';
 
-const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastValue, setContrastValue }) => {
+const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanvasToolState }) => {
 
   function rotationDegreesRangeChangeHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg });
@@ -21,24 +21,26 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastValue, setContras
   }
   function contrastRangeChangeHandler(event) {
     // const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
-    setContrastValue(event.target.value)
+    setCanvasToolState({ ... canvasToolState, contrast: event.target.value })
     // setGalleryImg((prev) => {
     //   return newState;
     // })
   }
   function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
 
-    setGalleryImg((prev) => {
-      return newState;
-    });
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // });
+    setCanvasToolState({ ...canvasToolState, brightness: event.target.value })
   }
   function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
 
-    setGalleryImg((prev) => {
-      return newState;
-    })
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // })
+    setCanvasToolState({ ...canvasToolState, saturate: event.target.value })
   }
   function zoomRangeChangeHandler(event) {
 
@@ -146,7 +148,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastValue, setContras
             step="5"
             min="0"
             max="200"
-            value={contrastValue ? contrastValue : galleryImg.getContrast()}
+            value={canvasToolState.contrast ? canvasToolState.contrast : galleryImg.getContrast()}
             onChange={contrastRangeChangeHandler}
             onWheel={mouseWheelHandlerForContrast}
           ></input>
@@ -158,7 +160,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastValue, setContras
             step="5"
             min="0"
             max="200"
-            value={galleryImg.getBrightness()}
+            value={canvasToolState.brightness ? canvasToolState.brightness : galleryImg.getBrightness()}
             onChange={brightnessRangeChangeHandler}
             onWheel={mouseWheelHandlerForBrightness}
           ></input>
@@ -170,7 +172,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, contrastValue, setContras
             step="5"
             min="0"
             max="200"
-            value={galleryImg.getSaturate()}
+            value={canvasToolState.saturate ? canvasToolState.saturate : galleryImg.getSaturate()}
             onChange={saturateRangeChangeHandler}
             onWheel={mouseWheelHandlerForSaturate}
           ></input>

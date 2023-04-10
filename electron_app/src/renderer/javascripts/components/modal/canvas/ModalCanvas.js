@@ -10,7 +10,12 @@ import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
 import Arrow_entity from '../../../entities/Arrow_entity';
 const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
-  const [contrastValue, setContrastValue] = useState('100')
+  // const [contrastValue, setContrastValue] = useState('100')
+  const [canvasToolState, setCanvasToolState] = useState({
+    contrast: '100',
+    brightness: '100',
+    saturate: '100'
+  })
 
 
   const localModalProperties = useContext(modalDataContext);
@@ -24,7 +29,14 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
   const scaleGridCanvasRef = useRef();
-
+  // let canvasStyle = {
+  //   filter: `contrast(${contrastValue}%)`
+  // }
+  let canvasStyle = {
+    filter: `contrast(${canvasToolState.contrast}%)
+    brightness(${canvasToolState.brightness}%)
+    saturate(${canvasToolState.saturate}%)`
+  }
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -340,11 +352,20 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     })
   }
   function cutClickHandler() {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: contrastValue });
+    const newState = Object.assign(new GallaryImage(), {...galleryImg,
+      contrast: canvasToolState.contrast,
+      brightness: canvasToolState.brightness,
+      saturate: canvasToolState.saturate
+    });
     setGalleryImg((prev) => {
       return newState;
     })
-    setContrastValue('100')
+    setCanvasToolState({
+      ...canvasToolState,
+      contrast: '100',
+      brightness: '100',
+      saturate: '100'
+    })
     setIsZoomScaleGrid(false)
     setTimeout(() => {
       cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState)
@@ -463,8 +484,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
           <ModalCanvasTools
             galleryImg={galleryImg}
             setGalleryImg={setGalleryImg}
-            contrastValue={contrastValue}
-            setContrastValue={setContrastValue}
+            canvasToolState={canvasToolState}
+            setCanvasToolState={setCanvasToolState}
           />
           <div className='modal-content-grid-properties-right-cut-btn'
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
@@ -502,7 +523,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     };
 
     if (toolType === 'arrowTextDesc') {
-      console.log(arrowDescState);
+
       if (galleryImg.getArrowsArray().length > 0) {
         const tempRendArray = [];
         for (const item of galleryImg.getArrowsArray()) {
@@ -583,11 +604,9 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
       }
     })
   }, [])
-  console.log('contrastValue', contrastValue);
-  let canvasStyle = {
-    filter: `contrast(${contrastValue}%)`
-  }
-  console.log(canvasStyle);
+
+
+
   useEffect(() => {
     if (galleryImg.getOrientation() === "panorama") {
       let canvasWidth = 0
@@ -601,12 +620,12 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
         canvasHeight = (canvasWidth * imgHeight) / imgWidth
         canvasSize = { width: canvasWidth, height: canvasHeight }
-        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, contrastValue)
+        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
       }
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, contrastValue)
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);
@@ -634,7 +653,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        style={contrastValue !== '100' ? canvasStyle : null}
+        // style={canvasToolState.contrast !== '100' ? canvasStyle : null}
+        style={ canvasStyle }
       ></canvas>
       <canvas
         ref={scaleGridCanvasRef}
