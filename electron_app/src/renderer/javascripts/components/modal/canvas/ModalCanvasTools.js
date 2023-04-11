@@ -4,9 +4,12 @@ import GallaryImage from '../../../entities/GalleryImage';
 const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanvasToolState }) => {
 
   function rotationDegreesRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
-    newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
-    setGalleryImg(() => newState)
+    
+    setCanvasToolState({ ...canvasToolState, rotationDegrees: `${Number(canvasToolState.rotationDegrees) + (event.target.value - Number(canvasToolState.rotationDegrees))}` })
+    
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+    // newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
+    // setGalleryImg(() => newState)
   }
   function mouseWheelRotationHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg })
@@ -172,7 +175,8 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanva
             step="5"
             min="-180"
             max="180"
-            value={galleryImg.getRotationDegrees()}
+            // value={galleryImg.getRotationDegrees()}
+            value={canvasToolState.rotationDegrees}
             onChange={rotationDegreesRangeChangeHandler}
             onWheel={mouseWheelRotationHandler}
           ></input>

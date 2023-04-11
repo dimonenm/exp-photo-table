@@ -26,7 +26,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
   const [canvasToolState, setCanvasToolState] = useState({
     contrast: '100',
     brightness: '100',
-    saturate: '100'
+    saturate: '100',
+    rotationDegrees: '0'
   })
   let canvasSize = { width: 0, height: 0 };
   let canvasStyle = {
@@ -34,7 +35,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     brightness(${canvasToolState.brightness}%)
     saturate(${canvasToolState.saturate}%)`
   }
-
+  console.log('canvasToolState.rotationDegrees modal canvas', canvasToolState.rotationDegrees);
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
@@ -616,12 +617,12 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
         canvasHeight = (canvasWidth * imgHeight) / imgWidth
         canvasSize = { width: canvasWidth, height: canvasHeight }
-        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
+        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, canvasToolState)
       }
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, canvasToolState)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);
