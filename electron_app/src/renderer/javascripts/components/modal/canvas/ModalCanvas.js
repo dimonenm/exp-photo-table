@@ -11,12 +11,7 @@ import ModalCanvasTools from './ModalCanvasTools';
 import Arrow_entity from '../../../entities/Arrow_entity';
 const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
   // const [contrastValue, setContrastValue] = useState('100')
-  const [canvasToolState, setCanvasToolState] = useState({
-    contrast: '100',
-    brightness: '100',
-    saturate: '100'
-  })
-
+  
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -25,10 +20,15 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
-  let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
   const scaleGridCanvasRef = useRef();
+  const [canvasToolState, setCanvasToolState] = useState({
+    contrast: '100',
+    brightness: '100',
+    saturate: '100'
+  })
+  let canvasSize = { width: 0, height: 0 };
   let canvasStyle = {
     filter: `contrast(${canvasToolState.contrast}%)
     brightness(${canvasToolState.brightness}%)
@@ -554,7 +554,6 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
           <textarea
             placeholder='Введите описание изображения...'
             value={imgDescState ? imgDescState : galleryImg.getImgDesc()}
-            // value={galleryImg.getImgDesc() ? galleryImg.getImgDesc() : imgDescState}
             onChange={imgDescChangeHandler}
             maxLength={galleryImg.getOrientation() === 'vertical' ? 46 : 150}
           ></textarea>
@@ -650,7 +649,6 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
-        // style={canvasToolState.contrast !== '100' ? canvasStyle : null}
         style={ canvasStyle }
       ></canvas>
       <canvas

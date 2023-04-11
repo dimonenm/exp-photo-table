@@ -70,24 +70,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanva
       let contrastValue = canvasToolState.contrast
       setCanvasToolState({ ...canvasToolState, contrast: `${+contrastValue - 5}` });
     }
-    // if (event.deltaY > 0) {
-    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-    //   let contrastValue = newGalleryImg.getContrast()
-    //   newGalleryImg.setContrast(`${+contrastValue + 5}`)
-    //   console.log(galleryImg.getContrast());
-    //   setGalleryImg((prev) => {
-    //     return newGalleryImg;
-    //   });
-    // }
-    // else {
-    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-    //   let contrastValue = newGalleryImg.getContrast()
-    //   newGalleryImg.setContrast(`${+contrastValue - 5}`)
-    //   setGalleryImg((prev) => {
-    //     return newGalleryImg;
-    //   });
-    // }
-
+    
   }
   function mouseWheelHandlerForBrightness(event) {
     if (event.deltaY > 0) {
@@ -98,22 +81,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanva
       let brightnessValue = canvasToolState.brightness
       setCanvasToolState({ ...canvasToolState, brightness: `${+brightnessValue - 5}` });
     }
-    // if (event.deltaY > 0) {
-    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-    //   let brightnessValue = newGalleryImg.getBrightness()
-    //   newGalleryImg.setBrightness(`${+brightnessValue + 5}`)
-    //   setGalleryImg((prev) => {
-    //     return newGalleryImg;
-    //   });
-    // }
-    // else {
-    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-    //   let brightnessValue = newGalleryImg.getBrightness()
-    //   newGalleryImg.setBrightness(`${+brightnessValue - 5}`)
-    //   setGalleryImg((prev) => {
-    //     return newGalleryImg;
-    //   });
-    // }
+    
   }
   function mouseWheelHandlerForSaturate(event) {
     if (event.deltaY > 0) {
@@ -124,22 +92,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanva
       let saturateValue = canvasToolState.saturate
       setCanvasToolState({ ...canvasToolState, saturate: `${+saturateValue - 5}` });
     }
-    // if (event.deltaY > 0) {
-    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-    //   let saturateValue = newGalleryImg.getSaturate()
-    //   newGalleryImg.setSaturate(`${+saturateValue + 5}`)
-    //   setGalleryImg((prev) => {
-    //     return newGalleryImg;
-    //   });
-    // }
-    // else {
-    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-    //   let saturateValue = newGalleryImg.getSaturate()
-    //   newGalleryImg.setSaturate(`${+saturateValue - 5}`)
-    //   setGalleryImg((prev) => {
-    //     return newGalleryImg;
-    //   });
-    // }
+    
   }
   function mouseWheelHandlerForZoom(event) {
     if (event.deltaY > 0) {
