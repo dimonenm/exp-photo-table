@@ -183,7 +183,6 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, canvasTo
     const imgW = (this.width / 100 * pr) * zoom;
     const imgH = (this.height / 100 * pr) * zoom;
     
-    console.log( 'canvasToolState.rotationDegrees render', canvasToolState.rotationDegrees);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     if (galleryImg.getImgCuted() === true) {
       galleryImg.setContrast('100')
@@ -196,13 +195,12 @@ export function renderImgInCanvas(canvasRef, width, height, galleryImg, canvasTo
       `contrast(${galleryImg.getContrast()}%)
       brightness(${galleryImg.getBrightness()}%)
       saturate(${galleryImg.getSaturate()}%)`
-      console.log('gallery', galleryImg.getContrast());
     }
-    if (canvasToolState.rotationDegrees != '0') {
-      ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
-      ctx.rotate(canvasToolState.rotationDegrees * Math.PI / 180)
-      ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
-    }
+    // if (canvasToolState.rotationDegrees != '0') {
+    //   ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+    //   ctx.rotate(canvasToolState.rotationDegrees * Math.PI / 180)
+    //   ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
+    // }
     ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
     if (galleryImg.getArrowsArray().length > 0) {
       for (const item of galleryImg.getArrowsArray()) {

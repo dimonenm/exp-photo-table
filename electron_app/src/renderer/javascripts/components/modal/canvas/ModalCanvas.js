@@ -35,7 +35,6 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     brightness(${canvasToolState.brightness}%)
     saturate(${canvasToolState.saturate}%)`
   }
-  console.log('canvasToolState.rotationDegrees modal canvas', canvasToolState.rotationDegrees);
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
@@ -627,6 +626,20 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     }
   }, [galleryImg, isZoomScaleGrid]);
 
+
+  useEffect(() => {
+    const ctx = canvasRef.current.getContext('2d');
+    console.dir( canvasRef);
+    if (canvasToolState.rotationDegrees != '0') {
+      console.log('canvasToolState', canvasToolState);
+      console.log("canvasToolState.rotationDegrees", canvasToolState.rotationDegrees);
+      // ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+      // ctx.rotate(canvasToolState.rotationDegrees * Math.PI / 180)
+      ctx.rotate(43)
+      // ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
+    }
+  }, [canvasToolState])
+  
   return (
     <div className="modal-content-grid-edit">
       <div className='modal-content-grid-tools-left'>
