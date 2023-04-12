@@ -8,9 +8,10 @@ import { renderScaleGridInCanvas } from '../../../services/forModalCanvas/render
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
+import Arrow_entity from '../../../entities/Arrow_entity';
 const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDescState }) => {
-
-
+  // const [contrastValue, setContrastValue] = useState('100')
+  
 
   const localModalProperties = useContext(modalDataContext);
 
@@ -19,11 +20,21 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
-  let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const canvasRef = useRef();
   const scaleGridCanvasRef = useRef();
-
+  const [canvasToolState, setCanvasToolState] = useState({
+    contrast: '100',
+    brightness: '100',
+    saturate: '100',
+    rotationDegrees: '0'
+  })
+  let canvasSize = { width: 0, height: 0 };
+  let canvasStyle = {
+    filter: `contrast(${canvasToolState.contrast}%)
+    brightness(${canvasToolState.brightness}%)
+    saturate(${canvasToolState.saturate}%)`
+  }
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
@@ -294,7 +305,13 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     });
   }
   function arrowTextDescChangeHandler(event) {
-    const arr = [...galleryImg.getArrowsArray()];
+    let arr
+    if (arrowDescState.length === 0) {
+      const arrTemp = galleryImg.getArrowsArray();
+      arr = arrTemp.map((item) => { return Object.assign(new Arrow_entity(), item) });
+    } else {
+      arr = arrowDescState.map((item) => { return Object.assign(new Arrow_entity(), item) });
+    }
 
     for (const item of arr) {
       if (item.getNumber() === event.target.id) {
@@ -302,7 +319,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
       };
     }
 
-    // setArrowDescState(arr);
+    setArrowDescState(arr);
     // setGalleryImg((prev) => {
     //   return Object.assign(new GallaryImage(), { ...prev, arrowsArray: arr });
     // })
@@ -332,6 +349,20 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     })
   }
   function cutClickHandler() {
+    const newState = Object.assign(new GallaryImage(), {...galleryImg,
+      contrast: canvasToolState.contrast,
+      brightness: canvasToolState.brightness,
+      saturate: canvasToolState.saturate
+    });
+    setGalleryImg((prev) => {
+      return newState;
+    })
+    setCanvasToolState({
+      ...canvasToolState,
+      contrast: '100',
+      brightness: '100',
+      saturate: '100'
+    })
     setIsZoomScaleGrid(false)
     setTimeout(() => {
       cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState)
@@ -450,6 +481,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
           <ModalCanvasTools
             galleryImg={galleryImg}
             setGalleryImg={setGalleryImg}
+            canvasToolState={canvasToolState}
+            setCanvasToolState={setCanvasToolState}
           />
           <div className='modal-content-grid-properties-right-cut-btn'
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
@@ -487,6 +520,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     };
 
     if (toolType === 'arrowTextDesc') {
+
       if (galleryImg.getArrowsArray().length > 0) {
         const tempRendArray = [];
         for (const item of galleryImg.getArrowsArray()) {
@@ -497,7 +531,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
                 type="text"
                 id={item.getNumber()}
                 placeholder='Введите описание...'
-                defaultValue={item.getText()}
+                value={arrowDescState[item.getNumber() - 1] ? arrowDescState[item.getNumber() - 1].getText() : item.getText()}
                 onChange={arrowTextDescChangeHandler}
               ></input>
               <div
@@ -519,7 +553,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
         <div className='modal-content-grid-properties-right-text-area'>
           <textarea
             placeholder='Введите описание изображения...'
-            defaultValue={galleryImg.getImgDesc() ? galleryImg.getImgDesc() : imgDescState}
+            value={imgDescState ? imgDescState : galleryImg.getImgDesc()}
             onChange={imgDescChangeHandler}
             maxLength={galleryImg.getOrientation() === 'vertical' ? 46 : 150}
           ></textarea>
@@ -567,6 +601,8 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
     })
   }, [])
 
+
+
   useEffect(() => {
     if (galleryImg.getOrientation() === "panorama") {
       let canvasWidth = 0
@@ -580,16 +616,30 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
         canvasWidth = ((window.outerWidth - 350) / 100) * 80
         canvasHeight = (canvasWidth * imgHeight) / imgWidth
         canvasSize = { width: canvasWidth, height: canvasHeight }
-        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
+        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, canvasToolState)
       }
       img.src = galleryImg.getUrl();
     } else {
       canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
+      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg, canvasToolState)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
     }
   }, [galleryImg, isZoomScaleGrid]);
 
+
+  useEffect(() => {
+    const ctx = canvasRef.current.getContext('2d');
+    console.dir( canvasRef);
+    if (canvasToolState.rotationDegrees != '0') {
+      console.log('canvasToolState', canvasToolState);
+      console.log("canvasToolState.rotationDegrees", canvasToolState.rotationDegrees);
+      // ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+      // ctx.rotate(canvasToolState.rotationDegrees * Math.PI / 180)
+      ctx.rotate(43)
+      // ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
+    }
+  }, [canvasToolState])
+  
   return (
     <div className="modal-content-grid-edit">
       <div className='modal-content-grid-tools-left'>
@@ -613,6 +663,7 @@ const ModalCanvas = ({ imgDescState, setImgDescState, arrowDescState, setArrowDe
       <canvas
         ref={canvasRef}
         className='modal-content-grid-canvas'
+        style={ canvasStyle }
       ></canvas>
       <canvas
         ref={scaleGridCanvasRef}

@@ -1,12 +1,15 @@
 import React from "react";
 import GallaryImage from '../../../entities/GalleryImage';
 
-const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
+const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanvasToolState }) => {
 
   function rotationDegreesRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
-    newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
-    setGalleryImg(() => newState)
+    
+    setCanvasToolState({ ...canvasToolState, rotationDegrees: `${Number(canvasToolState.rotationDegrees) + (event.target.value - Number(canvasToolState.rotationDegrees))}` })
+    
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg });
+    // newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
+    // setGalleryImg(() => newState)
   }
   function mouseWheelRotationHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg })
@@ -20,25 +23,27 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
     setGalleryImg(() => newState)
   }
   function contrastRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+    setCanvasToolState({ ... canvasToolState, contrast: event.target.value })
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // })
   }
   function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
 
-    setGalleryImg((prev) => {
-      return newState;
-    });
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // });
+    setCanvasToolState({ ...canvasToolState, brightness: event.target.value })
   }
   function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
+    // const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
 
-    setGalleryImg((prev) => {
-      return newState;
-    })
+    // setGalleryImg((prev) => {
+    //   return newState;
+    // })
+    setCanvasToolState({ ...canvasToolState, saturate: event.target.value })
   }
   function zoomRangeChangeHandler(event) {
 
@@ -47,74 +52,50 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
     setGalleryImg((prev) => {
       return newState;
     })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newState,
-          setGalleryImg,
-          isZoomScaleGrid)
-      }
-    });
+    // setToolState((prev) => {
+    //   return {
+    //     ...prev,
+    //     type: 'hand',
+    //     tool: new Hand(
+    //       canvasRef.current,
+    //       newState,
+    //       setGalleryImg,
+    //       isZoomScaleGrid)
+    //   }
+    // });
   }
   function mouseWheelHandlerForContrast(event) {
-    // console.log(event.deltaY > 0);
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let contrastValue = newGalleryImg.getContrast()
-      newGalleryImg.setContrast(`${+contrastValue + 5}`)
-      console.log(galleryImg.getContrast());
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      let contrastValue = canvasToolState.contrast
+      setCanvasToolState({ ...canvasToolState, contrast: `${+contrastValue + 5}` });
     }
     else {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let contrastValue = newGalleryImg.getContrast()
-      newGalleryImg.setContrast(`${+contrastValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      let contrastValue = canvasToolState.contrast
+      setCanvasToolState({ ...canvasToolState, contrast: `${+contrastValue - 5}` });
     }
-
+    
   }
   function mouseWheelHandlerForBrightness(event) {
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let brightnessValue = newGalleryImg.getBrightness()
-      newGalleryImg.setBrightness(`${+brightnessValue + 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      let brightnessValue = canvasToolState.brightness
+      setCanvasToolState({ ...canvasToolState, brightness: `${+brightnessValue + 5}` });
     }
     else {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let brightnessValue = newGalleryImg.getBrightness()
-      newGalleryImg.setBrightness(`${+brightnessValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      let brightnessValue = canvasToolState.brightness
+      setCanvasToolState({ ...canvasToolState, brightness: `${+brightnessValue - 5}` });
     }
+    
   }
   function mouseWheelHandlerForSaturate(event) {
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let saturateValue = newGalleryImg.getSaturate()
-      newGalleryImg.setSaturate(`${+saturateValue + 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      let saturateValue = canvasToolState.saturate
+      setCanvasToolState({ ...canvasToolState, saturate: `${+saturateValue + 5}` });
     }
     else {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let saturateValue = newGalleryImg.getSaturate()
-      newGalleryImg.setSaturate(`${+saturateValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      let saturateValue = canvasToolState.saturate
+      setCanvasToolState({ ...canvasToolState, saturate: `${+saturateValue - 5}` });
     }
+    
   }
   function mouseWheelHandlerForZoom(event) {
     if (event.deltaY > 0) {
@@ -146,7 +127,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
             step="5"
             min="0"
             max="200"
-            value={galleryImg.getContrast()}
+            value={canvasToolState.contrast ? canvasToolState.contrast : galleryImg.getContrast()}
             onChange={contrastRangeChangeHandler}
             onWheel={mouseWheelHandlerForContrast}
           ></input>
@@ -158,7 +139,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
             step="5"
             min="0"
             max="200"
-            value={galleryImg.getBrightness()}
+            value={canvasToolState.brightness ? canvasToolState.brightness : galleryImg.getBrightness()}
             onChange={brightnessRangeChangeHandler}
             onWheel={mouseWheelHandlerForBrightness}
           ></input>
@@ -170,7 +151,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
             step="5"
             min="0"
             max="200"
-            value={galleryImg.getSaturate()}
+            value={canvasToolState.saturate ? canvasToolState.saturate : galleryImg.getSaturate()}
             onChange={saturateRangeChangeHandler}
             onWheel={mouseWheelHandlerForSaturate}
           ></input>
@@ -194,7 +175,8 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
             step="5"
             min="-180"
             max="180"
-            value={galleryImg.getRotationDegrees()}
+            // value={galleryImg.getRotationDegrees()}
+            value={canvasToolState.rotationDegrees}
             onChange={rotationDegreesRangeChangeHandler}
             onWheel={mouseWheelRotationHandler}
           ></input>
