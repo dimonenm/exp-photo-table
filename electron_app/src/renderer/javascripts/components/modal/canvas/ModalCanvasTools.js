@@ -1,11 +1,11 @@
 import React from "react";
 import GallaryImage from '../../../entities/GalleryImage';
 
-const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanvasToolState }) => {
-
+const ModalCanvasTools = ({ galleryImg, setGalleryImg, canvasToolState, setCanvasToolState, canvasRotationDegreesState, setCanvasRotationDegreesState }) => {
   function rotationDegreesRangeChangeHandler(event) {
     
-    setCanvasToolState({ ...canvasToolState, rotationDegrees: `${Number(canvasToolState.rotationDegrees) + (event.target.value - Number(canvasToolState.rotationDegrees))}` })
+    setCanvasRotationDegreesState((prev) => {return prev + (event.target.value - prev)})
+    // setCanvasToolState({ ...canvasToolState, rotationDegrees: `${Number(canvasToolState.rotationDegrees) + (event.target.value - Number(canvasToolState.rotationDegrees))}` })
     
     // const newState = Object.assign(new GallaryImage(), { ...galleryImg });
     // newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)

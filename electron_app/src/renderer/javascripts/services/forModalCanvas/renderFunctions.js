@@ -170,45 +170,45 @@ export function drawScaleGrid(ctx, orientation) {
   }
 }
 
-export function renderImgInCanvas(canvasRef, width, height, galleryImg, canvasToolState) {
+export function renderImgInCanvas(canvasRef, img, width, height, galleryImg, canvasToolState) {
+
   const ctx = canvasRef.current.getContext('2d');
   ctx.canvas.width = width
   ctx.canvas.height = height
-  const img = new Image();
-  
-  img.onload = function () {
 
-    const pr = ctx.canvas.height * 100 / this.height;
-    const zoom = +galleryImg.getZoom() / 100;
-    const imgW = (this.width / 100 * pr) * zoom;
-    const imgH = (this.height / 100 * pr) * zoom;
-    
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    if (galleryImg.getImgCuted() === true) {
-      galleryImg.setContrast('100')
-      galleryImg.setBrightness('100')
-      galleryImg.setSaturate('100')
-      galleryImg.setRotationDegrees('0')
-    }
-    if (galleryImg.getContrast() != '100' || galleryImg.getBrightness() != '100' || galleryImg.getSaturate() != '100') {
-      ctx.filter =
+  const pr = ctx.canvas.height * 100 / height;
+  const zoom = +galleryImg.getZoom() / 100;
+  const imgW = (width / 100 * pr) * zoom;
+  const imgH = (height / 100 * pr) * zoom;  
+
+  if (galleryImg.getImgCuted() === true) {
+    galleryImg.setContrast('100')
+    galleryImg.setBrightness('100')
+    galleryImg.setSaturate('100')
+    galleryImg.setRotationDegrees('0')
+  }
+
+  if (galleryImg.getContrast() != '100' || galleryImg.getBrightness() != '100' || galleryImg.getSaturate() != '100') {
+    ctx.filter =
       `contrast(${galleryImg.getContrast()}%)
       brightness(${galleryImg.getBrightness()}%)
       saturate(${galleryImg.getSaturate()}%)`
-    }
-    // if (canvasToolState.rotationDegrees != '0') {
-    //   ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
-    //   ctx.rotate(canvasToolState.rotationDegrees * Math.PI / 180)
-    //   ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
-    // }
-    ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
-    if (galleryImg.getArrowsArray().length > 0) {
-      for (const item of galleryImg.getArrowsArray()) {
-        drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
-      }
+  }
+
+  if (galleryImg.getRotationDegrees() != '0') {
+    ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+    ctx.rotate(galleryImg.getRotationDegrees() * Math.PI / 180)
+    ctx.translate(-(ctx.canvas.width / 2), -(ctx.canvas.height / 2));
+  }
+
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.drawImage(img, ((ctx.canvas.width - imgW) / 2) + galleryImg.getLastOffsetValueX(), ((ctx.canvas.height - imgH) / 2) + galleryImg.getLastOffsetValueY(), imgW, imgH);
+  
+  if (galleryImg.getArrowsArray().length > 0) {
+    for (const item of galleryImg.getArrowsArray()) {
+      drawArrowArray(ctx, item.getNumber(), galleryImg.getArrowsColor(), galleryImg.getArrowsWidth(), item.x1, item.y1, item.x2, item.y2);
     }
   }
-  img.src = galleryImg.getUrl();
 }
 
 export function renderScaleGridInCanvas(scaleGridCanvasRef, width, height, galleryImg, isZoomScaleGrid) {

@@ -47,9 +47,9 @@ const ModalContainer = () => {
           arrowDescState={arrowDescState}
         />
         <ModalContent
-          setImgDescState={setImgDescState}
           imgDescState={imgDescState}
           arrowDescState={arrowDescState}
+          setImgDescState={setImgDescState}
           setArrowDescState={setArrowDescState} />
       </div>
     )
