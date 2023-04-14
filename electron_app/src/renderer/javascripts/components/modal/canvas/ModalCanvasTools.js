@@ -47,17 +47,6 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
     setGalleryImg((prev) => {
       return newState;
     })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newState,
-          setGalleryImg,
-          isZoomScaleGrid)
-      }
-    });
   }
   function mouseWheelHandlerForContrast(event) {
     // console.log(event.deltaY > 0);
@@ -121,7 +110,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
       const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
       let zoomValue = newGalleryImg.getZoom()
       newGalleryImg.setZoom(`${+zoomValue + 5}`)
-      setGalleryImg((prev) => {
+      setGalleryImg(() => {
         return newGalleryImg;
       });
     }

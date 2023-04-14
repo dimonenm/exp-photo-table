@@ -3,8 +3,7 @@ import { modalDataContext } from '../../../App';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
-import { renderImgInCanvas } from '../../../services/forModalCanvas/renderFunctions'
-import { renderScaleGridInCanvas } from '../../../services/forModalCanvas/renderFunctions'
+import { renderImgInCanvas, renderImgInCanvas2, renderScaleGridInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
@@ -15,11 +14,14 @@ const ModalCanvas = () => {
   const setGalleryImg = localModalProperties.setGalleryImg;
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
+
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
-  let canvasSize = { width: 0, height: 0 };
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
+  const [canvasImg, setCanvasImg] = useState(new Image())
+  
   const canvasRef = useRef();
   const scaleGridCanvasRef = useRef();
+  let canvasSize = { width: 0, height: 0 };
 
   function handClickHandler(event) {
     if (toolState.type === 'hand') {
@@ -391,7 +393,6 @@ const ModalCanvas = () => {
     })
   }
   function renderProperties(toolType) {
-
     if (toolType === 'hand') {
       return (
         <>
@@ -446,8 +447,7 @@ const ModalCanvas = () => {
             onClick={cutClickHandler}>{galleryImg.getImgCuted() ? "Готово" : "Применить"}</div>
         </>
       );
-    };
-
+    }
     if (toolType === 'arrow') {
       return (
         <>
@@ -475,8 +475,7 @@ const ModalCanvas = () => {
           </div>
         </>
       );
-    };
-
+    }
     if (toolType === 'arrowTextDesc') {
       if (galleryImg.getArrowsArray().length > 0) {
         const tempRendArray = [];
@@ -503,8 +502,7 @@ const ModalCanvas = () => {
       }
 
       return (<div className='modal-content-grid-properties-right-title'>Данные о стрелках отсутствуют</div>);
-    };
-
+    }
     if (toolType === 'imgDesc') {
       return (
         <div className='modal-content-grid-properties-right-text-area'>
@@ -516,9 +514,9 @@ const ModalCanvas = () => {
           ></textarea>
         </div>
       );
-    };
+    }
   }
-  function getCanvasSize(orientation) {
+  function getCanvasSize(orientation, img) {
     if (orientation === "horizontal" || orientation === "9X6") {
       let canvasWidth = 0
       let canvasHeight = 0
@@ -545,41 +543,59 @@ const ModalCanvas = () => {
       }
       return ({ width: canvasWidth, height: canvasHeight })
     }
+    if (orientation === "panorama") {
+      const canvasWidth = ((window.outerWidth - 350) / 100) * 80
+      const canvasHeight = (canvasWidth * img.height) / img.width
+      return ({ width: canvasWidth, height: canvasHeight })
+    }
   }
 
   useEffect(() => {
     galleryImages.forEach((item) => {
       if (item.getIndex() === indexImgInGallery) {
         const newGalleryImg = Object.assign(new GallaryImage(), item);
-        setGalleryImg(() => {
-          return newGalleryImg;
-        })
+        setGalleryImg(() => { return newGalleryImg })
+
+        const img = new Image()
+        img.onload = function () { 
+          setCanvasImg(this)
+        }
+        img.src = newGalleryImg.getUrl();
       }
     })
   }, [])
 
   useEffect(() => {
-    if (galleryImg.getOrientation() === "panorama") {
-      let canvasWidth = 0
-      let canvasHeight = 0
-      let imgWidth = 0
-      let imgHeight = 0
-      const img = new Image()
-      img.onload = function () {
-        imgWidth = this.width
-        imgHeight = this.height
-        canvasWidth = ((window.outerWidth - 350) / 100) * 80
-        canvasHeight = (canvasWidth * imgHeight) / imgWidth
-        canvasSize = { width: canvasWidth, height: canvasHeight }
-        renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
-      }
-      img.src = galleryImg.getUrl();
-    } else {
-      canvasSize = getCanvasSize(galleryImg.getOrientation())
-      renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
-      renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+    if (canvasImg.src) {
+      canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)   
+      renderImgInCanvas2(canvasRef, canvasImg, canvasSize, galleryImg)
     }
-  }, [galleryImg, isZoomScaleGrid]);
+
+
+
+
+    // if (galleryImg.getOrientation() === "panorama") {
+    //   let canvasWidth = 0
+    //   let canvasHeight = 0
+    //   let imgWidth = 0
+    //   let imgHeight = 0
+      
+    //   const img = new Image()
+    //   img.onload = function () {
+    //     imgWidth = this.width
+    //     imgHeight = this.height
+    //     canvasWidth = ((window.outerWidth - 350) / 100) * 80
+    //     canvasHeight = (canvasWidth * imgHeight) / imgWidth
+    //     canvasSize = { width: canvasWidth, height: canvasHeight }
+    //     renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
+    //   }
+    //   img.src = galleryImg.getUrl();
+    // } else {
+    //   canvasSize = getCanvasSize(galleryImg.getOrientation())
+    //   renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
+    //   renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
+    // }
+  }, [galleryImg, isZoomScaleGrid, canvasImg]);
 
   return (
     <div className="modal-content-grid-edit">
