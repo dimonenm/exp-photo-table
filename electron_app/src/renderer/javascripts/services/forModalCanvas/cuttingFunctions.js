@@ -1,10 +1,11 @@
 import GallaryImage from '../../entities/GalleryImage';
 import HandFree from '../../components/modal/canvas/tools/HandFree';
 
-export function cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState) {
+export function cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState, setCanvasImg) {
   setTimeout(() => {
     canvasRef.current.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
+      console.log('url: ', url);
       const newGallaryImage = Object.assign(new GallaryImage(), {
         ...galleryImg,
         url: url,
@@ -22,7 +23,12 @@ export function cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolSta
           type: 'handFree',
           tool: new HandFree(canvasRef.current)
         }
-      });
+      })
+      const img = new Image()
+      img.onload = function () {
+        setCanvasImg(this)
+      }
+      img.src = newGallaryImage.getUrl();
     }, 'image/jpeg', 1)
   }, 0)
 }

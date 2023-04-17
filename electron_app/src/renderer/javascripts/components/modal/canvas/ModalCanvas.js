@@ -18,7 +18,7 @@ const ModalCanvas = () => {
   const [toolState, setToolState] = useState({ type: 'hand', tool: null });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const [canvasImg, setCanvasImg] = useState(new Image())
-  
+
   const canvasRef = useRef();
   const scaleGridCanvasRef = useRef();
   let canvasSize = { width: 0, height: 0 };
@@ -327,7 +327,7 @@ const ModalCanvas = () => {
   function cutClickHandler() {
     setIsZoomScaleGrid(false)
     setTimeout(() => {
-      cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState)
+      cutImgInGallery(canvasRef, galleryImg, setGalleryImg, setToolState, setCanvasImg)
     }, 0)
   }
   function zoomScaleGridClickHandler(event) {
@@ -556,8 +556,9 @@ const ModalCanvas = () => {
         const newGalleryImg = Object.assign(new GallaryImage(), item);
         setGalleryImg(() => { return newGalleryImg })
 
+        console.log('useEffect 1 canvasImg.src: ', canvasImg.src);
         const img = new Image()
-        img.onload = function () { 
+        img.onload = function () {
           setCanvasImg(this)
         }
         img.src = newGalleryImg.getUrl();
@@ -567,9 +568,10 @@ const ModalCanvas = () => {
 
   useEffect(() => {
     if (canvasImg.src) {
-      canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)   
+      canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)
       renderImgInCanvas2(canvasRef, canvasImg, canvasSize, galleryImg)
     }
+    console.log('useEffect 2 canvasImg.src: ', canvasImg.src);
 
 
 
@@ -579,7 +581,7 @@ const ModalCanvas = () => {
     //   let canvasHeight = 0
     //   let imgWidth = 0
     //   let imgHeight = 0
-      
+
     //   const img = new Image()
     //   img.onload = function () {
     //     imgWidth = this.width
