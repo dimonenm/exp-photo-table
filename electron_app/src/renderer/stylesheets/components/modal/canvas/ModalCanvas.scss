@@ -484,12 +484,16 @@
   outline: none;
 }
 
-.modal-content-grid-properties-right-text-area textarea {
+.modal-content-grid-properties-right-text-area {
   display: grid;
-  margin-left: 15px;
+  justify-items: center;
+}
+
+.modal-content-grid-properties-right-text-area textarea {
+  display: grid;  
   width: 250px;
   height: 250px;
-  padding: 0 5px;
+  padding: 5px;
   box-shadow: 2px 2px 10px rgba(95, 96, 97, 0.726);
   border-radius: 7px;
   background-color: #f8f9fa;
