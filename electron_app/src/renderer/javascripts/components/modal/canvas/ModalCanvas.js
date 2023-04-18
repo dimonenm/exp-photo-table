@@ -3,7 +3,7 @@ import { modalDataContext } from '../../../App';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
 import HandFree from './tools/HandFree';
-import { renderImgInCanvas, renderImgInCanvas2, renderScaleGridInCanvas } from '../../../services/forModalCanvas/renderFunctions'
+import { renderImgInCanvas, renderScaleGridInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
 import GallaryImage from '../../../entities/GalleryImage';
 import ModalCanvasTools from './ModalCanvasTools';
@@ -15,7 +15,7 @@ const ModalCanvas = () => {
   const galleryImages = localModalProperties.galleryImages;
   const indexImgInGallery = localModalProperties.modalProperties.indexImgInGallery;
 
-  const [toolState, setToolState] = useState({ type: 'hand', tool: null });
+  const [toolState, setToolState] = useState({ type: 'handFree', tool: null });
   const [isZoomScaleGrid, setIsZoomScaleGrid] = useState(false);
   const [canvasImg, setCanvasImg] = useState(new Image())
 
@@ -331,6 +331,7 @@ const ModalCanvas = () => {
     }, 0)
   }
   function zoomScaleGridClickHandler(event) {
+    console.log('isZoomScaleGrid: ', isZoomScaleGrid);
     if (isZoomScaleGrid) {
       setIsZoomScaleGrid(false)
       setToolState((prev) => {
@@ -556,10 +557,22 @@ const ModalCanvas = () => {
         const newGalleryImg = Object.assign(new GallaryImage(), item);
         setGalleryImg(() => { return newGalleryImg })
 
-        console.log('useEffect 1 canvasImg.src: ', canvasImg.src);
         const img = new Image()
         img.onload = function () {
           setCanvasImg(this)
+
+          setToolState((prev) => {
+            return {
+              ...prev,
+              type: 'hand',
+              tool: new Hand(
+                canvasRef.current,
+                galleryImg,
+                setGalleryImg,
+                isZoomScaleGrid,
+                scaleGridCanvasRef)
+            }
+          });
         }
         img.src = newGalleryImg.getUrl();
       }
@@ -569,9 +582,9 @@ const ModalCanvas = () => {
   useEffect(() => {
     if (canvasImg.src) {
       canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)
-      renderImgInCanvas2(canvasRef, canvasImg, canvasSize, galleryImg)
+      renderImgInCanvas(canvasRef, canvasImg, canvasSize, galleryImg)
+      renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize, galleryImg, isZoomScaleGrid)
     }
-    console.log('useEffect 2 canvasImg.src: ', canvasImg.src);
 
 
 
