@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { modalDataContext } from '../../../App';
 import Arrow from './tools/Arrow';
 import Hand from './tools/Hand';
+import Hand2 from './tools/Hand2';
 import HandFree from './tools/HandFree';
 import { renderImgInCanvas, renderScaleGridInCanvas } from '../../../services/forModalCanvas/renderFunctions'
 import { cutImgInGallery } from '../../../services/forModalCanvas/cuttingFunctions'
@@ -565,11 +566,11 @@ const ModalCanvas = () => {
             return {
               ...prev,
               type: 'hand',
-              tool: new Hand(
+              tool: new Hand2(
                 canvasRef.current,
+                this,
                 galleryImg,
                 setGalleryImg,
-                isZoomScaleGrid,
                 scaleGridCanvasRef)
             }
           });
