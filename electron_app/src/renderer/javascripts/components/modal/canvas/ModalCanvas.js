@@ -588,8 +588,21 @@ const ModalCanvas = () => {
       canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)
       renderImgInCanvas(canvasRef, canvasImg, canvasSize, galleryImg)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize, galleryImg, isZoomScaleGrid)
-    }
 
+      setToolState((prev) => {
+        return {
+          ...prev,
+          type: 'hand',
+          tool: new Hand2(
+            canvasRef.current,
+            canvasImg,
+            canvasSize,
+            galleryImg,
+            setGalleryImg,
+            scaleGridCanvasRef)
+        }
+      });
+    }
 
 
 

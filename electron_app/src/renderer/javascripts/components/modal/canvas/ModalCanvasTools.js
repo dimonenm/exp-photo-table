@@ -44,7 +44,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg }) => {
 
     const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
 
-    setGalleryImg((prev) => {
+    setGalleryImg(() => {
       return newState;
     })
   }
