@@ -562,6 +562,8 @@ const ModalCanvas = () => {
         img.onload = function () {
           setCanvasImg(this)
 
+          canvasSize = getCanvasSize(galleryImg.getOrientation(), this)
+
           setToolState((prev) => {
             return {
               ...prev,
@@ -569,6 +571,7 @@ const ModalCanvas = () => {
               tool: new Hand2(
                 canvasRef.current,
                 this,
+                canvasSize,
                 galleryImg,
                 setGalleryImg,
                 scaleGridCanvasRef)

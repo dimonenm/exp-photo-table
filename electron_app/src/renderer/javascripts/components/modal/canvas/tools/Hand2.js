@@ -2,20 +2,22 @@ import Tool from "./Tool";
 import GallaryImage from "../../../../entities/GalleryImage";
 
 export default class Hand2 extends Tool {
-  constructor(canvas, img, galleryImg, setGalleryImg, scaleGridCanvas) {
+  constructor(canvas, img, canvasSize, galleryImg, setGalleryImg, scaleGridCanvas) {
     super(canvas);
     this.img = img;
     this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
     this.scaleGridCanvas = scaleGridCanvas;
 
+    this.ctx.canvas.width = canvasSize.width
+    this.ctx.canvas.height = canvasSize.height
     
-    this.pr = canvas.height * 100 / this.img.height;
+    this.pr = this.ctx.canvas.height * 100 / this.img.height;
     this.zoom = +this.galleryImg.getZoom() / 100;
     this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;
     this.imgHeight = (this.img.height / 100 * this.pr) * this.zoom;
-    this.imgOffsetX = (canvas.width - this.imgWidth) / 2;
-    this.imgOffsetY = (canvas.height - this.imgHeight) / 2;
+    this.imgOffsetX = (this.ctx.canvas.width - this.imgWidth) / 2;
+    this.imgOffsetY = (this.ctx.canvas.height - this.imgHeight) / 2;
     this.offsetValueX = 0;
     this.offsetValueY = 0;
     this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
