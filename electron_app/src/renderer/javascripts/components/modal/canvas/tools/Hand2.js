@@ -80,7 +80,24 @@ export default class Hand2 extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.drawImage(this.img, this.imgOffsetX + this.offsetValueX, this.imgOffsetY + this.offsetValueY, this.imgWidth, this.imgHeight);
-      console.log(`this.img - ${this.img}, this.imgOffsetX + this.offsetValueX - ${this.imgOffsetX + this.offsetValueX}, this.imgWidth - ${this.imgWidth}`);
+
+      console.log('this.galleryImg: ', this.galleryImg);
     }
+  }
+  updateGalleryImg(newgalleryImg) {
+    this.galleryImg = newgalleryImg;
+    this.updatePreferences()
+  }
+  updatePreferences() {
+    this.pr = this.ctx.canvas.height * 100 / this.img.height;
+    this.zoom = +this.galleryImg.getZoom() / 100;
+    this.imgWidth = (this.img.width / 100 * this.pr) * this.zoom;
+    this.imgHeight = (this.img.height / 100 * this.pr) * this.zoom;
+    this.imgOffsetX = (this.ctx.canvas.width - this.imgWidth) / 2;
+    this.imgOffsetY = (this.ctx.canvas.height - this.imgHeight) / 2;
+    this.offsetValueX = 0;
+    this.offsetValueY = 0;
+    this.lastOffsetValueX = this.galleryImg.getLastOffsetValueX();
+    this.lastOffsetValueY = this.galleryImg.getLastOffsetValueY();
   }
 }
