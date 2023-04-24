@@ -8,6 +8,34 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
     newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
     setGalleryImg(() => newState)
   }
+  function contrastRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+
+    toolState.tool.updateGalleryImg(newState)
+
+    setGalleryImg(() => { newState })
+  }
+  function brightnessRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
+
+    toolState.tool.updateGalleryImg(newState)
+
+    setGalleryImg(() => { newState })
+  }
+  function saturateRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
+
+    toolState.tool.updateGalleryImg(newState)
+
+    setGalleryImg(() => { newState })
+  }
+  function zoomRangeChangeHandler(event) {
+    const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
+    
+    toolState.tool.updateGalleryImg(newState)
+
+    setGalleryImg(() => { newState })
+  }
   function mouseWheelRotationHandler(event) {
     const newState = Object.assign(new GallaryImage(), { ...galleryImg })
     if (event.deltaY > 0) {
@@ -17,47 +45,16 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
       newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) - 5}`)
       if (Number(newState.getRotationDegrees()) < -180) newState.setRotationDegrees('-180')
     }
-    setGalleryImg(() => newState)
-  }
-  function contrastRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    });
-  }
-  function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
-
-    setGalleryImg((prev) => {
-      return newState;
-    })
-  }
-  function zoomRangeChangeHandler(event) {
-
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
-
-    setGalleryImg(() => {
-      return newState;
-    })
 
     toolState.tool.updateGalleryImg(newState)
-    
+
+    setGalleryImg(() => newState)
   }
-  function mouseWheelHandlerForContrast(event) {
-    // console.log(event.deltaY > 0);
+  function mouseWheelContrastHandler(event) {
     if (event.deltaY > 0) {
       const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
       let contrastValue = newGalleryImg.getContrast()
       newGalleryImg.setContrast(`${+contrastValue + 5}`)
-      console.log(galleryImg.getContrast());
       setGalleryImg((prev) => {
         return newGalleryImg;
       });
@@ -72,7 +69,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
     }
 
   }
-  function mouseWheelHandlerForBrightness(event) {
+  function mouseWheelBrightnessHandler(event) {
     if (event.deltaY > 0) {
       const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
       let brightnessValue = newGalleryImg.getBrightness()
@@ -90,7 +87,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
       });
     }
   }
-  function mouseWheelHandlerForSaturate(event) {
+  function mouseWheelSaturateHandler(event) {
     if (event.deltaY > 0) {
       const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
       let saturateValue = newGalleryImg.getSaturate()
@@ -108,7 +105,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
       });
     }
   }
-  function mouseWheelHandlerForZoom(event) {
+  function mouseWheelZoomHandler(event) {
     if (event.deltaY > 0) {
       const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
       let zoomValue = newGalleryImg.getZoom()
@@ -140,7 +137,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
             max="200"
             value={galleryImg.getContrast()}
             onChange={contrastRangeChangeHandler}
-            onWheel={mouseWheelHandlerForContrast}
+            onWheel={mouseWheelContrastHandler}
           ></input>
         </div>
         <div className='modal-canvas-tools-contrast-scale'>Яркость: {galleryImg.getBrightness()} %</div>
@@ -152,7 +149,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
             max="200"
             value={galleryImg.getBrightness()}
             onChange={brightnessRangeChangeHandler}
-            onWheel={mouseWheelHandlerForBrightness}
+            onWheel={mouseWheelBrightnessHandler}
           ></input>
         </div>
         <div className='modal-canvas-tools-contrast-scale'>Насыщенность: {galleryImg.getSaturate()} %</div>
@@ -164,7 +161,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
             max="200"
             value={galleryImg.getSaturate()}
             onChange={saturateRangeChangeHandler}
-            onWheel={mouseWheelHandlerForSaturate}
+            onWheel={mouseWheelSaturateHandler}
           ></input>
         </div>
         <div className='modal-canvas-tools-contrast-scale'>Увеличение: {galleryImg.getZoom()} %</div>
@@ -176,7 +173,7 @@ const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
             max="400"
             value={galleryImg.getZoom()}
             onChange={zoomRangeChangeHandler}
-            onWheel={mouseWheelHandlerForZoom}
+            onWheel={mouseWheelZoomHandler}
           ></input>
         </div>
         <div className='modal-canvas-tools-contrast-scale'>Вращение: {galleryImg.getRotationDegrees()} %</div>

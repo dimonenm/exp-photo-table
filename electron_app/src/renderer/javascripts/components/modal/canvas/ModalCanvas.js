@@ -42,7 +42,7 @@ const ModalCanvas = () => {
       });
     };
   }
-  function arrowClickHandler(event) {
+  function arrowClickHandler() {
     if (toolState.type === 'arrow') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -85,7 +85,7 @@ const ModalCanvas = () => {
       }
     };
   }
-  function arrowtextDescClickHandler(event) {
+  function arrowtextDescClickHandler() {
     if (toolState.type === 'arrowTextDesc') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -261,7 +261,6 @@ const ModalCanvas = () => {
     });
   }
   function arrowColorChangeHandler(event) {
-    // setCanvasState((prev) => { return { ...prev, arrowsColor: event.target.value } });
     setGalleryImg((prev) => {
       return Object.assign(new GallaryImage(), { ...prev, arrowsColor: event.target.value });
     })
@@ -396,6 +395,7 @@ const ModalCanvas = () => {
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
+      console.log('galleryImg: ', galleryImg);
       return (
         <>
           {galleryImg.getImgCuted() ? <div className='modal-content-grid-properties-right-block'></div> : null}
