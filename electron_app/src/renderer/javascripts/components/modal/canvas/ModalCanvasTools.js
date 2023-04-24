@@ -4,124 +4,132 @@ import GallaryImage from '../../../entities/GalleryImage';
 const ModalCanvasTools = ({ galleryImg, setGalleryImg, toolState }) => {
 
   function rotationDegreesRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg });
-    newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + (event.target.value - Number(newState.getRotationDegrees()))}`)
-    setGalleryImg(() => newState)
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg });
+    newGalleryImg.setRotationDegrees(`${Number(newGalleryImg.getRotationDegrees()) + (event.target.value - Number(newGalleryImg.getRotationDegrees()))}`)
+    setGalleryImg(() => newGalleryImg)
   }
   function contrastRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg, contrast: event.target.value });
 
-    toolState.tool.updateGalleryImg(newState)
+    toolState.tool.updateGalleryImg(newGalleryImg)
 
-    setGalleryImg(() => { newState })
+    setGalleryImg(() => newGalleryImg)
   }
   function brightnessRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg, brightness: event.target.value });
 
-    toolState.tool.updateGalleryImg(newState)
+    toolState.tool.updateGalleryImg(newGalleryImg)
 
-    setGalleryImg(() => { newState })
+    setGalleryImg(() => newGalleryImg)
   }
   function saturateRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg, saturate: event.target.value });
 
-    toolState.tool.updateGalleryImg(newState)
+    toolState.tool.updateGalleryImg(newGalleryImg)
 
-    setGalleryImg(() => { newState })
+    setGalleryImg(() => newGalleryImg)
   }
   function zoomRangeChangeHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg, zoom: event.target.value });
     
-    toolState.tool.updateGalleryImg(newState)
+    toolState.tool.updateGalleryImg(newGalleryImg)
 
-    setGalleryImg(() => { newState })
+    setGalleryImg(() => newGalleryImg)
   }
   function mouseWheelRotationHandler(event) {
-    const newState = Object.assign(new GallaryImage(), { ...galleryImg })
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
     if (event.deltaY > 0) {
-      newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) + 5}`)
-      if (Number(newState.getRotationDegrees()) > 180) newState.setRotationDegrees('180')
+      newGalleryImg.setRotationDegrees(`${Number(newGalleryImg.getRotationDegrees()) + 5}`)
+      if (Number(newGalleryImg.getRotationDegrees()) > 180) newGalleryImg.setRotationDegrees('180')
     } else {
-      newState.setRotationDegrees(`${Number(newState.getRotationDegrees()) - 5}`)
-      if (Number(newState.getRotationDegrees()) < -180) newState.setRotationDegrees('-180')
+      newGalleryImg.setRotationDegrees(`${Number(newGalleryImg.getRotationDegrees()) - 5}`)
+      if (Number(newGalleryImg.getRotationDegrees()) < -180) newGalleryImg.setRotationDegrees('-180')
     }
 
-    toolState.tool.updateGalleryImg(newState)
+    toolState.tool.updateGalleryImg(newGalleryImg)
 
-    setGalleryImg(() => newState)
+    setGalleryImg(() => newGalleryImg)
   }
   function mouseWheelContrastHandler(event) {
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let contrastValue = newGalleryImg.getContrast()
-      newGalleryImg.setContrast(`${+contrastValue + 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
-    }
-    else {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let contrastValue = newGalleryImg.getContrast()
-      newGalleryImg.setContrast(`${+contrastValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      newGalleryImg.setContrast(`${Number(newGalleryImg.getContrast()) + 5}`)
+      if (Number(newGalleryImg.getContrast()) > 200) newGalleryImg.setContrast('200')
+      
+    } else {
+      newGalleryImg.setContrast(`${Number(newGalleryImg.getContrast()) - 5}`)
+      if (Number(newGalleryImg.getContrast()) <= 0) newGalleryImg.setContrast('0')
     }
 
+    toolState.tool.updateGalleryImg(newGalleryImg)
+
+    setGalleryImg(() => newGalleryImg)
   }
   function mouseWheelBrightnessHandler(event) {
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let brightnessValue = newGalleryImg.getBrightness()
-      newGalleryImg.setBrightness(`${+brightnessValue + 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      newGalleryImg.setBrightness(`${Number(newGalleryImg.getBrightness()) + 5}`)
+      if (Number(newGalleryImg.getBrightness()) > 200) newGalleryImg.setBrightness('200')
+
+    } else {
+      newGalleryImg.setBrightness(`${Number(newGalleryImg.getBrightness()) - 5}`)
+      if (Number(newGalleryImg.getBrightness()) <= 0) newGalleryImg.setBrightness('0')
     }
-    else {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let brightnessValue = newGalleryImg.getBrightness()
-      newGalleryImg.setBrightness(`${+brightnessValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
-    }
+
+    toolState.tool.updateGalleryImg(newGalleryImg)
+
+    setGalleryImg(() => newGalleryImg)
   }
   function mouseWheelSaturateHandler(event) {
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let saturateValue = newGalleryImg.getSaturate()
-      newGalleryImg.setSaturate(`${+saturateValue + 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
+      newGalleryImg.setSaturate(`${Number(newGalleryImg.getSaturate()) + 5}`)
+      if (Number(newGalleryImg.getSaturate()) > 200) newGalleryImg.setSaturate('200')
+
+    } else {
+      newGalleryImg.setSaturate(`${Number(newGalleryImg.getSaturate()) - 5}`)
+      if (Number(newGalleryImg.getSaturate()) <= 0) newGalleryImg.setSaturate('0')
     }
-    else {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let saturateValue = newGalleryImg.getSaturate()
-      newGalleryImg.setSaturate(`${+saturateValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
-    }
+
+    toolState.tool.updateGalleryImg(newGalleryImg)
+
+    setGalleryImg(() => newGalleryImg)
   }
   function mouseWheelZoomHandler(event) {
+    const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+
     if (event.deltaY > 0) {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let zoomValue = newGalleryImg.getZoom()
-      newGalleryImg.setZoom(`${+zoomValue + 5}`)
-      setGalleryImg(() => {
-        return newGalleryImg;
-      });
+      newGalleryImg.setZoom(`${Number(newGalleryImg.getZoom()) + 5}`)
+      if (Number(newGalleryImg.getZoom()) > 400) newGalleryImg.setZoom('400')
+
+    } else {
+      newGalleryImg.setZoom(`${Number(newGalleryImg.getZoom()) - 5}`)
+      if (Number(newGalleryImg.getZoom()) <= 100) newGalleryImg.setZoom('100')
     }
-    if (event.deltaY < 0 && galleryImg.getZoom() !== '100') {
-      const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
-      let zoomValue = newGalleryImg.getZoom()
-      newGalleryImg.setZoom(`${+zoomValue - 5}`)
-      setGalleryImg((prev) => {
-        return newGalleryImg;
-      });
-    }
+
+    toolState.tool.updateGalleryImg(newGalleryImg)
+
+    setGalleryImg(() => newGalleryImg)
+
+    // if (event.deltaY > 0) {
+    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+    //   let zoomValue = newGalleryImg.getZoom()
+    //   newGalleryImg.setZoom(`${+zoomValue + 5}`)
+    //   setGalleryImg(() => {
+    //     return newGalleryImg;
+    //   });
+    // }
+    // if (event.deltaY < 0 && galleryImg.getZoom() !== '100') {
+    //   const newGalleryImg = Object.assign(new GallaryImage(), { ...galleryImg })
+    //   let zoomValue = newGalleryImg.getZoom()
+    //   newGalleryImg.setZoom(`${+zoomValue - 5}`)
+    //   setGalleryImg((prev) => {
+    //     return newGalleryImg;
+    //   });
+    // }
   }
 
   return (

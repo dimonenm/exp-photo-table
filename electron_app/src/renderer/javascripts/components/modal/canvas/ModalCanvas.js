@@ -24,7 +24,7 @@ const ModalCanvas = () => {
   const scaleGridCanvasRef = useRef();
   let canvasSize = { width: 0, height: 0 };
 
-  function handClickHandler(event) {
+  function handClickHandler() {
     if (toolState.type === 'hand') {
       setToolState((prev) => { return { ...prev, type: 'handFree', tool: new HandFree(canvasRef.current) } });
     } else {
@@ -32,14 +32,15 @@ const ModalCanvas = () => {
         return {
           ...prev,
           type: 'hand',
-          tool: new Hand(
+          tool: new Hand2(
             canvasRef.current,
+            canvasImg,
+            canvasSize,
             galleryImg,
             setGalleryImg,
-            isZoomScaleGrid,
             scaleGridCanvasRef)
         }
-      });
+      })
     };
   }
   function arrowClickHandler() {
@@ -174,36 +175,53 @@ const ModalCanvas = () => {
       return {
         ...prev,
         type: 'hand',
-        tool: new Hand(
+        tool: new Hand2(
           canvasRef.current,
+          canvasImg,
+          canvasSize,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid,
           scaleGridCanvasRef)
       }
-    });
+    })
   }
   function orientationHorizontalClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
     setGalleryImg(() => {
       return newGallaryImage;
     })
-
     setToolState((prev) => {
       return {
         ...prev,
         type: 'hand',
-        tool: new Hand(
+        tool: new Hand2(
           canvasRef.current,
+          canvasImg,
+          canvasSize,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid,
           scaleGridCanvasRef)
       }
-    });
+    })
   }
   function orientationVerticalClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
+    setGalleryImg(() => newGallaryImage)
+    setToolState(() => {
+      return {
+        type: 'hand',
+        tool: new Hand2(
+          canvasRef.current,
+          canvasImg,
+          canvasSize,
+          newGallaryImage,
+          setGalleryImg,
+          scaleGridCanvasRef)
+      }
+    })
+  }
+  function orientation9X6ClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '9X6', lastOffsetValueX: 0 })
     setGalleryImg(() => {
       return newGallaryImage;
     })
@@ -211,54 +229,35 @@ const ModalCanvas = () => {
       return {
         ...prev,
         type: 'hand',
-        tool: new Hand(
+        tool: new Hand2(
           canvasRef.current,
+          canvasImg,
+          canvasSize,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid,
           scaleGridCanvasRef)
       }
-    });
-  }
-  function orientation9X6ClickHandler() {
-    setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '9X6', lastOffsetValueX: 0 })
-
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand(
-          canvasRef.current,
-          newGallaryImage,
-          setGalleryImg,
-          isZoomScaleGrid,
-          scaleGridCanvasRef)
-      }
-    });
+    })
   }
   function orientation6X9ClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '6X9', lastOffsetValueX: 0 })
+
+    setGalleryImg(() => {
+      return newGallaryImage;
+    })
     setToolState((prev) => {
-      const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '6X9', lastOffsetValueX: 0 })
-
-      setGalleryImg(() => {
-        return newGallaryImage;
-      })
-
       return {
         ...prev,
         type: 'hand',
-        tool: new Hand(
+        tool: new Hand2(
           canvasRef.current,
+          canvasImg,
+          canvasSize,
           newGallaryImage,
           setGalleryImg,
-          isZoomScaleGrid,
           scaleGridCanvasRef)
       }
-    });
+    })
   }
   function arrowColorChangeHandler(event) {
     setGalleryImg((prev) => {
@@ -331,35 +330,36 @@ const ModalCanvas = () => {
     }, 0)
   }
   function zoomScaleGridClickHandler(event) {
-    console.log('isZoomScaleGrid: ', isZoomScaleGrid);
     if (isZoomScaleGrid) {
       setIsZoomScaleGrid(false)
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'hand',
-          tool: new Hand(
-            canvasRef.current,
-            galleryImg,
-            setGalleryImg,
-            false,
-            scaleGridCanvasRef)
-        }
-      });
+      // setToolState(() => {
+      //   return {
+      //     type: 'hand',
+      //     tool: new Hand2(
+      //       canvasRef.current,
+      //       canvasImg,
+      //       canvasSize,
+      //       galleryImg,
+      //       setGalleryImg,
+      //       false,
+      //       scaleGridCanvasRef)
+      //   }
+      // });
     } else {
       setIsZoomScaleGrid(true)
-      setToolState((prev) => {
-        return {
-          ...prev,
-          type: 'hand',
-          tool: new Hand(
-            canvasRef.current,
-            galleryImg,
-            setGalleryImg,
-            true,
-            scaleGridCanvasRef)
-        }
-      });
+      // setToolState(() => {
+      //   return {
+      //     type: 'hand',
+      //     tool: new Hand2(
+      //       canvasRef.current,
+      //       canvasImg,
+      //       canvasSize,
+      //       galleryImg,
+      //       setGalleryImg,
+      //       true,
+      //       scaleGridCanvasRef)
+      //   }
+      // });
     }
 
     event.target.classList.toggle('modal-content-grid-properties-right-orientation-scale_grid-btn');
@@ -395,7 +395,6 @@ const ModalCanvas = () => {
   }
   function renderProperties(toolType) {
     if (toolType === 'hand') {
-      console.log('galleryImg: ', galleryImg);
       return (
         <>
           {galleryImg.getImgCuted() ? <div className='modal-content-grid-properties-right-block'></div> : null}
@@ -557,7 +556,7 @@ const ModalCanvas = () => {
     galleryImages.forEach((item) => {
       if (item.getIndex() === indexImgInGallery) {
         const newGalleryImg = Object.assign(new GallaryImage(), item);
-        setGalleryImg(() => { return newGalleryImg })
+        setGalleryImg(() => newGalleryImg)
 
         const img = new Image()
         img.onload = function () {
@@ -565,9 +564,8 @@ const ModalCanvas = () => {
 
           canvasSize = getCanvasSize(galleryImg.getOrientation(), this)
 
-          setToolState((prev) => {
+          setToolState(() => {
             return {
-              ...prev,
               type: 'hand',
               tool: new Hand2(
                 canvasRef.current,
@@ -587,33 +585,10 @@ const ModalCanvas = () => {
   useEffect(() => {
     if (canvasImg.src) {
       canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)
+      console.log('canvasSize: ', canvasSize);
       renderImgInCanvas(canvasRef, canvasImg, canvasSize, galleryImg)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize, galleryImg, isZoomScaleGrid)
     }
-
-
-
-    // if (galleryImg.getOrientation() === "panorama") {
-    //   let canvasWidth = 0
-    //   let canvasHeight = 0
-    //   let imgWidth = 0
-    //   let imgHeight = 0
-
-    //   const img = new Image()
-    //   img.onload = function () {
-    //     imgWidth = this.width
-    //     imgHeight = this.height
-    //     canvasWidth = ((window.outerWidth - 350) / 100) * 80
-    //     canvasHeight = (canvasWidth * imgHeight) / imgWidth
-    //     canvasSize = { width: canvasWidth, height: canvasHeight }
-    //     renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
-    //   }
-    //   img.src = galleryImg.getUrl();
-    // } else {
-    //   canvasSize = getCanvasSize(galleryImg.getOrientation())
-    //   renderImgInCanvas(canvasRef, canvasSize.width, canvasSize.height, galleryImg)
-    //   renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize.width, canvasSize.height, galleryImg, isZoomScaleGrid)
-    // }
   }, [galleryImg, isZoomScaleGrid, canvasImg]);
 
   return (
