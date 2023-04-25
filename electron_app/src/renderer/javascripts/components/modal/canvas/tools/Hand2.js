@@ -8,7 +8,7 @@ export default class Hand2 extends Tool {
     this.galleryImg = galleryImg;
     this.setGalleryImg = setGalleryImg;
     this.scaleGridCanvas = scaleGridCanvas;
-
+    
     this.ctx.canvas.width = canvasSize.width
     this.ctx.canvas.height = canvasSize.height
     
@@ -38,12 +38,16 @@ export default class Hand2 extends Tool {
     this.scaleGridCanvas.onmouseup = this.mouseUpHandler.bind(this);
     this.scaleGridCanvas.onmouseleave = this.mouseLeaveHandler.bind(this);
     this.scaleGridCanvas.onmouseenter = this.mouseEnterHandler.bind(this);
+    console.log('this.mouseEnterHandler: ', this.mouseEnterHandler);
+    console.log('this.scaleGridCanvas: ', this.scaleGridCanvas);
+    console.log('this: ', this);
   }
   mouseLeaveHandler(event) {
     this.mouseDown = false;
     event.target.classList.remove('modal-content-grid-canvas-grab');
   }
   mouseEnterHandler(event) {
+    console.log('mouseEnterHandler');
     event.target.classList.add('modal-content-grid-canvas-grab');
   }
   mouseUpHandler(event) {

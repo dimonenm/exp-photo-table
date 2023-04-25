@@ -38,7 +38,7 @@ const ModalCanvas = () => {
             canvasSize,
             galleryImg,
             setGalleryImg,
-            scaleGridCanvasRef)
+            scaleGridCanvasRef.current)
         }
       })
     };
@@ -164,49 +164,10 @@ const ModalCanvas = () => {
       });
     };
   }
-  async function orientationPanoramaClickHandler() {
+  function orientationPanoramaClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'panorama', lastOffsetValueX: 0 })
-
-    await setGalleryImg(() => {
-      return newGallaryImage;
-    })
-
-    await setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand2(
-          canvasRef.current,
-          canvasImg,
-          canvasSize,
-          newGallaryImage,
-          setGalleryImg,
-          scaleGridCanvasRef)
-      }
-    })
-  }
-  function orientationHorizontalClickHandler() {
-    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
-    setGalleryImg(() => {
-      return newGallaryImage;
-    })
-    setToolState((prev) => {
-      return {
-        ...prev,
-        type: 'hand',
-        tool: new Hand2(
-          canvasRef.current,
-          canvasImg,
-          canvasSize,
-          newGallaryImage,
-          setGalleryImg,
-          scaleGridCanvasRef)
-      }
-    })
-  }
-  function orientationVerticalClickHandler() {
-    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
-    setGalleryImg(() => newGallaryImage)
+    canvasSize = getCanvasSize(newGallaryImage.getOrientation(), canvasImg)
+    setGalleryImg(() => { return newGallaryImage })
     setToolState(() => {
       return {
         type: 'hand',
@@ -216,18 +177,50 @@ const ModalCanvas = () => {
           canvasSize,
           newGallaryImage,
           setGalleryImg,
-          scaleGridCanvasRef)
+          scaleGridCanvasRef.current)
+      }
+    })
+  }
+  function orientationHorizontalClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'horizontal', lastOffsetValueX: 0 })
+    canvasSize = getCanvasSize(newGallaryImage.getOrientation(), canvasImg)
+    setGalleryImg(() => { return newGallaryImage })
+    setToolState(() => {
+      return {
+        type: 'hand',
+        tool: new Hand2(
+          canvasRef.current,
+          canvasImg,
+          canvasSize,
+          newGallaryImage,
+          setGalleryImg,
+          scaleGridCanvasRef.current)
+      }
+    })
+  }
+  function orientationVerticalClickHandler() {
+    const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: 'vertical', lastOffsetValueX: 0 })
+    canvasSize = getCanvasSize(newGallaryImage.getOrientation(), canvasImg)
+    setGalleryImg(() => { return newGallaryImage })
+    setToolState(() => {
+      return {
+        type: 'hand',
+        tool: new Hand2(
+          canvasRef.current,
+          canvasImg,
+          canvasSize,
+          newGallaryImage,
+          setGalleryImg,
+          scaleGridCanvasRef.current)
       }
     })
   }
   function orientation9X6ClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '9X6', lastOffsetValueX: 0 })
-    setGalleryImg(() => {
-      return newGallaryImage;
-    })
-    setToolState((prev) => {
+    canvasSize = getCanvasSize(newGallaryImage.getOrientation(), canvasImg)
+    setGalleryImg(() => { return newGallaryImage })
+    setToolState(() => {
       return {
-        ...prev,
         type: 'hand',
         tool: new Hand2(
           canvasRef.current,
@@ -235,19 +228,16 @@ const ModalCanvas = () => {
           canvasSize,
           newGallaryImage,
           setGalleryImg,
-          scaleGridCanvasRef)
+          scaleGridCanvasRef.current)
       }
     })
   }
   function orientation6X9ClickHandler() {
     const newGallaryImage = Object.assign(new GallaryImage(), { ...galleryImg, orientation: '6X9', lastOffsetValueX: 0 })
-
-    setGalleryImg(() => {
-      return newGallaryImage;
-    })
-    setToolState((prev) => {
+    canvasSize = getCanvasSize(newGallaryImage.getOrientation(), canvasImg)
+    setGalleryImg(() => { return newGallaryImage })
+    setToolState(() => {
       return {
-        ...prev,
         type: 'hand',
         tool: new Hand2(
           canvasRef.current,
@@ -255,7 +245,7 @@ const ModalCanvas = () => {
           canvasSize,
           newGallaryImage,
           setGalleryImg,
-          scaleGridCanvasRef)
+          scaleGridCanvasRef.current)
       }
     })
   }
@@ -573,7 +563,7 @@ const ModalCanvas = () => {
                 canvasSize,
                 galleryImg,
                 setGalleryImg,
-                scaleGridCanvasRef)
+                scaleGridCanvasRef.current)
             }
           });
         }
@@ -585,7 +575,6 @@ const ModalCanvas = () => {
   useEffect(() => {
     if (canvasImg.src) {
       canvasSize = getCanvasSize(galleryImg.getOrientation(), canvasImg)
-      console.log('canvasSize: ', canvasSize);
       renderImgInCanvas(canvasRef, canvasImg, canvasSize, galleryImg)
       renderScaleGridInCanvas(scaleGridCanvasRef, canvasSize, galleryImg, isZoomScaleGrid)
     }
