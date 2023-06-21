@@ -26,6 +26,17 @@
  * ```
  */
 
-import './index.css';
+// import './stylesheets/index.css';
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+// console.log('👋 This message is being logged by "renderer.js", included via webpack');
+
+import { createRoot } from 'react-dom/client';
+
+// Clear the existing HTML content
+document.body.innerHTML = '<div id="app"></div>';
+
+// Render your React component instead
+const root = createRoot(document.getElementById('root'));
+root.render(
+  <div>1</div>
+);
