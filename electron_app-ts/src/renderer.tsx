@@ -32,10 +32,19 @@ import './index.css';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
+const winClose = (): void => {
+  window.close()
+}
+
 window.onload = () => {
   console.log('window.onload');
   const container = document.querySelector('.root');
   console.log('container: ', container);
   const root = createRoot(container);
-  root.render(React.createElement('div', { className: 'greeting' }, 'Hello world'));
+  root.render(<div> 
+    <button>min</button>
+    <button>max</button>
+    <button onClick={winClose}>close</button>
+  </div>);
+  // root.render(React.createElement('div', { className: 'greeting' }, 'Hello world'));
 }
