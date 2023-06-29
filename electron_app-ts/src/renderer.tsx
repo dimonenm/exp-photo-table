@@ -33,7 +33,10 @@ import './index.css';
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
 const winMax = (): void => {
-  globalThis.electronBridge.sendTitle('max')
+  globalThis.electronBridge.sendTitle('maximize')
+}
+const winMin = (): void => {
+  globalThis.electronBridge.sendTitle('minimize')
 }
 
 const winClose = (): void => {
@@ -44,7 +47,7 @@ window.onload = () => {
   const container = document.querySelector('.root');
   const root = createRoot(container);
   root.render(<div> 
-    <button>min</button>
+    <button onClick={winMin}>min</button>
     <button onClick={winMax}>max</button>
     <button onClick={winClose}>close</button>
   </div>);

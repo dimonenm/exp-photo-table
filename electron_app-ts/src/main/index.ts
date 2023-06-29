@@ -39,8 +39,15 @@ const createWindow = (): void => {
   mainWindow.maximize()
 
   ipcMain.on('renderer_to_main', (event, title) => {
-    console.log(event);
-    console.log(title);
+    console.log('title: ', title);
+    if (title === 'maximize') {
+      console.log('maximize');
+      mainWindow.maximize()
+    }
+    if (title === 'minimize') {
+      console.log('minimize');
+      mainWindow.minimize()
+    }
   })
 }
 const subscribeForAppEvents = (): void => {
