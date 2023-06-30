@@ -20,11 +20,11 @@ const createWindow = (): void => {
     minWidth: 1100,
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      color: '#343a40',
-      symbolColor: '#fff',
-      height: 20
-    },
+    // titleBarOverlay: {
+    //   color: '#343a40',
+    //   symbolColor: '#fff',
+    //   height: 20
+    // },
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
