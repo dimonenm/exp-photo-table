@@ -28,15 +28,35 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import './index.css';
+import '../index.css';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
 
+declare global {
+  interface Window {
+    electronBridge?: IElectronBridge;
+  }
+}
+interface IElectronBridge{
+  sendTitle: (title:string) => void
+}
+
+let isMaximize: boolean
+
+
 const winMax = (): void => {
-  globalThis.electronBridge.sendTitle('maximize')
+  console.log('isMaximize', isMaximize);
+  if (isMaximize) {
+    window.electronBridge.sendTitle('unmaximize')
+    isMaximize = false
+  } else {
+    window.electronBridge.sendTitle('maximize')
+    isMaximize = true
+  }
+  
 }
 const winMin = (): void => {
-  globalThis.electronBridge.sendTitle('minimize')
+  window.electronBridge.sendTitle('minimize')
 }
 
 const winClose = (): void => {

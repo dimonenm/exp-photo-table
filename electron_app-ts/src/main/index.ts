@@ -36,13 +36,15 @@ const createWindow = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  mainWindow.maximize()
-
   ipcMain.on('renderer_to_main', (event, title) => {
     console.log('title: ', title);
     if (title === 'maximize') {
       console.log('maximize');
       mainWindow.maximize()
+    }
+    if (title === 'unmaximize') {
+      console.log('unmaximize');
+      mainWindow.unmaximize()
     }
     if (title === 'minimize') {
       console.log('minimize');
