@@ -58,7 +58,6 @@ const winMax = (): void => {
 const winMin = (): void => {
   window.electronBridge.sendTitle('minimize')
 }
-
 const winClose = (): void => {
   window.close()
 }
