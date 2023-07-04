@@ -12,7 +12,7 @@ declare global {
 }
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
-  sendRequest: (type: string, req: string) => void,
+  sendRequest: (type: string, req: string) => Promise<string>,
   openFile: () => void,
 }
 
@@ -35,8 +35,10 @@ const winClose = (): void => {
   window.close()
 }
 const sendMessage = async (): Promise<void> => {
-  const filePath = await window.electronAPI.openFile()
-  console.log('filePath: ', filePath);
+  const res = await window.electronAPI.sendRequest('getSettings', 'all')
+  console.log('res: ', res);
+  // const filePath = await window.electronAPI.openFile()
+  // console.log('filePath: ', filePath);
 }
 
 window.onload = () => {
