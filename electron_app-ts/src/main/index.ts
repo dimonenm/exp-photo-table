@@ -1,4 +1,5 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
+import fs from 'fs'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -31,9 +32,10 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools({mode: 'detach'});
 
   ipcMain.on('renderer_to_main', (event, type, msg) => {
+    console.log('renderer_to_main: ipcMain.on');
     if (type === 'btnAction') {
       if (msg === 'maximize') {
         mainWindow.maximize()
@@ -48,20 +50,30 @@ const createWindow = (): void => {
   })
 
   async function handleFileOpen() {
-    const { canceled, filePaths } = await dialog.showOpenDialog({})
-    if (!canceled) {
-      return filePaths[0]
+    const { filePaths } = await dialog.showOpenDialog({
+      filters: [
+        { name: 'All Files', extensions: ['*'] },
+        { name: 'Images', extensions: ['jpg', 'png', 'gif'] }
+      ],
+      properties: ['openFile', 'multiSelections']
+    })
+
+    const arrOfImages: Buffer[] = []
+
+    for (const item of filePaths) {
+      arrOfImages.push(await new Promise((resolve) => {
+        fs.readFile(item, (err, data) => { resolve(data) })
+      }).then((data: Buffer): Buffer => data))
     }
+
+    console.log('arrOfImages: ', arrOfImages);
+    return arrOfImages
   }
   async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
-    console.log('args: ', args);
     const arr = [...args]
-    console.log('type: ', arr[0]);
-    console.log('message: ', arr[1]);
     return 'ok'
-    // console.log('type: ', args[0]);
-    // console.log('msg: ', args[1]);
   }
+
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('renderer_to_main', handleGetSettings)
 }

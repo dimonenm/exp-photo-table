@@ -13,7 +13,7 @@ declare global {
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
-  openFile: () => void,
+  openFile: () => Promise<Buffer[]>
 }
 
 let isMaximize: boolean
@@ -40,6 +40,11 @@ const sendMessage = async (): Promise<void> => {
   // const filePath = await window.electronAPI.openFile()
   // console.log('filePath: ', filePath);
 }
+const openFile = async (): Promise<void> => {
+  const filePath = await window.electronAPI.openFile()
+  console.log('filePath: ', filePath);
+  const img = new Image()
+}
 
 window.onload = () => {
   const container = document.querySelector('.root');
@@ -49,6 +54,7 @@ window.onload = () => {
     <button onClick={winMax}>max</button>
     <button onClick={winClose}>close</button>
     <button onClick={sendMessage}>sendMessage</button>
+    <button onClick={openFile}>openFile</button>
   </div>);
   // root.render(React.createElement('div', { className: 'greeting' }, 'Hello world'));
 }
