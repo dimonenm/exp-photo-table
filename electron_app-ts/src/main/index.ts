@@ -50,6 +50,7 @@ const createWindow = (): void => {
   })
 
   async function handleFileOpen() {
+    performance.mark
     const { filePaths } = await dialog.showOpenDialog({
       filters: [
         { name: 'All Files', extensions: ['*'] },
@@ -58,16 +59,26 @@ const createWindow = (): void => {
       properties: ['openFile', 'multiSelections']
     })
 
-    const arrOfImages: Buffer[] = []
+    const arrOfImages: string[] = []
+    const arrOfImagesBuffer: Buffer[] = []
 
     for (const item of filePaths) {
-      arrOfImages.push(await new Promise((resolve) => {
-        fs.readFile(item, (err, data) => { resolve(data) })
-      }).then((data: Buffer): Buffer => data))
+      await new Promise((resolve) => {
+        fs.readFile(item, (err, data) => { resolve(data.toString('base64')) })
+      }).then((data: string): void => {
+        arrOfImages.push(data)
+      })
     }
 
-    console.log('arrOfImages: ', arrOfImages);
-    return arrOfImages
+    for (const item of filePaths) {
+      await new Promise((resolve) => {
+        fs.readFile(item, (err, data) => { resolve(data) })
+      }).then((data: Buffer): void => {
+        arrOfImagesBuffer.push(data)
+      })
+    }
+
+    return [arrOfImages, arrOfImagesBuffer]
   }
   async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
     const arr = [...args]
