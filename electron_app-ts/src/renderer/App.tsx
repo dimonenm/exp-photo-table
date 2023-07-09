@@ -40,10 +40,23 @@ export const App = (): JSX.Element => {
   }
   const openFile = async (): Promise<void> => {
     const filePath = await window.electronAPI.openFile()
+    
+    console.log('filePath: ', filePath);
 
-
-    console.log('filePath[0]: ', (filePath[0][0].length + filePath[0][1].length) * 2 / 1024 / 1024, ' Mb' );
-    console.log('filePath[1]: ', (filePath[1][0].length + filePath[1][1].length) * 2 / 1024 / 1024, ' Mb');
+    // console.log('arrOfImages: ');
+    // console.log('filePath[0][0]: ', filePath[0][0].length);
+    // console.log('filePath[0][1]: ', filePath[0][1].length);
+    // console.log('filePath[0][0]: ', filePath[0][0].length / 1024, ' Kb');
+    // console.log('filePath[0][1]: ', filePath[0][1].length / 1024, ' Kb');
+    // console.log('filePath[0][0]: ', filePath[0][0].length / 1024 / 1024, ' Mb');
+    // console.log('filePath[0][1]: ', filePath[0][1].length / 1024 / 1024, ' Mb');
+    // console.log('arrOfImagesBuffer: ');
+    // console.log('filePath[1][0]: ', filePath[1][0].length);
+    // console.log('filePath[1][1]: ', filePath[1][1].length);
+    // console.log('filePath[1][0]: ', filePath[1][0].length / 1024, ' Kb');
+    // console.log('filePath[1][1]: ', filePath[1][1].length / 1024, ' Kb');
+    // console.log('filePath[1][0]: ', filePath[1][0].length / 1024 / 1024, ' Mb');
+    // console.log('filePath[1][1]: ', filePath[1][1].length / 1024 / 1024, ' Mb');
 
     // setImgs(filePath.map((item, index) => {
     //   return <img key={index} style={{ width: "150px", height: '213px' }} src={`data:image/png;base64,` + item}></img>

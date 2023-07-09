@@ -59,16 +59,16 @@ const createWindow = (): void => {
       properties: ['openFile', 'multiSelections']
     })
 
-    const arrOfImages: string[] = []
+    // const arrOfImages: string[] = []
     const arrOfImagesBuffer: Buffer[] = []
 
-    for (const item of filePaths) {
-      await new Promise((resolve) => {
-        fs.readFile(item, (err, data) => { resolve(data.toString('base64')) })
-      }).then((data: string): void => {
-        arrOfImages.push(data)
-      })
-    }
+    // for (const item of filePaths) {
+    //   await new Promise((resolve) => {
+    //     fs.readFile(item, (err, data) => { resolve(data.toString('base64')) })
+    //   }).then((data: string): void => {
+    //     arrOfImages.push(data)
+    //   })
+    // }
 
     for (const item of filePaths) {
       await new Promise((resolve) => {
@@ -78,7 +78,7 @@ const createWindow = (): void => {
       })
     }
 
-    return [arrOfImages, arrOfImagesBuffer]
+    return [arrOfImagesBuffer]
   }
   async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
     const arr = [...args]
