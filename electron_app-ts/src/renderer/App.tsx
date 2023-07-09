@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 
 declare global {
   interface Window {
@@ -8,7 +8,7 @@ declare global {
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
-  openFile: () => Promise<string[]>
+  openFile: () => Promise<BlobPart[]>
 }
 
 export const App = (): JSX.Element => {
@@ -42,6 +42,16 @@ export const App = (): JSX.Element => {
     const filePath = await window.electronAPI.openFile()
     
     console.log('filePath: ', filePath);
+    
+    const blob = new Blob(filePath)
+
+    console.log('Blob: ', blob);
+    
+    const url = URL.createObjectURL(blob);
+
+    console.log('url: ', url);
+
+    setImgs((prev) => { return [...prev, <img src={url}></img>] })
 
     // console.log('arrOfImages: ');
     // console.log('filePath[0][0]: ', filePath[0][0].length);
