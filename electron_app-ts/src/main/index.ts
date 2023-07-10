@@ -57,36 +57,53 @@ const createWindow = (): void => {
       ],
       properties: ['openFile', 'multiSelections']
     })
+    // console.log('filePaths: ', filePaths);
 
-    const arrOfImages: string[] = []
-    const arrOfImagesBuffer: Buffer[] = []
+    // console.log('buffer: ', fs.readFileSync(filePaths[0]).length / 1000);
+    // console.log('ascii: ', fs.readFileSync(filePaths[0], { encoding: 'ascii' }).length / 1000);
+    // console.log('base64: ', fs.readFileSync(filePaths[0], { encoding: 'base64' }).length / 1000);
+    // console.log('base64url: ', fs.readFileSync(filePaths[0], { encoding: 'base64url' }).length / 1000);
+    // console.log('binary: ', fs.readFileSync(filePaths[0], { encoding: 'binary' }).length / 1000);
+    // console.log('hex: ', fs.readFileSync(filePaths[0], { encoding: 'hex' }).length / 1000);
+    // console.log('utf-8: ', fs.readFileSync(filePaths[0], { encoding: 'utf-8' }).length / 1000);
+    // console.log('utf8: ', fs.readFileSync(filePaths[0], { encoding: 'utf8' }).length / 1000);
+    // console.log('blob: ', new Blob([fs.readFileSync(filePaths[0])]).size / 1000);
+    const arr: Buffer[] = []
+    for (const item of filePaths) {
+      arr.push(fs.readFileSync(item))
+    }
+    return arr
+
+
+    // const arrOfImages: string[] = []
+    // const arrOfImagesBuffer: Buffer[] = []
 
     // const startBase64 = Date.now();
 
-    for (const item of filePaths) {
-      await new Promise((resolve) => {
-        fs.readFile(item, (err, data) => { resolve(data.toString('base64')) })
-      }).then((data: string): void => {
-        arrOfImages.push(data)
-      })
-    }
+    // for (const item of filePaths) {
+    //   await new Promise((resolve) => {
+    //     fs.readFile(item, (err, data) => { resolve(data.toString('base64')) })
+    //   }).then((data: string): void => {
+    //     arrOfImages.push(data)
+    //   })
+    // }
 
     // const endBase64 = Date.now();
     // const start = Date.now();
     
-    for (const item of filePaths) {
-      await new Promise((resolve) => {
-        fs.readFile(item, (err, data) => { resolve(data) })
-      }).then((data: Buffer): void => {
-        arrOfImagesBuffer.push(data)
-      })
-    }
+    // for (const item of filePaths) {
+    //   await new Promise((resolve) => {
+    //     fs.readFile(item, (err, data) => { resolve(data) })
+    //   }).then((data: Buffer): void => {
+    //     arrOfImagesBuffer.push(data)
+    //   })
+    // }
 
     // const end = Date.now();
 
     // console.log('buffer ', end - start);
     // console.log('base64 ', endBase64 - startBase64);
-    return arrOfImages
+    // return arrOfImages
     // return [arrOfImagesBuffer]
   }
   async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
