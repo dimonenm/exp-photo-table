@@ -32,7 +32,7 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools({mode: 'detach'});
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
 
   ipcMain.on('renderer_to_main', (event, type, msg) => {
     console.log('renderer_to_main: ipcMain.on');
@@ -59,7 +59,9 @@ const createWindow = (): void => {
     })
 
     const arrOfImages: string[] = []
-    // const arrOfImagesBuffer: Buffer[] = []
+    const arrOfImagesBuffer: Buffer[] = []
+
+    // const startBase64 = Date.now();
 
     for (const item of filePaths) {
       await new Promise((resolve) => {
@@ -69,14 +71,21 @@ const createWindow = (): void => {
       })
     }
 
-    // for (const item of filePaths) {
-    //   await new Promise((resolve) => {
-    //     fs.readFile(item, (err, data) => { resolve(data) })
-    //   }).then((data: Buffer): void => {
-    //     arrOfImagesBuffer.push(data)
-    //   })
-    // }
+    // const endBase64 = Date.now();
+    // const start = Date.now();
+    
+    for (const item of filePaths) {
+      await new Promise((resolve) => {
+        fs.readFile(item, (err, data) => { resolve(data) })
+      }).then((data: Buffer): void => {
+        arrOfImagesBuffer.push(data)
+      })
+    }
 
+    // const end = Date.now();
+
+    // console.log('buffer ', end - start);
+    // console.log('base64 ', endBase64 - startBase64);
     return arrOfImages
     // return [arrOfImagesBuffer]
   }
