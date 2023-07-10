@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 
 declare global {
   interface Window {
@@ -8,11 +8,13 @@ declare global {
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
-  openFile: () => Promise<BlobPart[]>
+  // openFile: () => Promise<Uint8Array>
+  openFile: () => Promise<string[]>
 }
 
 export const App = (): JSX.Element => {
   const [imgs, setImgs] = useState<JSX.Element[]>([])
+  console.log('imgs: ', imgs);
 
   let isMaximize: boolean
 
@@ -40,18 +42,37 @@ export const App = (): JSX.Element => {
   }
   const openFile = async (): Promise<void> => {
     const filePath = await window.electronAPI.openFile()
-    
+
     console.log('filePath: ', filePath);
+
+    // const base64_arraybuffer = async (data: Uint8Array) => {
+    //   // Use a FileReader to generate a base64 data URI
+    //   const base64url = await new Promise<string>((res) => {
+    //     const reader = new FileReader()
+    //     reader.onload = () => {
+    //       res(reader.result as string)
+    //     }
+    //     reader.readAsDataURL(new Blob([data]))
+    //   })
+
+    //   /*
+    //   The result looks like 
+    //   "data:application/octet-stream;base64,<your base64 data>", 
+    //   so we split off the beginning:
+    //   */
+    //   return base64url.substring(base64url.indexOf(',') + 1)
+    // }
+    // const imgData = btoa(String.fromCharCode.apply(null, filePath))
+    // const imgData = 'data:image/jpeg;base64,' + await base64_arraybuffer(filePath)
+    // console.log('imgData: ', imgData);
+    const imgsArr: JSX.Element[] = []
     
-    const blob = new Blob(filePath)
+    for (const item of filePath) {
+      const imgData = 'data:image/png;base64,' + item
+      imgsArr.push(<img key={filePath.length} src={imgData} width={200} height={100}></img>)
+    }
 
-    console.log('Blob: ', blob);
-    
-    const url = URL.createObjectURL(blob);
-
-    console.log('url: ', url);
-
-    setImgs((prev) => { return [...prev, <img src={url}></img>] })
+    setImgs(() => { return imgsArr })
 
     // console.log('arrOfImages: ');
     // console.log('filePath[0][0]: ', filePath[0][0].length);
@@ -83,6 +104,7 @@ export const App = (): JSX.Element => {
         <button onClick={sendMessage}>sendMessage</button>
         <button onClick={openFile}>openFile</button>
       </div>
+      <div className='imgs'></div>
       {imgs ? imgs : null}
     </>
   )
