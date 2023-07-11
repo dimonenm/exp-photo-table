@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Spinner from './Spinner'
 
 declare global {
@@ -15,7 +15,6 @@ interface IElectronAPI {
 
 export const App = (): JSX.Element => {
   const [imgs, setImgs] = useState<JSX.Element[]>([])
-  console.log('imgs: ', imgs);
   const [isLoading, setIsLoading] = useState(false);
 
   let isMaximize: boolean
@@ -47,17 +46,61 @@ export const App = (): JSX.Element => {
 
     const filePath = await window.electronAPI.openFile()
 
-    console.log('filePath: ', filePath);
-
     const arrImgs: JSX.Element[] = []
-    for (const item of filePath) {
-      const blob = new Blob([item])
-      const url = URL.createObjectURL(blob)
-      const img = <img key={item.length} src={url} width={150} height={216}></img>
-      arrImgs.push(img)
-    }
 
-    setImgs(arrImgs)
+    // for (const item of filePath) {
+    //   const blob = new Blob([item])
+    //   const url = URL.createObjectURL(blob)
+    //   const img = <img key={item.length} src={url} width={150} height={216}></img>
+    //   arrImgs.push(img)
+    // }
+
+    let counter = 0
+
+    const arrBase64 = await filePath.map(async (item) => {
+      const blob = new Blob([item])
+
+      const blobToBase64 = new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(blob)
+        reader.onloadend = () => {
+          resolve(reader.result as string)
+        }
+      })
+
+      const res = await blobToBase64.then((data: string) => {
+        const img = <img key={counter} src={'data:image/png;base64,' + data.slice(data.indexOf(',') + 1)} width={150} height={216}></img>
+        counter++
+        arrImgs.push(img)
+        console.log('arrImgs1: ', arrImgs);
+        return img
+        // return 'data:image/png;base64,' + data.slice(data.indexOf(',') + 1)
+      })
+      console.log('res: ', res);
+      // return res
+    })
+    console.log('arrBase64: ', arrBase64);
+    console.log('arrImgs2: ', arrImgs);
+
+    // arrBase64.map((item) => {
+    //   arrImgs.push(item)
+    // })
+
+
+
+    // const urlLinks = filePath.map((item) => {
+    //   const blob = new Blob([item])
+    //   // const url = URL.createObjectURL(blob)
+
+    //   // return url
+    // })
+
+    // urlLinks.map((item, index) => {
+    //   const img = <img key={index} src={item} width={150} height={216}></img>
+    //   arrImgs.push(img)
+    // })
+
+    // setImgs(arrImgs)
     setIsLoading(false)
 
     // const base64_arraybuffer = async (data: Uint8Array) => {
@@ -90,7 +133,6 @@ export const App = (): JSX.Element => {
     // setImgs(() => { return imgsArr })
   }
 
-
   return (
     <>
       <div>
@@ -101,7 +143,7 @@ export const App = (): JSX.Element => {
         <button onClick={openFile}>openFile</button>
       </div>
       {isLoading ? <Spinner /> : null}
-      {imgs ? imgs : null}
+      {imgs}
     </>
   )
 }
