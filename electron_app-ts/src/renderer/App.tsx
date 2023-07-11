@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Spinner from './Spinner'
 
 declare global {
   interface Window {
@@ -15,6 +16,7 @@ interface IElectronAPI {
 export const App = (): JSX.Element => {
   const [imgs, setImgs] = useState<JSX.Element[]>([])
   console.log('imgs: ', imgs);
+  const [isLoading, setIsLoading] = useState(false);
 
   let isMaximize: boolean
 
@@ -40,25 +42,23 @@ export const App = (): JSX.Element => {
     // console.log('filePath: ', filePath);
   }
   const openFile = async (): Promise<void> => {
+
+    setIsLoading(true)
+
     const filePath = await window.electronAPI.openFile()
 
     console.log('filePath: ', filePath);
 
-    const arrImgs: HTMLImageElement[] = []
+    const arrImgs: JSX.Element[] = []
     for (const item of filePath) {
       const blob = new Blob([item])
       const url = URL.createObjectURL(blob)
-      const img = new Image(150, 216)
-      img.src = url
+      const img = <img key={item.length} src={url} width={150} height={216}></img>
       arrImgs.push(img)
     }
 
-    const elem = document.querySelector('.imgs')
-
-    for (const item of arrImgs) {
-      elem.appendChild(item)
-    }
-    
+    setImgs(arrImgs)
+    setIsLoading(false)
 
     // const base64_arraybuffer = async (data: Uint8Array) => {
     //   // Use a FileReader to generate a base64 data URI
@@ -81,7 +81,7 @@ export const App = (): JSX.Element => {
     // const imgData = 'data:image/jpeg;base64,' + await base64_arraybuffer(filePath)
     // console.log('imgData: ', imgData);
     // const imgsArr: JSX.Element[] = []
-    
+
     // for (const item of filePath) {
     //   const imgData = 'data:image/png;base64,' + item
     //   imgsArr.push(<img key={filePath.length} src={imgData} width={200} height={100}></img>)
@@ -100,7 +100,7 @@ export const App = (): JSX.Element => {
         <button onClick={sendMessage}>sendMessage</button>
         <button onClick={openFile}>openFile</button>
       </div>
-      <div className='imgs'></div>
+      {isLoading ? <Spinner /> : null}
       {imgs ? imgs : null}
     </>
   )
