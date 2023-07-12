@@ -55,37 +55,32 @@ export const App = (): JSX.Element => {
     //   arrImgs.push(img)
     // }
 
-    let counter = 0
+    const mimeType = 'image/png';
 
-    const arrBase64 = await filePath.map(async (item) => {
-      const blob = new Blob([item])
-
-      const blobToBase64 = new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(blob)
+    const convertBlobToBase64Async = (blob: Blob, mimeType: string) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
         reader.onloadend = () => {
-          resolve(reader.result as string)
-        }
-      })
+          const dataUrlPrefix = `data:${mimeType};base64,`;
+          const base64WithDataUrlPrefix = reader.result as string;
+          const base64 = base64WithDataUrlPrefix.replace(dataUrlPrefix, '');
+          resolve(base64);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
 
-      const res = await blobToBase64.then((data: string) => {
-        const img = <img key={counter} src={'data:image/png;base64,' + data.slice(data.indexOf(',') + 1)} width={150} height={216}></img>
-        counter++
-        arrImgs.push(img)
-        console.log('arrImgs1: ', arrImgs);
-        return img
-        // return 'data:image/png;base64,' + data.slice(data.indexOf(',') + 1)
-      })
-      console.log('res: ', res);
-      // return res
+    const elements = await filePath.map(async (item, index) => {
+      const blob = new Blob([item])
+      return await convertBlobToBase64Async(blob, mimeType).then((base64: string) => {
+        // const elem = React.createElement('img', { src: base64, width: 150, height: 216 })
+        const elem = <img key={index} src={base64} width={150} height={216} ></img>
+        return elem
+      });
     })
-    console.log('arrBase64: ', arrBase64);
-    console.log('arrImgs2: ', arrImgs);
-
-    // arrBase64.map((item) => {
-    //   arrImgs.push(item)
-    // })
-
+    console.log('elements: ', elements);
+    setImgs(elements as JSX.Element[])
 
 
     // const urlLinks = filePath.map((item) => {
