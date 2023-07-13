@@ -91,18 +91,39 @@ export const App = (): JSX.Element => {
 
     const arrImgs: JSX.Element[] = []
     console.log('arrImgs1: ', arrImgs);
-    
-    console.log('1');
-    const elements = await filePath.map(async (item, index) => {
-      const blob = new Blob([item])
-      const str: unknown = await blob.text
-      arrImgs.push(<img key={index} src={str as string} width={150} height={216} ></img>)
-      // const elem = <img key={index} src={str as string} width={150} height={216} ></img>
-      console.log('2');
-      // return elem
+
+    console.log('start');
+    const base64Strings: string[] = []
+    const prFirst = new Promise((response) => {
+      const arr: string[] = []
+      filePath.map(async (item) => {
+        const blob = new Blob([item])
+        const str: string = await blob.text()
+        await arr.push(str)
+        console.log('filePath')
+      })
+      response(arr)
+    }).then((data: string[]) => {
+      data.map((item) => {
+        base64Strings.push(item)
+      })
     })
+    await prFirst
+
+    base64Strings.map((item, index) => {
+      arrImgs.push(<img key={index} src={item} width={150} height={216} ></img>)
+      console.log('base64Strings');
+    })
+    // const elements = await filePath.map(async (item, index) => {
+    //   const blob = new Blob([item])
+    //   const str: unknown = await blob.text
+    //   arrImgs.push(<img key={index} src={str as string} width={150} height={216} ></img>)
+    //   // const elem = <img key={index} src={str as string} width={150} height={216} ></img>
+    //   console.log('2');
+    //   // return elem
+    // })
     console.log('arrImgs2: ', arrImgs);
-    console.log('3');
+    console.log('end');
 
     setImgs(arrImgs)
 
