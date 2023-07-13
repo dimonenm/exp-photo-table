@@ -14,7 +14,7 @@ interface IElectronAPI {
 }
 
 export const App = (): JSX.Element => {
-  const [imgs, setImgs] = useState<JSX.Element[]>([])
+  const [imgs, setImgs] = useState<JSX.Element[]>()
   const [isLoading, setIsLoading] = useState(false);
 
   let isMaximize: boolean
@@ -46,7 +46,7 @@ export const App = (): JSX.Element => {
 
     const filePath = await window.electronAPI.openFile()
 
-    const arrImgs: JSX.Element[] = []
+    // let arrImgs: JSX.Element[] = []
 
     // for (const item of filePath) {
     //   const blob = new Blob([item])
@@ -63,7 +63,8 @@ export const App = (): JSX.Element => {
         reader.onloadend = () => {
           const dataUrlPrefix = `data:${mimeType};base64,`;
           const base64WithDataUrlPrefix = reader.result as string;
-          const base64 = base64WithDataUrlPrefix.replace(dataUrlPrefix, '');
+          const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
+          console.log('base64: ', base64);
           resolve(base64);
         };
         reader.onerror = reject;
@@ -71,16 +72,19 @@ export const App = (): JSX.Element => {
       });
     };
 
-    const elements = await filePath.map(async (item, index) => {
+    const arrBase64 = await filePath.map(async (item) => {
       const blob = new Blob([item])
       return await convertBlobToBase64Async(blob, mimeType).then((base64: string) => {
-        // const elem = React.createElement('img', { src: base64, width: 150, height: 216 })
-        const elem = <img key={index} src={base64} width={150} height={216} ></img>
-        return elem
+        return base64
       });
     })
+    const elements = arrBase64.map((item, index) => {
+      const str = item as unknown
+      const elem = <img key={index} src={str as string} width={150} height={216} ></img>
+      return elem
+    })
     console.log('elements: ', elements);
-    setImgs(elements as JSX.Element[])
+    setImgs(elements)
 
 
     // const urlLinks = filePath.map((item) => {
