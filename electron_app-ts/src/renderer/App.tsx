@@ -44,8 +44,44 @@ export const App = (): JSX.Element => {
 
     setIsLoading(true)
 
+    console.log('start');
+
     const filePath = await window.electronAPI.openFile()
 
+    console.log('filePath');
+
+    const blobs = filePath.map((item) => {
+      console.log('blobs in');
+      return new Blob([item])
+    })
+    console.log('blobs out: ', blobs);
+
+
+
+    const base64 = blobs.map((item) => {
+      console.log('base64 in');
+
+      function blobsToBase64(blob:Blob) {
+        new Promise((resolve) => {
+          const reader = new FileReader();
+        
+          reader.onloadend = () => {
+            const dataUrlPrefix = `data:image/png;base64,`;
+            const base64WithDataUrlPrefix = reader.result as string;
+            const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
+            resolve(base64)
+          }
+        
+          reader.readAsDataURL(blob);
+        })
+      }
+      const base = blobsToBase64(item)
+      console.log('base: ', base);
+      return base
+    })
+    console.log('base64 out: ', base64);
+
+    console.log('end');
 
 
     // for (const item of filePath) {
@@ -55,31 +91,31 @@ export const App = (): JSX.Element => {
     //   arrImgs.push(img)
     // }
 
-    const mimeType = 'image/png';
+    // const mimeType = 'image/png';
 
 
 
-    const convertBlobToBase64Async = (blob: Blob, mimeType: string) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const dataUrlPrefix = `data:${mimeType};base64,`;
-          const base64WithDataUrlPrefix = reader.result as string;
-          const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
-          resolve(base64);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    };
+    // const convertBlobToBase64Async = (blob: Blob, mimeType: string) => {
+    //   return new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //       const dataUrlPrefix = `data:${mimeType};base64,`;
+    //       const base64WithDataUrlPrefix = reader.result as string;
+    //       const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
+    //       resolve(base64);
+    //     };
+    //     reader.onerror = reject;
+    //     reader.readAsDataURL(blob);
+    //   });
+    // };
 
-    const arrBase64 = await filePath.map(async (item) => {
-      const blob = new Blob([item])
-      return await convertBlobToBase64Async(blob, mimeType).then((base64: string) => {
+    // const arrBase64 = await filePath.map(async (item) => {
+    //   const blob = new Blob([item])
+    //   return await convertBlobToBase64Async(blob, mimeType).then((base64: string) => {
 
-        return base64
-      });
-    })
+    //     return base64
+    //   });
+    // })
 
 
 
@@ -89,31 +125,34 @@ export const App = (): JSX.Element => {
     //   return elem
     // })
 
-    const arrImgs: JSX.Element[] = []
-    console.log('arrImgs1: ', arrImgs);
+    // const arrImgs: JSX.Element[] = []
+    // console.log('arrImgs1: ', arrImgs);
 
-    console.log('start');
-    const base64Strings: string[] = []
-    const prFirst = new Promise((response) => {
-      const arr: string[] = []
-      filePath.map(async (item) => {
-        const blob = new Blob([item])
-        const str: string = await blob.text()
-        await arr.push(str)
-        console.log('filePath')
-      })
-      response(arr)
-    }).then((data: string[]) => {
-      data.map((item) => {
-        base64Strings.push(item)
-      })
-    })
-    await prFirst
+    // console.log('start');
+    // const base64Strings: string[] = []
+    // function prFirst() {
+    //   new Promise((response) => {
+    //     const arr: string[] = []
+    //     console.log('filePath: ', filePath);
+    //     filePath.map(async (item) => {
+    //       const blob = new Blob([item])
+    //       const str: string = await blob.text()
+    //       await arr.push(str)
+    //       console.log('filePath')
+    //     })
+    //     response(arr)
+    //   }).then((data: string[]) => {
+    //     data.map((item) => {
+    //       base64Strings.push(item)
+    //     })
+    //   })      
+    // }
+    // await prFirst()
 
-    base64Strings.map((item, index) => {
-      arrImgs.push(<img key={index} src={item} width={150} height={216} ></img>)
-      console.log('base64Strings');
-    })
+    // base64Strings.map((item, index) => {
+    //   arrImgs.push(<img key={index} src={item} width={150} height={216} ></img>)
+    //   console.log('base64Strings');
+    // })
     // const elements = await filePath.map(async (item, index) => {
     //   const blob = new Blob([item])
     //   const str: unknown = await blob.text
@@ -122,10 +161,10 @@ export const App = (): JSX.Element => {
     //   console.log('2');
     //   // return elem
     // })
-    console.log('arrImgs2: ', arrImgs);
-    console.log('end');
+    // console.log('arrImgs2: ', arrImgs);
+    // console.log('end');
 
-    setImgs(arrImgs)
+    // setImgs(arrImgs)
 
 
     // const urlLinks = filePath.map((item) => {
