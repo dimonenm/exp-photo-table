@@ -41,137 +41,53 @@ export const App = (): JSX.Element => {
     // console.log('filePath: ', filePath);
   }
   const openFile = async (): Promise<void> => {
+    async function readFileAsDataURL(file: Blob) {
+      const result_base64 = await new Promise((resolve) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          const dataUrlPrefix = `data:image/png;base64,`;
+          const base64WithDataUrlPrefix = fileReader.result as string;
+          const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
+          resolve(base64)
+          // resolve(fileReader.result)
+        };
+        fileReader.readAsDataURL(file);
+      });
+
+      return result_base64;
+    }
 
     setIsLoading(true)
 
-    console.log('start');
+    const startTimeTest: number = Date.now()
 
-    const filePath = await window.electronAPI.openFile()
+    const base64: string[] = []
+    const arrImgs: JSX.Element[] = []
+    const buffer: Uint8Array[] = await window.electronAPI.openFile()
 
-    console.log('filePath');
-
-    const blobs = filePath.map((item) => {
-      console.log('blobs in');
+    const blobs: Blob[] = buffer.map((item) => {
       return new Blob([item])
     })
-    console.log('blobs out: ', blobs);
+
+    for (let i = 0; i < blobs.length; i++) {
+      const dataURL = await readFileAsDataURL(blobs[i])
+      base64.push(dataURL as string)
+    }
+
+    for (const item of base64) {
+      const img = <img key={item.length} src={item} width={150} height={216}></img>
+      arrImgs.push(img)
+    }
+
+    const stopTimeTest: number = Date.now()
+    console.log('prepare time: ', (stopTimeTest - startTimeTest)/1000, ' sec')
+    setImgs(arrImgs)
 
 
-
-    const base64 = blobs.map((item) => {
-      console.log('base64 in');
-
-      function blobsToBase64(blob:Blob) {
-        new Promise((resolve) => {
-          const reader = new FileReader();
-        
-          reader.onloadend = () => {
-            const dataUrlPrefix = `data:image/png;base64,`;
-            const base64WithDataUrlPrefix = reader.result as string;
-            const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
-            resolve(base64)
-          }
-        
-          reader.readAsDataURL(blob);
-        })
-      }
-      const base = blobsToBase64(item)
-      console.log('base: ', base);
-      return base
-    })
-    console.log('base64 out: ', base64);
-
-    console.log('end');
-
-
-    // for (const item of filePath) {
+    // const urlLinks = buffer.map((item) => {
     //   const blob = new Blob([item])
     //   const url = URL.createObjectURL(blob)
-    //   const img = <img key={item.length} src={url} width={150} height={216}></img>
-    //   arrImgs.push(img)
-    // }
-
-    // const mimeType = 'image/png';
-
-
-
-    // const convertBlobToBase64Async = (blob: Blob, mimeType: string) => {
-    //   return new Promise((resolve, reject) => {
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => {
-    //       const dataUrlPrefix = `data:${mimeType};base64,`;
-    //       const base64WithDataUrlPrefix = reader.result as string;
-    //       const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
-    //       resolve(base64);
-    //     };
-    //     reader.onerror = reject;
-    //     reader.readAsDataURL(blob);
-    //   });
-    // };
-
-    // const arrBase64 = await filePath.map(async (item) => {
-    //   const blob = new Blob([item])
-    //   return await convertBlobToBase64Async(blob, mimeType).then((base64: string) => {
-
-    //     return base64
-    //   });
-    // })
-
-
-
-    // const elements = await arrBase64.map((item, index) => {
-    //   const str = item as unknown
-    //   const elem = <img key={index} src={str as string} width={150} height={216} ></img>
-    //   return elem
-    // })
-
-    // const arrImgs: JSX.Element[] = []
-    // console.log('arrImgs1: ', arrImgs);
-
-    // console.log('start');
-    // const base64Strings: string[] = []
-    // function prFirst() {
-    //   new Promise((response) => {
-    //     const arr: string[] = []
-    //     console.log('filePath: ', filePath);
-    //     filePath.map(async (item) => {
-    //       const blob = new Blob([item])
-    //       const str: string = await blob.text()
-    //       await arr.push(str)
-    //       console.log('filePath')
-    //     })
-    //     response(arr)
-    //   }).then((data: string[]) => {
-    //     data.map((item) => {
-    //       base64Strings.push(item)
-    //     })
-    //   })      
-    // }
-    // await prFirst()
-
-    // base64Strings.map((item, index) => {
-    //   arrImgs.push(<img key={index} src={item} width={150} height={216} ></img>)
-    //   console.log('base64Strings');
-    // })
-    // const elements = await filePath.map(async (item, index) => {
-    //   const blob = new Blob([item])
-    //   const str: unknown = await blob.text
-    //   arrImgs.push(<img key={index} src={str as string} width={150} height={216} ></img>)
-    //   // const elem = <img key={index} src={str as string} width={150} height={216} ></img>
-    //   console.log('2');
-    //   // return elem
-    // })
-    // console.log('arrImgs2: ', arrImgs);
-    // console.log('end');
-
-    // setImgs(arrImgs)
-
-
-    // const urlLinks = filePath.map((item) => {
-    //   const blob = new Blob([item])
-    //   // const url = URL.createObjectURL(blob)
-
-    //   // return url
+    //   return url
     // })
 
     // urlLinks.map((item, index) => {
@@ -179,7 +95,11 @@ export const App = (): JSX.Element => {
     //   arrImgs.push(img)
     // })
 
+    // const stopTimeTest: number = Date.now()
+    // console.log('prepare time: ', (stopTimeTest - startTimeTest) / 1000, ' sec')
+
     // setImgs(arrImgs)
+
     setIsLoading(false)
 
   }
