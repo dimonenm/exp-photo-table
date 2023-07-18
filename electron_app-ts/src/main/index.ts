@@ -1,5 +1,6 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
 import fs from 'fs'
+import path from 'path'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -35,7 +36,6 @@ const createWindow = (): void => {
   mainWindow.webContents.openDevTools({ mode: 'detach' });
 
   ipcMain.on('renderer_to_main', (event, type, msg) => {
-    console.log('renderer_to_main: ipcMain.on');
     if (type === 'btnAction') {
       if (msg === 'maximize') {
         mainWindow.maximize()
@@ -65,13 +65,21 @@ const createWindow = (): void => {
     return arr
   }
   
-  async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
-    const arr = [...args]
-    return 'ok'
+  // async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
+  //   const arr = [...args]
+  //   return 'ok'
+  // }
+  async function handleGetSettings(event: IpcMainInvokeEvent, type: string) {
+    if (type === 'all') {
+      const directory = path.join(app.getPath('userData'), 'settings');
+      return directory
+    }
+    return 'error'
   }
 
   ipcMain.handle('dialog:openFile', handleFileOpen)
-  ipcMain.handle('renderer_to_main', handleGetSettings)
+  // ipcMain.handle('renderer_to_main', handleGetSettings)
+  ipcMain.handle('getSettings', handleGetSettings)
 }
 const subscribeForAppEvents = (): void => {
   // Quit when all windows are closed, except on macOS. There, it's common

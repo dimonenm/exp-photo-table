@@ -9,7 +9,7 @@ declare global {
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
-  // openFile: () => Promise<Uint8Array>
+  getSettings: (type: string) => string,
   openFile: () => Promise<Uint8Array[]>
 }
 
@@ -39,6 +39,10 @@ export const App = (): JSX.Element => {
     console.log('res: ', res);
     // const filePath = await window.electronAPI.openFile()
     // console.log('filePath: ', filePath);
+  }
+  const getSettings = async () => {
+    const res = await window.electronAPI.getSettings('all')
+    console.log('res: ', res);
   }
   const openFile = async (): Promise<void> => {
     async function readFileAsDataURL(file: Blob) {
@@ -111,6 +115,7 @@ export const App = (): JSX.Element => {
         <button onClick={winMax}>max</button>
         <button onClick={winClose}>close</button>
         <button onClick={sendMessage}>sendMessage</button>
+        <button onClick={getSettings}>getSettings</button>
         <button onClick={openFile}>openFile</button>
       </div>
       {isLoading ? <Spinner /> : null}
