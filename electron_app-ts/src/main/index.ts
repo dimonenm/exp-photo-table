@@ -1,5 +1,5 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
-import fs from 'fs'
+import fs, { existsSync, mkdirSync } from 'fs'
 import path from 'path'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -64,17 +64,19 @@ const createWindow = (): void => {
     }
     return arr
   }
-  
+
   // async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
   //   const arr = [...args]
   //   return 'ok'
   // }
-  async function handleGetSettings(event: IpcMainInvokeEvent, type: string) {
-    if (type === 'all') {
-      const directory = path.join(app.getPath('userData'), 'settings');
-      return directory
+  async function handleGetSettings(event: IpcMainInvokeEvent) {
+    const directory = path.join(app.getPath('userData'), 'settings');
+
+    if (!existsSync(this.directory)) {
+      mkdirSync(this.directory)
     }
-    return 'error'
+
+    return directory
   }
 
   ipcMain.handle('dialog:openFile', handleFileOpen)

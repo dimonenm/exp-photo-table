@@ -9,7 +9,7 @@ declare global {
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
-  getSettings: (type: string) => string,
+  getSettings: () => Promise<string>,
   openFile: () => Promise<Uint8Array[]>
 }
 
@@ -41,7 +41,7 @@ export const App = (): JSX.Element => {
     // console.log('filePath: ', filePath);
   }
   const getSettings = async () => {
-    const res = await window.electronAPI.getSettings('all')
+    const res = await window.electronAPI.getSettings()
     console.log('res: ', res);
   }
   const openFile = async (): Promise<void> => {
