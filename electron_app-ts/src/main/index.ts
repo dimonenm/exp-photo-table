@@ -1,5 +1,5 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
-import fs, { existsSync, mkdirSync } from 'fs'
+import fs, { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -69,14 +69,19 @@ const createWindow = (): void => {
   //   const arr = [...args]
   //   return 'ok'
   // }
-  async function handleGetSettings(event: IpcMainInvokeEvent) {
+  async function handleGetSettings() {
     const directory = path.join(app.getPath('userData'), 'settings');
+    const file = path.join(directory, `settings.json`)
 
-    if (!existsSync(this.directory)) {
-      mkdirSync(this.directory)
+    if (!existsSync(directory)) {
+      mkdirSync(directory)
     }
 
-    return directory
+    if (!existsSync(file)) {
+      writeFileSync(file, '{"address": "Адрес не указан", "executors": [], "note": "Примечание: не указано", "official_status": "специалист", "tel": "Телефон не указан", "unit": "Подразделение не указано", "zip_code": "Почтовый индекс не указан"}', { flag: 'wx' })
+    }
+
+    return JSON.parse(readFileSync(file, { encoding: 'utf8' }))
   }
 
   ipcMain.handle('dialog:openFile', handleFileOpen)
