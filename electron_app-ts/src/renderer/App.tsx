@@ -16,6 +16,7 @@ interface IElectronAPI {
 export const App = (): JSX.Element => {
   const [imgs, setImgs] = useState<JSX.Element[]>()
   const [isLoading, setIsLoading] = useState(false);
+  const [settingsState, setSettingsState] = useState<string>();
 
   let isMaximize: boolean
 
@@ -42,7 +43,13 @@ export const App = (): JSX.Element => {
   }
   const getSettings = async () => {
     const res = await window.electronAPI.getSettings()
-    console.log('res: ', res);
+    console.log('getSettings: ', res);
+    setSettingsState(res);
+  }
+  const setSettings = async () => {
+    const set = settingsState
+    console.log('setSettings: ', set);
+    // const res = await window.electronAPI.setSettings()
   }
   const openFile = async (): Promise<void> => {
     async function readFileAsDataURL(file: Blob) {
@@ -116,6 +123,7 @@ export const App = (): JSX.Element => {
         <button onClick={winClose}>close</button>
         <button onClick={sendMessage}>sendMessage</button>
         <button onClick={getSettings}>getSettings</button>
+        <button onClick={setSettings}>setSettings</button>
         <button onClick={openFile}>openFile</button>
       </div>
       {isLoading ? <Spinner /> : null}
