@@ -3,21 +3,30 @@ import Spinner from './Spinner'
 
 declare global {
   interface Window {
-    electronAPI?: IElectronAPI;
+    electronAPI?: IElectronAPI,
   }
 }
 interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
-  getSettings: () => Promise<string>,
-  setSettings: (settings: string) => Promise<string>,
-  openFile: () => Promise<Uint8Array[]>
+  getSettings: () => Promise<ISettings>,
+  setSettings: (settings: ISettings) => Promise<string>,
+  openFile: () => Promise<Uint8Array[]>,
+}
+interface ISettings {
+  address: string,
+  executors: string[],
+  note: string,
+  official_status: string,
+  tel: string,
+  unit: string,
+  zip_code: string,
 }
 
 export const App = (): JSX.Element => {
   const [imgs, setImgs] = useState<JSX.Element[]>()
   const [isLoading, setIsLoading] = useState(false);
-  const [settingsState, setSettingsState] = useState<string>();
+  const [settingsState, setSettingsState] = useState<ISettings>();
 
   let isMaximize: boolean
 
@@ -49,10 +58,11 @@ export const App = (): JSX.Element => {
   }
   const setSettings = async () => {
     const settings = settingsState
-    const res = await window.electronAPI.setSettings(settings)
-    console.log('setSettings settingsState: ', settings);
-    console.log('setSettings res: ', res);
-    // const res = await window.electronAPI.setSettings()
+    console.log('settings: ', settings);
+    const newSettings: ISettings = { ...settings, executors: ['Д.Н. Арзяков'] }
+    console.log('settings: ', newSettings);
+    const res = await window.electronAPI.setSettings(newSettings)
+    console.log('res: ', res);
   }
   const openFile = async (): Promise<void> => {
     async function readFileAsDataURL(file: Blob) {
