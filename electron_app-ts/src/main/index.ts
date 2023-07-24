@@ -84,9 +84,15 @@ const createWindow = (): void => {
     return JSON.parse(readFileSync(file, { encoding: 'utf8' }))
   }
 
+  async function handleSetSettings(event: IpcMainInvokeEvent, settings: string) {
+    console.log(JSON.stringify(settings));
+    return 'ok'
+  }
+
   ipcMain.handle('dialog:openFile', handleFileOpen)
   // ipcMain.handle('renderer_to_main', handleGetSettings)
   ipcMain.handle('getSettings', handleGetSettings)
+  ipcMain.handle('setSettings', handleSetSettings)
 }
 const subscribeForAppEvents = (): void => {
   // Quit when all windows are closed, except on macOS. There, it's common

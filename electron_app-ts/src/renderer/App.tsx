@@ -10,6 +10,7 @@ interface IElectronAPI {
   sendAction: (type: string, action: string) => void,
   sendRequest: (type: string, req: string) => Promise<string>,
   getSettings: () => Promise<string>,
+  setSettings: (settings: string) => Promise<string>,
   openFile: () => Promise<Uint8Array[]>
 }
 
@@ -47,8 +48,10 @@ export const App = (): JSX.Element => {
     setSettingsState(res);
   }
   const setSettings = async () => {
-    const set = settingsState
-    console.log('setSettings: ', set);
+    const settings = settingsState
+    const res = await window.electronAPI.setSettings(settings)
+    console.log('setSettings settingsState: ', settings);
+    console.log('setSettings res: ', res);
     // const res = await window.electronAPI.setSettings()
   }
   const openFile = async (): Promise<void> => {
