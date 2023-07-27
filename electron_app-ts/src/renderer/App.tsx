@@ -58,11 +58,8 @@ export const App = (): JSX.Element => {
   }
   const setSettings = async () => {
     const settings = settingsState
-    console.log('settings: ', settings);
     const newSettings: ISettings = { ...settings, executors: ['Д.Н. Арзяков'] }
-    console.log('settings: ', newSettings);
     const res = await window.electronAPI.setSettings(newSettings)
-    console.log('res: ', res);
   }
   const openFile = async (): Promise<void> => {
     async function readFileAsDataURL(file: Blob) {
