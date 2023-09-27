@@ -104,23 +104,6 @@ export const App = (): JSX.Element => {
     console.log('prepare time: ', (stopTimeTest - startTimeTest)/1000, ' sec')
     setImgs(arrImgs)
 
-
-    // const urlLinks = buffer.map((item) => {
-    //   const blob = new Blob([item])
-    //   const url = URL.createObjectURL(blob)
-    //   return url
-    // })
-
-    // urlLinks.map((item, index) => {
-    //   const img = <img key={index} src={item} width={150} height={216}></img>
-    //   arrImgs.push(img)
-    // })
-
-    // const stopTimeTest: number = Date.now()
-    // console.log('prepare time: ', (stopTimeTest - startTimeTest) / 1000, ' sec')
-
-    // setImgs(arrImgs)
-
     setIsLoading(false)
 
   }
