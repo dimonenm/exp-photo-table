@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Spinner from './Spinner'
 
 declare global {
@@ -57,9 +57,9 @@ export const App = (): JSX.Element => {
     setSettingsState(res);
   }
   const setSettings = async () => {
-    const settings = settingsState
-    const newSettings: ISettings = { ...settings, executors: ['Д.Н. Арзяков'] }
-    const res = await window.electronAPI.setSettings(newSettings)
+    // const settings = settingsState
+    // const newSettings: ISettings = { ...settings, executors: ['Д.Н. Арзяков'] }
+    // const res = await window.electronAPI.setSettings(newSettings)
   }
   const openFile = async (): Promise<void> => {
     async function readFileAsDataURL(file: Blob) {
