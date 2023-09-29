@@ -1,7 +1,7 @@
 {
   "name": "electron_app-ts",
   "productName": "electron_app-ts",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
