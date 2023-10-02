@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Spinner from './Spinner'
 
 declare global {
@@ -107,6 +107,15 @@ export const App = (): JSX.Element => {
     setIsLoading(false)
 
   }
+
+
+
+  useEffect((): void => {
+    getSettings()
+  }, [])
+
+
+
 
   return (
     <>

@@ -18,12 +18,12 @@ const createWindow = (): void => {
     minHeight: 750,
     minWidth: 1100,
     autoHideMenuBar: true,
-    titleBarStyle: 'hidden',
-    // titleBarOverlay: {
-    //   color: '#343a40',
-    //   symbolColor: '#fff',
-    //   height: 20
-    // },
+    // titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#343a40',
+      symbolColor: '#fff',
+      height: 20
+    },
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -35,19 +35,25 @@ const createWindow = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools({ mode: 'detach' });
 
-  ipcMain.on('renderer_to_main', (event, type, msg) => {
-    if (type === 'btnAction') {
-      if (msg === 'maximize') {
-        mainWindow.maximize()
-      }
-      if (msg === 'unmaximize') {
-        mainWindow.unmaximize()
-      }
-      if (msg === 'minimize') {
-        mainWindow.minimize()
-      }
-    }
-  })
+  ipcMain.handle('getSettings', handleGetSettings)
+
+
+
+
+  
+  // ipcMain.on('renderer_to_main', (event, type, msg) => {
+  //   if (type === 'btnAction') {
+  //     if (msg === 'maximize') {
+  //       mainWindow.maximize()
+  //     }
+  //     if (msg === 'unmaximize') {
+  //       mainWindow.unmaximize()
+  //     }
+  //     if (msg === 'minimize') {
+  //       mainWindow.minimize()
+  //     }
+  //   }
+  // })
 
   async function handleFileOpen() {
     const { filePaths } = await dialog.showOpenDialog({
@@ -65,10 +71,6 @@ const createWindow = (): void => {
     return arr
   }
 
-  // async function handleGetSettings(event: IpcMainInvokeEvent, args: [string]) {
-  //   const arr = [...args]
-  //   return 'ok'
-  // }
   async function handleGetSettings() {
     const directory = path.join(app.getPath('userData'), 'settings');
     const file = path.join(directory, `settings.json`)
@@ -89,10 +91,10 @@ const createWindow = (): void => {
     return 'ok'
   }
 
-  ipcMain.handle('dialog:openFile', handleFileOpen)
+  // ipcMain.handle('dialog:openFile', handleFileOpen)
   // ipcMain.handle('renderer_to_main', handleGetSettings)
-  ipcMain.handle('getSettings', handleGetSettings)
-  ipcMain.handle('setSettings', handleSetSettings)
+  // ipcMain.handle('getSettings', handleGetSettings)
+  // ipcMain.handle('setSettings', handleSetSettings)
 }
 const subscribeForAppEvents = (): void => {
   app.on('window-all-closed', () => {
