@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+html,
+body {
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+
+    background-color: #000;
+}
+
+@import './components/Spinner.scss';
