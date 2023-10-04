@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 
 import Container from './containers/Container';
 import Header from './containers/Header';
@@ -63,6 +63,8 @@ function App() {
     transform: 'scale(1) translate(0px)',
     margin: '10px 0 0 0'
   })
+
+  useEffect(() => { console.log(photoTableData) }, [photoTableData])
 
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);

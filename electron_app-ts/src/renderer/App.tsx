@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+// импорт компонентов
 import Spinner from './Spinner'
-
-import './stylesheets/application.css'
-
+// импорт интерфейсов
+import { ISettings } from './interfaces/interfaces' 
+// импорт стилей
+import './stylesheets/App.scss'
 
 declare global {
   interface Window {
@@ -16,15 +18,7 @@ interface IElectronAPI {
   // setSettings: (settings: ISettings) => Promise<string>,
   // openFile: () => Promise<Uint8Array[]>,
 }
-interface ISettings {
-  address: string,
-  executors: string[],
-  note: string,
-  official_status: string,
-  tel: string,
-  unit: string,
-  zip_code: string,
-}
+
 
 export const App = (): JSX.Element => {
   
