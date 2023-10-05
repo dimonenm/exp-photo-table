@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 // импорт компонентов
 import Spinner from './Spinner'
 // импорт интерфейсов
-import { ISettings } from './interfaces/interfaces' 
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces' 
 // импорт стилей
 import './stylesheets/App.scss'
 
@@ -16,45 +16,27 @@ interface IElectronAPI {
   // sendRequest: (type: string, req: string) => Promise<string>,
   getSettings: () => Promise<ISettings>,
   // setSettings: (settings: ISettings) => Promise<string>,
-  // openFile: () => Promise<Uint8Array[]>,
+  openFile: () => Promise<IDownloadedImages[]>,
+}
+interface IDownloadedImages {
+  name: string,
+  data: Uint8Array
 }
 
 
 export const App = (): JSX.Element => {
   
-  const [downloadedImages, setDownloadedImages] = useState();
-  const [photoTableData, setphotoTableData] = useState({
-    numbOMP: null,
-    factOMP: null,
-    adressOMP: null,
-    dateOMP: null,
-    dateForDoc: null,
-    unit: null,
-    kusp: null,
-    executor: null
-  });
+  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
+  const [photoTableData, setphotoTableData] = useState<IPhotoTableData>();
   const [settings, setSettings] = useState<ISettings>();
   const [galleryImages, setGalleryImages] = useState([]);
   // const [galleryImg, setGalleryImg] = useState(new GalleryImage());
-  const [currentGalleryImage, setCurrentGalleryImage] = useState({
-    index: null,
-    nameImg: null,
-    urlImg: null,
-    orientation: null
-  });
-  const [modalProperties, setModalProperties] = useState({
-    isOpen: false,
-    type: null,
-    nameImg: null,
-    urlImg: null,
-    textImg: null,
-    indexImgInGallery: null,
-    cut: false
-  });
-  const [workPlaceStyle, setWorkPlaceStyle] = useState({
+  const [currentGalleryImage, setCurrentGalleryImage] = useState<ICurrentGalleryImage>();
+  const [modalProperties, setModalProperties] = useState<IModalProperties>();
+  const [workPlaceStyle, setWorkPlaceStyle] = useState<IWorkPlaceStyle>({
     zoom: '1'
   })
-  const [previewPageScale, setPreviewPageScale] = useState({
+  const [previewPageScale, setPreviewPageScale] = useState <IPreviewPageScale>({
     transform: 'scale(1) translate(0px)',
     margin: '10px 0 0 0'
   })
@@ -65,7 +47,7 @@ export const App = (): JSX.Element => {
 
 
   const [imgs, setImgs] = useState<JSX.Element[]>()
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // let isMaximize: boolean
 
@@ -92,7 +74,6 @@ export const App = (): JSX.Element => {
   // }
   const getSettings = async () => {
     const res = await window.electronAPI.getSettings()
-    console.log('getSettings: ', res);
     setSettings(res);
   }
 
@@ -101,59 +82,62 @@ export const App = (): JSX.Element => {
   //   // const newSettings: ISettings = { ...settings, executors: ['Д.Н. Арзяков'] }
   //   // const res = await window.electronAPI.setSettings(newSettings)
   // }
-  // const openFile = async (): Promise<void> => {
-  //   async function readFileAsDataURL(file: Blob) {
-  //     const result_base64 = await new Promise((resolve) => {
-  //       const fileReader = new FileReader();
-  //       fileReader.onload = () => {
-  //         const dataUrlPrefix = `data:image/png;base64,`;
-  //         const base64WithDataUrlPrefix = fileReader.result as string;
-  //         const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
-  //         resolve(base64)
-  //         // resolve(fileReader.result)
-  //       };
-  //       fileReader.readAsDataURL(file);
-  //     });
+  const openFile = async (): Promise<void> => {
+    // async function readFileAsDataURL(file: Blob) {
+    //   const result_base64 = await new Promise((resolve) => {
+    //     const fileReader = new FileReader();
+    //     fileReader.onload = () => {
+    //       const dataUrlPrefix = `data:image/png;base64,`;
+    //       const base64WithDataUrlPrefix = fileReader.result as string;
+    //       const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
+    //       resolve(base64)
+    //       // resolve(fileReader.result)
+    //     };
+    //     fileReader.readAsDataURL(file);
+    //   });
 
-  //     return result_base64;
-  //   }
+    //   return result_base64;
+    // }
 
-  //   setIsLoading(true)
+    setIsLoading(true)
 
-  //   const startTimeTest: number = Date.now()
+    // const base64: string[] = []
+    // const arrImgs: JSX.Element[] = []
+    const receivedImages: IDownloadedImages[] = await window.electronAPI.openFile()
 
-  //   const base64: string[] = []
-  //   const arrImgs: JSX.Element[] = []
-  //   const buffer: Uint8Array[] = await window.electronAPI.openFile()
+    setDownloadedImages(receivedImages)
 
-  //   const blobs: Blob[] = buffer.map((item) => {
-  //     return new Blob([item])
-  //   })
+    setIsLoading(false)
+    // const buffer: Uint8Array[] = await window.electronAPI.openFile()
 
-  //   for (let i = 0; i < blobs.length; i++) {
-  //     const dataURL = await readFileAsDataURL(blobs[i])
-  //     base64.push(dataURL as string)
-  //   }
+    // const blobs: Blob[] = buffer.map((item) => {
+    //   return new Blob([item])
+    // })
 
-  //   for (const item of base64) {
-  //     const img = <img key={item.length} src={item} width={150} height={216}></img>
-  //     arrImgs.push(img)
-  //   }
+    // for (let i = 0; i < blobs.length; i++) {
+    //   const dataURL = await readFileAsDataURL(blobs[i])
+    //   base64.push(dataURL as string)
+    // }
 
-  //   const stopTimeTest: number = Date.now()
-  //   console.log('prepare time: ', (stopTimeTest - startTimeTest)/1000, ' sec')
-  //   setImgs(arrImgs)
+    // for (const item of base64) {
+    //   const img = <img key={item.length} src={item} width={150} height={216}></img>
+    //   arrImgs.push(img)
+    // }
 
-  //   setIsLoading(false)
+    // setImgs(arrImgs)
 
-  // }
+    
+
+  }
 
 
 
   useEffect((): void => {
     getSettings()
   }, [])
-
+  useEffect((): void => {
+    console.log('downloadedImages: ', downloadedImages);
+  }, [downloadedImages])
 
 
 
@@ -165,8 +149,8 @@ export const App = (): JSX.Element => {
         <button onClick={winClose}>close</button>
         <button onClick={sendMessage}>sendMessage</button> */}
         <button onClick={getSettings}>getSettings</button>
-        {/* <button onClick={setSettings}>setSettings</button>
-        <button onClick={openFile}>openFile</button> */}
+        {/* <button onClick={setSettings}>setSettings</button> */}
+        <button onClick={openFile}>openFile</button>
       </div>
       {isLoading ? <Spinner /> : null}
       {imgs}

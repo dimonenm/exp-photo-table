@@ -36,11 +36,11 @@ const createWindow = (): void => {
   mainWindow.webContents.openDevTools({ mode: 'detach' });
 
   ipcMain.handle('getSettings', handleGetSettings)
+  ipcMain.handle('dialog:openFile', handleFileOpen)
 
 
 
 
-  
   // ipcMain.on('renderer_to_main', (event, type, msg) => {
   //   if (type === 'btnAction') {
   //     if (msg === 'maximize') {
@@ -59,14 +59,28 @@ const createWindow = (): void => {
     const { filePaths } = await dialog.showOpenDialog({
       filters: [
         { name: 'All Files', extensions: ['*'] },
-        { name: 'Images', extensions: ['jpg', 'png', 'gif'] }
+        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif'] }
       ],
       properties: ['openFile', 'multiSelections']
     })
+    // const { filePaths } = await dialog.showOpenDialog({
+    //   filters: [
+    //     { name: 'All Files', extensions: ['*'] },
+    //     { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif'] }
+    //   ],
+    //   properties: ['openFile', 'multiSelections']
+    // })
 
-    const arr: Buffer[] = []
+    interface ISendImgsData { 
+      name: string
+      data: Buffer
+    }
+
+    const arr: ISendImgsData[] = []
     for (const item of filePaths) {
-      arr.push(fs.readFileSync(item))
+      const name: RegExpMatchArray = item.match(/[\][a-zA-Z0-9]+[.][a-zA-Z]+/)
+      
+      arr.push({name: name[0], data: fs.readFileSync(item)})
     }
     return arr
   }

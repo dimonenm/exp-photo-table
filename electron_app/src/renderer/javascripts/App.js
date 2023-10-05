@@ -151,7 +151,8 @@ function App() {
           workPlaceStyle={workPlaceStyle}
           setWorkPlaceStyle={setWorkPlaceStyle}
           setPreviewPageScale={setPreviewPageScale}
-        />
+        >
+        </ScaleChanger>
         <Workplace
           workPlaceStyle={workPlaceStyle}
         >
