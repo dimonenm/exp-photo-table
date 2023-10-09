@@ -13,4 +13,8 @@ body {
     background-color: #000;
 }
 
+@import './containers/Container.scss';
+@import './containers/Header.scss';
+
+@import './components/header/Logo.scss';
 @import './components/Spinner.scss';

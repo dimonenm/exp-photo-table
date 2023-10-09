@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 // импорт компонентов
+import Container from './containers/Container';
+import Header from './containers/Header';
+import Logo from './components/header/Logo';
 import Spinner from './Spinner'
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces' 
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces'
+//импорт функций
+import GalleryImage from './entities/GalleryImage';
 // импорт стилей
 import './stylesheets/App.scss'
 
@@ -25,28 +30,22 @@ interface IDownloadedImages {
 
 
 export const App = (): JSX.Element => {
-  
+
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
   const [photoTableData, setphotoTableData] = useState<IPhotoTableData>();
   const [settings, setSettings] = useState<ISettings>();
   const [galleryImages, setGalleryImages] = useState([]);
-  // const [galleryImg, setGalleryImg] = useState(new GalleryImage());
+  const [galleryImg, setGalleryImg] = useState(new GalleryImage());
   const [currentGalleryImage, setCurrentGalleryImage] = useState<ICurrentGalleryImage>();
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [workPlaceStyle, setWorkPlaceStyle] = useState<IWorkPlaceStyle>({
     zoom: '1'
   })
-  const [previewPageScale, setPreviewPageScale] = useState <IPreviewPageScale>({
+  const [previewPageScale, setPreviewPageScale] = useState<IPreviewPageScale>({
     transform: 'scale(1) translate(0px)',
     margin: '10px 0 0 0'
   })
 
-
-
-
-
-
-  const [imgs, setImgs] = useState<JSX.Element[]>()
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // let isMaximize: boolean
@@ -126,7 +125,7 @@ export const App = (): JSX.Element => {
 
     // setImgs(arrImgs)
 
-    
+
 
   }
 
@@ -143,17 +142,22 @@ export const App = (): JSX.Element => {
 
   return (
     <>
-      <div>
-        {/* <button onClick={winMin}>min</button>
+      {/* <div>
+        <button onClick={winMin}>min</button>
         <button onClick={winMax}>max</button>
         <button onClick={winClose}>close</button>
-        <button onClick={sendMessage}>sendMessage</button> */}
+        <button onClick={sendMessage}>sendMessage</button>
         <button onClick={getSettings}>getSettings</button>
-        {/* <button onClick={setSettings}>setSettings</button> */}
+        <button onClick={setSettings}>setSettings</button>
         <button onClick={openFile}>openFile</button>
-      </div>
-      {isLoading ? <Spinner /> : null}
-      {imgs}
+      </div> */}
+      <Container>
+        <Header>
+          <Logo>Фототаблица 0.3.0</Logo>
+        </Header>
+        {/* {isLoading ? <Spinner /> : null} */}
+
+      </Container>
     </>
   )
 }
