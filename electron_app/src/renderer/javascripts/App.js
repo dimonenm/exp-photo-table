@@ -14,7 +14,7 @@ import ScaleChanger from './components/main/ScaleChanger';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
-import addPreviewPages from './services/forApp/AddPreviewPages'
+import addPreviewPages from './services/forApp/AddPreviewPages';
 import GalleryImage from './entities/GalleryImage';
 export const modalDataContext = createContext();
 

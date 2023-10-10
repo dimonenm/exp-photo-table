@@ -1,5 +1,5 @@
 interface IHeader {
-    children: JSX.Element
+    children: JSX.Element[]
 }
 
 const Header = ({ children }: IHeader) => (

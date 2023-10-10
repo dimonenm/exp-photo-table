@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Container from './containers/Container';
 import Header from './containers/Header';
 import Logo from './components/header/Logo';
+import Menu from './components/header/Menu';
 import Spinner from './Spinner'
 // импорт интерфейсов
 import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces'
@@ -154,6 +155,9 @@ export const App = (): JSX.Element => {
       <Container>
         <Header>
           <Logo>Фототаблица 0.3.0</Logo>
+          <Menu>
+            
+          </Menu>
         </Header>
         {/* {isLoading ? <Spinner /> : null} */}
 
