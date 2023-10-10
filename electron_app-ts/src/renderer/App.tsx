@@ -4,13 +4,13 @@ import Container from './containers/Container';
 import Header from './containers/Header';
 import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
-import Spinner from './Spinner'
+import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces'
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces';
 //импорт функций
 import GalleryImage from './entities/GalleryImage';
 // импорт стилей
-import './stylesheets/App.scss'
+import './stylesheets/App.scss';
 
 declare global {
   interface Window {
