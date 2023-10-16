@@ -35,7 +35,7 @@ const createWindow = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools({ mode: 'detach' });
 
-  ipcMain.handle('getSettings', handleGetSettings)
+  ipcMain.handle('getSettings', GetSettingsHandler)
   ipcMain.handle('dialog:openFile', handleFileOpen)
 
 
@@ -85,7 +85,7 @@ const createWindow = (): void => {
     return arr
   }
 
-  async function handleGetSettings() {
+  async function GetSettingsHandler() {
     const directory = path.join(app.getPath('userData'), 'settings');
     const file = path.join(directory, `settings.json`)
 

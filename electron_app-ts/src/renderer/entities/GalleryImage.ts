@@ -1,22 +1,4 @@
-interface IGallaryImage {
-  index: number;
-  name: string;
-  url: string;
-  data: string;
-  orientation: string;
-  imgDesc: string;
-  imgCuted: boolean;
-  lastOffsetValueX: number;
-  lastOffsetValueY: number;
-  zoom: string;
-  arrowsColor: string;
-  arrowsWidth: string;
-  arrowsArray: [];
-  contrast: string;
-  brightness: string;
-  saturate: string;
-  rotationDegrees: string;
-}
+import { IGallaryImage } from '../interfaces/interfaces'
 
 export default class GallaryImage implements IGallaryImage {
   index;

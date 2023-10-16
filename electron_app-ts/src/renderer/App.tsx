@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 // импорт компонентов
 import Container from './containers/Container';
 import Header from './containers/Header';
@@ -6,11 +6,12 @@ import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage } from './interfaces/interfaces';
 //импорт функций
 import GalleryImage from './entities/GalleryImage';
 // импорт стилей
 import './stylesheets/App.scss';
+
 
 declare global {
   interface Window {
@@ -28,7 +29,39 @@ interface IDownloadedImages {
   name: string,
   data: Uint8Array
 }
+interface IAppDataContext {
+  modalProperties: IModalProperties,
+  setModalProperties: React.Dispatch<IModalProperties>,
+  galleryImages: [],
+  setGalleryImages: React.Dispatch<[]>,
+  galleryImg: IGallaryImage,
+  setGalleryImg: React.Dispatch<IGallaryImage>,
+  photoTableData: IPhotoTableData,
+  setphotoTableData: React.Dispatch<IPhotoTableData>,
+  settings: ISettings,
+  setSettings: React.Dispatch<ISettings>
+}
 
+export const appDataContext = createContext<IAppDataContext>({
+  modalProperties: {
+    isOpen: false,
+    type: '',
+    nameImg: '',
+    urlImg: '',
+    textImg: '',
+    indexImgInGallery: '',
+    cut: false
+  },
+  setModalProperties: React.Dispatch<IModalProperties>,
+  galleryImages: [],
+  setGalleryImages: React.Dispatch<[]>,
+  galleryImg: IGallaryImage,
+  setGalleryImg: React.Dispatch<IGallaryImage>,
+  photoTableData: IPhotoTableData,
+  setphotoTableData: React.Dispatch<IPhotoTableData>,
+  settings: ISettings,
+  setSettings: React.Dispatch<ISettings>
+});
 
 export const App = (): JSX.Element => {
 
@@ -36,7 +69,7 @@ export const App = (): JSX.Element => {
   const [photoTableData, setphotoTableData] = useState<IPhotoTableData>();
   const [settings, setSettings] = useState<ISettings>();
   const [galleryImages, setGalleryImages] = useState([]);
-  const [galleryImg, setGalleryImg] = useState(new GalleryImage());
+  const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
   const [currentGalleryImage, setCurrentGalleryImage] = useState<ICurrentGalleryImage>();
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [workPlaceStyle, setWorkPlaceStyle] = useState<IWorkPlaceStyle>({
@@ -153,6 +186,12 @@ export const App = (): JSX.Element => {
         <button onClick={openFile}>openFile</button>
       </div> */}
       <Container>
+        <appDataContext.Provider value={
+          {
+            modalProperties
+          }
+        }>
+
         <Header>
           <Logo>Фототаблица 0.3.0</Logo>
           <Menu>
@@ -160,6 +199,7 @@ export const App = (): JSX.Element => {
           </Menu>
         </Header>
         {/* {isLoading ? <Spinner /> : null} */}
+        </appDataContext.Provider>
 
       </Container>
     </>
