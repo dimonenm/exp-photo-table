@@ -1,7 +1,7 @@
-interface ILogo {
+interface ILogoDto {
     children: string
 }
-const Logo = ({ children }: ILogo) => (
+const Logo = ({ children }: ILogoDto) => (
     <div className="logo">{children}</div>
 );
 

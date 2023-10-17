@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 // импорт компонентов
 import Container from './containers/Container';
 import Header from './containers/Header';
@@ -7,10 +7,13 @@ import Menu from './components/header/Menu';
 import Spinner from './Spinner';
 // импорт интерфейсов
 import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage } from './interfaces/interfaces';
+//импорт сущностей
+import { appDataContext } from './entities/AppDataContext';
 //импорт функций
 import GalleryImage from './entities/GalleryImage';
 // импорт стилей
 import './stylesheets/App.scss';
+import MenuItem from './components/header/MenuItem';
 
 
 declare global {
@@ -29,49 +32,17 @@ interface IDownloadedImages {
   name: string,
   data: Uint8Array
 }
-interface IAppDataContext {
-  modalProperties: IModalProperties,
-  setModalProperties: React.Dispatch<IModalProperties>,
-  galleryImages: [],
-  setGalleryImages: React.Dispatch<[]>,
-  galleryImg: IGallaryImage,
-  setGalleryImg: React.Dispatch<IGallaryImage>,
-  photoTableData: IPhotoTableData,
-  setphotoTableData: React.Dispatch<IPhotoTableData>,
-  settings: ISettings,
-  setSettings: React.Dispatch<ISettings>
-}
 
-export const appDataContext = createContext<IAppDataContext>({
-  modalProperties: {
-    isOpen: false,
-    type: '',
-    nameImg: '',
-    urlImg: '',
-    textImg: '',
-    indexImgInGallery: '',
-    cut: false
-  },
-  setModalProperties: React.Dispatch<IModalProperties>,
-  galleryImages: [],
-  setGalleryImages: React.Dispatch<[]>,
-  galleryImg: IGallaryImage,
-  setGalleryImg: React.Dispatch<IGallaryImage>,
-  photoTableData: IPhotoTableData,
-  setphotoTableData: React.Dispatch<IPhotoTableData>,
-  settings: ISettings,
-  setSettings: React.Dispatch<ISettings>
-});
 
 export const App = (): JSX.Element => {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
-  const [photoTableData, setphotoTableData] = useState<IPhotoTableData>();
-  const [settings, setSettings] = useState<ISettings>();
+  const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
+  const [photoTableData, setphotoTableData] = useState<IPhotoTableData>();
+  const [settings, setSettings] = useState<ISettings>();
   const [currentGalleryImage, setCurrentGalleryImage] = useState<ICurrentGalleryImage>();
-  const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [workPlaceStyle, setWorkPlaceStyle] = useState<IWorkPlaceStyle>({
     zoom: '1'
   })
@@ -188,14 +159,29 @@ export const App = (): JSX.Element => {
       <Container>
         <appDataContext.Provider value={
           {
-            modalProperties
+            modalProperties,
+            setModalProperties,
+            galleryImages,
+            setGalleryImages,
+            galleryImg,
+            setGalleryImg,
+            photoTableData,
+            setphotoTableData,
+            settings,
+            setSettings
           }
         }>
 
         <Header>
           <Logo>Фототаблица 0.3.0</Logo>
           <Menu>
-            
+              <MenuItem type='notActiveInputButton'>Загрузить фотографии</MenuItem>
+              <MenuItem type='notActiveInputButton'>Данные фототаблицы</MenuItem>
+              <MenuItem type='notActiveInputButton'>Печать</MenuItem>
+              <MenuItem type='notActiveInputButton'>Сохранить в PDF</MenuItem>
+              <MenuItem type='notActiveInputButton'>Сохранить в Microsoft Word</MenuItem>
+              <MenuItem type='notActiveInputButton'>Настройки</MenuItem>
+              <MenuItem type='notActiveInputButton'>О программе</MenuItem>
           </Menu>
         </Header>
         {/* {isLoading ? <Spinner /> : null} */}

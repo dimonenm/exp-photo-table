@@ -1,7 +1,7 @@
-interface IMenu {
+interface IMenuDto {
     children: JSX.Element[]
 }
-const Menu = ({ children }: IMenu) => (
+const Menu = ({ children }: IMenuDto) => (
     <div className="menu">{children}</div>
 );
 

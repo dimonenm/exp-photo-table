@@ -1,8 +1,8 @@
-interface IContainer{
+interface IContainerDto{
     children: JSX.Element
 }
 
-const Container = ({ children }: IContainer) => (
+const Container = ({ children }: IContainerDto) => (
     <div className="top-container">
         {children}
     </div>
