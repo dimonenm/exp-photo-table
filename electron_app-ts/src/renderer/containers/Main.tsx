@@ -1,6 +1,8 @@
-import React from 'react';
+interface IMainDto {
+    children: JSX.Element[]
+}
 
-const Main = ({ children }) => (
+const Main = ({ children }: IMainDto) => (
     <div className="main-wrapper">
         <div className="main">
             {children}

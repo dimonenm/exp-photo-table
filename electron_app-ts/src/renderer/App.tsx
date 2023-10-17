@@ -129,9 +129,6 @@ export const App = (): JSX.Element => {
     // }
 
     // setImgs(arrImgs)
-
-
-
   }
 
 
@@ -183,7 +180,10 @@ export const App = (): JSX.Element => {
               <MenuItem type='notActiveInputButton'>Настройки</MenuItem>
               <MenuItem type='notActiveInputButton'>О программе</MenuItem>
           </Menu>
-        </Header>
+          </Header>
+          <Main>
+            
+          </Main>
         {/* {isLoading ? <Spinner /> : null} */}
         </appDataContext.Provider>
 
