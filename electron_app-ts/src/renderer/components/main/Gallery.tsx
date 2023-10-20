@@ -3,7 +3,7 @@ import { ICurrentGalleryImage } from '../../interfaces/interfaces';
 
 interface IGalleryDto {
     children: any[],
-    galleryImages: [],
+    galleryImages: any[],
     setGalleryImages: React.Dispatch<[]>,
     currentGalleryImage: ICurrentGalleryImage,
     setCurrentGalleryImage: React.Dispatch<ICurrentGalleryImage>
@@ -23,18 +23,18 @@ const Gallery = ({ children, galleryImages, setGalleryImages, currentGalleryImag
     function dragdrop(event: React.MouseEvent<HTMLDivElement>) {
         event.preventDefault();
 
-        const arr = [...galleryImages].filter(item => {
-            if (item.getIndex() !== currentGalleryImage.index) return true
-            return false
-        });
+        // const arr = [...galleryImages].filter(item => {
+        //     if (item.getIndex() !== currentGalleryImage.index) return true
+        //     return false
+        // });
 
-        arr.forEach((item, index) => {
-            item.setIndex(index + 1)
-        })
+        // arr.forEach((item, index) => {
+        //     item.setIndex(index + 1)
+        // })
 
-        setGalleryImages(arr);
+        // setGalleryImages(arr);
 
-        setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
+        // setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
     }
     return (<div
         className="gallery"

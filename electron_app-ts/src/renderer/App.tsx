@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 // импорт компонентов
 import Container from './containers/Container';
 import Header from './containers/Header';
+import Main from './containers/Main';
 import Logo from './components/header/Logo';
 import Menu from './components/header/Menu';
+import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
 import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage } from './interfaces/interfaces';
@@ -13,7 +15,7 @@ import { appDataContext } from './entities/AppDataContext';
 import GalleryImage from './entities/GalleryImage';
 // импорт стилей
 import './stylesheets/App.scss';
-import MenuItem from './components/header/MenuItem';
+import Gallery from './components/main/Gallery';
 
 
 declare global {
@@ -131,13 +133,76 @@ export const App = (): JSX.Element => {
     // setImgs(arrImgs)
   }
 
+  let arrDownloadedImages: [] = [];
 
+  function addDownloadedImagesToArrforGallery(
+    downloadedImages: IDownloadedImages[], //массив загруженных изображений
+    arrDownloadedImages: [], //массив для хранения React элементов
+    galleryImages: [], //массив изображений выбранных для фототаблицы
+    setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
+    setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
+  ) {
+    //Функция формирует массив с загруженными изображениями.
+
+    arrDownloadedImages = []; //Удаление изображений из массива
+
+    downloadedImages.forEach(item => {
+
+      //Проверка на наличие изображений в галерее и фототаблице
+      let isHasInGalleryImages = false;
+      if (galleryImages.length) {
+        galleryImages.forEach(img => {
+          if (item.name === img.getName()) {
+            isHasInGalleryImages = true;
+          }
+        })
+      }
+
+      //Формирование массива с загруженными изображениями в зависимости от наличия изображений в галерее и фототаблице
+      if (isHasInGalleryImages) {
+        arrDownloadedImages.push(<GalleryItem
+          key={item.name}
+          name={item.name}
+          url={item.url}
+          hiden={true}
+          setModalProperties={setModalProperties}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+          galleryImages={galleryImages}
+        />);
+      } else {
+        arrDownloadedImages.push(<GalleryItem
+          key={item.name}
+          name={item.name}
+          url={item.url}
+          hiden={false}
+          setModalProperties={setModalProperties}
+          setCurrentGalleryImage={setCurrentGalleryImage}
+          galleryImages={galleryImages}
+        />);
+      }
+    });
+    return arrDownloadedImages;
+  }
 
   useEffect((): void => {
     getSettings()
   }, [])
   useEffect((): void => {
     console.log('downloadedImages: ', downloadedImages);
+    if (downloadedImages) {
+      //Функция формирует массив с загруженными изображениями.
+
+   
+
+      arrDownloadedImages = addDownloadedImagesToArrforGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
+
+
+
+
+
+
+      
+    };
   }, [downloadedImages])
 
 
@@ -182,7 +247,14 @@ export const App = (): JSX.Element => {
           </Menu>
           </Header>
           <Main>
-            
+            <Gallery
+              galleryImages={galleryImages}
+              setGalleryImages={setGalleryImages}
+              currentGalleryImage={currentGalleryImage}
+              setCurrentGalleryImage={setCurrentGalleryImage}
+            >
+              {arrDownloadedImages}
+            </Gallery>
           </Main>
         {/* {isLoading ? <Spinner /> : null} */}
         </appDataContext.Provider>
