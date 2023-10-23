@@ -1,17 +1,19 @@
 import { createContext } from 'react'
-import { IGallaryImage, IModalProperties, IPhotoTableData, ISettings } from '../interfaces/interfaces';
+import { IDownloadedImages, IGallaryImage, IModalProperties, IPhotoTableData, ISettings } from '../interfaces/interfaces';
 
 interface IAppDataContext {
   modalProperties: IModalProperties,
-  setModalProperties?: React.Dispatch<IModalProperties>,
+  setModalProperties?: React.Dispatch<React.SetStateAction<IModalProperties>>,
   galleryImages: any[],
   setGalleryImages?: React.Dispatch<[]>,
   galleryImg: IGallaryImage,
-  setGalleryImg?: React.Dispatch<IGallaryImage>,
+  setGalleryImg?: React.Dispatch<React.SetStateAction<IGallaryImage>>,
   photoTableData: IPhotoTableData,
-  setphotoTableData?: React.Dispatch<IPhotoTableData>,
+  setphotoTableData?: React.Dispatch<React.SetStateAction<IPhotoTableData>>,
   settings: ISettings,
-  setSettings?: React.Dispatch<ISettings>
+  setSettings?: React.Dispatch<React.SetStateAction<ISettings>>,
+  setDownloadedImages?: React.Dispatch<React.SetStateAction<IDownloadedImages[]>>,
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const defaultValue: IAppDataContext = {

@@ -1,5 +1,5 @@
 interface IMainDto {
-    children: JSX.Element[]
+    children: JSX.Element
 }
 
 const Main = ({ children }: IMainDto) => (

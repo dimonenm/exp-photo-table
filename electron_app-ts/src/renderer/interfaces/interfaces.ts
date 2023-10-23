@@ -4,6 +4,10 @@ export interface ICurrentGalleryImage {
   urlImg: string,
   orientation: string
 }
+export interface IDownloadedImages {
+  name: string,
+  data: Uint8Array
+}
 export interface IGallaryImage {
   index: number;
   name: string;
