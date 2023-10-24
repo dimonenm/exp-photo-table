@@ -48,7 +48,6 @@ const MenuItem = ({ children, type }: IMenuItemDto) => {
     // const base64: string[] = []
     // const arrImgs: JSX.Element[] = []
     const receivedImages: IDownloadedImages[] = await window.electronAPI.openFile()
-    console.log('MenuItem.tsx receivedImages: ', receivedImages);
     
     menuItemAppDataContext.setDownloadedImages(receivedImages)
     

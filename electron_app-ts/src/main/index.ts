@@ -1,7 +1,6 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
 import fs, { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
-import process from 'process';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -57,7 +56,6 @@ const createWindow = (): void => {
   // })
 
   async function handleFileOpen() {
-    console.log('process', process.resourceUsage());
     const { filePaths } = await dialog.showOpenDialog({
       filters: [
         { name: 'All Files', extensions: ['*'] },

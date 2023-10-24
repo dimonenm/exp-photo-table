@@ -16,6 +16,7 @@ import GalleryImage from './entities/GalleryImage';
 // импорт стилей
 import './stylesheets/App.scss';
 import Gallery from './components/main/Gallery';
+import GalleryItem from './components/main/GalleryItem';
 
 
 declare global {
@@ -30,8 +31,6 @@ interface IElectronAPI {
   // setSettings: (settings: ISettings) => Promise<string>,
   openFile: () => Promise<IDownloadedImages[]>,
 }
-
-
 
 export const App = (): JSX.Element => {
 
@@ -87,56 +86,71 @@ export const App = (): JSX.Element => {
   // }
 
 
-  // let arrDownloadedImages: [] = [];
+  const arrDownloadedImages: JSX.Element[] = [];
 
-  // function addDownloadedImagesToArrforGallery(
-  //   downloadedImages: IDownloadedImages[], //массив загруженных изображений
-  //   arrDownloadedImages: [], //массив для хранения React элементов
-  //   galleryImages: [], //массив изображений выбранных для фототаблицы
-  //   setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
-  //   setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
-  // ) {
-  //   //Функция формирует массив с загруженными изображениями.
+  function addDownloadedImagesToArrforGallery(
+    downloadedImages: IDownloadedImages[], //массив загруженных изображений
+    arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
+    galleryImages: [], //массив изображений выбранных для фототаблицы
+    setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
+    setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
+  ) {
 
-  //   arrDownloadedImages = []; //Удаление изображений из массива
 
-  //   downloadedImages.forEach(item => {
+    //Удаление изображений из массива
+    while (arrDownloadedImages.length) {
+      arrDownloadedImages.pop();
+    }
 
-  //     //Проверка на наличие изображений в галерее и фототаблице
-  //     let isHasInGalleryImages = false;
-  //     if (galleryImages.length) {
-  //       galleryImages.forEach(img => {
-  //         if (item.name === img.getName()) {
-  //           isHasInGalleryImages = true;
-  //         }
-  //       })
-  //     }
+    //Функция формирует массив с загруженными изображениями.
+    downloadedImages.forEach(item => {
 
-  //     //Формирование массива с загруженными изображениями в зависимости от наличия изображений в галерее и фототаблице
-  //     if (isHasInGalleryImages) {
-  //       arrDownloadedImages.push(<GalleryItem
-  //         key={item.name}
-  //         name={item.name}
-  //         url={item.url}
-  //         hiden={true}
-  //         setModalProperties={setModalProperties}
-  //         setCurrentGalleryImage={setCurrentGalleryImage}
-  //         galleryImages={galleryImages}
-  //       />);
-  //     } else {
-  //       arrDownloadedImages.push(<GalleryItem
-  //         key={item.name}
-  //         name={item.name}
-  //         url={item.url}
-  //         hiden={false}
-  //         setModalProperties={setModalProperties}
-  //         setCurrentGalleryImage={setCurrentGalleryImage}
-  //         galleryImages={galleryImages}
-  //       />);
-  //     }
-  //   });
-  //   return arrDownloadedImages;
-  // }
+      //Проверка на наличие изображений в галерее и фототаблице
+      let isHasInGalleryImages = false;
+      if (galleryImages.length) {
+        galleryImages.forEach((img: IGallaryImage) => {
+          if (item.name === img.getName()) {
+            isHasInGalleryImages = true;
+          }
+        })
+      }
+
+      //Формирование массива с загруженными изображениями в зависимости от наличия изображений в галерее и фототаблице
+      const JSXElement = <GalleryItem
+        key={item.name}
+        name={item.name}
+        url={item.url}
+        hidden={isHasInGalleryImages ? true : false}
+        setModalProperties={setModalProperties}
+        setCurrentGalleryImage={setCurrentGalleryImage}
+        galleryImages={galleryImages}
+      />
+      arrDownloadedImages.push(JSXElement);
+
+      // if (isHasInGalleryImages) {
+      //   arrDownloadedImages.push(<GalleryItem
+      //     key={item.name}
+      //     name={item.name}
+      //     url={item.url}
+      //     hiden={true}
+      //     setModalProperties={setModalProperties}
+      //     setCurrentGalleryImage={setCurrentGalleryImage}
+      //     galleryImages={galleryImages}
+      //   />);
+      // } else {
+      //   arrDownloadedImages.push(<GalleryItem
+      //     key={item.name}
+      //     name={item.name}
+      //     url={item.url}
+      //     hiden={false}
+      //     setModalProperties={setModalProperties}
+      //     setCurrentGalleryImage={setCurrentGalleryImage}
+      //     galleryImages={galleryImages}
+      //   />);
+      // }
+    });
+    return arrDownloadedImages;
+  }
 
   useEffect((): void => {
     getSettings()
@@ -152,7 +166,7 @@ export const App = (): JSX.Element => {
 
 
 
-      
+
     }
   }, [downloadedImages])
 
@@ -187,9 +201,9 @@ export const App = (): JSX.Element => {
           }
         }>
 
-        <Header>
-          <Logo>Фототаблица 0.3.0</Logo>
-          <Menu>
+          <Header>
+            <Logo>Фототаблица 0.3.0</Logo>
+            <Menu>
               <MenuItem type='downloadImages'>Загрузить фотографии</MenuItem>
               <MenuItem type='notActiveInputButton'>Данные фототаблицы</MenuItem>
               <MenuItem type='notActiveInputButton'>Печать</MenuItem>
@@ -197,7 +211,7 @@ export const App = (): JSX.Element => {
               <MenuItem type='notActiveInputButton'>Сохранить в Microsoft Word</MenuItem>
               <MenuItem type='notActiveInputButton'>Настройки</MenuItem>
               <MenuItem type='notActiveInputButton'>О программе</MenuItem>
-          </Menu>
+            </Menu>
           </Header>
           <Main>
             <Gallery
@@ -206,10 +220,10 @@ export const App = (): JSX.Element => {
               currentGalleryImage={currentGalleryImage}
               setCurrentGalleryImage={setCurrentGalleryImage}
             >
-              {/* {arrDownloadedImages} */}
+              {arrDownloadedImages}
             </Gallery>
           </Main>
-        {/* {isLoading ? <Spinner /> : null} */}
+          {/* {isLoading ? <Spinner /> : null} */}
         </appDataContext.Provider>
 
       </Container>

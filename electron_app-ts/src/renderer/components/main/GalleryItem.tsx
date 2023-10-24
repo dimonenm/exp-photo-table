@@ -1,9 +1,20 @@
 import React from 'react';
+import { ICurrentGalleryImage, IGallaryImage, IModalProperties } from '../../interfaces/interfaces';
 
-const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryImage, galleryImages }) => {
+interface IGalleryItemDto {
+  name: string,
+  url: string,
+  hidden: boolean,
+  galleryImages: IGallaryImage[],
+  setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>,
+  setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>
+}
+
+const GalleryItem = ({ name, url, hidden, galleryImages, setModalProperties, setCurrentGalleryImage }: IGalleryItemDto) => {
   let shortName = '';
   if (name.length > 20) {
-    shortName = name.substr(0, 20) + '...'; // обрезаем слишком длинное имя файла
+    // shortName = name.substr(0, 20) + '...'; // обрезаем слишком длинное имя файла
+    shortName = name.substring(0, 20) + '...'; // обрезаем слишком длинное имя файла
   }
 
   const dbClickHandler = (event) => {
@@ -40,7 +51,7 @@ const GalleryItem = ({ name, url, hiden, setModalProperties, setCurrentGalleryIm
     setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
   }
   
-  if (hiden) {
+  if (hidden) {
     return (
       <div className="gallery-item gallery-item-hide"
         draggable="false"
