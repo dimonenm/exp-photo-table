@@ -17,15 +17,16 @@ const GalleryItem = ({ name, url, hidden, galleryImages, setModalProperties, set
     shortName = name.substring(0, 20) + '...'; // обрезаем слишком длинное имя файла
   }
 
-  const dbClickHandler = (event) => {
+  const dbClickHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setModalProperties(() => {
-      return {
-        isOpen: true,
-        type: "preview",
-        nameImg: shortName ? shortName : name,
-        urlImg: url
-      }
+    setModalProperties({
+      isOpen: true,
+      type: "preview",
+      nameImg: shortName ? shortName : name,
+      urlImg: url,
+      textImg: '',
+      indexImgInGallery: '',
+      cut: false
     });
   }
 
@@ -50,7 +51,7 @@ const GalleryItem = ({ name, url, hidden, galleryImages, setModalProperties, set
 
     setCurrentGalleryImage({ index: null, nameImg: null, urlImg: null });
   }
-  
+
   if (hidden) {
     return (
       <div className="gallery-item gallery-item-hide"
