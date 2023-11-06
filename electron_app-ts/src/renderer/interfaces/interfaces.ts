@@ -7,7 +7,10 @@ export interface ICurrentGalleryImage {
 export interface IDownloadedImages {
   name: string,
   buffer: Uint8Array
-  data: string
+}
+export interface IProcessedImages {
+  name: string,
+  url: string
 }
 export interface IGallaryImage {
   index: number;

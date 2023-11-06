@@ -73,14 +73,15 @@ const createWindow = (): void => {
 
     interface ISendImgsData { 
       name: string
-      data: Buffer
+      buffer: Buffer
+      data: string
     }
 
     const arr: ISendImgsData[] = []
     for (const item of filePaths) {
       const name: RegExpMatchArray = item.match(/[\][a-zA-Z0-9]+[.][a-zA-Z]+/)
       
-      arr.push({name: name[0], data: fs.readFileSync(item)})
+      arr.push({ name: name[0], buffer: fs.readFileSync(item), data: ''})
     }
     return arr
   }

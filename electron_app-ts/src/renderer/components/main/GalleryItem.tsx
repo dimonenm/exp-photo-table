@@ -3,14 +3,14 @@ import { ICurrentGalleryImage, IGallaryImage, IModalProperties } from '../../int
 
 interface IGalleryItemDto {
   name: string,
-  data: string,
+  url: string,
   hidden: boolean,
   galleryImages: IGallaryImage[],
   setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>,
   setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>
 }
 
-const GalleryItem = ({ name, data, hidden, galleryImages, setModalProperties, setCurrentGalleryImage }: IGalleryItemDto) => {
+const GalleryItem = ({ name, url, hidden, galleryImages, setModalProperties, setCurrentGalleryImage }: IGalleryItemDto) => {
   let shortName = '';
   if (name.length > 20) {
     // shortName = name.substr(0, 20) + '...'; // обрезаем слишком длинное имя файла
@@ -23,7 +23,7 @@ const GalleryItem = ({ name, data, hidden, galleryImages, setModalProperties, se
       isOpen: true,
       type: "preview",
       nameImg: shortName ? shortName : name,
-      urlImg: data,
+      urlImg: url,
       textImg: '',
       indexImgInGallery: '',
       cut: false
@@ -37,7 +37,7 @@ const GalleryItem = ({ name, data, hidden, galleryImages, setModalProperties, se
       {
         index: '',
         nameImg: name,
-        urlImg: data,
+        urlImg: url,
         orientation: ''
       }
     );
@@ -76,7 +76,7 @@ const GalleryItem = ({ name, data, hidden, galleryImages, setModalProperties, se
         <div className="gallery-item-name">{shortName ? shortName : name}</div>
         <div className="gallery-item-img">
           <img
-            src={data}
+            src={url}
             alt={name}
             draggable="false"></img>
         </div>
@@ -93,7 +93,7 @@ const GalleryItem = ({ name, data, hidden, galleryImages, setModalProperties, se
         <div className="gallery-item-name">{shortName ? shortName : name}</div>
         <div className="gallery-item-img">
           <img
-            src={data}
+            src={url}
             alt={name}
             draggable="false"></img>
         </div>

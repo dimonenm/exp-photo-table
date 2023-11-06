@@ -8,7 +8,7 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages } from './interfaces/interfaces';
 //импорт сущностей
 import { appDataContext } from './entities/AppDataContext';
 //импорт функций
@@ -35,6 +35,7 @@ interface IElectronAPI {
 export const App = (): JSX.Element => {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
+  const [processedImages, setProcessedImages] = useState<IProcessedImages[]>();
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
@@ -79,23 +80,15 @@ export const App = (): JSX.Element => {
     setSettings(res);
   }
 
-  // const setSettings = async () => {
-  //   // const settings = settingsState
-  //   // const newSettings: ISettings = { ...settings, executors: ['Д.Н. Арзяков'] }
-  //   // const res = await window.electronAPI.setSettings(newSettings)
-  // }
-
-
   const arrDownloadedImages: JSX.Element[] = [];
 
-  function addDownloadedImagesToArrforGallery(
-    downloadedImages: IDownloadedImages[], //массив загруженных изображений
+  function addProcessedImagesToArrforGallery(
+    processedImages: IProcessedImages[], //массив загруженных изображений
     arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
     galleryImages: [], //массив изображений выбранных для фототаблицы
     setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
     setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
   ) {
-
 
     //Удаление изображений из массива
     while (arrDownloadedImages.length) {
@@ -103,7 +96,7 @@ export const App = (): JSX.Element => {
     }
 
     //Функция формирует массив с загруженными изображениями.
-    downloadedImages.forEach(item => {
+    processedImages.forEach(item => {
 
       //Проверка на наличие изображений в галерее и фототаблице
       let isHasInGalleryImages = false;
@@ -119,7 +112,7 @@ export const App = (): JSX.Element => {
       const JSXElement = <GalleryItem
         key={item.name}
         name={item.name}
-        data={''}
+        url={item.url}
         // data={item.data}
         hidden={isHasInGalleryImages ? true : false}
         setModalProperties={setModalProperties}
@@ -153,17 +146,23 @@ export const App = (): JSX.Element => {
     return arrDownloadedImages;
   }
 
-  async function bufferToBase64(buffer: Uint8Array) {
-    // use a FileReader to generate a base64 data URI:
-    const base64url = await new Promise(r => {
+  async function bufferToBase64(buffer: Uint8Array): Promise<string> {
+    const base64url: string = await new Promise((resolve, reject) => {
       const reader = new FileReader()
-      reader.onload = () => r(reader.result)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = () => reject(reader.error)
       reader.readAsDataURL(new Blob([buffer]))
     });
 
-    return base64url
+    // return base64url
     // remove the `data:...;base64,` part from the start
-    // return base64url.slice(base64url.indexOf(',') + 1);
+    return base64url.slice(base64url.indexOf(',') + 1);
+  }
+
+  function convertBufferToURL(buffer: Uint8Array): string{
+    const blob = new Blob([buffer], { type: 'image/jpeg' })
+    const url = URL.createObjectURL(blob)
+    return url
   }
 
   useEffect((): void => {
@@ -171,10 +170,14 @@ export const App = (): JSX.Element => {
   }, [])
   useEffect((): void => {
     if (downloadedImages) {
-      console.log('App.tsx downloadedImages: ', downloadedImages);
-      downloadedImages.map((item) =>  {
-        console.log(bufferToBase64(item.buffer));
+      const processImages = downloadedImages.map((item) => {
+        const processedImage: IProcessedImages = {
+          name: item.name,
+          url: convertBufferToURL(item.buffer)
+        }
+        return processedImage
       })
+      setProcessedImages(processImages)
 
 
 
@@ -185,15 +188,11 @@ export const App = (): JSX.Element => {
       //Функция формирует массив с загруженными изображениями.
       // arrDownloadedImages = addDownloadedImagesToArrforGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
 
-
-
-
-
-
-
     }
   }, [downloadedImages])
-
+  useEffect((): void => {
+    addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+  }, [processedImages])
 
 
   return (
