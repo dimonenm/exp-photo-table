@@ -119,7 +119,8 @@ export const App = (): JSX.Element => {
       const JSXElement = <GalleryItem
         key={item.name}
         name={item.name}
-        data={item.data}
+        data={''}
+        // data={item.data}
         hidden={isHasInGalleryImages ? true : false}
         setModalProperties={setModalProperties}
         setCurrentGalleryImage={setCurrentGalleryImage}
@@ -160,8 +161,8 @@ export const App = (): JSX.Element => {
       console.log('App.tsx downloadedImages: ', downloadedImages);
       // const string = btoa(new TextDecoder().decode(downloadedImages[0].data))
       // btoa(String.fromCharCode.apply(null, new Uint8Array([1, 2, 3, 255])))
-      const string = btoa(String.fromCharCode.apply(null, downloadedImages[0].data))
-      console.log('string: ', string);
+      // const string = btoa(String.fromCharCode.apply(null, downloadedImages[0].data))
+      // console.log('string: ', string);
       //Функция формирует массив с загруженными изображениями.
       // arrDownloadedImages = addDownloadedImagesToArrforGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
 
