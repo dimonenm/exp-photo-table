@@ -85,7 +85,7 @@ export const App = (): JSX.Element => {
   function addProcessedImagesToArrforGallery(
     processedImages: IProcessedImages[], //массив загруженных изображений
     arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
-    galleryImages: [], //массив изображений выбранных для фототаблицы
+    galleryImages: any[], //массив изображений выбранных для фототаблицы
     setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
     setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
   ) {
@@ -96,6 +96,7 @@ export const App = (): JSX.Element => {
     }
 
     //Функция формирует массив с загруженными изображениями.
+    console.log('processedImages: ', processedImages);
     processedImages.forEach(item => {
 
       //Проверка на наличие изображений в галерее и фототаблице
@@ -166,10 +167,12 @@ export const App = (): JSX.Element => {
   }
 
   useEffect((): void => {
+    console.log('useEffect: getSettings()');
     getSettings()
   }, [])
   useEffect((): void => {
     if (downloadedImages) {
+      console.log('useEffect: processImages');
       const processImages = downloadedImages.map((item) => {
         const processedImage: IProcessedImages = {
           name: item.name,
@@ -191,9 +194,14 @@ export const App = (): JSX.Element => {
     }
   }, [downloadedImages])
   useEffect((): void => {
-    addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+    if (processedImages) {
+      console.log('useEffect: processImages');
+      addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+      console.log('arrDownloadedImages: ', arrDownloadedImages);
+    }
   }, [processedImages])
-
+  
+  console.log('arrDownloadedImages: ', arrDownloadedImages);
 
   return (
     <>
