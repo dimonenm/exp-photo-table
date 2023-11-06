@@ -153,12 +153,31 @@ export const App = (): JSX.Element => {
     return arrDownloadedImages;
   }
 
+  async function bufferToBase64(buffer: Uint8Array) {
+    // use a FileReader to generate a base64 data URI:
+    const base64url = await new Promise(r => {
+      const reader = new FileReader()
+      reader.onload = () => r(reader.result)
+      reader.readAsDataURL(new Blob([buffer]))
+    });
+
+    return base64url
+    // remove the `data:...;base64,` part from the start
+    // return base64url.slice(base64url.indexOf(',') + 1);
+  }
+
   useEffect((): void => {
     getSettings()
   }, [])
   useEffect((): void => {
     if (downloadedImages) {
       console.log('App.tsx downloadedImages: ', downloadedImages);
+      downloadedImages.map((item) =>  {
+        console.log(bufferToBase64(item.buffer));
+      })
+
+
+
       // const string = btoa(new TextDecoder().decode(downloadedImages[0].data))
       // btoa(String.fromCharCode.apply(null, new Uint8Array([1, 2, 3, 255])))
       // const string = btoa(String.fromCharCode.apply(null, downloadedImages[0].data))

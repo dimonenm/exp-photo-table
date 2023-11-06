@@ -6,7 +6,8 @@ export interface ICurrentGalleryImage {
 }
 export interface IDownloadedImages {
   name: string,
-  data: Uint8Array
+  buffer: Uint8Array
+  data: string
 }
 export interface IGallaryImage {
   index: number;
