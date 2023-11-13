@@ -167,12 +167,10 @@ export const App = (): JSX.Element => {
   }
 
   useEffect((): void => {
-    console.log('useEffect: getSettings()');
     getSettings()
   }, [])
   useEffect((): void => {
     if (downloadedImages) {
-      console.log('useEffect: processImages');
       const processImages = downloadedImages.map((item) => {
         const processedImage: IProcessedImages = {
           name: item.name,
@@ -180,6 +178,9 @@ export const App = (): JSX.Element => {
         }
         return processedImage
       })
+      addProcessedImagesToArrforGallery(processImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+      console.log('arrDownloadedImages in useEffect: ', arrDownloadedImages);
+
       setProcessedImages(processImages)
 
 
@@ -195,9 +196,8 @@ export const App = (): JSX.Element => {
   }, [downloadedImages])
   useEffect((): void => {
     if (processedImages) {
-      console.log('useEffect: processImages');
-      addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
-      console.log('arrDownloadedImages: ', arrDownloadedImages);
+      // addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+      
     }
   }, [processedImages])
   
