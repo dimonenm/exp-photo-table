@@ -80,15 +80,21 @@ export const App = (): JSX.Element => {
     setSettings(res);
   }
 
-  const arrDownloadedImages: JSX.Element[] = [];
+  let arrDownloadedImages: JSX.Element[] = [];
+
+  if (processedImages && processedImages.length > 0) {
+    // addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+    arrDownloadedImages = addProcessedImagesToArrforGallery(processedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+  }
 
   function addProcessedImagesToArrforGallery(
     processedImages: IProcessedImages[], //массив загруженных изображений
-    arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
+    // arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
     galleryImages: any[], //массив изображений выбранных для фототаблицы
     setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
     setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
   ) {
+    const arrDownloadedImages: JSX.Element[] = []; //массив для хранения React элементов
 
     //Удаление изображений из массива
     while (arrDownloadedImages.length) {
@@ -96,7 +102,6 @@ export const App = (): JSX.Element => {
     }
 
     //Функция формирует массив с загруженными изображениями.
-    console.log('processedImages: ', processedImages);
     processedImages.forEach(item => {
 
       //Проверка на наличие изображений в галерее и фототаблице
@@ -176,10 +181,12 @@ export const App = (): JSX.Element => {
           name: item.name,
           url: convertBufferToURL(item.buffer)
         }
+
         return processedImage
       })
-      addProcessedImagesToArrforGallery(processImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
-      console.log('arrDownloadedImages in useEffect: ', arrDownloadedImages);
+
+
+
 
       setProcessedImages(processImages)
 
@@ -194,12 +201,6 @@ export const App = (): JSX.Element => {
 
     }
   }, [downloadedImages])
-  useEffect((): void => {
-    if (processedImages) {
-      // addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
-      
-    }
-  }, [processedImages])
   
   console.log('arrDownloadedImages: ', arrDownloadedImages);
 

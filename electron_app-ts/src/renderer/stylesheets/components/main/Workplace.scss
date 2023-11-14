@@ -1,0 +1,167 @@
+@media only screen and (min-width: 1900px) {
+    .workplace {
+        zoom: 1.42;
+    }
+}
+
+.workplace {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 340px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    font-family: "Roboto";
+    border: 1px solid rgba(147, 145, 145, 0.539);
+    border-radius: 5px;
+    box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    height: 97%;
+    transition: 0.5s ease;
+}
+.woprkplace-width-changer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+    height: 40px;
+}
+.woprkplace-width-changer1,
+.woprkplace-width-changer2,
+.woprkplace-width-changer3 {
+    width: 40px;
+    height: 20px;
+    border: 1px solid #000;
+}
+
+.workplace::-webkit-scrollbar {
+    width: 3px;
+}
+
+.workplace::-webkit-scrollbar-track {
+    background-color: #6c757d;
+}
+
+.workplace::-webkit-scrollbar-thumb {
+    background-color: #343a40;
+}
+
+.workplace-item {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 320px;
+    align-items: center;
+
+    height: 527px;
+
+    margin: 10px 0 0 0;
+
+    border-radius: 7px;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 30%), -23px 0 20px -23px rgb(0 0 0 / 80%), 23px 0 20px -23px rgb(0 0 0 / 80%),
+        0 0 40px rgb(0 0 0 / 10%) inset;
+}
+
+.workplace-item-new {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 320px;
+    align-items: center;
+
+    height: 527px;
+
+    margin: 38px 0 0 0;
+
+    border: 1px dashed #000;
+    border-radius: 7px;
+}
+.workplace-item-new-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: center;
+}
+.workplace-item-new-hovered {
+    background-color: #c4c4c4;
+}
+
+.workplace-item-middle-part {
+    display: flex;
+    flex-basis: 320px;
+
+    height: 20px;
+
+    background-image: url("../../../images/plus-circle-dotted.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px 20px;
+
+    border: 1px dashed #958f8f04;
+    border-radius: 7px;
+
+    margin: 5px 0 0 0;
+
+    transition: all 200ms linear;
+}
+
+.workplace-item-middle-part-hovered {
+    height: 40px;
+    background-color: #c4c4c402;
+    background-size: 40px 40px;
+
+    border: 1px dashed #958f8f05;
+    border-radius: 7px;
+}
+
+.workplace-item-name {
+    display: flex;
+    flex-basis: 20px;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    width: 100%;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+.workplace-item-img {
+    display: flex;
+    flex-grow: 1;
+
+    width: 80%;
+
+    /* background-color: #c4c4c4; */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.workplace-item-text {
+    display: flex;
+    flex-basis: 277px;
+    align-items: start;
+    width: 80%;
+    font-size: 10px;
+    line-height: 1;
+    text-align: start;
+}
+
+.workplace-item-plus {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-image: url("../../../images/plus-circle-dotted.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50px 50px;
+    margin-bottom: 20px;
+    pointer-events: none;
+}
