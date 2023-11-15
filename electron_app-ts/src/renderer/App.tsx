@@ -8,7 +8,7 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages, IProcessedImagesBase64 } from './interfaces/interfaces';
 //импорт сущностей
 import { appDataContext } from './entities/AppDataContext';
 //импорт функций
@@ -36,6 +36,7 @@ export const App = (): JSX.Element => {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
   const [processedImages, setProcessedImages] = useState<IProcessedImages[]>();
+  const [processedImagesBase64, setProcessedImagesBase64] = useState<Promise<IProcessedImagesBase64>[]>();
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
@@ -185,13 +186,8 @@ export const App = (): JSX.Element => {
         return processedImage
       })
 
-
-
-
       setProcessedImages(processImages)
-
-
-
+      
       // const string = btoa(new TextDecoder().decode(downloadedImages[0].data))
       // btoa(String.fromCharCode.apply(null, new Uint8Array([1, 2, 3, 255])))
       // const string = btoa(String.fromCharCode.apply(null, downloadedImages[0].data))
@@ -201,8 +197,24 @@ export const App = (): JSX.Element => {
 
     }
   }, [downloadedImages])
+
+  if (downloadedImages && downloadedImages.length > 0) {
+    if (!processedImagesBase64) {
+      const processImagesBase64 = downloadedImages.map(async (item) => {
+        const processedImageBase64: IProcessedImagesBase64 = {
+          name: item.name,
+          base64: await bufferToBase64(item.buffer)
+        }
   
-  console.log('arrDownloadedImages: ', arrDownloadedImages);
+        return processedImageBase64
+      })
+      setProcessedImagesBase64(processImagesBase64)
+    }
+
+  }
+
+  
+  console.log('ProcessedImagesBase64: ', processedImagesBase64);
 
   return (
     <>
