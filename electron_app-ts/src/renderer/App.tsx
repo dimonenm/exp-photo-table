@@ -82,6 +82,7 @@ export const App = (): JSX.Element => {
   }
 
   let arrDownloadedImages: JSX.Element[] = [];
+  let arrDownloadedImagesBase64: JSX.Element[] = [];
 
   if (processedImages && processedImages.length > 0) {
     // addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
@@ -152,6 +153,48 @@ export const App = (): JSX.Element => {
     });
     return arrDownloadedImages;
   }
+  function addProcessedImagesBase64ToArrforGallery(
+    processedImagesBase64: IProcessedImagesBase64[], //массив загруженных изображений
+    // arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
+    galleryImages: any[], //массив изображений выбранных для фототаблицы
+    setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
+    setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
+  ) {
+    const arrDownloadedImages: JSX.Element[] = []; //массив для хранения React элементов
+
+    //Удаление изображений из массива
+    while (arrDownloadedImages.length) {
+      arrDownloadedImages.pop();
+    }
+
+    //Функция формирует массив с загруженными изображениями.
+    processedImagesBase64.forEach(item => {
+
+      //Проверка на наличие изображений в галерее и фототаблице
+      let isHasInGalleryImages = false;
+      if (galleryImages.length) {
+        galleryImages.forEach((img: IGallaryImage) => {
+          if (item.name === img.getName()) {
+            isHasInGalleryImages = true;
+          }
+        })
+      }
+
+      //Формирование массива с загруженными изображениями в зависимости от наличия изображений в галерее и фототаблице
+      const JSXElement = <GalleryItem
+        key={item.name}
+        name={item.name}
+        url={item.base64}
+        // data={item.data}
+        hidden={isHasInGalleryImages ? true : false}
+        setModalProperties={setModalProperties}
+        setCurrentGalleryImage={setCurrentGalleryImage}
+        galleryImages={galleryImages}
+      />
+      arrDownloadedImages.push(JSXElement);
+    });
+    return arrDownloadedImages;
+  }
 
   async function bufferToBase64(buffer: Uint8Array): Promise<string> {
     const base64url: string = await new Promise((resolve, reject) => {
@@ -209,6 +252,8 @@ export const App = (): JSX.Element => {
         return processedImageBase64
       })
       setProcessedImagesBase64(processImagesBase64)
+    } else if (processedImagesBase64) {
+      arrDownloadedImagesBase64 = addProcessedImagesBase64ToArrforGallery(processedImagesBase64, galleryImages, setModalProperties, setCurrentGalleryImage)
     }
 
   }
@@ -265,6 +310,7 @@ export const App = (): JSX.Element => {
               setCurrentGalleryImage={setCurrentGalleryImage}
             >
               {arrDownloadedImages}
+              {arrDownloadedImagesBase64}
             </Gallery>
           </Main>
           {/* {isLoading ? <Spinner /> : null} */}
