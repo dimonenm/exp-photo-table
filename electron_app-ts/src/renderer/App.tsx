@@ -36,7 +36,6 @@ export const App = (): JSX.Element => {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
   const [processedImages, setProcessedImages] = useState<IProcessedImages[]>();
-  const [processedImagesBase64, setProcessedImagesBase64] = useState<Promise<IProcessedImagesBase64>[]>();
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
@@ -82,10 +81,8 @@ export const App = (): JSX.Element => {
   }
 
   let arrDownloadedImages: JSX.Element[] = [];
-  let arrDownloadedImagesBase64: JSX.Element[] = [];
 
   if (processedImages && processedImages.length > 0) {
-    // addProcessedImagesToArrforGallery(processedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
     arrDownloadedImages = addProcessedImagesToArrforGallery(processedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
   }
 
@@ -128,88 +125,11 @@ export const App = (): JSX.Element => {
         galleryImages={galleryImages}
       />
       arrDownloadedImages.push(JSXElement);
-
-      // if (isHasInGalleryImages) {
-      //   arrDownloadedImages.push(<GalleryItem
-      //     key={item.name}
-      //     name={item.name}
-      //     url={item.url}
-      //     hiden={true}
-      //     setModalProperties={setModalProperties}
-      //     setCurrentGalleryImage={setCurrentGalleryImage}
-      //     galleryImages={galleryImages}
-      //   />);
-      // } else {
-      //   arrDownloadedImages.push(<GalleryItem
-      //     key={item.name}
-      //     name={item.name}
-      //     url={item.url}
-      //     hiden={false}
-      //     setModalProperties={setModalProperties}
-      //     setCurrentGalleryImage={setCurrentGalleryImage}
-      //     galleryImages={galleryImages}
-      //   />);
-      // }
-    });
-    return arrDownloadedImages;
-  }
-  function addProcessedImagesBase64ToArrforGallery(
-    processedImagesBase64: IProcessedImagesBase64[], //массив загруженных изображений
-    // arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
-    galleryImages: any[], //массив изображений выбранных для фототаблицы
-    setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна
-    setCurrentGalleryImage: React.Dispatch<React.SetStateAction<ICurrentGalleryImage>>, //сеттер со свойствами выбранного изображения
-  ) {
-    const arrDownloadedImages: JSX.Element[] = []; //массив для хранения React элементов
-
-    //Удаление изображений из массива
-    while (arrDownloadedImages.length) {
-      arrDownloadedImages.pop();
-    }
-
-    //Функция формирует массив с загруженными изображениями.
-    processedImagesBase64.forEach(item => {
-
-      //Проверка на наличие изображений в галерее и фототаблице
-      let isHasInGalleryImages = false;
-      if (galleryImages.length) {
-        galleryImages.forEach((img: IGallaryImage) => {
-          if (item.name === img.getName()) {
-            isHasInGalleryImages = true;
-          }
-        })
-      }
-
-      //Формирование массива с загруженными изображениями в зависимости от наличия изображений в галерее и фототаблице
-      const JSXElement = <GalleryItem
-        key={item.name}
-        name={item.name}
-        url={item.base64}
-        // data={item.data}
-        hidden={isHasInGalleryImages ? true : false}
-        setModalProperties={setModalProperties}
-        setCurrentGalleryImage={setCurrentGalleryImage}
-        galleryImages={galleryImages}
-      />
-      arrDownloadedImages.push(JSXElement);
     });
     return arrDownloadedImages;
   }
 
-  async function bufferToBase64(buffer: Uint8Array): Promise<string> {
-    const base64url: string = await new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.onerror = () => reject(reader.error)
-      reader.readAsDataURL(new Blob([buffer]))
-    });
-
-    // return base64url
-    // remove the `data:...;base64,` part from the start
-    return base64url.slice(base64url.indexOf(',') + 1);
-  }
-
-  function convertBufferToURL(buffer: Uint8Array): string{
+  function convertBufferToURL(buffer: Uint8Array): string {
     const blob = new Blob([buffer], { type: 'image/jpeg' })
     const url = URL.createObjectURL(blob)
     return url
@@ -220,6 +140,41 @@ export const App = (): JSX.Element => {
   }, [])
   useEffect((): void => {
     if (downloadedImages) {
+
+      const processImagesMin = downloadedImages.map((item) => {
+
+        const imageMin = new Image()
+        let urlMinImg = ''
+
+        imageMin.addEventListener('load', () => {
+
+          const canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d');
+
+          const originalWidth = imageMin.naturalWidth;
+          const originalHeight = imageMin.naturalHeight;
+          const aspectRatio = originalWidth / originalHeight;
+          const newWidth = 200;
+          const newHeight = newWidth / aspectRatio;
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+
+          ctx.drawImage(imageMin, 0, 0, newWidth, newHeight);
+
+          urlMinImg = canvas.toDataURL("image/jpeg", 0.1)
+          console.log('urlMinImg: ', urlMinImg);
+        })
+
+        imageMin.src = convertBufferToURL(item.buffer)
+
+        // const processedImage: IProcessedImages = {
+        //   name: item.name,
+        //   url: convertBufferToURL(item.buffer)
+        // }
+
+        // return processedImage
+      })
+        //-------------------------------------------
       const processImages = downloadedImages.map((item) => {
         const processedImage: IProcessedImages = {
           name: item.name,
@@ -230,36 +185,13 @@ export const App = (): JSX.Element => {
       })
 
       setProcessedImages(processImages)
-      
-      // const string = btoa(new TextDecoder().decode(downloadedImages[0].data))
-      // btoa(String.fromCharCode.apply(null, new Uint8Array([1, 2, 3, 255])))
-      // const string = btoa(String.fromCharCode.apply(null, downloadedImages[0].data))
-      // console.log('string: ', string);
-      //Функция формирует массив с загруженными изображениями.
-      // arrDownloadedImages = addDownloadedImagesToArrforGallery(downloadedImages, arrDownloadedImages, galleryImages, setModalProperties, setCurrentGalleryImage);
+      //------------------------------------------------
 
     }
   }, [downloadedImages])
 
-  if (downloadedImages && downloadedImages.length > 0) {
-    if (!processedImagesBase64) {
-      const processImagesBase64 = downloadedImages.map(async (item) => {
-        const processedImageBase64: IProcessedImagesBase64 = {
-          name: item.name,
-          base64: await bufferToBase64(item.buffer)
-        }
-  
-        return processedImageBase64
-      })
-      setProcessedImagesBase64(processImagesBase64)
-    } else if (processedImagesBase64) {
-      arrDownloadedImagesBase64 = addProcessedImagesBase64ToArrforGallery(processedImagesBase64, galleryImages, setModalProperties, setCurrentGalleryImage)
-    }
 
-  }
 
-  
-  console.log('ProcessedImagesBase64: ', processedImagesBase64);
 
   return (
     <>
@@ -310,7 +242,6 @@ export const App = (): JSX.Element => {
               setCurrentGalleryImage={setCurrentGalleryImage}
             >
               {arrDownloadedImages}
-              {arrDownloadedImagesBase64}
             </Gallery>
           </Main>
           {/* {isLoading ? <Spinner /> : null} */}

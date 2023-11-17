@@ -127,4 +127,6 @@ const subscribeForAppEvents = (): void => {
 app.whenReady().then(() => {
   subscribeForAppEvents()
   createWindow()
+  // console.log(process.versions)
+  console.log(process.constrainedMemory())
 })
