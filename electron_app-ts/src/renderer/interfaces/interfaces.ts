@@ -12,10 +12,6 @@ export interface IProcessedImages {
   name: string,
   url: string
 }
-export interface IProcessedImagesBase64 {
-  name: string,
-  base64: string
-}
 export interface IGallaryImage {
   index: number;
   name: string;

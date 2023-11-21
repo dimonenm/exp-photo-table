@@ -8,7 +8,7 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages, IProcessedImagesBase64 } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages } from './interfaces/interfaces';
 //импорт сущностей
 import { appDataContext } from './entities/AppDataContext';
 //импорт функций
@@ -36,6 +36,7 @@ export const App = (): JSX.Element => {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
   const [processedImages, setProcessedImages] = useState<IProcessedImages[]>();
+  const [processedImagesMin, setProcessedImagesMin] = useState<IProcessedImages[]>();
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
@@ -128,7 +129,6 @@ export const App = (): JSX.Element => {
     });
     return arrDownloadedImages;
   }
-
   function convertBufferToURL(buffer: Uint8Array): string {
     const blob = new Blob([buffer], { type: 'image/jpeg' })
     const url = URL.createObjectURL(blob)
@@ -141,39 +141,6 @@ export const App = (): JSX.Element => {
   useEffect((): void => {
     if (downloadedImages) {
 
-      const processImagesMin = downloadedImages.map((item) => {
-
-        const imageMin = new Image()
-        let urlMinImg = ''
-
-        imageMin.addEventListener('load', () => {
-
-          const canvas = document.createElement('canvas')
-          const ctx = canvas.getContext('2d');
-
-          const originalWidth = imageMin.naturalWidth;
-          const originalHeight = imageMin.naturalHeight;
-          const aspectRatio = originalWidth / originalHeight;
-          const newWidth = 200;
-          const newHeight = newWidth / aspectRatio;
-          canvas.width = newWidth;
-          canvas.height = newHeight;
-
-          ctx.drawImage(imageMin, 0, 0, newWidth, newHeight);
-
-          urlMinImg = canvas.toDataURL("image/jpeg", 0.1)
-          console.log('urlMinImg: ', urlMinImg);
-        })
-
-        imageMin.src = convertBufferToURL(item.buffer)
-
-        // const processedImage: IProcessedImages = {
-        //   name: item.name,
-        //   url: convertBufferToURL(item.buffer)
-        // }
-
-        // return processedImage
-      })
         //-------------------------------------------
       const processImages = downloadedImages.map((item) => {
         const processedImage: IProcessedImages = {
