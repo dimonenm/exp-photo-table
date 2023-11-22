@@ -12,6 +12,11 @@ export interface IProcessedImages {
   name: string,
   url: string
 }
+export interface IProcessedImagesMin {
+  name: string,
+  url: string
+  // url: Promise<string>
+}
 export interface IGallaryImage {
   index: number;
   name: string;

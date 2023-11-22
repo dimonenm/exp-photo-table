@@ -8,7 +8,7 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages, IProcessedImagesMin } from './interfaces/interfaces';
 //импорт сущностей
 import { appDataContext } from './entities/AppDataContext';
 //импорт функций
@@ -34,9 +34,9 @@ interface IElectronAPI {
 
 export const App = (): JSX.Element => {
 
-  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>();
+  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>([]);
   const [processedImages, setProcessedImages] = useState<IProcessedImages[]>();
-  const [processedImagesMin, setProcessedImagesMin] = useState<IProcessedImages[]>();
+  const [processedImagesMin, setProcessedImagesMin] = useState<IProcessedImagesMin[]>([]);
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryImg, setGalleryImg] = useState<IGallaryImage>(new GalleryImage());
@@ -83,8 +83,11 @@ export const App = (): JSX.Element => {
 
   let arrDownloadedImages: JSX.Element[] = [];
 
-  if (processedImages && processedImages.length > 0) {
-    arrDownloadedImages = addProcessedImagesToArrforGallery(processedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+  // if (processedImages && processedImages.length > 0) {
+  //   arrDownloadedImages = addProcessedImagesToArrforGallery(processedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
+  // }
+  if (processedImagesMin && processedImagesMin.length > 0) {
+    arrDownloadedImages = addProcessedImagesToArrforGallery(processedImagesMin, galleryImages, setModalProperties, setCurrentGalleryImage)
   }
 
   function addProcessedImagesToArrforGallery(
@@ -134,30 +137,64 @@ export const App = (): JSX.Element => {
     const url = URL.createObjectURL(blob)
     return url
   }
+  function resizeImage(source: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const newWidth = 200
+        const naturalWidth = img.naturalWidth
+        const newHeight = img.naturalHeight * newWidth / naturalWidth
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        resolve(canvas.toDataURL());
+      };
+      img.onerror = reject;
+      img.src = source;
+    });
+  }
+  const resizeDownloadedImages = async () => {
+    const processImagesMinArr: IProcessedImagesMin[] = []
+
+    for (let i = 0; i < downloadedImages.length; i++){
+      const urlFromBuffer = convertBufferToURL(downloadedImages[i].buffer)
+      const processedImage: {name: string, url: string} = {
+        name: downloadedImages[i].name,
+        url: await resizeImage(urlFromBuffer)
+      }
+      processImagesMinArr.push(processedImage)
+      URL.revokeObjectURL(urlFromBuffer)
+    }
+
+    setProcessedImagesMin(processImagesMinArr)
+    setDownloadedImages([])
+  }
 
   useEffect((): void => {
     getSettings()
   }, [])
   useEffect((): void => {
-    if (downloadedImages) {
+    if (downloadedImages.length > 0) {
+
+      resizeDownloadedImages()
 
         //-------------------------------------------
-      const processImages = downloadedImages.map((item) => {
-        const processedImage: IProcessedImages = {
-          name: item.name,
-          url: convertBufferToURL(item.buffer)
-        }
+      // const processImages = downloadedImages.map((item) => {
+      //   const processedImage: IProcessedImages = {
+      //     name: item.name,
+      //     url: convertBufferToURL(item.buffer)
+      //   }
 
-        return processedImage
-      })
+      //   return processedImage
+      // })
 
-      setProcessedImages(processImages)
+      // setProcessedImages(processImages)
       //------------------------------------------------
 
     }
   }, [downloadedImages])
-
-
 
 
   return (
