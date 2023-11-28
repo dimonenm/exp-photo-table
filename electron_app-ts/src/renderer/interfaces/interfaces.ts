@@ -15,7 +15,6 @@ export interface IProcessedImages {
 export interface IProcessedImagesMin {
   name: string,
   url: string
-  // url: Promise<string>
 }
 export interface IGallaryImage {
   index: number;

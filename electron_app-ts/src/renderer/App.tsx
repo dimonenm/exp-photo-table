@@ -179,20 +179,7 @@ export const App = (): JSX.Element => {
     if (downloadedImages.length > 0) {
 
       resizeDownloadedImages()
-
-        //-------------------------------------------
-      // const processImages = downloadedImages.map((item) => {
-      //   const processedImage: IProcessedImages = {
-      //     name: item.name,
-      //     url: convertBufferToURL(item.buffer)
-      //   }
-
-      //   return processedImage
-      // })
-
-      // setProcessedImages(processImages)
-      //------------------------------------------------
-
+      
     }
   }, [downloadedImages])
 
