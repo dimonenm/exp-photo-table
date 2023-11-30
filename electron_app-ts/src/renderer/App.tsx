@@ -8,7 +8,7 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImages, IProcessedImagesMin } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImagesMin } from './interfaces/interfaces';
 //импорт сущностей
 import { appDataContext } from './entities/AppDataContext';
 //импорт функций
@@ -35,7 +35,6 @@ interface IElectronAPI {
 export const App = (): JSX.Element => {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImages[]>([]);
-  const [processedImages, setProcessedImages] = useState<IProcessedImages[]>();
   const [processedImagesMin, setProcessedImagesMin] = useState<IProcessedImagesMin[]>([]);
   const [modalProperties, setModalProperties] = useState<IModalProperties>();
   const [galleryImages, setGalleryImages] = useState([]);
@@ -91,7 +90,7 @@ export const App = (): JSX.Element => {
   }
 
   function addProcessedImagesToArrforGallery(
-    processedImages: IProcessedImages[], //массив загруженных изображений
+    processedImages: IProcessedImagesMin[], //массив загруженных изображений
     // arrDownloadedImages: JSX.Element[], //массив для хранения React элементов
     galleryImages: any[], //массив изображений выбранных для фототаблицы
     setModalProperties: React.Dispatch<React.SetStateAction<IModalProperties>>, //сеттер со свойствами модального окна

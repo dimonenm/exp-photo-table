@@ -8,10 +8,6 @@ export interface IDownloadedImages {
   name: string,
   buffer: Uint8Array
 }
-export interface IProcessedImages {
-  name: string,
-  url: string
-}
 export interface IProcessedImagesMin {
   name: string,
   url: string
