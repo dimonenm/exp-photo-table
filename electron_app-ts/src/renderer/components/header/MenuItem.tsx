@@ -51,7 +51,6 @@ const MenuItem = ({ children, type }: IMenuItemDto) => {
     
     menuItemAppDataContext.setDownloadedImages(receivedImages)
     
-    menuItemAppDataContext.setIsLoading(false)
     // const buffer: Uint8Array[] = await window.electronAPI.openFile()
 
     // const blobs: Blob[] = buffer.map((item) => {

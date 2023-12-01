@@ -82,9 +82,6 @@ export const App = (): JSX.Element => {
 
   let arrDownloadedImages: JSX.Element[] = [];
 
-  // if (processedImages && processedImages.length > 0) {
-  //   arrDownloadedImages = addProcessedImagesToArrforGallery(processedImages, galleryImages, setModalProperties, setCurrentGalleryImage)
-  // }
   if (processedImagesMin && processedImagesMin.length > 0) {
     arrDownloadedImages = addProcessedImagesToArrforGallery(processedImagesMin, galleryImages, setModalProperties, setCurrentGalleryImage)
   }
@@ -129,6 +126,7 @@ export const App = (): JSX.Element => {
       />
       arrDownloadedImages.push(JSXElement);
     });
+
     return arrDownloadedImages;
   }
   function convertBufferToURL(buffer: Uint8Array): string {
@@ -157,16 +155,16 @@ export const App = (): JSX.Element => {
   const resizeDownloadedImages = async () => {
     const processImagesMinArr: IProcessedImagesMin[] = []
 
-    for (let i = 0; i < downloadedImages.length; i++){
+    for (let i = 0; i < downloadedImages.length; i++) {
       const urlFromBuffer = convertBufferToURL(downloadedImages[i].buffer)
-      const processedImage: {name: string, url: string} = {
+      const processedImage: { name: string, url: string } = {
         name: downloadedImages[i].name,
         url: await resizeImage(urlFromBuffer)
       }
       processImagesMinArr.push(processedImage)
       URL.revokeObjectURL(urlFromBuffer)
     }
-
+    setIsLoading(false)
     setProcessedImagesMin(processImagesMinArr)
     setDownloadedImages([])
   }
@@ -176,9 +174,7 @@ export const App = (): JSX.Element => {
   }, [])
   useEffect((): void => {
     if (downloadedImages.length > 0) {
-
       resizeDownloadedImages()
-      
     }
   }, [downloadedImages])
 
@@ -225,14 +221,17 @@ export const App = (): JSX.Element => {
             </Menu>
           </Header>
           <Main>
-            <Gallery
-              galleryImages={galleryImages}
-              setGalleryImages={setGalleryImages}
-              currentGalleryImage={currentGalleryImage}
-              setCurrentGalleryImage={setCurrentGalleryImage}
-            >
-              {arrDownloadedImages}
-            </Gallery>
+            {isLoading ?
+              <Spinner></Spinner> :
+              <Gallery
+                galleryImages={galleryImages}
+                setGalleryImages={setGalleryImages}
+                currentGalleryImage={currentGalleryImage}
+                setCurrentGalleryImage={setCurrentGalleryImage}
+              >
+                {arrDownloadedImages}
+              </Gallery>
+            }
           </Main>
           {/* {isLoading ? <Spinner /> : null} */}
         </appDataContext.Provider>
