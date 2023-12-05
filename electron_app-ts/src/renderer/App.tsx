@@ -178,7 +178,6 @@ export const App = (): JSX.Element => {
     }
   }, [downloadedImages])
 
-
   return (
     <>
       {/* <div>
