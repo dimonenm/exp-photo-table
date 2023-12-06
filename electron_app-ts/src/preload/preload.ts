@@ -7,5 +7,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   sendRequest: (type: string, req: string): Promise<string> => ipcRenderer.invoke('renderer_to_main', [type, req]),
   getSettings: (): Promise<string> => ipcRenderer.invoke('getSettings'),
   setSettings: (settings: string): Promise<string> => ipcRenderer.invoke('setSettings', settings),
-  openFile: () => ipcRenderer.invoke('dialog:openFile')
+  openFile: () => ipcRenderer.invoke('selectImages')
 })

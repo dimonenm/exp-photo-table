@@ -89,7 +89,7 @@ const createWindow = (): void => {
     return 'ok'
   }
 
-  ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('selectImages', handleFileOpen)
   // ipcMain.handle('renderer_to_main', handleGetSettings)
   ipcMain.handle('getSettings', handleGetSettings)
   ipcMain.handle('setSettings', handleSetSettings)

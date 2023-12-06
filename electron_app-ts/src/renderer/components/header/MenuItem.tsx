@@ -27,47 +27,12 @@ const MenuItem = ({ children, type }: IMenuItemDto) => {
   //служебные функции
   
   const openFile = async (): Promise<void> => {
-    // async function readFileAsDataURL(file: Blob) {
-    //   const result_base64 = await new Promise((resolve) => {
-    //     const fileReader = new FileReader();
-    //     fileReader.onload = () => {
-    //       const dataUrlPrefix = `data:image/png;base64,`;
-    //       const base64WithDataUrlPrefix = fileReader.result as string;
-    //       const base64 = dataUrlPrefix + base64WithDataUrlPrefix.split(',')[1]
-    //       resolve(base64)
-    //       // resolve(fileReader.result)
-    //     };
-    //     fileReader.readAsDataURL(file);
-    //   });
-
-    //   return result_base64;
-    // }
 
     menuItemAppDataContext.setIsLoading(true)
     
-    // const base64: string[] = []
-    // const arrImgs: JSX.Element[] = []
     const receivedImages: IDownloadedImages[] = await window.electronAPI.openFile()
     
     menuItemAppDataContext.setDownloadedImages(receivedImages)
-    
-    // const buffer: Uint8Array[] = await window.electronAPI.openFile()
-
-    // const blobs: Blob[] = buffer.map((item) => {
-    //   return new Blob([item])
-    // })
-
-    // for (let i = 0; i < blobs.length; i++) {
-    //   const dataURL = await readFileAsDataURL(blobs[i])
-    //   base64.push(dataURL as string)
-    // }
-
-    // for (const item of base64) {
-    //   const img = <img key={item.length} src={item} width={150} height={216}></img>
-    //   arrImgs.push(img)
-    // }
-
-    // setImgs(arrImgs)
   }
 
   // function loadImgs(event) {

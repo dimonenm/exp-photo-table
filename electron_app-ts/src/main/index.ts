@@ -1,6 +1,7 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
-import fs, { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
+import fs, { existsSync, mkdirSync, readFileSync, writeFileSync, writeFile } from 'fs'
 import path from 'path'
+import { ISendImgsData } from './interfaces/interfaces';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -36,7 +37,7 @@ const createWindow = (): void => {
   mainWindow.webContents.openDevTools({ mode: 'detach' });
 
   ipcMain.handle('getSettings', GetSettingsHandler)
-  ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('selectImages', handleSelectImages)
 
 
 
@@ -55,7 +56,10 @@ const createWindow = (): void => {
   //   }
   // })
 
-  async function handleFileOpen() {
+  async function handleSelectImages() {
+    
+    const arr: ISendImgsData[] = []
+    
     const { filePaths } = await dialog.showOpenDialog({
       filters: [
         { name: 'All Files', extensions: ['*'] },
@@ -63,30 +67,30 @@ const createWindow = (): void => {
       ],
       properties: ['openFile', 'multiSelections']
     })
-    // const { filePaths } = await dialog.showOpenDialog({
-    //   filters: [
-    //     { name: 'All Files', extensions: ['*'] },
-    //     { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif'] }
-    //   ],
-    //   properties: ['openFile', 'multiSelections']
-    // })
 
-    interface ISendImgsData { 
-      name: string
-      buffer: Buffer
-      data: string
-    }
-
-    const arr: ISendImgsData[] = []
     for (const item of filePaths) {
       const name: RegExpMatchArray = item.match(/[\][a-zA-Z0-9]+[.][a-zA-Z]+/)
       
       arr.push({ name: name[0], buffer: fs.readFileSync(item), data: ''})
     }
+
+    autoSaveImages(arr)
+
     return arr
   }
 
-  async function GetSettingsHandler() {
+  function autoSaveImages(imgsDataArr: ISendImgsData[]): void {
+    const directory = path.join(app.getPath('userData'), 'autosave');
+    if (!existsSync(directory)) {
+      mkdirSync(directory)
+    }
+    imgsDataArr.forEach(item => {
+      const file = path.join(directory, item.name)
+      writeFile(file, item.buffer, null)
+    })
+  }
+
+  function GetSettingsHandler() {
     const directory = path.join(app.getPath('userData'), 'settings');
     const file = path.join(directory, `settings.json`)
 
@@ -106,11 +110,11 @@ const createWindow = (): void => {
     return 'ok'
   }
 
-  // ipcMain.handle('dialog:openFile', handleFileOpen)
   // ipcMain.handle('renderer_to_main', handleGetSettings)
   // ipcMain.handle('getSettings', handleGetSettings)
   // ipcMain.handle('setSettings', handleSetSettings)
 }
+
 const subscribeForAppEvents = (): void => {
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -128,5 +132,4 @@ app.whenReady().then(() => {
   subscribeForAppEvents()
   createWindow()
   // console.log(process.versions)
-  console.log(process.constrainedMemory())
 })
