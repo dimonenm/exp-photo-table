@@ -40,8 +40,6 @@ const createWindow = (): void => {
   ipcMain.handle('selectImages', handleSelectImages)
 
 
-
-
   // ipcMain.on('renderer_to_main', (event, type, msg) => {
   //   if (type === 'btnAction') {
   //     if (msg === 'maximize') {
