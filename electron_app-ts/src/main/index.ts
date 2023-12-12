@@ -55,9 +55,9 @@ const createWindow = (): void => {
   // })
 
   async function handleSelectImages() {
-    
+
     const arr: ISendImgsData[] = []
-    
+
     const { filePaths } = await dialog.showOpenDialog({
       filters: [
         { name: 'All Files', extensions: ['*'] },
@@ -68,8 +68,8 @@ const createWindow = (): void => {
 
     for (const item of filePaths) {
       const name: RegExpMatchArray = item.match(/[\][a-zA-Z0-9]+[.][a-zA-Z]+/)
-      
-      arr.push({ name: name[0], buffer: fs.readFileSync(item), data: ''})
+
+      arr.push({ name: name[0], buffer: fs.readFileSync(item), data: '' })
     }
 
     autoSaveImages(arr)
@@ -78,14 +78,39 @@ const createWindow = (): void => {
   }
 
   function autoSaveImages(imgsDataArr: ISendImgsData[]): void {
+    interface IAutoSaveSettings {
+      date: string;
+      imagesNames: string[];
+      imagesUrls: string[];
+    }
+
     const directory = path.join(app.getPath('userData'), 'autosave');
+    const date = (+Date.now()).toString()
+    const autoSaveSettings: IAutoSaveSettings = {
+      date,
+      imagesNames: [],
+      imagesUrls: []
+    }
+
     if (!existsSync(directory)) {
       mkdirSync(directory)
     }
+
     imgsDataArr.forEach(item => {
       const file = path.join(directory, item.name)
-      writeFile(file, item.buffer, null)
+
+      autoSaveSettings.imagesNames.push(item.name)
+      autoSaveSettings.imagesUrls.push(file)
+
+      writeFile(file, item.buffer, err => {
+        if (err) {
+          console.log(err.message);
+          throw err;
+        }
+      })
     })
+
+    console.log(autoSaveSettings);
   }
 
   function GetSettingsHandler() {
