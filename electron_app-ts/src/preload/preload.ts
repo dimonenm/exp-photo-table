@@ -3,9 +3,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  sendAction: (type: string, action: string) => ipcRenderer.send('renderer_to_main', type, action),
-  sendRequest: (type: string, req: string): Promise<string> => ipcRenderer.invoke('renderer_to_main', [type, req]),
+  // sendAction: (type: string, action: string) => ipcRenderer.send('renderer_to_main', type, action),
+  // sendRequest: (type: string, req: string): Promise<string> => ipcRenderer.invoke('renderer_to_main', [type, req]),
+  // setSettings: (settings: string): Promise<string> => ipcRenderer.invoke('setSettings', settings),
   getSettings: (): Promise<string> => ipcRenderer.invoke('getSettings'),
-  setSettings: (settings: string): Promise<string> => ipcRenderer.invoke('setSettings', settings),
-  openFile: () => ipcRenderer.invoke('selectImages')
+  openFile: () => ipcRenderer.invoke('selectImages'),
+  isAutoSaveExist: (): Promise<string> | null => ipcRenderer.invoke('isAutoSaveExist'),
 })

@@ -8,7 +8,7 @@ import Menu from './components/header/Menu';
 import MenuItem from './components/header/MenuItem';
 import Spinner from './Spinner';
 // импорт интерфейсов
-import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImagesMin } from './interfaces/interfaces';
+import { ISettings, IPhotoTableData, ICurrentGalleryImage, IModalProperties, IWorkPlaceStyle, IPreviewPageScale, IGallaryImage, IDownloadedImages, IProcessedImagesMin, IAutoSaveSettings } from './interfaces/interfaces';
 //импорт сущностей
 import { appDataContext } from './entities/AppDataContext';
 //импорт функций
@@ -27,9 +27,10 @@ declare global {
 interface IElectronAPI {
   // sendAction: (type: string, action: string) => void,
   // sendRequest: (type: string, req: string) => Promise<string>,
-  getSettings: () => Promise<ISettings>,
   // setSettings: (settings: ISettings) => Promise<string>,
+  getSettings: () => Promise<ISettings>,
   openFile: () => Promise<IDownloadedImages[]>,
+  isAutoSaveExist: () => Promise<IAutoSaveSettings> | null,
 }
 
 export const App = (): JSX.Element => {
@@ -78,6 +79,10 @@ export const App = (): JSX.Element => {
   const getSettings = async () => {
     const res = await window.electronAPI.getSettings()
     setSettings(res);
+  }
+  const isAutoSaveExist = async () => {
+    const res = await window.electronAPI.isAutoSaveExist()
+    console.log('res: ', res);
   }
 
   let arrDownloadedImages: JSX.Element[] = [];
@@ -168,9 +173,10 @@ export const App = (): JSX.Element => {
     setProcessedImagesMin(processImagesMinArr)
     setDownloadedImages([])
   }
-
+  
   useEffect((): void => {
     getSettings()
+    isAutoSaveExist()
   }, [])
   useEffect((): void => {
     if (downloadedImages.length > 0) {

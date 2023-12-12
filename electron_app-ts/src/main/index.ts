@@ -1,7 +1,7 @@
 import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
 import fs, { existsSync, mkdirSync, readFileSync, writeFileSync, writeFile } from 'fs'
 import path from 'path'
-import { ISendImgsData } from './interfaces/interfaces';
+import { IAutoSaveSettings, ISendImgsData } from './interfaces/interfaces';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -36,8 +36,9 @@ const createWindow = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools({ mode: 'detach' });
 
-  ipcMain.handle('getSettings', GetSettingsHandler)
-  ipcMain.handle('selectImages', handleSelectImages)
+  ipcMain.handle('getSettings', getSettingsHandler)
+  ipcMain.handle('selectImages', selectImagesHandler)
+  ipcMain.handle('isAutoSaveExist', isAutoSaveExistHandler)
 
 
   // ipcMain.on('renderer_to_main', (event, type, msg) => {
@@ -54,7 +55,22 @@ const createWindow = (): void => {
   //   }
   // })
 
-  async function handleSelectImages() {
+  function getSettingsHandler(): string {
+    const directory = path.join(app.getPath('userData'), 'settings');
+    const file = path.join(directory, `settings.json`)
+
+    if (!existsSync(directory)) {
+      mkdirSync(directory)
+    }
+
+    if (!existsSync(file)) {
+      writeFileSync(file, '{"address": "Адрес не указан", "executors": [], "note": "Примечание: не указано", "official_status": "специалист", "tel": "Телефон не указан", "unit": "Подразделение не указано", "zip_code": "Почтовый индекс не указан"}', { flag: 'wx' })
+    }
+
+    return JSON.parse(readFileSync(file, { encoding: 'utf8' }))
+  }
+
+  async function selectImagesHandler() {
 
     const arr: ISendImgsData[] = []
 
@@ -78,11 +94,6 @@ const createWindow = (): void => {
   }
 
   function autoSaveImages(imgsDataArr: ISendImgsData[]): void {
-    interface IAutoSaveSettings {
-      date: string;
-      imagesNames: string[];
-      imagesUrls: string[];
-    }
 
     const directory = path.join(app.getPath('userData'), 'autosave');
     const date = (+Date.now()).toString()
@@ -109,26 +120,28 @@ const createWindow = (): void => {
         }
       })
     })
-
-    console.log(autoSaveSettings);
+    
+    writeFile(path.join(directory, 'autoSaveSettings.json'), JSON.stringify(autoSaveSettings), err => {
+      if (err) {
+        console.log(err.message);
+        throw err;
+      }
+    })
   }
 
-  function GetSettingsHandler() {
-    const directory = path.join(app.getPath('userData'), 'settings');
-    const file = path.join(directory, `settings.json`)
+  function isAutoSaveExistHandler(): IAutoSaveSettings | null {
+    const directory = path.join(app.getPath('userData'), 'autosave');
+    const file = path.join(directory, `autoSaveSettings.json`)
 
-    if (!existsSync(directory)) {
-      mkdirSync(directory)
+    if (existsSync(file)) {
+      const autoSaveSettings = JSON.parse(readFileSync(file, { encoding: 'utf8' }))
+      return autoSaveSettings
+    } else {
+      return null     
     }
-
-    if (!existsSync(file)) {
-      writeFileSync(file, '{"address": "Адрес не указан", "executors": [], "note": "Примечание: не указано", "official_status": "специалист", "tel": "Телефон не указан", "unit": "Подразделение не указано", "zip_code": "Почтовый индекс не указан"}', { flag: 'wx' })
-    }
-
-    return JSON.parse(readFileSync(file, { encoding: 'utf8' }))
   }
 
-  async function handleSetSettings(event: IpcMainInvokeEvent, settings: string) {
+  async function setSettingsHandler(event: IpcMainInvokeEvent, settings: string) {
     console.log(JSON.stringify(settings));
     return 'ok'
   }

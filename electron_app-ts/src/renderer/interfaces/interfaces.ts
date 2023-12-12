@@ -103,3 +103,8 @@ export interface ISettings {
 export interface IWorkPlaceStyle {
   zoom: string
 }
+export interface IAutoSaveSettings {
+  date: string;
+  imagesNames: string[];
+  imagesUrls: string[];
+}

@@ -3,3 +3,8 @@ export interface ISendImgsData {
   buffer: Buffer
   data: string
 }
+export interface IAutoSaveSettings {
+  date: string;
+  imagesNames: string[];
+  imagesUrls: string[];
+}
