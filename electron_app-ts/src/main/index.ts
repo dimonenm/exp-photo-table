@@ -39,6 +39,7 @@ const createWindow = (): void => {
   ipcMain.handle('getSettings', getSettingsHandler)
   ipcMain.handle('selectImages', selectImagesHandler)
   ipcMain.handle('isAutoSaveExist', isAutoSaveExistHandler)
+  ipcMain.handle('downloadImage', downloadImageHandler)
 
 
   // ipcMain.on('renderer_to_main', (event, type, msg) => {
@@ -70,7 +71,7 @@ const createWindow = (): void => {
     return JSON.parse(readFileSync(file, { encoding: 'utf8' }))
   }
 
-  async function selectImagesHandler() {
+  async function selectImagesHandler(): Promise<ISendImgsData[]> {
 
     const arr: ISendImgsData[] = []
 
@@ -91,6 +92,13 @@ const createWindow = (): void => {
     autoSaveImages(arr)
 
     return arr
+  }
+
+  function downloadImageHandler(event: IpcMainInvokeEvent, url: string): Buffer {
+
+    const sendImgBuffer: Buffer = fs.readFileSync(url)
+
+    return sendImgBuffer
   }
 
   function autoSaveImages(imgsDataArr: ISendImgsData[]): void {

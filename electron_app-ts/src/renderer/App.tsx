@@ -30,7 +30,8 @@ interface IElectronAPI {
   // setSettings: (settings: ISettings) => Promise<string>,
   getSettings: () => Promise<ISettings>,
   openFile: () => Promise<IDownloadedImages[]>,
-  isAutoSaveExist: () => Promise<IAutoSaveSettings> | null,
+  isAutoSaveExist: () => Promise<IAutoSaveSettings | null>,
+  downloadImage: (url: string) => Promise<Uint8Array>,
 }
 
 export const App = (): JSX.Element => {
@@ -80,9 +81,21 @@ export const App = (): JSX.Element => {
     const res = await window.electronAPI.getSettings()
     setSettings(res);
   }
-  const isAutoSaveExist = async () => {
+  const isAutoSaveExist = async (): Promise<IAutoSaveSettings | null> => {
     const res = await window.electronAPI.isAutoSaveExist()
-    console.log('res: ', res);
+    return res
+  }
+  const applyAutoSaveSettings = (settings: IAutoSaveSettings | null): void => {
+    const arr: IDownloadedImages[] = []
+    if (settings) {
+      settings.imagesUrls.forEach(async(item, index) => {
+        const res: Promise<Uint8Array> = window.electronAPI.downloadImage(item)
+        await res.then((buffer: Uint8Array) => {
+          arr.push({name: settings.imagesNames[index], buffer})
+        })
+      })
+      console.log('arr: ', arr);
+    }
   }
 
   let arrDownloadedImages: JSX.Element[] = [];
@@ -176,7 +189,9 @@ export const App = (): JSX.Element => {
   
   useEffect((): void => {
     getSettings()
-    isAutoSaveExist()
+    isAutoSaveExist().then((settings) => {
+      applyAutoSaveSettings(settings)
+    })
   }, [])
   useEffect((): void => {
     if (downloadedImages.length > 0) {

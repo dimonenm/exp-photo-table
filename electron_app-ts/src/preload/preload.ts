@@ -9,4 +9,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getSettings: (): Promise<string> => ipcRenderer.invoke('getSettings'),
   openFile: () => ipcRenderer.invoke('selectImages'),
   isAutoSaveExist: (): Promise<string> | null => ipcRenderer.invoke('isAutoSaveExist'),
+  downloadImage: (url: string): Promise<Uint8Array> => ipcRenderer.invoke('downloadImage'),
 })
