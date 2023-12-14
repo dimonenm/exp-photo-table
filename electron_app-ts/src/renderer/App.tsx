@@ -17,6 +17,7 @@ import GalleryImage from './entities/GalleryImage';
 import './stylesheets/App.scss';
 import Gallery from './components/main/Gallery';
 import GalleryItem from './components/main/GalleryItem';
+import { IpcMainInvokeEvent, ipcRenderer } from 'electron';
 
 
 declare global {
@@ -86,13 +87,16 @@ export const App = (): JSX.Element => {
     return res
   }
   const applyAutoSaveSettings = (settings: IAutoSaveSettings | null): void => {
+    console.log('settings: ', settings);
     const arr: IDownloadedImages[] = []
     if (settings) {
+      console.log('settings in: ', settings);
       settings.imagesUrls.forEach(async(item, index) => {
-        const res: Promise<Uint8Array> = window.electronAPI.downloadImage(item)
-        await res.then((buffer: Uint8Array) => {
-          arr.push({name: settings.imagesNames[index], buffer})
-        })
+        console.log('item: ', typeof item);
+        const res: Uint8Array = await window.electronAPI.downloadImage(item)
+        // const res: Uint8Array = await ipcRenderer.invoke('downloadImage', item)
+        console.log('res: ', res);
+        arr.push({ name: settings.imagesNames[index], buffer: res })
       })
       console.log('arr: ', arr);
     }

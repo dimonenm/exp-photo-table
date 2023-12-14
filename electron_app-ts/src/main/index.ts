@@ -143,6 +143,7 @@ const createWindow = (): void => {
 
     if (existsSync(file)) {
       const autoSaveSettings = JSON.parse(readFileSync(file, { encoding: 'utf8' }))
+      console.log('autoSaveSettings: ', autoSaveSettings);
       return autoSaveSettings
     } else {
       return null     
