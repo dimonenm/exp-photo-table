@@ -86,20 +86,15 @@ export const App = (): JSX.Element => {
     const res = await window.electronAPI.isAutoSaveExist()
     return res
   }
-  const applyAutoSaveSettings = (settings: IAutoSaveSettings | null): void => {
-    console.log('settings: ', settings);
+  const applyAutoSaveSettings = async (settings: IAutoSaveSettings): Promise<IDownloadedImages[]> => {
     const arr: IDownloadedImages[] = []
-    if (settings) {
-      console.log('settings in: ', settings);
-      settings.imagesUrls.forEach(async(item, index) => {
-        console.log('item: ', typeof item);
-        const res: Uint8Array = await window.electronAPI.downloadImage(item)
-        // const res: Uint8Array = await ipcRenderer.invoke('downloadImage', item)
-        console.log('res: ', res);
-        arr.push({ name: settings.imagesNames[index], buffer: res })
-      })
-      console.log('arr: ', arr);
-    }
+
+    await settings.imagesUrls.forEach(async (item, index) => {
+      const res: Uint8Array = await window.electronAPI.downloadImage(item)
+      arr.push({ name: settings.imagesNames[index], buffer: res })
+    })
+
+    return arr
   }
 
   let arrDownloadedImages: JSX.Element[] = [];
@@ -190,11 +185,16 @@ export const App = (): JSX.Element => {
     setProcessedImagesMin(processImagesMinArr)
     setDownloadedImages([])
   }
-  
+
   useEffect((): void => {
     getSettings()
     isAutoSaveExist().then((settings) => {
-      applyAutoSaveSettings(settings)
+      if (settings) {
+        applyAutoSaveSettings(settings).then((data) => {
+          console.log(data);
+          setDownloadedImages(data)
+        })
+      }
     })
   }, [])
   useEffect((): void => {
