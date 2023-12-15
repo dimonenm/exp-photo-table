@@ -191,7 +191,6 @@ export const App = (): JSX.Element => {
     isAutoSaveExist().then((settings) => {
       if (settings) {
         applyAutoSaveSettings(settings).then((data) => {
-          console.log(data);
           setDownloadedImages(data)
         })
       }
