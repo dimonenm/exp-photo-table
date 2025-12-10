@@ -39,7 +39,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
   if (type === 'title' && galleryImages.length === 0) {
     return (
       <div className='preview-page' style={pageStyle} >
-        <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
+        <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО ХЕРСОНСКОЙ ОБЛАСТИ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
         <div className='preview-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
         <div className='preview-page-separator'></div>
         <div className='preview-page-title'>ФОТОТАБЛИЦА</div>
@@ -56,7 +56,7 @@ function PreviewPage({ type, parity, pageNumber, img1, img2, img3, img4, gallery
   } else if (type === 'title') {
     return (
       <div className='preview-page' style={pageStyle}>
-        <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО РЕСПУБЛИКЕ КРЫМ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
+        <div className='preview-page-header'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ<br />ПО ХЕРСОНСКОЙ ОБЛАСТИ<br />ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
         <div className='preview-page-adres'>{`${settings.zip_code}, ${settings.address} ${settings.tel}`}</div>
         <div className='preview-page-separator'></div>
         <div className='preview-page-title'>ФОТОТАБЛИЦА</div>

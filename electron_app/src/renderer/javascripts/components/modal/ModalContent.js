@@ -264,7 +264,7 @@ const ModalContent = () => {
   if (localModalProperties.modalProperties.type === "about") {
     return (
       <div className="modal-content-grid-about">
-        <div className='modal-content-grid-about-title'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ ПО РЕСПУБЛИКЕ КРЫМ</div>
+        <div className='modal-content-grid-about-title'>МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ ПО ХЕРСОНСКОЙ ОБЛАСТИ</div>
         <div className='modal-content-grid-about-title'>ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР</div>
         <div className='modal-content-grid-about-subTitle'>295048, г. Симферополь, ул. Балаклавская, д.68     тел. (3652)733-725</div>
         <div className='modal-content-grid-about-separator'></div>
