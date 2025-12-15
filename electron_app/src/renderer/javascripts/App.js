@@ -105,7 +105,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>Фототаблица 0.2.5</Logo>
+        <Logo>Фототаблица 0.2.6</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
