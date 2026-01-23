@@ -12,3 +12,12 @@ pub fn run() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+use std::fs::File;
+use std::io;
+use std::path::Path;
+
+fn create_file<P: AsRef<Path>>(path: P) -> io::Result<()> {
+    File::create(path)?;
+    Ok(())
+}
