@@ -35,7 +35,14 @@ fn create_file<P: AsRef<Path>>(path: P) -> io::Result<()> {
 }
 
 fn create_exp_photo_table_dir(url: &str) -> io::Result<()> {
-    // fs::create_dir_all(r"C:\exp_photo_table")?;
     fs::create_dir_all(url)?;
     Ok(())
+}
+
+fn dir_exists(path: &str) -> io::Result<bool> {
+    match fs::metadata(path) {
+        Ok(meta) => Ok(meta.is_dir()),
+        Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(false),
+        Err(e) => Err(e),
+    }
 }
