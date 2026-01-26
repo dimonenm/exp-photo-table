@@ -1,15 +1,22 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { useState } from "react"
+import reactLogo from "./assets/react.svg"
+import { invoke } from "@tauri-apps/api/core"
+import "./App.css"
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const [greetMsg, setGreetMsg] = useState("")
+  const [name, setName] = useState("")
+  const [dirMsg, setDirMsg] = useState("")
+  const [dirName, setDirName] = useState("")
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+    setGreetMsg(await invoke("greet", { name }))
+  }
+
+  async function isDir() {
+    console.log('dirName: ', dirName);
+    setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName }))
   }
 
   return (
@@ -32,8 +39,8 @@ function App() {
       <form
         className="row"
         onSubmit={(e) => {
-          e.preventDefault();
-          greet();
+          e.preventDefault()
+          greet()
         }}
       >
         <input
@@ -44,8 +51,25 @@ function App() {
         <button type="submit">Greet</button>
       </form>
       <p>{greetMsg}</p>
+
+      <form
+        className="row"
+        onSubmit={(e) => {
+          e.preventDefault()
+          isDir()
+        }}
+      >
+        <input
+          id="greet-input2"
+          onChange={(e) => setDirName(e.currentTarget.value)}
+          placeholder="Enter a url..."
+        />
+        <button type="submit">Enter URL</button>
+      </form>
+      <p>{dirMsg}</p>
+
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
