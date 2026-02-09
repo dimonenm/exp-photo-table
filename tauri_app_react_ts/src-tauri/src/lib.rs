@@ -17,8 +17,8 @@ pub fn run() {
 }
 
 #[tauri::command]
-fn create_exp_photo_table_dir_command(url: &str) -> Result<String, String> {
-    create_exp_photo_table_dir(&url).map_err(|e| e.to_string())?;
+fn create_exp_photo_table_dir_command(url: &str, file_name: &str) -> Result<String, String> {
+    create_exp_photo_table_dir(&url, &file_name).map_err(|e| e.to_string())?;
 
     Ok("Folder has been created".to_string())
 }
@@ -28,12 +28,19 @@ use std::io;
 use std::path::Path;
 use serde::Serialize;
 
-fn create_exp_photo_table_dir(url: &str) -> io::Result<()> {
+fn create_exp_photo_table_dir(url: &str, file_name: &str) -> io::Result<()> {
     if dir_exists(url)? {
         return Ok(());
     }
 
     fs::create_dir_all(url)?;
+
+//     let s1 = "Hello, ";
+// let s2 = "world!";
+// let result = format!("{}{}", s1, s2);
+
+//     save_settings_to_file()
+
     Ok(())
 }
 

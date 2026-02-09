@@ -4,10 +4,11 @@ import { invoke } from "@tauri-apps/api/core"
 import "./App.css"
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("")
-  const [name, setName] = useState("")
-  const [dirMsg, setDirMsg] = useState("")
-  const [dirName, setDirName] = useState("")
+  const [greetMsg, setGreetMsg] = useState<string>("")
+  const [name, setName] = useState<string>("")
+  const [dirMsg, setDirMsg] = useState<string>("")
+  const [dirName, setDirName] = useState<string>("")
+  const [fileName, setFileName] = useState<string>("")
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -15,8 +16,9 @@ function App() {
   }
 
   async function isDir() {
-    console.log('dirName: ', dirName);
-    setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName }))
+
+
+    setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName, fileName: fileName }))
   }
 
   return (
@@ -63,6 +65,11 @@ function App() {
           id="greet-input2"
           onChange={(e) => setDirName(e.currentTarget.value)}
           placeholder="Enter a url..."
+        />
+        <input
+          id="greet-input3"
+          onChange={(e) => setFileName(e.currentTarget.value)}
+          placeholder="Enter a file name..."
         />
         <button type="submit">Enter URL</button>
       </form>
