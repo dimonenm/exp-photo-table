@@ -23,10 +23,21 @@ fn create_exp_photo_table_dir_command(url: &str, file_name: &str) -> Result<Stri
     Ok("Folder has been created".to_string())
 }
 
+use serde::Serialize;
 use std::fs::{self, File};
 use std::io;
 use std::path::Path;
-use serde::Serialize;
+
+#[derive(Serialize)]
+struct Settings {
+    address: String,
+    executors: Vec<String>,
+    note: String,
+    official_status: String,
+    tel: String,
+    unit: String,
+    zip_code: String,
+}
 
 fn create_exp_photo_table_dir(url: &str, file_name: &str) -> io::Result<()> {
     if dir_exists(url)? {
@@ -35,11 +46,19 @@ fn create_exp_photo_table_dir(url: &str, file_name: &str) -> io::Result<()> {
 
     fs::create_dir_all(url)?;
 
-//     let s1 = "Hello, ";
-// let s2 = "world!";
-// let result = format!("{}{}", s1, s2);
+    let curent_setting = Settings {
+        address: "Адрес не указан".to_string(),
+        executors: [].to_vec(),
+        note: "Примечание: не указано".to_string(),
+        official_status: "специалист".to_string(),
+        tel: "Телефон не указан".to_string(),
+        unit: "Подразделение не указано".to_string(),
+        zip_code: "Почтовый индекс не указан".to_string(),
+    };
 
-//     save_settings_to_file()
+    let file_path = format!("{}/{}.json", url, file_name);
+
+    let _ = save_settings_to_file(file_path, &curent_setting);
 
     Ok(())
 }

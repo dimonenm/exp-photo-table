@@ -16,8 +16,6 @@ function App() {
   }
 
   async function isDir() {
-
-
     setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName, fileName: fileName }))
   }
 
