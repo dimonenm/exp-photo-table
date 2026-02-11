@@ -78,17 +78,17 @@ where
 {
     let path = path.as_ref();
 
-    // 1️⃣ Создаём директорию, если её нет
+    // 1. Гарантируем существование директории
     if let Some(parent) = path.parent() {
         fs::create_dir_all(parent)?;
     }
 
-    // 2️⃣ Создаём файл
-    let file = File::create(path)?;
-
-    // 3️⃣ Сериализуем в JSON
-    serde_json::to_writer_pretty(file, data)
+    // 2. Сериализуем данные в красивую JSON-строку
+    let json_content = serde_json::to_string_pretty(data)
         .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
+
+    // 3. Записываем всё в файл за один раз (create + write + close)
+    fs::write(path, json_content)?;
 
     Ok(())
 }
