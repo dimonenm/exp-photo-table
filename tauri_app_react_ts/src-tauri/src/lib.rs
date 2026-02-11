@@ -23,10 +23,10 @@ fn create_exp_photo_table_dir_command(url: &str, file_name: &str) -> Result<Stri
     Ok("Folder has been created".to_string())
 }
 
-use serde::Serialize;
 use std::fs::{self, File};
 use std::io;
 use std::path::Path;
+use serde::Serialize;
 
 #[derive(Serialize)]
 struct Settings {
