@@ -4,6 +4,11 @@ import { invoke } from "@tauri-apps/api/core"
 import "./fonts.css"
 import "./App.css"
 
+//импортирование компонентов
+import Container from './assets/containers/Container'
+
+
+
 function App() {
 
   // async function isDir() {
@@ -11,7 +16,9 @@ function App() {
   // }
 
   return (
-    
+    <Container>
+      <></>
+    </Container>
   )
 }
 
