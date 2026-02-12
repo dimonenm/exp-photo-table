@@ -1,0 +1,22 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text {
+      font-family: "Roboto";
+      font-weight: bold;
+      font-size: 12px;
+    }
+  </style>
+  <rect x="2" y="2" width="36" height="36" stroke="#343A40" stroke-width="2" rx="5" />
+  <polygon points="
+33,8 
+15,8 
+15,4 
+5,10 
+15,16 
+15,12 
+29,12 
+29,35 
+33,35" fill="#343A40"/>
+  <text x="8" y="30" class="text" fill="#343A40">9O</text>
+  <circle cx="24" cy="20" r="2" stroke="#343A40"/>
+</svg>
