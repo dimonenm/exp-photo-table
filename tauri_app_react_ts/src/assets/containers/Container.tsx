@@ -1,4 +1,5 @@
 import React from 'react'
+import "./Container.css"
 
 // Определяем интерфейс пропсов
 interface ContainerProps {

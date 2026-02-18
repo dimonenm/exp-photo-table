@@ -6,6 +6,9 @@ import "./App.css"
 
 //импортирование компонентов
 import Container from './assets/containers/Container'
+import Header from './assets/containers/Header'
+import Main from './assets/containers/Main'
+import Logo from './assets/components/header/Logo'
 
 
 
@@ -17,7 +20,10 @@ function App() {
 
   return (
     <Container>
-      <></>
+      <Header>
+        <Logo>Фототаблица 0.3.0</Logo>
+      </Header>
+      <Main><></></Main>
     </Container>
   )
 }
