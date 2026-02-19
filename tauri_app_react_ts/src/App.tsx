@@ -15,6 +15,7 @@ import Container from './assets/containers/Container'
 import Header from './assets/containers/Header'
 import Main from './assets/containers/Main'
 import Logo from './assets/components/header/Logo'
+import Menu from './assets/containers/Menu'
 
 
 
@@ -51,13 +52,9 @@ function App() {
     transition: 'background 0.2s',
   }
 
-  const hoverCloseStyle: React.CSSProperties = {
-    background: '#e81123', // Красный при наведении на закрытие
-  }
-
   return (
     <Container>
-      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', position:'absolute', right:'0px' }}>
         {/* Кастомный заголовок */}
         <div
           style={{
@@ -69,19 +66,6 @@ function App() {
             //WebkitAppRegion: 'drag', // Для electron-совместимости, если нужно, но Tauri использует data-атрибут
           }}
         >
-          {/* Область перетаскивания (заголовок) */}
-          <div
-            data-tauri-drag-region
-            style={{
-              flexGrow: 1,
-              paddingLeft: '10px',
-              fontSize: '14px',
-              userSelect: 'none'
-            }}
-          >
-            tauri_app_react_ts
-          </div>
-
           {/* Кнопки управления */}
           <div style={{ display: 'flex' }}>
             <button
@@ -113,9 +97,9 @@ function App() {
           </div>
         </div>
       </div>
-
       <Header>
         <Logo>Фототаблица 0.3.0</Logo>
+        <Menu><></></Menu>
       </Header>
       <Main><></></Main>
     </Container>
