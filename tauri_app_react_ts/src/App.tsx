@@ -54,7 +54,7 @@ function App() {
 
   return (
     <Container>
-      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', position:'absolute', right:'0px' }}>
+      <div style={{ display: 'flex', position:'absolute', right:'0px' }}>
         {/* Кастомный заголовок */}
         <div
           style={{
@@ -62,7 +62,6 @@ function App() {
             justifyContent: 'space-between',
             alignItems: 'center',
             height: '30px',
-            backgroundColor: '#2c3e50', // Цвет фона заголовка
             //WebkitAppRegion: 'drag', // Для electron-совместимости, если нужно, но Tauri использует data-атрибут
           }}
         >
