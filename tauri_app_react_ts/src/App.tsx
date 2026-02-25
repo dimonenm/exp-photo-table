@@ -16,6 +16,7 @@ import Header from './assets/containers/Header'
 import Main from './assets/containers/Main'
 import Logo from './assets/components/header/Logo'
 import Menu from './assets/containers/Menu'
+import WindowControlButtons from './assets/components/header/WindowControlButtons'
 
 
 
@@ -96,6 +97,7 @@ function App() {
           </div>
         </div>
       </div>
+      <WindowControlButtons></WindowControlButtons>
       <Header>
         <Logo>Фототаблица 0.3.0</Logo>
         <Menu><></></Menu>
