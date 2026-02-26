@@ -1,0 +1,16 @@
+.windowControlButtons {
+	display: 'flex';
+	position: 'absolute';
+	right: '0px'
+}
+
+.windowControlButtons_title {
+	display: 'flex';
+	justify-content: 'space-between';
+	align-items: 'center';
+	height: '30px';
+}
+
+.windowControlButtons_button {
+
+}

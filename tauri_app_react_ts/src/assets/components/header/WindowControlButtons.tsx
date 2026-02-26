@@ -1,7 +1,9 @@
 import React from 'react'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 import './WindowControlButtons.css'
 
-const MyComponent: React.FC = () => {
+const WindowControlButtons = (): React.JSX.Element => {
+	const appWindow = getCurrentWindow()
 
 	const handleMinimize = () => {
 		appWindow.minimize()
@@ -15,19 +17,36 @@ const MyComponent: React.FC = () => {
 		appWindow.close()
 	}
 
-
+	// Базовый стиль для кнопок
+	const buttonStyle: React.CSSProperties = {
+		background: 'transparent',
+		border: 'none',
+		color: 'white',
+		fontSize: '16px',
+		width: '46px',
+		height: '30px',
+		cursor: 'pointer',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		transition: 'background 0.2s',
+	}
 
 	return (
-		<div style={{ display: 'flex', position: 'absolute', right: '0px' }}>
+		<div className='windowControlButtons' 
+		// style={{ display: 'flex', position: 'absolute', right: '0px' }}
+		>
 			{/* Кастомный заголовок */}
 			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					alignItems: 'center',
-					height: '30px',
-					//WebkitAppRegion: 'drag', // Для electron-совместимости, если нужно, но Tauri использует data-атрибут
-				}}
+			className='windowControlButtons_title'
+				// style={{
+				// 	display: 'flex',
+				// 	justifyContent: 'space-between',
+				// 	alignItems: 'center',
+				// 	height: '30px',
+				// 	//WebkitAppRegion: 'drag', // Для electron-совместимости, если нужно, но Tauri использует data-атрибут
+				// }}
+				data-tauri-drag-region
 			>
 				{/* Кнопки управления */}
 				<div style={{ display: 'flex' }}>
@@ -63,4 +82,4 @@ const MyComponent: React.FC = () => {
 	)
 }
 
-export default MyComponent
+export default WindowControlButtons
