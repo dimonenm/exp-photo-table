@@ -52,9 +52,10 @@ const WindowControlButtons = (): React.JSX.Element => {
 				<div style={{ display: 'flex' }}>
 					<button
 						onClick={handleMinimize}
-						style={buttonStyle}
-						onMouseEnter={(e) => e.currentTarget.style.background = '#ffffff20'}
-						onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+						className='windowControlButtons_button'
+						// style={buttonStyle}
+						// onMouseEnter={(e) => e.currentTarget.style.background = '#ffffff20'}
+						// onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
 					>
 						&#9472; {/* Минус */}
 					</button>

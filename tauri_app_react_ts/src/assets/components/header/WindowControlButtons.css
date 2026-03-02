@@ -12,5 +12,21 @@
 }
 
 .windowControlButtons_button {
+	display: 'flex';
+	align-items: 'center';
+	justify-content: 'center';
 
+	background: 'transparent';
+	border: 'none';
+	color: 'white';
+	font-size: '16px';
+	width: '46px';
+	height: '30px';
+	cursor: 'pointer';
+
+	transition: 'background 0.2s'
+}
+
+.windowControlButtons_button:hover {
+	background: '#ffffff20';
 }
