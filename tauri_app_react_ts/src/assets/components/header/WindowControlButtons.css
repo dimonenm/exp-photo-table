@@ -1,32 +1,34 @@
 .windowControlButtons {
-	display: 'flex';
-	position: 'absolute';
-	right: '0px'
+	display: flex;
+	position: absolute;
+	right: 0px;
 }
 
 .windowControlButtons_title {
-	display: 'flex';
-	justify-content: 'space-between';
-	align-items: 'center';
-	height: '30px';
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 30px;
 }
 
 .windowControlButtons_button {
-	display: 'flex';
-	align-items: 'center';
-	justify-content: 'center';
-
-	background: 'transparent';
-	border: 'none';
-	color: 'white';
-	font-size: '16px';
-	width: '46px';
-	height: '30px';
-	cursor: 'pointer';
-
-	transition: 'background 0.2s'
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 16px;
+	width: 46px;
+	height: 30px;
+	cursor: pointer;
+	transition: background 0.2s;
 }
 
 .windowControlButtons_button:hover {
-	background: '#ffffff20';
+	background: #ffffff20;
+}
+
+.windowControlButtons_button.close:hover {
+	background: #e81123;
 }
