@@ -19,15 +19,15 @@ function selectButtonStyle(type: string): string {
 
 const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
 
-		const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
+	const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
-		
+
 		// Создаём скрытый input и кликаем по нему
 		const input = document.createElement('input')
 		input.type = 'file'
 		input.multiple = true
 		input.accept = 'image/*'
-		
+
 		input.onchange = (event) => {
 			const files = (event.target as HTMLInputElement).files
 			if (!files) return
