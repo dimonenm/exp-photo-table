@@ -30,6 +30,9 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 
 		input.onchange = (event) => {
 			const files = (event.target as HTMLInputElement).files
+
+			console.log('files: ', files);
+			
 			if (!files) return
 
 			const readers: Promise<string>[] = []

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { invoke } from "@tauri-apps/api/core"
 
 import "./fonts.css"
@@ -16,7 +16,12 @@ import MenuItem from './assets/components/header/MenuItem'
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<string[]>([])
-  console.log('downloadedImages: ', downloadedImages);
+  console.log('downloadedImages: ', downloadedImages)
+
+
+  useEffect(() => {
+    invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
+  }, [])
 
   // async function isDir() {
   //   setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName, fileName: fileName }))
