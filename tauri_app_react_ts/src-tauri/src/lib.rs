@@ -3,6 +3,7 @@
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_fs::init())
         .invoke_handler(tauri::generate_handler![
             init_app_settings,
             create_exp_photo_table_dir_command

@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
+import { writeFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs'
 import "./MenuItem.css"
 
 // Определяем интерфейс пропсов
@@ -17,6 +18,19 @@ function selectButtonStyle(type: string): string {
 	}
 }
 
+async function convertToBase64(files: FileList): Promise<string[]> {
+	const readers = Array.from(files).map(
+		(file) =>
+			new Promise<string>((resolve) => {
+				const reader = new FileReader()
+				reader.onload = () => resolve(reader.result as string)
+				reader.readAsDataURL(file)
+			})
+	)
+
+	return await Promise.all(readers)
+}
+
 const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
 
 	const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -28,28 +42,45 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 		input.multiple = true
 		input.accept = 'image/*'
 
-		input.onchange = (event) => {
+		input.onchange = async (event) => {
 			const files = (event.target as HTMLInputElement).files
 
-			console.log('files: ', files);
-			
 			if (!files) return
 
-			const readers: Promise<string>[] = []
+			console.log('convertToBase64: ', convertToBase64(files))
+
+			// Создаём папку, если её нет
+			try {
+				await mkdir('exp-photo-table', { baseDir: BaseDirectory.AppData, recursive: true })
+			} catch (e) {
+				// Папка уже существует - игнорируем ошибку
+			}
+
+			const newImageUrls: string[] = []
 
 			for (let i = 0; i < files.length; i++) {
 				const file = files[i]
-				const reader = new Promise<string>((resolve) => {
-					const reader = new FileReader()
-					reader.onload = (e) => resolve(e.target?.result as string)
-					reader.readAsDataURL(file)
-				})
-				readers.push(reader)
+
+				// Читаем файл как ArrayBuffer
+				const arrayBuffer = await file.arrayBuffer()
+				const uint8Array = new Uint8Array(arrayBuffer)
+
+				// Генерируем уникальное имя файла
+				const timestamp = Date.now()
+				const fileName = `${timestamp}_${file.name}`
+				const filePath = `exp-photo-table/${fileName}`
+
+				// Сохраняем файл на диск
+				await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData })
+
+				// Для отображения создаём blob URL
+				const blobUrl = URL.createObjectURL(file)
+				newImageUrls.push(blobUrl)
+
+				console.log('Сохранён файл:', filePath)
 			}
 
-			Promise.all(readers).then((images) => {
-				setDownloadedImages((prev) => [...prev, ...images])
-			})
+			setDownloadedImages((prev) => [...prev, ...newImageUrls])
 		}
 
 		input.click()
