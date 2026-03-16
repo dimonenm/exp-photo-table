@@ -16,7 +16,9 @@ import MenuItem from './assets/components/header/MenuItem'
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<string[]>([])
+  const [downloadedImagesUrls, setDownloadedImagesUrls] = useState<string[]>([])
   console.log('downloadedImages: ', downloadedImages)
+  console.log('downloadedImagesUrls: ', downloadedImagesUrls);
 
 
   useEffect(() => {
@@ -36,6 +38,7 @@ function App() {
           <MenuItem
             type={'forInputFile'}
             setDownloadedImages={setDownloadedImages}
+            setDownloadedImagesUrls={setDownloadedImagesUrls}
           >
             Загрузить фотографии
           </MenuItem>

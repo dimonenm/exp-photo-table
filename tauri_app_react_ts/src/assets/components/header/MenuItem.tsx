@@ -1,13 +1,20 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { writeFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs'
+import { appCacheDir } from '@tauri-apps/api/path'
 import "./MenuItem.css"
+
+
 
 // Определяем интерфейс пропсов
 interface MenuItemProps {
 	type: string,
 	setDownloadedImages: Dispatch<SetStateAction<string[]>>,
+	setDownloadedImagesUrls: Dispatch<SetStateAction<string[]>>,
 	children: React.ReactNode
 }
+
+// Получаем путь к кэшу
+const appCacheDirPath = await appCacheDir()
 
 function selectButtonStyle(type: string): string {
 	switch (type) {
@@ -47,13 +54,12 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 
 			if (!files) return
 
-			console.log('convertToBase64: ', convertToBase64(files))
-
 			// Создаём папку, если её нет
 			try {
-				await mkdir('exp-photo-table', { baseDir: BaseDirectory.AppData, recursive: true })
+				await mkdir('temp/images', { baseDir: BaseDirectory.AppData, recursive: true })
 			} catch (e) {
 				// Папка уже существует - игнорируем ошибку
+				console.log('Папка уже существует')
 			}
 
 			const newImageUrls: string[] = []
@@ -68,14 +74,29 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 				// Генерируем уникальное имя файла
 				const timestamp = Date.now()
 				const fileName = `${timestamp}_${file.name}`
-				const filePath = `exp-photo-table/${fileName}`
+				const filePath = `temp/images/${fileName}`
 
 				// Сохраняем файл на диск
 				await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData })
+				console.log(`file url: ${appCacheDirPath}/${filePath}`)
 
 				// Для отображения создаём blob URL
 				const blobUrl = URL.createObjectURL(file)
 				newImageUrls.push(blobUrl)
+
+
+				// Получаем blob по URL(недокументированный способ)
+				const response = await fetch(blobUrl)
+				const blob = await response.blob()
+
+				console.log(`${blob.size / 1024 / 1024}`)  // размер
+				console.log(blob.type)  // MIME-тип
+
+				// Преобразовать в Data URL для просмотра
+				// const reader = new FileReader()
+				// reader.onload = () => console.log(reader.result)
+				// reader.readAsDataURL(blob)
+
 
 				console.log('Сохранён файл:', filePath)
 			}
