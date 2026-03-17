@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { writeFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs'
 import { appCacheDir } from '@tauri-apps/api/path'
+
 import "./MenuItem.css"
 
 
@@ -8,8 +9,8 @@ import "./MenuItem.css"
 // Определяем интерфейс пропсов
 interface MenuItemProps {
 	type: string,
-	setDownloadedImages: Dispatch<SetStateAction<string[]>>,
 	setDownloadedImagesUrls: Dispatch<SetStateAction<string[]>>,
+	setDownloadedImagesThumbnails: Dispatch<SetStateAction<string[]>>,
 	children: React.ReactNode
 }
 
@@ -38,7 +39,59 @@ async function convertToBase64(files: FileList): Promise<string[]> {
 	return await Promise.all(readers)
 }
 
-const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
+// Функция уменьшения изображения до 213px по высоте
+async function resizeImage(file: File, maxHeight: number = 213): Promise<Blob> {
+	return new Promise((resolve, reject) => {
+		const blobUrl = URL.createObjectURL(file)
+		const img = new Image()
+
+		img.onload = () => {
+			// Вычисляем новую ширину с сохранением пропорций
+			const ratio = maxHeight / img.height
+			const newWidth = Math.round(img.width * ratio)
+			const newHeight = maxHeight
+
+			// Создаём canvas и уменьшаем изображение
+			const canvas = document.createElement('canvas')
+			canvas.width = newWidth
+			canvas.height = newHeight
+
+			const ctx = canvas.getContext('2d')
+			if (!ctx) {
+				reject(new Error('Cannot get canvas context'))
+				return
+			}
+
+			// Качественное сглаживание
+			ctx.imageSmoothingEnabled = true
+			ctx.imageSmoothingQuality = 'high'
+			ctx.drawImage(img, 0, 0, newWidth, newHeight)
+
+			// Получаем blob из canvas
+			canvas.toBlob(
+				(blob) => {
+					URL.revokeObjectURL(blobUrl)
+					if (blob) {
+						resolve(blob)
+					} else {
+						reject(new Error('Failed to create blob'))
+					}
+				},
+				file.type,
+				0.9 // качество JPEG
+			)
+		}
+
+		img.onerror = () => {
+			URL.revokeObjectURL(blobUrl)
+			reject(new Error('Failed to load image'))
+		}
+
+		img.src = blobUrl
+	})
+}
+
+const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails, children }: MenuItemProps): React.JSX.Element => {
 
 	const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
@@ -63,10 +116,11 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 			}
 
 			const newImageUrls: string[] = []
+			const newImageThumbnailsUrls: string[] = []
 
 			for (let i = 0; i < files.length; i++) {
 				const file = files[i]
-
+				
 				// Читаем файл как ArrayBuffer
 				const arrayBuffer = await file.arrayBuffer()
 				const uint8Array = new Uint8Array(arrayBuffer)
@@ -76,32 +130,27 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 				const fileName = `${timestamp}_${file.name}`
 				const filePath = `temp/images/${fileName}`
 
-				// Сохраняем файл на диск
+				// Сохраняем файл изображения на диск
 				await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData })
-				console.log(`file url: ${appCacheDirPath}/${filePath}`)
+
+				// Добавляем адрес миниатюры в массив
+				const fullPath = appCacheDirPath + "/" + filePath
+				console.log('fullPath: ', fullPath);
+				newImageUrls.push(fullPath)
+
+				// Уменьшаем изображение до 213px по высоте
+				const resizedBlob = await resizeImage(file, 213)
 
 				// Для отображения создаём blob URL
-				const blobUrl = URL.createObjectURL(file)
-				newImageUrls.push(blobUrl)
-
-
-				// Получаем blob по URL(недокументированный способ)
-				const response = await fetch(blobUrl)
-				const blob = await response.blob()
-
-				console.log(`${blob.size / 1024 / 1024}`)  // размер
-				console.log(blob.type)  // MIME-тип
-
-				// Преобразовать в Data URL для просмотра
-				// const reader = new FileReader()
-				// reader.onload = () => console.log(reader.result)
-				// reader.readAsDataURL(blob)
-
+				const blobUrl = URL.createObjectURL(resizedBlob)
+				// const blobUrl = URL.createObjectURL(file)
+				newImageThumbnailsUrls.push(blobUrl)
 
 				console.log('Сохранён файл:', filePath)
 			}
 
-			setDownloadedImages((prev) => [...prev, ...newImageUrls])
+			setDownloadedImagesUrls((prev) => [...prev, ...newImageUrls])
+			setDownloadedImagesThumbnails((prev) => [...prev, ...newImageThumbnailsUrls])
 		}
 
 		input.click()

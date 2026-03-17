@@ -15,10 +15,16 @@ import MenuItem from './assets/components/header/MenuItem'
 
 function App() {
 
-  const [downloadedImages, setDownloadedImages] = useState<string[]>([])
   const [downloadedImagesUrls, setDownloadedImagesUrls] = useState<string[]>([])
-  console.log('downloadedImages: ', downloadedImages)
-  console.log('downloadedImagesUrls: ', downloadedImagesUrls);
+  const [downloadedImagesThumbnails, setDownloadedImagesThumbnails] = useState<string[]>([])
+  console.log('downloadedImagesUrls: ', downloadedImagesUrls)
+  console.log('downloadedImagesThumbnails: ', downloadedImagesThumbnails)
+
+  const img = new Image()
+  img.src = downloadedImagesUrls[0]
+
+  const imgThumbnail = new Image()
+  imgThumbnail.src = downloadedImagesThumbnails[0]
 
 
   useEffect(() => {
@@ -37,14 +43,17 @@ function App() {
         <Menu>
           <MenuItem
             type={'forInputFile'}
-            setDownloadedImages={setDownloadedImages}
             setDownloadedImagesUrls={setDownloadedImagesUrls}
+            setDownloadedImagesThumbnails={setDownloadedImagesThumbnails}
           >
             Загрузить фотографии
           </MenuItem>
         </Menu>
       </Header>
-      <Main><></></Main>
+      <Main>
+        {<img src={img.src} alt="Фото" />}
+        {<img src={imgThumbnail.src} alt="Фото" />}
+      </Main>
     </Container>
   )
 }
