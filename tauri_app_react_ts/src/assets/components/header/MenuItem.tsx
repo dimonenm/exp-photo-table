@@ -1,21 +1,23 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { writeFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs'
-import { appCacheDir } from '@tauri-apps/api/path'
+import { appDataDir } from '@tauri-apps/api/path'
 
 import "./MenuItem.css"
 
-
+//импортирование интерфейсов
+import IDownloadedImage from '../../interfaces/IDownloadedImage'
 
 // Определяем интерфейс пропсов
 interface MenuItemProps {
 	type: string,
 	setDownloadedImagesUrls: Dispatch<SetStateAction<string[]>>,
 	setDownloadedImagesThumbnails: Dispatch<SetStateAction<string[]>>,
+	setDownloadedImages: Dispatch<SetStateAction<IDownloadedImage[]>>,
 	children: React.ReactNode
 }
 
-// Получаем путь к кэшу
-const appCacheDirPath = await appCacheDir()
+// Путь к AppData/Roaming
+const appDataDirPath = await appDataDir()
 
 function selectButtonStyle(type: string): string {
 	switch (type) {
@@ -120,7 +122,7 @@ const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails
 
 			for (let i = 0; i < files.length; i++) {
 				const file = files[i]
-				
+
 				// Читаем файл как ArrayBuffer
 				const arrayBuffer = await file.arrayBuffer()
 				const uint8Array = new Uint8Array(arrayBuffer)
@@ -129,14 +131,15 @@ const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails
 				const timestamp = Date.now()
 				const fileName = `${timestamp}_${file.name}`
 				const filePath = `temp/images/${fileName}`
+				console.log('filePath: ', filePath)
 
 				// Сохраняем файл изображения на диск
 				await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData })
 
 				// Добавляем адрес миниатюры в массив
-				const fullPath = appCacheDirPath + "/" + filePath
-				console.log('fullPath: ', fullPath);
-				newImageUrls.push(fullPath)
+				const fullPath = appDataDirPath + "/" + filePath
+				console.log('imgUrl: ', fileName)
+				newImageUrls.push(fileName)
 
 				// Уменьшаем изображение до 213px по высоте
 				const resizedBlob = await resizeImage(file, 213)

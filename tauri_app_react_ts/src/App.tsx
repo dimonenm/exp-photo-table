@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react"
 import { invoke } from "@tauri-apps/api/core"
+import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs'
 
 import "./fonts.css"
 import "./App.css"
+
+//импортирование интерфейсов
+import IDownloadedImage from './assets/interfaces/IDownloadedImage'
 
 //импортирование компонентов
 import Container from './assets/containers/Container'
@@ -12,16 +16,31 @@ import Logo from './assets/components/header/Logo'
 import Menu from './assets/containers/Menu'
 import WindowControlButtons from './assets/components/header/WindowControlButtons'
 import MenuItem from './assets/components/header/MenuItem'
+import ImageItem from './assets/components/main/ImageItem'
+
+async function loadImageFromDisk(fileName: string): Promise<string> {
+  const filePath = `temp/images/${fileName}`
+
+  // Читаем файл
+  const fileData = await readFile(filePath, { baseDir: BaseDirectory.AppData })
+
+  // Создаём blob URL
+  const blob = new Blob([fileData], { type: 'image/jpeg' })
+  const blobUrl = URL.createObjectURL(blob)
+
+  return blobUrl
+}
 
 function App() {
 
+  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
   const [downloadedImagesUrls, setDownloadedImagesUrls] = useState<string[]>([])
   const [downloadedImagesThumbnails, setDownloadedImagesThumbnails] = useState<string[]>([])
   console.log('downloadedImagesUrls: ', downloadedImagesUrls)
   console.log('downloadedImagesThumbnails: ', downloadedImagesThumbnails)
 
   const img = new Image()
-  img.src = downloadedImagesUrls[0]
+  img.alt = "Фото"
 
   const imgThumbnail = new Image()
   imgThumbnail.src = downloadedImagesThumbnails[0]
@@ -45,13 +64,16 @@ function App() {
             type={'forInputFile'}
             setDownloadedImagesUrls={setDownloadedImagesUrls}
             setDownloadedImagesThumbnails={setDownloadedImagesThumbnails}
+            setDownloadedImages={setDownloadedImages}
           >
             Загрузить фотографии
           </MenuItem>
         </Menu>
       </Header>
       <Main>
-        {<img src={img.src} alt="Фото" />}
+        {downloadedImagesUrls.map((fileName, index) => (
+          <ImageItem key={`img-${index}-${fileName}`} fileName={fileName} />
+        ))}
         {<img src={imgThumbnail.src} alt="Фото" />}
       </Main>
     </Container>
