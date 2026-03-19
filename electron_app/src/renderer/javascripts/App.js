@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 
 import Container from './containers/Container';
 import Header from './containers/Header';
@@ -14,7 +14,7 @@ import ScaleChanger from './components/main/ScaleChanger';
 //импорт функций
 import addDownloadedImagesToArrForGallery from './services/forApp/fAddDownloadedImagesToGallery.js';
 import addSelectedImagesToArrForGallery from './services/forApp/fAddSelectedImagesToGallery';
-import addPreviewPages from './services/forApp/AddPreviewPages'
+import addPreviewPages from './services/forApp/AddPreviewPages';
 import GalleryImage from './entities/GalleryImage';
 export const modalDataContext = createContext();
 
@@ -64,6 +64,8 @@ function App() {
     margin: '10px 0 0 0'
   })
 
+  useEffect(() => { console.log(photoTableData) }, [photoTableData])
+
   globalThis.DataBaseAPI.onLoaded((_, data) => {
     setSettings(data);
     setphotoTableData(prev => { return { ...prev, executor: data.executors[0], unit: data.unit } });
@@ -103,7 +105,7 @@ function App() {
         <Modal />
       </modalDataContext.Provider>
       <Header>
-        <Logo>Фототаблица 0.2.5</Logo>
+        <Logo>Фототаблица 0.2.6</Logo>
         <Menu>
           <MenuItem
             type={'forInputFile'}
@@ -149,7 +151,8 @@ function App() {
           workPlaceStyle={workPlaceStyle}
           setWorkPlaceStyle={setWorkPlaceStyle}
           setPreviewPageScale={setPreviewPageScale}
-        />
+        >
+        </ScaleChanger>
         <Workplace
           workPlaceStyle={workPlaceStyle}
         >

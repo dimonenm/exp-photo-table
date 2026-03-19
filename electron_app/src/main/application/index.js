@@ -25,6 +25,7 @@ export default class PhotoTableApp {
         symbolColor: "#fff"
       },
       webPreferences: {
+        experimentalFeatures : true,
         worldSafeExecuteJavaScript: true,
         preload: path.join(app.getAppPath(), 'preload', 'index.js')
       }

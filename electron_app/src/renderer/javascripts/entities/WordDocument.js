@@ -125,8 +125,8 @@ export default class WordDocument {
         const localThis = this
 
         if (value === 'title') {
-          this.children.push(ParagraphH2("МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ"))
-          this.children.push(ParagraphH2("ПО РЕСПУБЛИКЕ КРЫМ"))
+          this.children.push(ParagraphH2("ГЛАВНОЕ УПРАВЛЕНИЕ МВД РОССИИ"))
+          this.children.push(ParagraphH2("ПО ХЕРСОНСКОЙ ОБЛАСТИ"))
           this.children.push(ParagraphH2("ЭКСПЕРТНО-КРИМИНАЛИСТИЧЕСКИЙ ЦЕНТР"))
           this.children.push(ParagraphAddress(this.zip_code, this.address, this.tel))
           this.children.push(ParagraphH1("ФОТОТАБЛИЦА"))
