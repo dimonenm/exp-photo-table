@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri_app_react_ts",
+  "productName": "exp-photo-table",
   "version": "0.1.0",
-  "identifier": "com.dima.tauri_app_react_ts",
+  "identifier": "exp-photo-table",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -13,8 +13,10 @@
     "windows": [
       {
         "title": "tauri_app_react_ts",
-        "width": 800,
-        "height": 600
+        "width": 1100,
+        "height": 750,
+        "decorations": false,
+        "hiddenTitle": true
       }
     ],
     "security": {
@@ -31,5 +33,8 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+    "plugins": {
+    "fs": {}
   }
 }

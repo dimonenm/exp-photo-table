@@ -1,51 +1,83 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { useState, useEffect } from "react"
+import { invoke } from "@tauri-apps/api/core"
+import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs'
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+import "./fonts.css"
+import "./App.css"
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+//импортирование интерфейсов
+import IDownloadedImage from './assets/interfaces/IDownloadedImage'
 
-  return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+//импортирование компонентов
+import Container from './assets/containers/Container'
+import Header from './assets/containers/Header'
+import Main from './assets/containers/Main'
+import Logo from './assets/components/header/Logo'
+import Menu from './assets/containers/Menu'
+import WindowControlButtons from './assets/components/header/WindowControlButtons'
+import MenuItem from './assets/components/header/MenuItem'
+import ImageItem from './assets/components/main/ImageItem'
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+async function loadImageFromDisk(fileName: string): Promise<string> {
+  const filePath = `temp/images/${fileName}`
 
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
-  );
+  // Читаем файл
+  const fileData = await readFile(filePath, { baseDir: BaseDirectory.AppData })
+
+  // Создаём blob URL
+  const blob = new Blob([fileData], { type: 'image/jpeg' })
+  const blobUrl = URL.createObjectURL(blob)
+
+  return blobUrl
 }
 
-export default App;
+function App() {
+
+  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
+  const [downloadedImagesUrls, setDownloadedImagesUrls] = useState<string[]>([])
+  const [downloadedImagesThumbnails, setDownloadedImagesThumbnails] = useState<string[]>([])
+  console.log('downloadedImagesUrls: ', downloadedImagesUrls)
+  console.log('downloadedImagesThumbnails: ', downloadedImagesThumbnails)
+
+  const img = new Image()
+  img.alt = "Фото"
+
+  const imgThumbnail = new Image()
+  imgThumbnail.src = downloadedImagesThumbnails[0]
+
+
+  useEffect(() => {
+    invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
+  }, [])
+
+  // async function isDir() {
+  //   setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName, fileName: fileName }))
+  // }
+
+  return (
+    <Container>
+      <WindowControlButtons />
+      <Header>
+        <Logo>Фототаблица 0.3.0</Logo>
+        <Menu>
+          <MenuItem
+            type={'forInputFile'}
+            setDownloadedImagesUrls={setDownloadedImagesUrls}
+            setDownloadedImagesThumbnails={setDownloadedImagesThumbnails}
+            setDownloadedImages={setDownloadedImages}
+          >
+            Загрузить фотографии
+          </MenuItem>
+        </Menu>
+      </Header>
+      <Main>
+        {downloadedImagesUrls.map((fileName, index) => (
+          <ImageItem key={`img-${index}-${fileName}`} fileName={fileName} />
+        ))}
+        {<img src={imgThumbnail.src} alt="Фото" />}
+      </Main>
+    </Container>
+  )
+}
+
+export default App
