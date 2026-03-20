@@ -18,19 +18,6 @@ import WindowControlButtons from './assets/components/header/WindowControlButton
 import MenuItem from './assets/components/header/MenuItem'
 import ImageItem from './assets/components/main/ImageItem'
 
-async function loadImageFromDisk(fileName: string): Promise<string> {
-  const filePath = `temp/images/${fileName}`
-
-  // Читаем файл
-  const fileData = await readFile(filePath, { baseDir: BaseDirectory.AppData })
-
-  // Создаём blob URL
-  const blob = new Blob([fileData], { type: 'image/jpeg' })
-  const blobUrl = URL.createObjectURL(blob)
-
-  return blobUrl
-}
-
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])

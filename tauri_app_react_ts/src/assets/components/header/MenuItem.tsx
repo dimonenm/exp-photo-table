@@ -93,7 +93,7 @@ async function resizeImage(file: File, maxHeight: number = 213): Promise<Blob> {
 	})
 }
 
-const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails, children }: MenuItemProps): React.JSX.Element => {
+const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
 
 	const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
@@ -128,8 +128,9 @@ const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails
 				const uint8Array = new Uint8Array(arrayBuffer)
 
 				// Генерируем уникальное имя файла
-				const timestamp = Date.now()
-				const fileName = `${timestamp}_${file.name}`
+				// const timestamp = Date.now()
+				// const fileName = `${timestamp}_${file.name}`
+				const fileName = file.name
 				const filePath = `temp/images/${fileName}`
 				console.log('filePath: ', filePath)
 
