@@ -21,17 +21,6 @@ import ImageItem from './assets/components/main/ImageItem'
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
-  const [downloadedImagesUrls, setDownloadedImagesUrls] = useState<string[]>([])
-  const [downloadedImagesThumbnails, setDownloadedImagesThumbnails] = useState<string[]>([])
-  console.log('downloadedImagesUrls: ', downloadedImagesUrls)
-  console.log('downloadedImagesThumbnails: ', downloadedImagesThumbnails)
-
-  const img = new Image()
-  img.alt = "Фото"
-
-  const imgThumbnail = new Image()
-  imgThumbnail.src = downloadedImagesThumbnails[0]
-
 
   useEffect(() => {
     invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
@@ -49,8 +38,6 @@ function App() {
         <Menu>
           <MenuItem
             type={'forInputFile'}
-            setDownloadedImagesUrls={setDownloadedImagesUrls}
-            setDownloadedImagesThumbnails={setDownloadedImagesThumbnails}
             setDownloadedImages={setDownloadedImages}
           >
             Загрузить фотографии
@@ -58,10 +45,11 @@ function App() {
         </Menu>
       </Header>
       <Main>
-        {downloadedImagesUrls.map((fileName, index) => (
-          <ImageItem key={`img-${index}-${fileName}`} fileName={fileName} />
-        ))}
-        {<img src={imgThumbnail.src} alt="Фото" />}
+        { downloadedImages.map((img, index) => {
+          const image = new Image()
+          image.src = img.tempFileUrl
+          return (<image key={index} />)})
+        }
       </Main>
     </Container>
   )

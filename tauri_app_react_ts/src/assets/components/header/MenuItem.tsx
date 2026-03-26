@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { writeFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs'
+import { writeFile, mkdir, exists, BaseDirectory } from '@tauri-apps/plugin-fs'
 import { appDataDir } from '@tauri-apps/api/path'
 
 import "./MenuItem.css"
@@ -10,8 +10,6 @@ import IDownloadedImage from '../../interfaces/IDownloadedImage'
 // Определяем интерфейс пропсов
 interface MenuItemProps {
 	type: string,
-	setDownloadedImagesUrls: Dispatch<SetStateAction<string[]>>,
-	setDownloadedImagesThumbnails: Dispatch<SetStateAction<string[]>>,
 	setDownloadedImages: Dispatch<SetStateAction<IDownloadedImage[]>>,
 	children: React.ReactNode
 }
@@ -39,6 +37,19 @@ async function convertToBase64(files: FileList): Promise<string[]> {
 	)
 
 	return await Promise.all(readers)
+}
+
+function uint8ArrayToBase64(bytes: Uint8Array): string {
+	const blob = new Blob([new Uint8Array(bytes)])
+	const reader = new FileReader()
+
+	return new Promise((resolve) => {
+		reader.onload = () => {
+			const result = reader.result as string
+			resolve(result)
+		}
+		reader.readAsDataURL(blob)
+	}) as unknown as string
 }
 
 // Функция уменьшения изображения до 213px по высоте
@@ -93,7 +104,7 @@ async function resizeImage(file: File, maxHeight: number = 213): Promise<Blob> {
 	})
 }
 
-const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
+const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
 
 	const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
@@ -109,52 +120,63 @@ const MenuItem = ({ type, setDownloadedImagesUrls, setDownloadedImagesThumbnails
 
 			if (!files) return
 
+			const dirExists = await exists('temp/images', { baseDir: BaseDirectory.AppData })
 			// Создаём папку, если её нет
-			try {
-				await mkdir('temp/images', { baseDir: BaseDirectory.AppData, recursive: true })
-			} catch (e) {
-				// Папка уже существует - игнорируем ошибку
-				console.log('Папка уже существует')
+			if (!dirExists) {
+				try {
+					await mkdir('temp/images', { baseDir: BaseDirectory.AppData, recursive: true })
+				} catch (e) {
+					console.log('Не удалось создать директорию по адресу temp/images')
+					console.log('Возникла ошибка:', e)
+				}
+			} else {
+				console.log('Директория temp/images уже существует')
 			}
 
-			const newImageUrls: string[] = []
-			const newImageThumbnailsUrls: string[] = []
+			const newImages: IDownloadedImage[] = []
 
 			for (let i = 0; i < files.length; i++) {
+
+				// Современный стандарт (ES2022) генерации id
+				const id: string = crypto.randomUUID()
+
+				let tempFileUrl: string = ''
+				let thumbnailBlobUrl: string = ''
+
 				const file = files[i]
 
 				// Читаем файл как ArrayBuffer
 				const arrayBuffer = await file.arrayBuffer()
 				const uint8Array = new Uint8Array(arrayBuffer)
 
-				// Генерируем уникальное имя файла
-				// const timestamp = Date.now()
-				// const fileName = `${timestamp}_${file.name}`
 				const fileName = file.name
 				const filePath = `temp/images/${fileName}`
-				console.log('filePath: ', filePath)
 
 				// Сохраняем файл изображения на диск
-				await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData })
-
-				// Добавляем адрес миниатюры в массив
-				const fullPath = appDataDirPath + "/" + filePath
-				console.log('imgUrl: ', fileName)
-				newImageUrls.push(fileName)
+				try { 
+					await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData }) 
+					tempFileUrl = filePath
+				} catch (e) {
+					console.log('Не удалось сохранить файл:', e)
+				}
 
 				// Уменьшаем изображение до 213px по высоте
 				const resizedBlob = await resizeImage(file, 213)
 
 				// Для отображения создаём blob URL
 				const blobUrl = URL.createObjectURL(resizedBlob)
-				// const blobUrl = URL.createObjectURL(file)
-				newImageThumbnailsUrls.push(blobUrl)
+				thumbnailBlobUrl = blobUrl
+				
+				const newImage: IDownloadedImage = {
+					id,
+					tempFileUrl,
+					thumbnailBlobUrl
+				}
 
-				console.log('Сохранён файл:', filePath)
+				newImages.push(newImage)
 			}
-
-			setDownloadedImagesUrls((prev) => [...prev, ...newImageUrls])
-			setDownloadedImagesThumbnails((prev) => [...prev, ...newImageThumbnailsUrls])
+			
+			setDownloadedImages((prev) => [...prev, ...newImages])
 		}
 
 		input.click()
