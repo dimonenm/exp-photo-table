@@ -21,6 +21,8 @@ import ImageItem from './assets/components/main/ImageItem'
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
+  console.log(downloadedImages)
+  
 
   useEffect(() => {
     invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
