@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { invoke } from "@tauri-apps/api/core"
-import { readFile, BaseDirectory } from '@tauri-apps/plugin-fs'
 
 import "./fonts.css"
 import "./App.css"
@@ -16,7 +15,7 @@ import Logo from './assets/components/header/Logo'
 import Menu from './assets/containers/Menu'
 import WindowControlButtons from './assets/components/header/WindowControlButtons'
 import MenuItem from './assets/components/header/MenuItem'
-import ImageItem from './assets/components/main/ImageItem'
+import Gallery from './assets/components/main/Gallery'
 
 function App() {
 
@@ -47,11 +46,7 @@ function App() {
         </Menu>
       </Header>
       <Main>
-        { downloadedImages.map((img, index) => {
-          const image = new Image()
-          image.src = img.tempFileUrl
-          return (<image key={index} />)})
-        }
+        <Gallery downloadedImages={downloadedImages} />
       </Main>
     </Container>
   )

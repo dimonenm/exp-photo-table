@@ -1,7 +1,8 @@
 interface IDownloadedImage {
-	id: string
-	tempFileUrl: string
-	thumbnailBlobUrl: string
+	id: string;
+	name: string;
+	tempFileUrl: string;
+	thumbnailBlobUrl: string;
 }
 
 export default IDownloadedImage

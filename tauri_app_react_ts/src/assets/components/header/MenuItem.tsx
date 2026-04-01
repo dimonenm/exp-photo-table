@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { writeFile, mkdir, exists, BaseDirectory } from '@tauri-apps/plugin-fs'
-import { appDataDir } from '@tauri-apps/api/path'
+// import { appDataDir } from '@tauri-apps/api/path'
 
 import "./MenuItem.css"
 
@@ -15,7 +15,7 @@ interface MenuItemProps {
 }
 
 // Путь к AppData/Roaming
-const appDataDirPath = await appDataDir()
+// const appDataDirPath = await appDataDir()
 
 function selectButtonStyle(type: string): string {
 	switch (type) {
@@ -24,32 +24,6 @@ function selectButtonStyle(type: string): string {
 		default:
 			return 'menu-item'
 	}
-}
-
-async function convertToBase64(files: FileList): Promise<string[]> {
-	const readers = Array.from(files).map(
-		(file) =>
-			new Promise<string>((resolve) => {
-				const reader = new FileReader()
-				reader.onload = () => resolve(reader.result as string)
-				reader.readAsDataURL(file)
-			})
-	)
-
-	return await Promise.all(readers)
-}
-
-function uint8ArrayToBase64(bytes: Uint8Array): string {
-	const blob = new Blob([new Uint8Array(bytes)])
-	const reader = new FileReader()
-
-	return new Promise((resolve) => {
-		reader.onload = () => {
-			const result = reader.result as string
-			resolve(result)
-		}
-		reader.readAsDataURL(blob)
-	}) as unknown as string
 }
 
 // Функция уменьшения изображения до 213px по высоте
@@ -140,10 +114,12 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 				// Современный стандарт (ES2022) генерации id
 				const id: string = crypto.randomUUID()
 
+				const file = files[i]
+
+				let name: string = file.name
 				let tempFileUrl: string = ''
 				let thumbnailBlobUrl: string = ''
 
-				const file = files[i]
 
 				// Читаем файл как ArrayBuffer
 				const arrayBuffer = await file.arrayBuffer()
@@ -169,6 +145,7 @@ const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React
 				
 				const newImage: IDownloadedImage = {
 					id,
+					name,
 					tempFileUrl,
 					thumbnailBlobUrl
 				}
