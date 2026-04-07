@@ -16,12 +16,13 @@ import Menu from './assets/containers/Menu'
 import WindowControlButtons from './assets/components/header/WindowControlButtons'
 import MenuItem from './assets/components/header/MenuItem'
 import Gallery from './assets/components/main/Gallery'
+import Workplace from './assets/components/main/Workplace'
+import ScaleChanger from './assets/components/main/ScaleChanger'
 
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
-  console.log(downloadedImages)
-  
+
 
   useEffect(() => {
     invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
@@ -47,6 +48,10 @@ function App() {
       </Header>
       <Main>
         <Gallery downloadedImages={downloadedImages} />
+        <ScaleChanger />
+        <Workplace>
+          {/* Здесь будут превью страниц фототаблицы */}
+        </Workplace>
       </Main>
     </Container>
   )
