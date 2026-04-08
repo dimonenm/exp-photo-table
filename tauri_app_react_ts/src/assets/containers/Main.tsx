@@ -6,7 +6,7 @@ interface MainProps {
 		children: React.ReactNode
 }
 
-const Main = ({ children }: MainProps): React.JSX.Element => (
+const Main: React.FC<MainProps> = ({ children }): React.JSX.Element => (
     <div className="main-wrapper">
         <div className="main">
             {children}

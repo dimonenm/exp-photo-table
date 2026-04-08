@@ -6,24 +6,16 @@ import "./MenuItem.css"
 
 //импортирование интерфейсов
 import IDownloadedImage from '../../interfaces/IDownloadedImage'
+import IPhotoTableData from '../../interfaces/IPhotoTableData'
+import IModalProperties from '../../interfaces/IModalProperties'
 
 // Определяем интерфейс пропсов
 interface MenuItemProps {
-	type: string,
-	setDownloadedImages: Dispatch<SetStateAction<IDownloadedImage[]>>,
+	type: 'forInputFile' | 'forSetPhotoTableData',
+	setDownloadedImages?: Dispatch<SetStateAction<IDownloadedImage[]>>,
+	photoTableData?: IPhotoTableData,
+	setModalProperties?: Dispatch<SetStateAction<IModalProperties>>
 	children: React.ReactNode
-}
-
-// Путь к AppData/Roaming
-// const appDataDirPath = await appDataDir()
-
-function selectButtonStyle(type: string): string {
-	switch (type) {
-		case 'menu-item download-photo-files':
-			return 'download-photo-files'
-		default:
-			return 'menu-item'
-	}
 }
 
 // Функция уменьшения изображения до 213px по высоте
@@ -78,93 +70,115 @@ async function resizeImage(file: File, maxHeight: number = 213): Promise<Blob> {
 	})
 }
 
-const MenuItem = ({ type, setDownloadedImages, children }: MenuItemProps): React.JSX.Element => {
+// Функция загрузки изображений
+async function loadImages(
+	files: FileList | null,
+	setDownloadedImages: Dispatch<SetStateAction<IDownloadedImage[]>>
+): Promise<void> {
+	if (!files) return
 
-	const loadImgs = (e: React.MouseEvent<HTMLAnchorElement>) => {
-		e.preventDefault()
-
-		// Создаём скрытый input и кликаем по нему
-		const input = document.createElement('input')
-		input.type = 'file'
-		input.multiple = true
-		input.accept = 'image/*'
-
-		input.onchange = async (event) => {
-			const files = (event.target as HTMLInputElement).files
-
-			if (!files) return
-
-			const dirExists = await exists('temp/images', { baseDir: BaseDirectory.AppData })
-			// Создаём папку, если её нет
-			if (!dirExists) {
-				try {
-					await mkdir('temp/images', { baseDir: BaseDirectory.AppData, recursive: true })
-				} catch (e) {
-					console.log('Не удалось создать директорию по адресу temp/images')
-					console.log('Возникла ошибка:', e)
-				}
-			} else {
-				console.log('Директория temp/images уже существует')
-			}
-
-			const newImages: IDownloadedImage[] = []
-
-			for (let i = 0; i < files.length; i++) {
-
-				// Современный стандарт (ES2022) генерации id
-				const id: string = crypto.randomUUID()
-
-				const file = files[i]
-
-				let name: string = file.name
-				let tempFileUrl: string = ''
-				let thumbnailBlobUrl: string = ''
-
-
-				// Читаем файл как ArrayBuffer
-				const arrayBuffer = await file.arrayBuffer()
-				const uint8Array = new Uint8Array(arrayBuffer)
-
-				const fileName = file.name
-				const filePath = `temp/images/${fileName}`
-
-				// Сохраняем файл изображения на диск
-				try { 
-					await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData }) 
-					tempFileUrl = filePath
-				} catch (e) {
-					console.log('Не удалось сохранить файл:', e)
-				}
-
-				// Уменьшаем изображение до 213px по высоте
-				const resizedBlob = await resizeImage(file, 213)
-
-				// Для отображения создаём blob URL
-				const blobUrl = URL.createObjectURL(resizedBlob)
-				thumbnailBlobUrl = blobUrl
-				
-				const newImage: IDownloadedImage = {
-					id,
-					name,
-					tempFileUrl,
-					thumbnailBlobUrl
-				}
-
-				newImages.push(newImage)
-			}
-			
-			setDownloadedImages((prev) => [...prev, ...newImages])
+	const dirExists = await exists('temp/images', { baseDir: BaseDirectory.AppData })
+	if (!dirExists) {
+		try {
+			await mkdir('temp/images', { baseDir: BaseDirectory.AppData, recursive: true })
+		} catch (e) {
+			console.log('Не удалось создать директорию по адресу temp/images')
+			console.log('Возникла ошибка:', e)
 		}
-
-		input.click()
+	} else {
+		console.log('Директория temp/images уже существует')
 	}
 
-	const buttonStyle = selectButtonStyle(type)
+	const newImages: IDownloadedImage[] = []
+
+	for (let i = 0; i < files.length; i++) {
+		const id: string = crypto.randomUUID()
+		const file = files[i]
+
+		const arrayBuffer = await file.arrayBuffer()
+		const uint8Array = new Uint8Array(arrayBuffer)
+
+		const fileName = file.name
+		const filePath = `temp/images/${fileName}`
+
+		let tempFileUrl: string = ''
+
+		try {
+			await writeFile(filePath, uint8Array, { baseDir: BaseDirectory.AppData })
+			tempFileUrl = filePath
+		} catch (e) {
+			console.log('Не удалось сохранить файл:', e)
+		}
+
+		const resizedBlob = await resizeImage(file, 213)
+		const thumbnailBlobUrl = URL.createObjectURL(resizedBlob)
+
+		const newImage: IDownloadedImage = {
+			id,
+			name: fileName,
+			tempFileUrl,
+			thumbnailBlobUrl
+		}
+
+		newImages.push(newImage)
+	}
+
+	setDownloadedImages((prev) => [...prev, ...newImages])
+}
+
+// Функция открытия модального окна данных фототаблицы
+function openPhotoTableModal(
+	setModalProperties: Dispatch<SetStateAction<IModalProperties>>
+): void {
+	setModalProperties({
+		isOpen: true,
+		type: 'photoTableData'
+	})
+}
+
+const MenuItem: React.FC<MenuItemProps> = ({
+	type,
+	setDownloadedImages,
+	setModalProperties,
+	children
+}): React.JSX.Element => {
+
+	const handleClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+		e.preventDefault()
+
+		switch (type) {
+			case 'forInputFile': {
+				const input = document.createElement('input')
+				input.type = 'file'
+				input.multiple = true
+				input.accept = 'image/*'
+
+				input.onchange = async (event) => {
+					const files = (event.target as HTMLInputElement).files
+					if (setDownloadedImages) {
+						await loadImages(files, setDownloadedImages)
+					}
+				}
+
+				input.click()
+				break
+			}
+
+			case 'forSetPhotoTableData': {
+				if (setModalProperties) {
+					openPhotoTableModal(setModalProperties)
+				}
+				break
+			}
+
+			default:
+				console.warn(`Unknown MenuItem type: ${type}`)
+		}
+	}
 
 	return (
-		<div className={buttonStyle}>
-			<input type="file" className="file" multiple={true} accept="image/*"></input>
-			<a href="/" onClick={loadImgs}>{children}</a>
+		<div className="menu-item">
+			<a href="/" onClick={handleClick}>{children}</a>
 		</div>
 	)
 }

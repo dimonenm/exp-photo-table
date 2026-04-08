@@ -2,7 +2,7 @@
     display: flex;
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basis: 518px;
+    /* flex-basis: 518px; */
     flex-wrap: wrap;
     max-width: 100%;
     justify-content: flex-start;
@@ -11,7 +11,7 @@
     border-radius: 5px;
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
     overflow-y: auto;
-    height: 97%;
+    /* height: 97%; */
 }
 
 .gallery::-webkit-scrollbar {

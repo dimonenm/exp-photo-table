@@ -17,7 +17,6 @@
     border-radius: 5px;
     box-shadow: -1px -1px 4px 0 rgba(0, 0, 0, 0.5), 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
     overflow: auto;
-    height: 97%;
     transition: 0.5s ease;
 }
 .woprkplace-width-changer {

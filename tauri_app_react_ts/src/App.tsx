@@ -6,6 +6,8 @@ import "./App.css"
 
 //импортирование интерфейсов
 import IDownloadedImage from './assets/interfaces/IDownloadedImage'
+import IPhotoTableData from './assets/interfaces/IPhotoTableData'
+import IModalProperties from './assets/interfaces/IModalProperties'
 
 //импортирование компонентов
 import Container from './assets/containers/Container'
@@ -18,11 +20,25 @@ import MenuItem from './assets/components/header/MenuItem'
 import Gallery from './assets/components/main/Gallery'
 import Workplace from './assets/components/main/Workplace'
 import ScaleChanger from './assets/components/main/ScaleChanger'
+import Modal from './assets/components/Modal'
 
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
-
+  const [photoTableData, setPhotoTableData] = useState<IPhotoTableData>({
+    numbOMP: null,
+    factOMP: null,
+    adressOMP: null,
+    dateOMP: null,
+    dateForDoc: null,
+    unit: null,
+    kusp: null,
+    executor: null
+  })
+  const [modalProperties, setModalProperties] = useState<IModalProperties>({
+    isOpen: false,
+    type: null
+  })
 
   useEffect(() => {
     invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
@@ -44,6 +60,11 @@ function App() {
           >
             Загрузить фотографии
           </MenuItem>
+          <MenuItem
+            type={'forSetPhotoTableData'}
+            photoTableData={photoTableData}
+            setModalProperties={setModalProperties}
+          >Данные фототаблицы</MenuItem>
         </Menu>
       </Header>
       <Main>
@@ -53,6 +74,12 @@ function App() {
           {/* Здесь будут превью страниц фототаблицы */}
         </Workplace>
       </Main>
+      <Modal
+        modalProperties={modalProperties}
+        setModalProperties={setModalProperties}
+        photoTableData={photoTableData}
+        setPhotoTableData={setPhotoTableData}
+      />
     </Container>
   )
 }
