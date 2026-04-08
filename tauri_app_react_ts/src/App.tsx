@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
-import { invoke } from "@tauri-apps/api/core"
+import { useState, useEffect } from 'react'
+import { invoke } from '@tauri-apps/api/core'
 
-import "./fonts.css"
-import "./App.css"
+import './fonts.css'
+import './App.css'
 
 //импортирование интерфейсов
 import IDownloadedImage from './assets/interfaces/IDownloadedImage'
@@ -40,8 +40,11 @@ function App() {
     type: null
   })
 
+
   useEffect(() => {
-    invoke<string>("init_app_settings").then((result) => console.log(result)).catch((err) => console.error(err))
+    invoke<string>('init_app_settings')
+      .then(result => console.log(result))
+      .catch(err => console.error(err))
   }, [])
 
   // async function isDir() {
@@ -70,9 +73,7 @@ function App() {
       <Main>
         <Gallery downloadedImages={downloadedImages} />
         <ScaleChanger />
-        <Workplace>
-          {/* Здесь будут превью страниц фототаблицы */}
-        </Workplace>
+        <Workplace>{/* Здесь будут превью страниц фототаблицы */}</Workplace>
       </Main>
       <Modal
         modalProperties={modalProperties}
