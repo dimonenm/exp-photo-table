@@ -1,51 +1,62 @@
 .gallery-item {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 132px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
 
-    font-family: "Roboto", Times, serif;
-    font-size: 12px;
-    line-height: 1;
+  font-family: 'Roboto', Times, serif;
+  font-size: 12px;
+  line-height: 1;
 
-    height: 213px;
+  height: 213px;
+  max-width: calc(518px / 3 - 10px); /* 3 колонки с отступами */
+  max-height: 200px;
 
-    margin: 10px 0 0 10px;
-    border-radius:7px;
-    box-shadow: 2px 2px 8px rgba(154, 155, 155, 0.884);
+  margin: 10px 0 0 10px;
+  border-radius: 7px;
+  box-shadow: 2px 2px 8px rgba(154, 155, 155, 0.884);
+
+  box-sizing: border-box;
 }
 
 .gallery-item-hold {
-    
-    border-radius:7px;
-    box-shadow: 2px 2px 8px rgba(154, 155, 155, 0.884);
+  border-radius: 7px;
+  box-shadow: 2px 2px 8px rgba(154, 155, 155, 0.884);
 }
 
 .gallery-item-hide {
-    opacity: 0.3;
-    border-radius:7px;
+  opacity: 0.3;
+  border-radius: 7px;
 }
 
 .gallery-item-name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    min-height: 25px;
+  min-height: 25px;
 
-    text-align: center;
+  text-align: center;
 }
 
 .gallery-item-img {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    max-height: 188px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-height: 188px;
+  width: 100%;
+  overflow: hidden;
+
+  padding-bottom: 10px;
 }
 
 .gallery-item-img img {
-    object-fit: scale-down;
-    object-position: top center;
+  object-fit: contain;
+  object-position: top center;
 
-    height: 100%;
-    width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
 }
