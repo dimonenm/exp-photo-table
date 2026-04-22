@@ -25,6 +25,7 @@ import Modal from './assets/components/Modal'
 function App() {
 
   const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
+   const [isLoading, setIsLoading] = useState(false)
   const [photoTableData, setPhotoTableData] = useState<IPhotoTableData>({
     numbOMP: null,
     factOMP: null,
@@ -60,6 +61,7 @@ function App() {
           <MenuItem
             type={'forInputFile'}
             setDownloadedImages={setDownloadedImages}
+            setIsLoading={setIsLoading}
           >
             Загрузить фотографии
           </MenuItem>
@@ -67,11 +69,13 @@ function App() {
             type={'forSetPhotoTableData'}
             photoTableData={photoTableData}
             setModalProperties={setModalProperties}
-          >Данные фототаблицы</MenuItem>
+          >
+            Данные фототаблицы
+          </MenuItem>
         </Menu>
       </Header>
       <Main>
-        <Gallery downloadedImages={downloadedImages} />
+        <Gallery downloadedImages={downloadedImages} isLoading={isLoading} />
         <ScaleChanger />
         <Workplace>{/* Здесь будут превью страниц фототаблицы */}</Workplace>
       </Main>
