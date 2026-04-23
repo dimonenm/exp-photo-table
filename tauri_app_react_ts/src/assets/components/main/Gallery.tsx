@@ -20,7 +20,6 @@ const Gallery = ({
 
   return (
     <div className='gallery'>
-      {' '}
       {isLoading && (
         <div className='gallery-loader'>
           <div className='spinner'></div>
