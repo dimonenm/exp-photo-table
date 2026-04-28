@@ -1,7 +1,8 @@
 import React from 'react'
-import "./Gallery.css"
 import IDownloadedImage from '../../interfaces/IDownloadedImage'
 import GalleryItem from './GalleryItem'
+
+import "./Gallery.css"
 
 // Определяем интерфейс пропсов
 interface GalleryProps {
