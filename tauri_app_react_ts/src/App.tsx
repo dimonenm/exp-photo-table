@@ -1,31 +1,32 @@
-import { useState, useEffect } from 'react'
 import { invoke } from '@tauri-apps/api/core'
+import { useEffect, useState } from 'react'
 
-import './fonts.css'
 import './App.css'
+import './fonts.css'
 
 //импортирование интерфейсов
 import IDownloadedImage from './assets/interfaces/IDownloadedImage'
-import IPhotoTableData from './assets/interfaces/IPhotoTableData'
 import IModalProperties from './assets/interfaces/IModalProperties'
+import IPhotoTableData from './assets/interfaces/IPhotoTableData'
 
 //импортирование компонентов
+import Logo from './assets/components/header/Logo'
+import MenuItem from './assets/components/header/MenuItem'
+import WindowControlButtons from './assets/components/header/WindowControlButtons'
+import Gallery from './assets/components/main/Gallery'
+import ScaleChanger from './assets/components/main/ScaleChanger'
+import Workplace from './assets/components/main/Workplace'
+import Modal from './assets/components/modal/Modal'
 import Container from './assets/containers/Container'
 import Header from './assets/containers/Header'
 import Main from './assets/containers/Main'
-import Logo from './assets/components/header/Logo'
 import Menu from './assets/containers/Menu'
-import WindowControlButtons from './assets/components/header/WindowControlButtons'
-import MenuItem from './assets/components/header/MenuItem'
-import Gallery from './assets/components/main/Gallery'
-import Workplace from './assets/components/main/Workplace'
-import ScaleChanger from './assets/components/main/ScaleChanger'
-import Modal from './assets/components/Modal'
 
 function App() {
-
-  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>([])
-   const [isLoading, setIsLoading] = useState(false)
+  const [downloadedImages, setDownloadedImages] = useState<IDownloadedImage[]>(
+    [],
+  )
+  const [isLoading, setIsLoading] = useState(false)
   const [photoTableData, setPhotoTableData] = useState<IPhotoTableData>({
     numbOMP: null,
     factOMP: null,
@@ -34,13 +35,12 @@ function App() {
     dateForDoc: null,
     unit: null,
     kusp: null,
-    executor: null
+    executor: null,
   })
   const [modalProperties, setModalProperties] = useState<IModalProperties>({
     isOpen: false,
-    type: null
+    type: null,
   })
-
 
   useEffect(() => {
     invoke<string>('init_app_settings')
