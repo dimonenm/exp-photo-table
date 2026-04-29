@@ -1,0 +1,38 @@
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+
+    height: 35px;
+
+    background-color: #474e55;
+    border-radius: 3px;
+}
+
+.modal-header-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+
+    font-size: 16px;
+    color: #fff;
+}
+
+.modal-header-close-btn {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 100%;
+
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal-header-close-btn:hover {
+    color: #ccc;
+}
