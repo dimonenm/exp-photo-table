@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction} from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 //импортирование интерфейсов
 import IPhotoTableData from '../../interfaces/IPhotoTableData'
@@ -12,10 +12,11 @@ import ModalContent from './ModalContent'
 import './ModalContainer.css'
 
 interface ModalContainerProps {
-	modalProperties: IModalProperties
-	photoTableData: IPhotoTableData
-	setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
-	handleClose: () => void
+  modalProperties: IModalProperties
+  photoTableData: IPhotoTableData
+  setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
+  handleClose: () => void
+  handleSave: () => void
 }
 
 // Компонент контейнера модального окна
@@ -24,14 +25,27 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
   photoTableData,
   setPhotoTableData,
   handleClose,
+  handleSave
 }) => {
+
+  let modalHeaderName
+
+  switch (modalProperties.type) {
+    case 'photoTableData':
+      modalHeaderName = 'Данные фототаблицы'
+      break
+    default:
+      break
+  }
+
   const renderContent = (): React.JSX.Element | null => {
     switch (modalProperties.type) {
       case 'photoTableData':
         return (
           <div className='modal-container slideDownIn'>
-            <ModalHeader name='Данные фототаблицы' handleClose={handleClose} />
+            <ModalHeader name='Данные фототаблицы' handleClose={handleClose} handleSave={handleSave} />
             <ModalContent
+              modalProperties={modalProperties}
               photoTableData={photoTableData}
               setPhotoTableData={setPhotoTableData}
               handleClose={handleClose}

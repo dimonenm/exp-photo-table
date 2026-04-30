@@ -1,18 +1,22 @@
-import {Dispatch, SetStateAction} from 'react'
+import { Dispatch, SetStateAction } from 'react'
+
+//импортирование интерфейсов
+import IModalProperties from '../../interfaces/IModalProperties'
 import IPhotoTableData from '../../interfaces/IPhotoTableData'
 
 //импортирование стилей
 import './ModalContent.css'
 
 interface ModalContentProps {
-	photoTableData: IPhotoTableData
-	setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
-	handleClose: () => void
+  modalProperties: IModalProperties
+  photoTableData: IPhotoTableData
+  setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
+  handleClose: () => void
 }
 
 // Компонент контента модального окна
-
 const ModalContent: React.FC<ModalContentProps> = ({
+  modalProperties,
   photoTableData,
   setPhotoTableData,
   handleClose,
