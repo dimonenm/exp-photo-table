@@ -21,6 +21,7 @@ const ModalContent: React.FC<ModalContentProps> = ({
   setPhotoTableData,
   handleClose,
 }) => {
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
     setPhotoTableData(prev => ({
