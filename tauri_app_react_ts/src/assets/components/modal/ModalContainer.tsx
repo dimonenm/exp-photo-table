@@ -16,7 +16,6 @@ interface ModalContainerProps {
   photoTableData: IPhotoTableData
   setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
   handleClose: () => void
-  handleSave: () => void
 }
 
 // Компонент контейнера модального окна
@@ -24,8 +23,7 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
   modalProperties,
   photoTableData,
   setPhotoTableData,
-  handleClose,
-  handleSave
+  handleClose
 }) => {
 
   let modalHeaderName
@@ -43,7 +41,7 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
       case 'photoTableData':
         return (
           <div className='modal-container slideDownIn'>
-            <ModalHeader name='Данные фототаблицы' handleClose={handleClose} handleSave={handleSave} />
+            <ModalHeader name='Данные фототаблицы' handleClose={handleClose} />
             <ModalContent
               modalProperties={modalProperties}
               photoTableData={photoTableData}

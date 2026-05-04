@@ -14,20 +14,3 @@
     color: #fff;
     flex-grow: 1;
 }
-
-.modal-header-save-btn,.modal-header-close-btn {
-    background: none;
-    border: none;
-
-    font-size: 24px;
-    color: #fff;
-    
-    cursor: pointer;
-    
-    margin-right: 10px;
-}
-
-.modal-header-save-btn:hover,
-.modal-header-close-btn:hover {
-    color: #ccc;
-}
