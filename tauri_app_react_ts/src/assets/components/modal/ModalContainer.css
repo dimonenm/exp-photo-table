@@ -1,12 +1,11 @@
 .modal-container {
     display: flex;
     flex-direction: column;
-    height: max-content;
-    max-height: 90%;
-    min-height: fit-content;
-    width: 80%;
-    max-width: max-content;
-    min-width: fit-content;
+    width: auto;
+    min-width: 600px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
 
     z-index: 30;
     margin: auto;

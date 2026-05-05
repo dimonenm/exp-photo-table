@@ -26,16 +26,6 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
   handleClose
 }) => {
 
-  let modalHeaderName
-
-  switch (modalProperties.type) {
-    case 'photoTableData':
-      modalHeaderName = 'Данные фототаблицы'
-      break
-    default:
-      break
-  }
-
   const renderContent = (): React.JSX.Element | null => {
     switch (modalProperties.type) {
       case 'photoTableData':
@@ -46,7 +36,6 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
               modalProperties={modalProperties}
               photoTableData={photoTableData}
               setPhotoTableData={setPhotoTableData}
-              handleClose={handleClose}
             />
           </div>
         )

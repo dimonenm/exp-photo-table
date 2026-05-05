@@ -11,15 +11,13 @@ interface ModalContentProps {
   modalProperties: IModalProperties
   photoTableData: IPhotoTableData
   setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
-  handleClose: () => void
 }
 
 // Компонент контента модального окна
 const ModalContent: React.FC<ModalContentProps> = ({
   modalProperties,
   photoTableData,
-  setPhotoTableData,
-  handleClose,
+  setPhotoTableData
 }) => {
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -112,11 +110,6 @@ const ModalContent: React.FC<ModalContentProps> = ({
             value={photoTableData.executor || ''}
             onChange={handleInputChange}
           />
-        </div>
-        <div className='modal-buttons'>
-          <button type='button' className='btn-close' onClick={handleClose}>
-            Закрыть
-          </button>
         </div>
       </form>
     </div>
