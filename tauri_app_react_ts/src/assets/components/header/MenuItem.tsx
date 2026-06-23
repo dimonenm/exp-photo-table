@@ -11,7 +11,7 @@ import IModalProperties from '../../interfaces/IModalProperties'
 
 // Определяем интерфейс пропсов
 interface MenuItemProps {
-  type: 'forInputFile' | 'forSetPhotoTableData'
+  type: 'forInputFile' | 'forSetPhotoTableData' | 'forSetPhotoTableSettings'
   setDownloadedImages?: Dispatch<SetStateAction<IDownloadedImage[]>>
   photoTableData?: IPhotoTableData
   setModalProperties?: Dispatch<SetStateAction<IModalProperties>>
@@ -135,12 +135,22 @@ async function loadImages(
 }
 
 // Функция открытия модального окна данных фототаблицы
-function openPhotoTableModal(
+function openPhotoTableDataModal(
   setModalProperties: Dispatch<SetStateAction<IModalProperties>>,
 ): void {
   setModalProperties({
     isOpen: true,
     type: 'photoTableData',
+  })
+}
+
+// Функция открытия модального окна настроик фототаблицы
+function openPhotoTableSettingsModal(
+  setModalProperties: Dispatch<SetStateAction<IModalProperties>>,
+): void {
+  setModalProperties({
+    isOpen: true,
+    type: 'photoTableSettings',
   })
 }
 
@@ -164,7 +174,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         input.onchange = async event => {
           const files = (event.target as HTMLInputElement).files
           if (setDownloadedImages) {
-            await loadImages(files, setDownloadedImages, setIsLoading )
+            await loadImages(files, setDownloadedImages, setIsLoading)
           }
         }
 
@@ -174,7 +184,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
 
       case 'forSetPhotoTableData': {
         if (setModalProperties) {
-          openPhotoTableModal(setModalProperties)
+          openPhotoTableDataModal(setModalProperties)
+        }
+        break
+      }
+
+      case 'forSetPhotoTableSettings': {
+        if (setModalProperties) {
+          openPhotoTableSettingsModal(setModalProperties)
         }
         break
       }

@@ -8,6 +8,7 @@ import './fonts.css'
 import IDownloadedImage from './assets/interfaces/IDownloadedImage'
 import IModalProperties from './assets/interfaces/IModalProperties'
 import IPhotoTableData from './assets/interfaces/IPhotoTableData'
+import IPhotoTableSettings from './assets/interfaces/IPhotoTableSettings'
 
 //импортирование компонентов
 import Logo from './assets/components/header/Logo'
@@ -37,6 +38,8 @@ function App() {
     kusp: null,
     executor: null,
   })
+  const [photoTableSettings, setPhotoTableSettings] =
+    useState<IPhotoTableSettings>()
   const [modalProperties, setModalProperties] = useState<IModalProperties>({
     isOpen: false,
     type: null,
@@ -71,6 +74,13 @@ function App() {
             setModalProperties={setModalProperties}
           >
             Данные фототаблицы
+          </MenuItem>
+          <MenuItem
+            type={'forSetPhotoTableSettings'}
+            photoTableData={photoTableData}
+            setModalProperties={setModalProperties}
+          >
+            Настройки
           </MenuItem>
         </Menu>
       </Header>

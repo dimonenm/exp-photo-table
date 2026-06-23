@@ -9,7 +9,7 @@
     position: fixed;
     z-index: 10;
 
-    top: 0;
+    top: 30px;
     left: 0;
 
     user-select: none;
