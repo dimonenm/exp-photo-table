@@ -39,6 +39,17 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
             />
           </div>
         )
+      case 'photoTableSettings':
+        return (
+          <div className='modal-container slideDownIn'>
+            <ModalHeader name='Настройки' handleClose={handleClose} />
+            <ModalContent
+              modalProperties={modalProperties}
+              photoTableData={photoTableData}
+              setPhotoTableData={setPhotoTableData}
+            />
+          </div>
+        )
       default:
         return null
     }

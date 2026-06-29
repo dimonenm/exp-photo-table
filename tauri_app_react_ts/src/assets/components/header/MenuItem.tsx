@@ -8,12 +8,14 @@ import './MenuItem.css'
 import IDownloadedImage from '../../interfaces/IDownloadedImage'
 import IPhotoTableData from '../../interfaces/IPhotoTableData'
 import IModalProperties from '../../interfaces/IModalProperties'
+import IPhotoTableSettings from '../../interfaces/IPhotoTableSettings'
 
 // Определяем интерфейс пропсов
 interface MenuItemProps {
   type: 'forInputFile' | 'forSetPhotoTableData' | 'forSetPhotoTableSettings'
   setDownloadedImages?: Dispatch<SetStateAction<IDownloadedImage[]>>
   photoTableData?: IPhotoTableData
+  photoTableSettings?: IPhotoTableSettings
   setModalProperties?: Dispatch<SetStateAction<IModalProperties>>
   setIsLoading?: Dispatch<SetStateAction<boolean>>
   children: React.ReactNode

@@ -77,8 +77,8 @@ function App() {
           </MenuItem>
           <MenuItem
             type={'forSetPhotoTableSettings'}
-            photoTableData={photoTableData}
-            setModalProperties={setModalProperties}
+            photoTableSettings={photoTableSettings}
+            setPhotoTableSettings={setPhotoTableSettings}
           >
             Настройки
           </MenuItem>
