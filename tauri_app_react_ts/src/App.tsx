@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/core'
 import { useEffect, useState } from 'react'
+import { readTextFile, BaseDirectory } from '@tauri-apps/plugin-fs'
 
 import './App.css'
 import './fonts.css'
@@ -51,6 +52,27 @@ function App() {
       .catch(err => console.error(err))
   }, [])
 
+  // Загрузка настроек приложения
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        // Читаем файл settings.json из директории AppConfig (стандартное место для настроек)
+        // Если файл должен быть в корне приложения, используйте BaseDirectory.App
+        const content = await readTextFile('settings.json', {
+          baseDir: BaseDirectory.AppConfig,
+        })
+        
+        const settings = JSON.parse(content) as IPhotoTableSettings
+        setPhotoTableSettings(settings)
+        console.log('Настройки загружены:', settings)
+      } catch (error) {
+        console.error('Ошибка при загрузке настроек:', error)
+      }
+    }
+
+    loadSettings()
+  }, [])
+
   // async function isDir() {
   //   setDirMsg(await invoke("create_exp_photo_table_dir_command", { url: dirName, fileName: fileName }))
   // }
@@ -70,15 +92,13 @@ function App() {
           </MenuItem>
           <MenuItem
             type={'forSetPhotoTableData'}
-            photoTableData={photoTableData}
             setModalProperties={setModalProperties}
           >
             Данные фототаблицы
           </MenuItem>
           <MenuItem
             type={'forSetPhotoTableSettings'}
-            photoTableSettings={photoTableSettings}
-            setPhotoTableSettings={setPhotoTableSettings}
+            setModalProperties={setModalProperties}
           >
             Настройки
           </MenuItem>
@@ -94,6 +114,8 @@ function App() {
         setModalProperties={setModalProperties}
         photoTableData={photoTableData}
         setPhotoTableData={setPhotoTableData}
+        photoTableSettings={photoTableSettings}
+        setPhotoTableSettings={setPhotoTableSettings}
       />
     </Container>
   )

@@ -2,20 +2,17 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { writeFile, mkdir, exists, BaseDirectory } from '@tauri-apps/plugin-fs'
 // import { appDataDir } from '@tauri-apps/api/path'
 
+
 import './MenuItem.css'
 
 //импортирование интерфейсов
 import IDownloadedImage from '../../interfaces/IDownloadedImage'
-import IPhotoTableData from '../../interfaces/IPhotoTableData'
 import IModalProperties from '../../interfaces/IModalProperties'
-import IPhotoTableSettings from '../../interfaces/IPhotoTableSettings'
 
 // Определяем интерфейс пропсов
 interface MenuItemProps {
   type: 'forInputFile' | 'forSetPhotoTableData' | 'forSetPhotoTableSettings'
   setDownloadedImages?: Dispatch<SetStateAction<IDownloadedImage[]>>
-  photoTableData?: IPhotoTableData
-  photoTableSettings?: IPhotoTableSettings
   setModalProperties?: Dispatch<SetStateAction<IModalProperties>>
   setIsLoading?: Dispatch<SetStateAction<boolean>>
   children: React.ReactNode

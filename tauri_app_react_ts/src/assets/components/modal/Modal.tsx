@@ -4,12 +4,15 @@ import './Modal.css'
 //импортирование интерфейсов
 import IModalProperties from '../../interfaces/IModalProperties'
 import IPhotoTableData from '../../interfaces/IPhotoTableData'
+import IPhotoTableSettings from '../../interfaces/IPhotoTableSettings'
 
 interface ModalProps {
   modalProperties: IModalProperties
   setModalProperties: Dispatch<SetStateAction<IModalProperties>>
   photoTableData: IPhotoTableData
   setPhotoTableData: Dispatch<SetStateAction<IPhotoTableData>>
+  photoTableSettings?: IPhotoTableSettings
+  setPhotoTableSettings?: Dispatch<SetStateAction<IPhotoTableSettings>>
 }
 
 //импортирование компонентов
